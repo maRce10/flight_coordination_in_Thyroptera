@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="A.C. Guidoum and K. Boukhetala" />
+
+<meta name="date" content="2020-03-27" />
+
+<title>Converting Sim.DiffProc Objects to LaTeX</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 800px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 20px;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 0;
+padding: 4px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table:not([class]) {
+margin: auto;
+min-width: 40%;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table[summary="R argblock"] {
+width: 100%;
+border: none;
+}
+table:not([class]) th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table:not([class]) td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table:not([class]), table:not([class]) th, table:not([class]) td {
+border-left-style: none;
+border-right-style: none;
+}
+table:not([class]) tr.odd {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 13px;
+padding-bottom: 1px;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f5f5f5;
+border-radius: 3px;
+color: #333;
+}
+pre {
+overflow-x: auto;
+border-radius: 3px;
+margin: 5px 0 10px 0;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: white;
+border: #f5f5f5 1px solid;
+}
+pre:not([class]) code {
+color: #444;
+background-color: white;
+}
+code {
+font-family: monospace;
+font-size: 90%;
+}
+p > code, li > code {
+padding: 2px 4px;
+color: #d14;
+border: 1px solid #e1e1e8;
+white-space: inherit;
+}
+div.figure {
+text-align: center;
+}
+table > caption, div.figure p.caption {
+font-style: italic;
+}
+table > caption span, div.figure p.caption span {
+font-style: normal;
+font-weight: bold;
+}
+p {
+margin: 0 0 10px;
+}
+table:not([class]) {
+margin: auto auto 10px auto;
+}
+img:not([class]) {
+background-color: #FFFFFF;
+padding: 2px;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+max-width: 100%;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f5f5f5;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f5f5f5;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f5f5f5;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+div.r-help-page {
+background-color: #f9f9f9;
+border-bottom: #ddd 1px solid;
+margin-bottom: 10px;
+padding: 10px;
+}
+div.r-help-page:hover {
+background-color: #f4f4f4;
+}
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Converting Sim.DiffProc Objects to LaTeX</h1>
+<h4 class="author">A.C. Guidoum<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> and K. Boukhetala<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></h4>
+<h4 class="date">2020-03-27</h4>
+
+
+<div id="TOC">
+<ul>
+<li><a href="#the-tex.sde-function">The <code>TEX.sde()</code> function</a><ul>
+<li><a href="#latex-table-for-object-of-class-mcm.sde">LaTeX table for object of class <code>MCM.sde</code></a></li>
+<li><a href="#latex-mathematic-for-object-of-class-mem.sde">LaTeX mathematic for object of class <code>MEM.sde</code></a></li>
+<li><a href="#latex-mathematic-for-an-r-expression-of-sdes">LaTeX mathematic for an R expression of SDEs</a></li>
+</ul></li>
+<li><a href="#further-reading">Further reading</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+<div id="the-tex.sde-function" class="section level1">
+<h1>The <code>TEX.sde()</code> function</h1>
+<p><code>TEX.sde(object,...)</code> produces the related LATEX code (table and mathematic expression) for Sim.DiffProc environment, which can be copied and pasted in a scientific article.</p>
+<ul>
+<li><code>object</code>: an objects from class <code>MCM.sde()</code> and <code>MEM.sde()</code>. Or an <code>R</code> vector of expressions of SDEs, i.e., drift and diffusion coefficients.</li>
+<li><code>...</code>: arguments to be passed to <code>kable()</code> function available in <a href="https://cran.r-project.org/package=knitr">knitr</a> package (Xie, 2015), if <code>object</code> from class <code>MCM.sde()</code>.</li>
+</ul>
+<div id="latex-table-for-object-of-class-mcm.sde" class="section level2">
+<h2>LaTeX table for object of class <code>MCM.sde</code></h2>
+<p>The Monte Carlo results of <code>MCM.sde</code> class can be presented in terms of LaTeX tables.</p>
+<p><span class="math display">\[\begin{equation}\label{eq01}
+\begin{cases}
+dX_t = -\frac{1}{\mu} X_t dt + \sqrt{\sigma} dW_t\\
+dY_t = X_{t} dt
+\end{cases}
+\end{equation}\]</span></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">R<span class="op">&gt;</span><span class="st"> </span>mu=<span class="dv">1</span>;sigma=<span class="fl">0.5</span>;theta=<span class="dv">2</span></a>
+<a class="sourceLine" id="cb1-2" title="2">R<span class="op">&gt;</span><span class="st"> </span>x0=<span class="dv">0</span>;y0=<span class="dv">0</span>;init=<span class="kw">c</span>(x0,y0)</a>
+<a class="sourceLine" id="cb1-3" title="3">R<span class="op">&gt;</span><span class="st"> </span>f &lt;-<span class="st"> </span><span class="kw">expression</span>(<span class="dv">1</span><span class="op">/</span>mu<span class="op">*</span>(theta<span class="op">-</span>x), x)  </a>
+<a class="sourceLine" id="cb1-4" title="4">R<span class="op">&gt;</span><span class="st"> </span>g &lt;-<span class="st"> </span><span class="kw">expression</span>(<span class="kw">sqrt</span>(sigma),<span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb1-5" title="5">R<span class="op">&gt;</span><span class="st"> </span>mod2d &lt;-<span class="st"> </span><span class="kw">snssde2d</span>(<span class="dt">drift=</span>f,<span class="dt">diffusion=</span>g,<span class="dt">M=</span><span class="dv">500</span>,<span class="dt">Dt=</span><span class="fl">0.015</span>,<span class="dt">x0=</span><span class="kw">c</span>(<span class="dt">x=</span><span class="dv">0</span>,<span class="dt">y=</span><span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb1-6" title="6">R<span class="op">&gt;</span><span class="st"> </span><span class="co">## true values of first and second moment at time 10</span></a>
+<a class="sourceLine" id="cb1-7" title="7">R<span class="op">&gt;</span><span class="st"> </span>Ex &lt;-<span class="st"> </span><span class="cf">function</span>(t) theta<span class="op">+</span>(x0<span class="op">-</span>theta)<span class="op">*</span><span class="kw">exp</span>(<span class="op">-</span>t<span class="op">/</span>mu)</a>
+<a class="sourceLine" id="cb1-8" title="8">R<span class="op">&gt;</span><span class="st"> </span>Vx &lt;-<span class="st"> </span><span class="cf">function</span>(t) <span class="fl">0.5</span><span class="op">*</span>sigma<span class="op">*</span>mu <span class="op">*</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">exp</span>(<span class="op">-</span><span class="dv">2</span><span class="op">*</span>(t<span class="op">/</span>mu)))</a>
+<a class="sourceLine" id="cb1-9" title="9">R<span class="op">&gt;</span><span class="st"> </span>Ey &lt;-<span class="st"> </span><span class="cf">function</span>(t) y0<span class="op">+</span>theta<span class="op">*</span>t<span class="op">+</span>(x0<span class="op">-</span>theta)<span class="op">*</span>mu<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">exp</span>(<span class="op">-</span>t<span class="op">/</span>mu))</a>
+<a class="sourceLine" id="cb1-10" title="10">R<span class="op">&gt;</span><span class="st"> </span>Vy &lt;-<span class="st"> </span><span class="cf">function</span>(t) sigma<span class="op">*</span>mu<span class="op">^</span><span class="dv">3</span><span class="op">*</span>((t<span class="op">/</span>mu)<span class="op">-</span><span class="dv">2</span><span class="op">*</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">exp</span>(<span class="op">-</span>t<span class="op">/</span>mu))<span class="op">+</span><span class="fl">0.5</span><span class="op">*</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">exp</span>(<span class="op">-</span><span class="dv">2</span><span class="op">*</span>(t<span class="op">/</span>mu))))</a>
+<a class="sourceLine" id="cb1-11" title="11">R<span class="op">&gt;</span><span class="st"> </span>covxy &lt;-<span class="st"> </span><span class="cf">function</span>(t) <span class="fl">0.5</span><span class="op">*</span>sigma<span class="op">*</span>mu<span class="op">^</span><span class="dv">2</span> <span class="op">*</span>(<span class="dv">1-2</span><span class="op">*</span><span class="kw">exp</span>(<span class="op">-</span>t<span class="op">/</span>mu)<span class="op">+</span><span class="kw">exp</span>(<span class="op">-</span><span class="dv">2</span><span class="op">*</span>(t<span class="op">/</span>mu)))</a>
+<a class="sourceLine" id="cb1-12" title="12">R<span class="op">&gt;</span><span class="st"> </span>tvalue =<span class="st"> </span><span class="kw">list</span>(<span class="dt">m1=</span><span class="kw">Ex</span>(<span class="dv">15</span>),<span class="dt">m2=</span><span class="kw">Ey</span>(<span class="dv">15</span>),<span class="dt">S1=</span><span class="kw">Vx</span>(<span class="dv">15</span>),<span class="dt">S2=</span><span class="kw">Vy</span>(<span class="dv">15</span>),<span class="dt">C12=</span><span class="kw">covxy</span>(<span class="dv">15</span>))</a>
+<a class="sourceLine" id="cb1-13" title="13">R<span class="op">&gt;</span><span class="st"> </span><span class="co">## function of the statistic(s) of interest.</span></a>
+<a class="sourceLine" id="cb1-14" title="14">R<span class="op">&gt;</span><span class="st"> </span>sde.fun2d &lt;-<span class="st"> </span><span class="cf">function</span>(data, i){</a>
+<a class="sourceLine" id="cb1-15" title="15"><span class="op">+</span><span class="st">   </span>d &lt;-<span class="st"> </span>data[i,]</a>
+<a class="sourceLine" id="cb1-16" title="16"><span class="op">+</span><span class="st">   </span><span class="kw">return</span>(<span class="kw">c</span>(<span class="kw">mean</span>(d<span class="op">$</span>x),<span class="kw">mean</span>(d<span class="op">$</span>y),<span class="kw">var</span>(d<span class="op">$</span>x),<span class="kw">var</span>(d<span class="op">$</span>y),<span class="kw">cov</span>(d<span class="op">$</span>x,d<span class="op">$</span>y)))</a>
+<a class="sourceLine" id="cb1-17" title="17"><span class="op">+</span><span class="st"> </span>}</a>
+<a class="sourceLine" id="cb1-18" title="18">R<span class="op">&gt;</span><span class="st"> </span><span class="co">## Parallel Monte-Carlo of &#39;OUI&#39; at time 10</span></a>
+<a class="sourceLine" id="cb1-19" title="19">R<span class="op">&gt;</span><span class="st"> </span>mcm.mod2d =<span class="st"> </span><span class="kw">MCM.sde</span>(mod2d,<span class="dt">statistic=</span>sde.fun2d,<span class="dt">time=</span><span class="dv">15</span>,<span class="dt">R=</span><span class="dv">10</span>,<span class="dt">exact=</span>tvalue,<span class="dt">parallel=</span><span class="st">&quot;snow&quot;</span>,<span class="dt">ncpus=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb1-20" title="20">R<span class="op">&gt;</span><span class="st"> </span>mcm.mod2d<span class="op">$</span>MC</a></code></pre></div>
+<pre><code>    Exact Estimate     Bias Std.Error    RMSE    CI( 2.5 % , 97.5 % )
+m1   2.00  2.00589 -0.00589   0.00555 0.01765   ( 1.99501 , 2.01677 )
+m2  28.00 27.95881  0.04119   0.02358 0.08185 ( 27.91259 , 28.00503 )
+S1   0.25  0.24784  0.00216   0.00623 0.01882   ( 0.23563 , 0.26005 )
+S2   6.75  6.74426  0.00574   0.12736 0.38212   ( 6.49464 , 6.99388 )
+C12  0.25  0.23211  0.01789   0.02296 0.07115   ( 0.18711 , 0.27711 )</code></pre>
+<p>In R we create simple LaTeX table for this object using the following code:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">R<span class="op">&gt;</span><span class="st"> </span><span class="kw">TEX.sde</span>(<span class="dt">object =</span> mcm.mod2d, <span class="dt">booktabs =</span> <span class="ot">TRUE</span>, <span class="dt">align =</span> <span class="st">&quot;r&quot;</span>, <span class="dt">caption =</span><span class="st">&quot;LaTeX </span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="st">+           table for Monte Carlo results generated by `TEX.sde()` method.&quot;</span>)</a></code></pre></div>
+<pre><code>%%% LaTeX table generated in R 3.6.3 by TEX.sde() method 
+%%% Copy and paste the following output in your LaTeX file 
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-2}LaTeX 
+          table for Monte Carlo results generated by `TEX.sde()` method.}
+\centering
+\begin{tabular}[t]{lrrrrrr}
+\toprule
+  &amp; Exact &amp; Estimate &amp; Bias &amp; Std.Error &amp; RMSE &amp; CI( 2.5 \% , 97.5 \% )\\
+\midrule
+$m_{1}(t)$ &amp; 2.00 &amp; 2.00589 &amp; -0.00589 &amp; 0.00555 &amp; 0.01765 &amp; ( 1.99501 , 2.01677 )\\
+$m_{2}(t)$ &amp; 28.00 &amp; 27.95881 &amp; 0.04119 &amp; 0.02358 &amp; 0.08185 &amp; ( 27.91259 , 28.00503 )\\
+$S_{1}(t)$ &amp; 0.25 &amp; 0.24784 &amp; 0.00216 &amp; 0.00623 &amp; 0.01882 &amp; ( 0.23563 , 0.26005 )\\
+$S_{2}(t)$ &amp; 6.75 &amp; 6.74426 &amp; 0.00574 &amp; 0.12736 &amp; 0.38212 &amp; ( 6.49464 , 6.99388 )\\
+$C_{12}(t)$ &amp; 0.25 &amp; 0.23211 &amp; 0.01789 &amp; 0.02296 &amp; 0.07115 &amp; ( 0.18711 , 0.27711 )\\
+\bottomrule
+\end{tabular}
+\end{table} </code></pre>
+<p>For inclusion in LaTeX documents, and optionally if we use <code>booktabs = TRUE</code> in the previous function, the LaTeX add-on package <code>booktabs</code> must be loaded into the <code>.tex</code> document.</p>
+<table>
+<caption>
+LaTeX table for Monte Carlo results generated by <code>TEX.sde()</code> method.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Exact
+</th>
+<th style="text-align:right;">
+Estimate
+</th>
+<th style="text-align:right;">
+Bias
+</th>
+<th style="text-align:right;">
+Std.Error
+</th>
+<th style="text-align:right;">
+RMSE
+</th>
+<th style="text-align:right;">
+CI( 2.5 % , 97.5 % )
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+m1
+</td>
+<td style="text-align:right;">
+2.00
+</td>
+<td style="text-align:right;">
+2.00589
+</td>
+<td style="text-align:right;">
+-0.00589
+</td>
+<td style="text-align:right;">
+0.00555
+</td>
+<td style="text-align:right;">
+0.01765
+</td>
+<td style="text-align:right;">
+( 1.99501 , 2.01677 )
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+m2
+</td>
+<td style="text-align:right;">
+28.00
+</td>
+<td style="text-align:right;">
+27.95881
+</td>
+<td style="text-align:right;">
+0.04119
+</td>
+<td style="text-align:right;">
+0.02358
+</td>
+<td style="text-align:right;">
+0.08185
+</td>
+<td style="text-align:right;">
+( 27.91259 , 28.00503 )
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S1
+</td>
+<td style="text-align:right;">
+0.25
+</td>
+<td style="text-align:right;">
+0.24784
+</td>
+<td style="text-align:right;">
+0.00216
+</td>
+<td style="text-align:right;">
+0.00623
+</td>
+<td style="text-align:right;">
+0.01882
+</td>
+<td style="text-align:right;">
+( 0.23563 , 0.26005 )
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S2
+</td>
+<td style="text-align:right;">
+6.75
+</td>
+<td style="text-align:right;">
+6.74426
+</td>
+<td style="text-align:right;">
+0.00574
+</td>
+<td style="text-align:right;">
+0.12736
+</td>
+<td style="text-align:right;">
+0.38212
+</td>
+<td style="text-align:right;">
+( 6.49464 , 6.99388 )
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+C12
+</td>
+<td style="text-align:right;">
+0.25
+</td>
+<td style="text-align:right;">
+0.23211
+</td>
+<td style="text-align:right;">
+0.01789
+</td>
+<td style="text-align:right;">
+0.02296
+</td>
+<td style="text-align:right;">
+0.07115
+</td>
+<td style="text-align:right;">
+( 0.18711 , 0.27711 )
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="latex-mathematic-for-object-of-class-mem.sde" class="section level2">
+<h2>LaTeX mathematic for object of class <code>MEM.sde</code></h2>
+<p>we want to automatically generate the LaTeX code appropriate to moment equations obtained from the previous model using <code>TEX.sde()</code> method.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">R<span class="op">&gt;</span><span class="st"> </span>mem.oui &lt;-<span class="st"> </span><span class="kw">MEM.sde</span>(<span class="dt">drift =</span> f, <span class="dt">diffusion =</span> g)</a>
+<a class="sourceLine" id="cb5-2" title="2">R<span class="op">&gt;</span><span class="st"> </span>mem.oui</a></code></pre></div>
+<pre><code>Itô Sde 2D:
+ | dX(t) = 1/mu * (theta - X(t)) * dt + sqrt(sigma) * dW1(t)
+ | dY(t) = X(t) * dt + 0 * dW2(t)
+ | t in [t0,T].
+
+Moment equations: 
+ | dm1(t)  = (theta - m1(t))/mu
+ | dm2(t)  = m1(t)
+ | dS1(t)  = sigma - 2 * (S1(t)/mu)
+ | dS2(t)  = 2 * C12(t)
+ | dC12(t) = S1(t) - C12(t)/mu</code></pre>
+<p>In R we create LaTeX mathematical expressions for this object using the following code:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">R<span class="op">&gt;</span><span class="st"> </span><span class="kw">TEX.sde</span>(<span class="dt">object =</span> mem.oui)</a></code></pre></div>
+<pre><code>%%% LaTeX equation generated in R 3.6.3 by TEX.sde() method
+%%% Copy and paste the following output in your LaTeX file
+
+\begin{equation}\label{eq:}
+\begin{cases}
+\begin{split}
+\frac{d}{dt} m_{1}(t) ~&amp;= \frac{\left( \theta - m_{1}(t) \right)}{\mu} \\
+\frac{d}{dt} m_{2}(t) ~&amp;= m_{1}(t) \\
+\frac{d}{dt} S_{1}(t) ~&amp;= \sigma - 2 \, \left( \frac{S_{1}(t)}{\mu} \right) \\
+\frac{d}{dt} S_{2}(t) ~&amp;= 2 \, C_{12}(t) \\
+\frac{d}{dt} C_{12}(t) &amp;= S_{1}(t) - \frac{C_{12}(t)}{\mu}
+\end{split}
+\end{cases}
+\end{equation}</code></pre>
+<p>that can be typed with LaTeX to produce a system:</p>
+<p><span class="math display">\[\begin{equation}
+\begin{cases}
+\begin{split}
+\frac{d}{dt} m_{1}(t) ~&amp;= \frac{\left( \theta - m_{1}(t) \right)}{\mu} \\
+\frac{d}{dt} m_{2}(t) ~&amp;= m_{1}(t) \\
+\frac{d}{dt} S_{1}(t) ~&amp;= \sigma - 2 \, \left( \frac{S_{1}(t)}{\mu} \right) \\
+\frac{d}{dt} S_{2}(t) ~&amp;= 2 \, C_{12}(t) \\
+\frac{d}{dt} C_{12}(t) &amp;= S_{1}(t) - \frac{C_{12}(t)}{\mu}
+\end{split}
+\end{cases}
+\end{equation}\]</span></p>
+<p>Note that it is obvious the LaTeX package <code>amsmath</code> must be loaded into the <code>.tex</code> document.</p>
+</div>
+<div id="latex-mathematic-for-an-r-expression-of-sdes" class="section level2">
+<h2>LaTeX mathematic for an R expression of SDEs</h2>
+<p>In this section, we will convert the R expressions of a SDEs, i.e., drift and diffusion coefficients into their LaTeX mathematical equivalents with the same procedures previous. An example sophisticated that will make this clear.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">R<span class="op">&gt;</span><span class="st"> </span>f &lt;-<span class="st"> </span><span class="kw">expression</span>((alpha<span class="op">*</span>x <span class="op">*</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>x <span class="op">/</span><span class="st"> </span>beta)<span class="op">-</span><span class="st"> </span>delta <span class="op">*</span><span class="st"> </span>x<span class="op">^</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>y <span class="op">/</span><span class="st"> </span>(kappa <span class="op">+</span><span class="st"> </span>x<span class="op">^</span><span class="dv">2</span>)),</a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="op">+</span><span class="st">                 </span>(gamma <span class="op">*</span><span class="st"> </span>x<span class="op">^</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>y <span class="op">/</span><span class="st"> </span>(kappa <span class="op">+</span><span class="st"> </span>x<span class="op">^</span><span class="dv">2</span>) <span class="op">-</span><span class="st"> </span>mu <span class="op">*</span><span class="st"> </span>y<span class="op">^</span><span class="dv">2</span>)) </a>
+<a class="sourceLine" id="cb9-3" title="3">R<span class="op">&gt;</span><span class="st"> </span>g &lt;-<span class="st"> </span><span class="kw">expression</span>(<span class="kw">sqrt</span>(sigma1)<span class="op">*</span>x<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>y), <span class="kw">abs</span>(sigma2)<span class="op">*</span>y<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>x))  </a>
+<a class="sourceLine" id="cb9-4" title="4">R<span class="op">&gt;</span><span class="st"> </span><span class="kw">TEX.sde</span>(<span class="dt">object=</span><span class="kw">c</span>(<span class="dt">drift =</span> f, <span class="dt">diffusion =</span> g))</a></code></pre></div>
+<pre><code>%%% LaTeX equation generated in R 3.6.3 by TEX.sde() method
+%%% Copy and paste the following output in your LaTeX file
+
+\begin{equation}\label{eq:}
+\begin{cases}
+\begin{split}
+dX_{t} &amp;= \left( \alpha \, X_{t} \, \left( 1 - \frac{X_{t}}{\beta} \right) - \frac{\delta \, X_{t}^2 \, Y_{t}}{\left( \kappa + X_{t}^2 \right)} \right) \:dt +  \sqrt{\sigma_{1}} \, X_{t} \, \left( 1 - Y_{t} \right) \:dW_{1,t} \\
+dY_{t} &amp;= \left( \frac{\gamma \, X_{t}^2 \, Y_{t}}{\left( \kappa + X_{t}^2 \right)} - \mu \, Y_{t}^2 \right) \:dt +  \left| \sigma_{2}\right|  \, Y_{t} \, \left( 1 - X_{t} \right) \:dW_{2,t}
+\end{split}
+\end{cases}
+\end{equation}</code></pre>
+<p>under LaTeX will create this system:</p>
+<p><span class="math display">\[\begin{equation*}
+\begin{cases}
+\begin{split}
+dX_{t} &amp;= \left( \alpha \, X_{t} \, \left( 1 - \frac{X_{t}}{\beta} \right) - \frac{\delta \, X_{t}^2 \, Y_{t}}{\left( \kappa + X_{t}^2 \right)} \right) \:dt +  \sqrt{\sigma_{1}} \, X_{t} \, \left( 1 - Y_{t} \right) \:dW_{1,t} \\
+dY_{t} &amp;= \left( \frac{\gamma \, X_{t}^2 \, Y_{t}}{\left( \kappa + X_{t}^2 \right)} - \mu \, Y_{t}^2 \right) \:dt +  \left| \sigma_{2}\right| \, Y_{t} \, \left( 1 - X_{t} \right) \:dW_{2,t}
+\end{split}
+\end{cases}
+\end{equation*}\]</span></p>
+</div>
+</div>
+<div id="further-reading" class="section level1">
+<h1>Further reading</h1>
+<ol style="list-style-type: decimal">
+<li><a href="snssde.html"><code>snssdekd()</code> &amp; <code>dsdekd()</code> &amp; <code>rsdekd()</code>- Monte-Carlo Simulation and Analysis of Stochastic Differential Equations</a>.</li>
+<li><a href="bridgesde.html"><code>bridgesdekd()</code> &amp; <code>dsdekd()</code> &amp; <code>rsdekd()</code> - Constructs and Analysis of Bridges Stochastic Differential Equations</a>.</li>
+<li><a href="fptsde.html"><code>fptsdekd()</code> &amp; <code>dfptsdekd()</code> - Monte-Carlo Simulation and Kernel Density Estimation of First passage time</a>.</li>
+<li><a href="mcmsde.html"><code>MCM.sde()</code> &amp; <code>MEM.sde()</code> - Parallel Monte-Carlo and Moment Equations for SDEs</a>.</li>
+<li><a href="sdetotex.html"><code>TEX.sde()</code> - Converting Sim.DiffProc Objects to LaTeX</a>.</li>
+<li><a href="fitsde.html"><code>fitsde()</code> - Parametric Estimation of 1-D Stochastic Differential Equation</a>.</li>
+</ol>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+<ol style="list-style-type: decimal">
+<li><p>Xie Y (2015). Dynamic Documents with R and knitr. 2nd edition. Chapman and Hall/CRC, Boca Raton, Florida. ISBN 978-1498716963, URL <a href="https://yihui.name/knitr/" class="uri">https://yihui.name/knitr/</a>.</p></li>
+<li><p>Wickham H (2015). Advanced R. Chapman &amp; Hall/CRC The R Series. CRC Press. ISBN 9781498759809.</p></li>
+<li><p>Guidoum AC, Boukhetala K (2020). Performing Parallel Monte Carlo and Moment Equations Methods for Ito and Stratonovich Stochastic Differential Systems: R Package Sim.DiffProc. Accept Submission to Journal of Statistical Software.</p></li>
+<li><p>Guidoum AC, Boukhetala K (2020). Sim.DiffProc: Simulation of Diffusion Processes. R package version 4.5, URL <a href="https://cran.r-project.org/package=Sim.DiffProc" class="uri">https://cran.r-project.org/package=Sim.DiffProc</a>.</p></li>
+</ol>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Department of Probabilities &amp; Statistics, Faculty of Mathematics, University of Science and Technology Houari Boumediene, BP 32 El-Alia, U.S.T.H.B, Algeria, E-mail (<a href="mailto:acguidoum@usthb.dz" class="email">acguidoum@usthb.dz</a>)<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>Faculty of Mathematics, University of Science and Technology Houari Boumediene, BP 32 El-Alia, U.S.T.H.B, Algeria, E-mail (<a href="mailto:kboukhetala@usthb.dz" class="email">kboukhetala@usthb.dz</a>)<a href="#fnref2" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+
+<script type="text/javascript">
+window.onload = function() {
+  var i, fig = 1, caps = document.getElementsByClassName('caption');
+  for (i = 0; i < caps.length; i++) {
+    var cap = caps[i];
+    if (cap.parentElement.className !== 'figure' || cap.nodeName !== 'P')
+      continue;
+    cap.innerHTML = '<span>Figure ' + fig + ':</span> ' + cap.innerHTML;
+    fig++;
+  }
+  fig = 1;
+  caps = document.getElementsByTagName('caption');
+  for (i = 0; i < caps.length; i++) {
+    var cap = caps[i];
+    if (cap.parentElement.nodeName !== 'TABLE') continue;
+    cap.innerHTML = '<span>Table ' + fig + ':</span> ' + cap.innerHTML;
+    fig++;
+  }
+}
+</script>
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
