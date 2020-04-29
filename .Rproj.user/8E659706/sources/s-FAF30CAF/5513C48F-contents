@@ -335,8 +335,10 @@ comp_mat2 <- comp_mat[1, , drop = FALSE]
 
 comp_mat2[, 2] <- "ch1MPI2020-01-15_12-03-59_0000001.wav"
 
-xc.output <- x_corr(X = sub_slsX, output = "list",
+xc.output2 <- x_corr(X = sub_slsX, output = "list",
     compare.matrix = comp_mat2, pb = TRUE, bp = c(12, 35))
+
+saveRDS(list(sub_slsX = sub_slsX, comp_mat2 = comp_mat2), "~/Downloads/delete.RDS")
 
 ```
 

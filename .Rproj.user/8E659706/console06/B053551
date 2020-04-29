@@ -1,812 +1,4 @@
 
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/h/navigation-1.1/tabsets.js
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/h/pagedtable-1.1/css/pagedtable.css
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/h/pagedtable-1.1/js/pagedtable.js
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/h/pandoc/header-attrs.js
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/h/rmarkdown/rmd_loader.css
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/h/rmarkdown/rmd_loader.gif
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/h/rmarkdown/rmd_loader.js
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/h/rmarkdown/rmd_perf.css
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/h/rmarkdown/rmd_perf.js
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/h/rsiframe-1.1/rsiframe.js
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/h/tocify/jquery.tocify.css
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/h/tocify/jquery.tocify.js
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/ioslides/default.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/ioslides/ioslides-13.5.1/fonts/OpenSans.ttf
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/ioslides/ioslides-13.5.1/fonts/OpenSansItalic.ttf
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/ioslides/ioslides-13.5.1/fonts/OpenSansSemibold.ttf
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/ioslides/ioslides-13.5.1/fonts/OpenSansSemiboldItalic.ttf
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/ioslides/ioslides-13.5.1/fonts/SourceCodePro.ttf
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/ioslides/ioslides-13.5.1/fonts/fonts.css
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/ioslides/ioslides-13.5.1/images/google_developers_icon_128.png
- create mode 100755 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/ioslides/ioslides-13.5.1/js/hammer.js
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/ioslides/ioslides-13.5.1/js/modernizr.custom.45394.js
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/ioslides/ioslides-13.5.1/js/order.js
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/ioslides/ioslides-13.5.1/js/polyfills/classList.min.js
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/ioslides/ioslides-13.5.1/js/polyfills/dataset.min.js
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/ioslides/ioslides-13.5.1/js/polyfills/history.min.js
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/ioslides/ioslides-13.5.1/js/prettify/lang-r.js
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/ioslides/ioslides-13.5.1/js/prettify/lang-tex.js
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/ioslides/ioslides-13.5.1/js/prettify/lang-yaml.js
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/ioslides/ioslides-13.5.1/js/prettify/prettify.css
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/ioslides/ioslides-13.5.1/js/prettify/prettify.js
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/ioslides/ioslides-13.5.1/js/require-1.0.8.min.js
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/ioslides/ioslides-13.5.1/js/slide-controller.js
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/ioslides/ioslides-13.5.1/js/slide-deck.js
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/ioslides/ioslides-13.5.1/theme/css/default.css
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/ioslides/ioslides-13.5.1/theme/css/phone.css
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/ioslides/ioslides_presentation.lua
- create mode 100755 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/latex/subtitle.tex
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/lua/latex-div.lua
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/lua/pagebreak.lua
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/site/_site.yml
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/site/about.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/site/index.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/bullet-fold-dim.gif
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/bullet-fold-dim.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/bullet-fold.gif
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/bullet-fold.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/bullet-nofold-dim.gif
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/bullet-nofold-dim.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/bullet-nofold.gif
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/bullet-nofold.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/bullet-unfold-dim.gif
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/bullet-unfold-dim.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/bullet-unfold.gif
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/bullet-unfold.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/bullet.gif
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/bullet.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/example.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/example.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/face1.gif
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/face2.gif
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/face3.gif
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/face4.gif
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/fold-bright.gif
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/fold-dim.bmp
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/fold-dim.gif
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/fold.bmp
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/fold.gif
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/icon-blue.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/keys2.jpg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/nofold-dim.bmp
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/nofold-dim.gif
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/nofold.bmp
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/unfold-bright.gif
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/unfold-dim.bmp
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/unfold-dim.gif
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/unfold.bmp
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/unfold.gif
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/w3c-logo-blue.gif
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/w3c-logo-blue.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/w3c-logo-slanted.jpg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/w3c-logo-white.gif
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/graphics/w3c-logo-white.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/scripts/img.srcset.js
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/scripts/slidy-irc.js
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/scripts/slidy.js
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/scripts/slidy.js.gz
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/styles/slidy.css
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/Slidy2/styles/w3c-blue.css
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/default.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rmd/slidy/slidy_shiny.js
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rmarkdown/rstudio/templates/project/skeleton.dcf
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/DESCRIPTION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/INDEX
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/Meta/Rd.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/Meta/features.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/Meta/hsearch.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/Meta/links.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/Meta/nsInfo.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/Meta/package.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/Meta/vignette.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/NAMESPACE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/NEWS.md
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/R/roxygen2
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/R/roxygen2.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/R/roxygen2.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/doc/extending.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/doc/extending.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/doc/extending.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/doc/index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/doc/namespace.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/doc/namespace.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/doc/namespace.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/doc/rd-formatting.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/doc/rd-formatting.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/doc/rd-formatting.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/doc/rd.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/doc/rd.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/doc/rd.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/doc/roxygen2.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/doc/roxygen2.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/doc/roxygen2.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/help/AnIndex
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/help/aliases.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/help/figures/logo.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/help/figures/test-figure-1.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/help/paths.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/help/roxygen2.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/help/roxygen2.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/html/00Index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/html/R.css
- create mode 100755 packrat/lib/x86_64-pc-linux-gnu/3.6.1/roxygen2/libs/roxygen2.so
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rprojroot/DESCRIPTION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rprojroot/INDEX
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rprojroot/Meta/Rd.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rprojroot/Meta/features.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rprojroot/Meta/hsearch.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rprojroot/Meta/links.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rprojroot/Meta/nsInfo.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rprojroot/Meta/package.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rprojroot/Meta/vignette.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rprojroot/NAMESPACE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rprojroot/NEWS.md
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rprojroot/R/rprojroot
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rprojroot/R/rprojroot.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rprojroot/R/rprojroot.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rprojroot/doc/index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rprojroot/doc/rprojroot.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rprojroot/doc/rprojroot.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rprojroot/doc/rprojroot.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rprojroot/help/AnIndex
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rprojroot/help/aliases.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rprojroot/help/paths.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rprojroot/help/rprojroot.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rprojroot/help/rprojroot.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rprojroot/html/00Index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rprojroot/html/R.css
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/DESCRIPTION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/INDEX
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/LICENSE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/Meta/Rd.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/Meta/features.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/Meta/hsearch.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/Meta/links.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/Meta/nsInfo.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/Meta/package.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/Meta/vignette.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/NAMESPACE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/NEWS.md
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/R/rstudioapi
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/R/rstudioapi.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/R/rstudioapi.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/doc/dialogs.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/doc/dialogs.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/doc/dialogs.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/doc/document-manipulation.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/doc/document-manipulation.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/doc/document-manipulation.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/doc/index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/doc/introduction.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/doc/introduction.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/doc/projects.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/doc/projects.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/doc/projects.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/doc/r-session.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/doc/r-session.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/doc/r-session.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/doc/terminal.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/doc/terminal.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/doc/terminal.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/help/AnIndex
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/help/aliases.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/help/figures/logo.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/help/figures/logo.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/help/paths.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/help/rstudioapi.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/help/rstudioapi.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/html/00Index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/html/R.css
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rstudioapi/resources/bug-report.md
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rversions/DESCRIPTION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rversions/INDEX
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rversions/LICENSE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rversions/Meta/Rd.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rversions/Meta/features.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rversions/Meta/hsearch.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rversions/Meta/links.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rversions/Meta/nsInfo.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rversions/Meta/package.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rversions/NAMESPACE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rversions/NEWS.md
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rversions/R/rversions
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rversions/R/rversions.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rversions/R/rversions.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rversions/README.md
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rversions/help/AnIndex
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rversions/help/aliases.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rversions/help/figures/logo.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rversions/help/paths.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rversions/help/rversions.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rversions/help/rversions.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rversions/html/00Index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/rversions/html/R.css
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/DESCRIPTION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/INDEX
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/LICENSE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/Meta/Rd.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/Meta/features.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/Meta/hsearch.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/Meta/links.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/Meta/nsInfo.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/Meta/package.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/NAMESPACE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/NEWS.md
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/R/scales
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/R/scales.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/R/scales.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/help/AnIndex
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/help/aliases.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/help/figures/README-labels-1.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/help/figures/README-labels-2.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/help/figures/README-palettes-1.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/help/figures/README-transforms-1.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/help/figures/lifecycle-archived.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/help/figures/lifecycle-defunct.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/help/figures/lifecycle-deprecated.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/help/figures/lifecycle-experimental.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/help/figures/lifecycle-maturing.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/help/figures/lifecycle-questioning.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/help/figures/lifecycle-retired.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/help/figures/lifecycle-soft-deprecated.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/help/figures/lifecycle-stable.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/help/figures/logo.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/help/paths.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/help/scales.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/help/scales.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/html/00Index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/scales/html/R.css
- create mode 100755 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/CITATION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/DESCRIPTION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/INDEX
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/Meta/Rd.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/Meta/data.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/Meta/demo.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/Meta/features.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/Meta/hsearch.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/Meta/links.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/Meta/nsInfo.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/Meta/package.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/Meta/vignette.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/NAMESPACE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/NEWS
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/R/seewave
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/R/seewave.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/R/seewave.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/data/orni.RData
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/data/peewit.RData
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/data/pellucens.RData
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/data/sheep.RData
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/data/tico.RData
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/demo/seewave.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/doc/index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/doc/seewave_IO.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/doc/seewave_IO.pdf
- create mode 100755 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/doc/seewave_IO.rnw
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/doc/seewave_analysis.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/doc/seewave_analysis.pdf
- create mode 100755 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/doc/seewave_analysis.rnw
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/help/AnIndex
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/help/aliases.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/help/paths.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/help/seewave.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/help/seewave.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/html/00Index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/seewave/html/R.css
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sessioninfo/DESCRIPTION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sessioninfo/INDEX
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sessioninfo/Meta/Rd.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sessioninfo/Meta/features.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sessioninfo/Meta/hsearch.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sessioninfo/Meta/links.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sessioninfo/Meta/nsInfo.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sessioninfo/Meta/package.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sessioninfo/NAMESPACE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sessioninfo/NEWS.md
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sessioninfo/R/sessioninfo
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sessioninfo/R/sessioninfo.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sessioninfo/R/sessioninfo.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sessioninfo/README.markdown
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sessioninfo/help/AnIndex
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sessioninfo/help/aliases.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sessioninfo/help/paths.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sessioninfo/help/sessioninfo.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sessioninfo/help/sessioninfo.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sessioninfo/html/00Index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sessioninfo/html/R.css
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/signal/CITATION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/signal/COPYRIGHTS
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/signal/DESCRIPTION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/signal/INDEX
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/signal/Meta/Rd.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/signal/Meta/data.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/signal/Meta/features.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/signal/Meta/hsearch.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/signal/Meta/links.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/signal/Meta/nsInfo.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/signal/Meta/package.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/signal/NAMESPACE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/signal/R/signal
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/signal/R/signal.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/signal/R/signal.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/signal/README_Parks-McClellan
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/signal/data/wav.RData
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/signal/help/AnIndex
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/signal/help/aliases.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/signal/help/paths.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/signal/help/signal.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/signal/help/signal.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/signal/html/00Index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/signal/html/R.css
- create mode 100755 packrat/lib/x86_64-pc-linux-gnu/3.6.1/signal/libs/signal.so
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringi/AUTHORS
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringi/CITATION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringi/DESCRIPTION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringi/INDEX
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringi/LICENSE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringi/Meta/Rd.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringi/Meta/features.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringi/Meta/hsearch.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringi/Meta/links.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringi/Meta/nsInfo.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringi/Meta/package.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringi/NAMESPACE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringi/NEWS
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringi/R/stringi
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringi/R/stringi.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringi/R/stringi.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringi/help/AnIndex
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringi/help/aliases.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringi/help/paths.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringi/help/stringi.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringi/help/stringi.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringi/html/00Index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringi/html/R.css
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringi/include/stringi.cpp
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringi/include/stringi.h
- create mode 100755 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringi/libs/stringi.so
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/DESCRIPTION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/INDEX
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/LICENSE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/Meta/Rd.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/Meta/data.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/Meta/features.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/Meta/hsearch.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/Meta/links.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/Meta/nsInfo.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/Meta/package.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/Meta/vignette.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/NAMESPACE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/NEWS.md
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/R/stringr
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/R/stringr.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/R/stringr.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/data/Rdata.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/data/Rdata.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/data/Rdata.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/doc/index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/doc/regular-expressions.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/doc/regular-expressions.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/doc/regular-expressions.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/doc/stringr.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/doc/stringr.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/doc/stringr.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/help/AnIndex
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/help/aliases.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/help/figures/logo.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/help/paths.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/help/stringr.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/help/stringr.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/html/00Index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/html/R.css
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/htmlwidgets/lib/str_view.css
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/htmlwidgets/str_view.js
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/stringr/htmlwidgets/str_view.yaml
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sys/DESCRIPTION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sys/INDEX
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sys/LICENSE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sys/Meta/Rd.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sys/Meta/features.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sys/Meta/hsearch.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sys/Meta/links.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sys/Meta/nsInfo.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sys/Meta/package.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sys/NAMESPACE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sys/NEWS
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sys/R/sys
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sys/R/sys.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sys/R/sys.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sys/WORDLIST
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sys/help/AnIndex
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sys/help/aliases.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sys/help/paths.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sys/help/sys.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sys/help/sys.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sys/html/00Index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sys/html/R.css
- create mode 100755 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sys/libs/sys.so
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/sys/utf8.txt
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/CITATION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/DESCRIPTION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/INDEX
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/LICENSE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/Meta/Rd.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/Meta/features.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/Meta/hsearch.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/Meta/links.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/Meta/nsInfo.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/Meta/package.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/Meta/vignette.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/NAMESPACE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/NEWS.md
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/R/testthat
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/R/testthat.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/R/testthat.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/doc/custom-expectation.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/doc/custom-expectation.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/doc/custom-expectation.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/doc/index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/examples/test-failure.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/examples/test-success.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/help/AnIndex
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/help/aliases.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/help/figures/logo.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/help/paths.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/help/testthat.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/help/testthat.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/html/00Index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/html/R.css
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/include/testthat.h
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/include/testthat/testthat.h
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/include/testthat/vendor/catch.h
- create mode 100755 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/libs/testthat.so
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/resources/catch-routine-registration.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/resources/test-cpp.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/resources/test-example.cpp
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/testthat/resources/test-runner.cpp
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/DESCRIPTION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/INDEX
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/LICENSE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/Meta/Rd.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/Meta/features.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/Meta/hsearch.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/Meta/links.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/Meta/nsInfo.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/Meta/package.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/Meta/vignette.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/NAMESPACE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/NEWS.md
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/R/tibble
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/R/tibble.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/R/tibble.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/doc/extending.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/doc/extending.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/doc/index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/doc/invariants.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/doc/invariants.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/doc/invariants.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/doc/tibble.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/doc/tibble.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/doc/tibble.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/doc/types.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/doc/types.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/doc/types.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/help/AnIndex
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/help/aliases.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/help/figures/lifecycle-archived.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/help/figures/lifecycle-defunct.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/help/figures/lifecycle-deprecated.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/help/figures/lifecycle-experimental.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/help/figures/lifecycle-maturing.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/help/figures/lifecycle-questioning.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/help/figures/lifecycle-soft-deprecated.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/help/figures/lifecycle-stable.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/help/figures/lifecycle-superseded.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/help/figures/logo.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/help/paths.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/help/tibble.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/help/tibble.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/html/00Index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/html/R.css
- create mode 100755 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tibble/libs/tibble.so
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tinytex/CITATION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tinytex/DESCRIPTION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tinytex/INDEX
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tinytex/LICENSE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tinytex/Meta/Rd.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tinytex/Meta/features.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tinytex/Meta/hsearch.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tinytex/Meta/links.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tinytex/Meta/nsInfo.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tinytex/Meta/package.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tinytex/NAMESPACE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tinytex/NEWS.Rd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tinytex/R/tinytex
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tinytex/R/tinytex.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tinytex/R/tinytex.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tinytex/help/AnIndex
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tinytex/help/aliases.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tinytex/help/paths.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tinytex/help/tinytex.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tinytex/help/tinytex.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tinytex/html/00Index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tinytex/html/R.css
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tuneR/CITATION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tuneR/DESCRIPTION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tuneR/INDEX
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tuneR/Meta/Rd.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tuneR/Meta/features.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tuneR/Meta/hsearch.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tuneR/Meta/links.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tuneR/Meta/nsInfo.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tuneR/Meta/package.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tuneR/NAMESPACE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tuneR/R/tuneR
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tuneR/R/tuneR.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tuneR/R/tuneR.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tuneR/example_files/Bass_sample.mid
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tuneR/help/AnIndex
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tuneR/help/aliases.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tuneR/help/paths.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tuneR/help/tuneR.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tuneR/help/tuneR.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tuneR/html/00Index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tuneR/html/R.css
- create mode 100755 packrat/lib/x86_64-pc-linux-gnu/3.6.1/tuneR/libs/tuneR.so
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/DESCRIPTION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/INDEX
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/Meta/Rd.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/Meta/features.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/Meta/hsearch.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/Meta/links.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/Meta/nsInfo.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/Meta/package.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/NAMESPACE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/NEWS.md
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/R/usethis
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/R/usethis.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/R/usethis.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/WORDLIST
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/help/AnIndex
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/help/aliases.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/help/figures/logo.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/help/paths.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/help/usethis.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/help/usethis.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/html/00Index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/html/R.css
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/CODE_OF_CONDUCT.md
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/Jenkinsfile
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/Makefile
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/NEWS.md
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/addins.dcf
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/appveyor.yml
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/article.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/circleci-config.yml
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/citation-template.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/code.c
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/code.cpp
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/codecov.yml
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/cran-comments.md
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/data-table.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/gitlab-ci.yml
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/junit-testthat.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/license-AGPL-3.md
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/license-GPL-3.md
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/license-LGPL-2.1.md
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/license-apache-2.0.md
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/license-cc0.md
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/license-ccby-4.md
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/license-mit.md
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/lifecycle-archived.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/lifecycle-defunct.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/lifecycle-deprecated.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/lifecycle-experimental.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/lifecycle-maturing.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/lifecycle-questioning.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/lifecycle-soft-deprecated.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/lifecycle-stable.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/lifecycle-superseded.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/package-README
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/packagename-data-prep.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/packagename-package.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/pipe.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/project-README
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/readme-rmd-pre-commit.sh
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/revdep-email.yml
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/rmarkdown-template.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/rmarkdown-template.yml
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/template.Rproj
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/test-example-2.1.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/testthat.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/tidy-contributing.md
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/tidy-eval.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/tidy-issue.md
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/tidy-support.md
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/tidy-travis.yml
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/travis.yml
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/tutorial-template.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/vignette.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/usethis/templates/year-copyright.txt
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/utf8/DESCRIPTION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/utf8/INDEX
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/utf8/LICENSE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/utf8/Meta/Rd.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/utf8/Meta/features.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/utf8/Meta/hsearch.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/utf8/Meta/links.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/utf8/Meta/nsInfo.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/utf8/Meta/package.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/utf8/Meta/vignette.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/utf8/NAMESPACE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/utf8/NEWS
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/utf8/R/utf8
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/utf8/R/utf8.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/utf8/R/utf8.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/utf8/doc/index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/utf8/doc/utf8.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/utf8/doc/utf8.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/utf8/help/AnIndex
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/utf8/help/aliases.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/utf8/help/paths.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/utf8/help/utf8.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/utf8/help/utf8.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/utf8/html/00Index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/utf8/html/R.css
- create mode 100755 packrat/lib/x86_64-pc-linux-gnu/3.6.1/utf8/libs/utf8.so
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/DESCRIPTION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/INDEX
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/Meta/Rd.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/Meta/features.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/Meta/hsearch.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/Meta/links.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/Meta/nsInfo.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/Meta/package.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/Meta/vignette.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/NAMESPACE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/NEWS.md
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/R/vctrs
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/R/vctrs.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/R/vctrs.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/WORDLIST
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/doc/index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/doc/s3-vector.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/doc/s3-vector.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/doc/s3-vector.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/doc/stability.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/doc/stability.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/doc/stability.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/doc/type-size.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/doc/type-size.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/doc/type-size.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/help/AnIndex
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/help/aliases.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/help/figures/cast.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/help/figures/coerce.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/help/figures/combined.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/help/figures/lifecycle-archived.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/help/figures/lifecycle-defunct.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/help/figures/lifecycle-deprecated.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/help/figures/lifecycle-experimental.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/help/figures/lifecycle-maturing.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/help/figures/lifecycle-questioning.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/help/figures/lifecycle-soft-deprecated.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/help/figures/lifecycle-stable.svg
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/help/figures/logo.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/help/figures/sizes-recycling.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/help/paths.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/help/vctrs.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/help/vctrs.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/html/00Index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/html/R.css
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/include/vctrs.c
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/include/vctrs.h
- create mode 100755 packrat/lib/x86_64-pc-linux-gnu/3.6.1/vctrs/libs/vctrs.so
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridis/DESCRIPTION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridis/INDEX
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridis/LICENSE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridis/Meta/Rd.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridis/Meta/features.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridis/Meta/hsearch.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridis/Meta/links.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridis/Meta/nsInfo.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridis/Meta/package.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridis/Meta/vignette.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridis/NAMESPACE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridis/R/viridis
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridis/R/viridis.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridis/R/viridis.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridis/doc/index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridis/doc/intro-to-viridis.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridis/doc/intro-to-viridis.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridis/doc/intro-to-viridis.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridis/help/AnIndex
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridis/help/aliases.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridis/help/figures/sample-palette.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridis/help/figures/samplepalette.pdf
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridis/help/figures/viridis-scales.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridis/help/paths.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridis/help/viridis.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridis/help/viridis.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridis/html/00Index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridis/html/R.css
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridisLite/DESCRIPTION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridisLite/INDEX
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridisLite/LICENSE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridisLite/Meta/Rd.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridisLite/Meta/data.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridisLite/Meta/features.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridisLite/Meta/hsearch.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridisLite/Meta/links.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridisLite/Meta/nsInfo.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridisLite/Meta/package.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridisLite/NAMESPACE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridisLite/R/viridisLite
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridisLite/R/viridisLite.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridisLite/R/viridisLite.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridisLite/data/Rdata.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridisLite/data/Rdata.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridisLite/data/Rdata.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridisLite/help/AnIndex
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridisLite/help/aliases.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridisLite/help/figures/viridis-scales.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridisLite/help/paths.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridisLite/help/viridisLite.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridisLite/help/viridisLite.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridisLite/html/00Index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/viridisLite/html/R.css
- create mode 100755 packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/CITATION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/DESCRIPTION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/INDEX
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/Meta/Rd.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/Meta/data.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/Meta/features.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/Meta/hsearch.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/Meta/links.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/Meta/nsInfo.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/Meta/package.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/NAMESPACE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/NEWS.md
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/R/warbleR
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/R/warbleR.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/R/warbleR.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/data/Rdata.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/data/Rdata.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/data/Rdata.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/help/AnIndex
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/help/aliases.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/help/paths.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/help/warbleR.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/help/warbleR.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/html/00Index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/html/R.css
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/DESCRIPTION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/INDEX
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/Meta/Rd.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/Meta/features.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/Meta/hsearch.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/Meta/links.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/Meta/nsInfo.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/Meta/package.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/NAMESPACE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/NEWS
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/R/whisker
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/R/whisker.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/R/whisker.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/help/AnIndex
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/help/aliases.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/help/paths.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/help/whisker.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/help/whisker.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/html/00Index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/html/R.css
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/specs/comments.json
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/specs/comments.yml
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/specs/convert.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/specs/delimiters.json
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/specs/delimiters.yml
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/specs/interpolation.json
  create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/specs/interpolation.yml
  create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/specs/inverted.json
  create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/specs/inverted.yml
@@ -1000,3 +192,822 @@ remote: warning: File data/raw/resample_80kHz/ch1MPI2020-01-15_12-03-59_0000001.
 To github.com:maRce10/flight_coordination_in_Thyroptera.git
    63beaf5a..5c553c15  master -> master
 Rgit pushcommit -m "1 sound file"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cadd .[K
+]0;/home/m/Documentos/Github_projects/flight_coordination_thyroptera]0;m@m-MacBookPro: ~/Documentos/Github_projects/flight_coordination_thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/Documentos/Github_projects/flight_coordinattion_thyroptera[00m$ git add .R[Kgit pushcommit -m "1 sound file"[1P[1@m[1@o[1@r[1@e[C[C[C[C[C[C[C[C[C[C[Cs"
+[master e1b4a534] more sound files
+ 21 files changed, 1295 insertions(+), 33144 deletions(-)
+ rewrite .Rproj.user/8E659706/console06/B053551 (96%)
+ rewrite .Rproj.user/8E659706/console06/INDEX001 (100%)
+ create mode 100644 .Rproj.user/8E659706/pcs/debug-breakpoints.pper
+ delete mode 100644 .Rproj.user/8E659706/sources/s-51BEF117/3E9BA2BF-contents
+ delete mode 100644 .Rproj.user/8E659706/sources/s-51BEF117/4F30D2FC-contents
+ delete mode 100644 .Rproj.user/8E659706/sources/s-51BEF117/6F74F202-contents
+ rename .Rproj.user/8E659706/sources/{s-51BEF117 => s-8269F54B}/lock_file (100%)
+ create mode 100644 .gitignore
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-15_12-18-06_0000002.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-15_12-27-23_0000003.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-15_12-38-07_0000004.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-15_14-17-44_0000005.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-15_15-42-25_0000006.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-16_09-42-52_0000008.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-16_09-54-41_0000009.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-16_10-02-10_0000010.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-16_10-13-18_0000011.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-16_10-21-37_0000012.wav
+]0;/home/m/Documentos/Github_projects/flight_coordination_thyroptera]0;m@m-MacBookPro: ~/Documentos/Github_projects/flight_coordination_thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/Documentos/Github_projects/flight_coordinattion_thyroptera[00m$ [Agit commit -m "more sound files"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cadd .[K[K[K[K[K[Kcommit -m "more sound files"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[KR[Kgit push
+Contando objetos: 30, listo.
+Delta compression using up to 4 threads.
+Comprimiendo objetos:   3% (1/26)   Comprimiendo objetos:   7% (2/26)   Comprimiendo objetos:  11% (3/26)   Comprimiendo objetos:  15% (4/26)   Comprimiendo objetos:  19% (5/26)   Comprimiendo objetos:  23% (6/26)   Comprimiendo objetos:  26% (7/26)   Comprimiendo objetos:  30% (8/26)   Comprimiendo objetos:  34% (9/26)   Comprimiendo objetos:  38% (10/26)   Comprimiendo objetos:  42% (11/26)   Comprimiendo objetos:  46% (12/26)   Comprimiendo objetos:  50% (13/26)   Comprimiendo objetos:  53% (14/26)   Comprimiendo objetos:  57% (15/26)   Comprimiendo objetos:  61% (16/26)   Comprimiendo objetos:  65% (17/26)   Comprimiendo objetos:  69% (18/26)   Comprimiendo objetos:  73% (19/26)   Comprimiendo objetos:  76% (20/26)   Comprimiendo objetos:  80% (21/26)   Comprimiendo objetos:  84% (22/26)   Comprimiendo objetos:  88% (23/26)   Comprimiendo objetos:  92% (24/26)   Comprimiendo objetos:  96% (25/26)   Comprimiendo objetos: 100% (26/26)   Comprimiendo objetos: 100% (26/26), listo.
+Escribiendo objetos:   3% (1/30)   Escribiendo objetos:   6% (2/30)   Escribiendo objetos:  10% (3/30)   Escribiendo objetos:  13% (4/30)   Escribiendo objetos:  16% (5/30)   Escribiendo objetos:  20% (6/30)   Escribiendo objetos:  23% (7/30)   Escribiendo objetos:  26% (8/30)   Escribiendo objetos:  30% (9/30)   Escribiendo objetos:  33% (10/30)   Escribiendo objetos:  36% (11/30)   Escribiendo objetos:  40% (12/30)   Escribiendo objetos:  43% (13/30)   Escribiendo objetos:  46% (14/30)   Escribiendo objetos:  50% (15/30)   Escribiendo objetos:  53% (16/30)   Escribiendo objetos:  56% (17/30)   Escribiendo objetos:  60% (18/30)   Escribiendo objetos:  63% (19/30)   Escribiendo objetos:  66% (20/30)   Escribiendo objetos:  66% (20/30), 1.30 MiB | 1.05 MiB/s   Escribiendo objetos:  66% (20/30), 1.91 MiB | 880.00 KiB/s   Escribiendo objetos:  66% (20/30), 2.52 MiB | 803.00 KiB/s   Escribiendo objetos:  66% (20/30), 3.15 MiB | 766.00 KiB/s   Escribiendo objetos:  66% (20/30), 3.77 MiB | 741.00 KiB/s   Escribiendo objetos:  66% (20/30), 4.39 MiB | 724.00 KiB/s   Escribiendo objetos:  66% (20/30), 5.01 MiB | 712.00 KiB/s   Escribiendo objetos:  66% (20/30), 5.63 MiB | 691.00 KiB/s   Escribiendo objetos:  66% (20/30), 6.25 MiB | 685.00 KiB/s   Escribiendo objetos:  66% (20/30), 6.88 MiB | 628.00 KiB/s   Escribiendo objetos:  66% (20/30), 7.49 MiB | 627.00 KiB/s   Escribiendo objetos:  66% (20/30), 8.12 MiB | 629.00 KiB/s   Escribiendo objetos:  66% (20/30), 8.73 MiB | 627.00 KiB/s   Escribiendo objetos:  66% (20/30), 9.36 MiB | 625.00 KiB/s   Escribiendo objetos:  66% (20/30), 9.98 MiB | 613.00 KiB/s   Escribiendo objetos:  66% (20/30), 10.60 MiB | 614.00 KiB/s   Escribiendo objetos:  66% (20/30), 11.22 MiB | 603.00 KiB/s   Escribiendo objetos:  70% (21/30), 11.22 MiB | 603.00 KiB/s   Escribiendo objetos:  70% (21/30), 11.55 MiB | 525.00 KiB/s   Escribiendo objetos:  70% (21/30), 12.46 MiB | 576.00 KiB/s   Escribiendo objetos:  70% (21/30), 13.08 MiB | 568.00 KiB/s   Escribiendo objetos:  70% (21/30), 13.70 MiB | 567.00 KiB/s   Escribiendo objetos:  70% (21/30), 14.32 MiB | 568.00 KiB/s   Escribiendo objetos:  70% (21/30), 14.95 MiB | 571.00 KiB/s   Escribiendo objetos:  70% (21/30), 15.56 MiB | 581.00 KiB/s   Escribiendo objetos:  70% (21/30), 16.18 MiB | 517.00 KiB/s   Escribiendo objetos:  70% (21/30), 16.80 MiB | 532.00 KiB/s   Escribiendo objetos:  70% (21/30), 17.42 MiB | 617.00 KiB/s   Escribiendo objetos:  70% (21/30), 18.05 MiB | 555.00 KiB/s   Escribiendo objetos:  70% (21/30), 18.66 MiB | 559.00 KiB/s   Escribiendo objetos:  70% (21/30), 19.29 MiB | 559.00 KiB/s   Escribiendo objetos:  70% (21/30), 19.91 MiB | 557.00 KiB/s   Escribiendo objetos:  70% (21/30), 20.54 MiB | 559.00 KiB/s   Escribiendo objetos:  70% (21/30), 21.15 MiB | 559.00 KiB/s   Escribiendo objetos:  70% (21/30), 21.77 MiB | 626.00 KiB/s   Escribiendo objetos:  70% (21/30), 22.39 MiB | 633.00 KiB/s   Escribiendo objetos:  70% (21/30), 23.01 MiB | 622.00 KiB/s   Escribiendo objetos:  70% (21/30), 23.63 MiB | 633.00 KiB/s   Escribiendo objetos:  70% (21/30), 24.25 MiB | 638.00 KiB/s   Escribiendo objetos:  70% (21/30), 24.88 MiB | 639.00 KiB/s   Escribiendo objetos:  70% (21/30), 25.49 MiB | 640.00 KiB/s   Escribiendo objetos:  70% (21/30), 26.12 MiB | 637.00 KiB/s   Escribiendo objetos:  70% (21/30), 26.73 MiB | 635.00 KiB/s   Escribiendo objetos:  70% (21/30), 27.36 MiB | 640.00 KiB/s   Escribiendo objetos:  70% (21/30), 27.98 MiB | 632.00 KiB/s   Escribiendo objetos:  70% (21/30), 28.61 MiB | 635.00 KiB/s   Escribiendo objetos:  70% (21/30), 29.23 MiB | 634.00 KiB/s   Escribiendo objetos:  73% (22/30), 29.23 MiB | 634.00 KiB/s   Escribiendo objetos:  73% (22/30), 29.48 MiB | 515.00 KiB/s   Escribiendo objetos:  73% (22/30), 31.08 MiB | 569.00 KiB/s   Escribiendo objetos:  73% (22/30), 31.70 MiB | 570.00 KiB/s   Escribiendo objetos:  73% (22/30), 32.32 MiB | 572.00 KiB/s   Escribiendo objetos:  73% (22/30), 32.95 MiB | 574.00 KiB/s   Escribiendo objetos:  73% (22/30), 33.56 MiB | 574.00 KiB/s   Escribiendo objetos:  73% (22/30), 34.19 MiB | 573.00 KiB/s   Escribiendo objetos:  73% (22/30), 34.80 MiB | 573.00 KiB/s   Escribiendo objetos:  73% (22/30), 35.43 MiB | 708.00 KiB/s   Escribiendo objetos:  73% (22/30), 36.05 MiB | 638.00 KiB/s   Escribiendo objetos:  73% (22/30), 36.67 MiB | 640.00 KiB/s   Escribiendo objetos:  73% (22/30), 37.29 MiB | 638.00 KiB/s   Escribiendo objetos:  73% (22/30), 37.91 MiB | 640.00 KiB/s   Escribiendo objetos:  73% (22/30), 38.53 MiB | 637.00 KiB/s   Escribiendo objetos:  73% (22/30), 39.16 MiB | 640.00 KiB/s   Escribiendo objetos:  73% (22/30), 39.77 MiB | 639.00 KiB/s   Escribiendo objetos:  73% (22/30), 40.40 MiB | 631.00 KiB/s   Escribiendo objetos:  73% (22/30), 41.02 MiB | 638.00 KiB/s   Escribiendo objetos:  73% (22/30), 41.64 MiB | 640.00 KiB/s   Escribiendo objetos:  76% (23/30), 41.64 MiB | 640.00 KiB/s   Escribiendo objetos:  76% (23/30), 42.26 MiB | 541.00 KiB/s   Escribiendo objetos:  76% (23/30), 43.50 MiB | 597.00 KiB/s   Escribiendo objetos:  76% (23/30), 44.12 MiB | 596.00 KiB/s   Escribiendo objetos:  76% (23/30), 44.74 MiB | 598.00 KiB/s   Escribiendo objetos:  76% (23/30), 45.36 MiB | 595.00 KiB/s   Escribiendo objetos:  76% (23/30), 45.98 MiB | 597.00 KiB/s   Escribiendo objetos:  76% (23/30), 46.60 MiB | 603.00 KiB/s   Escribiendo objetos:  76% (23/30), 47.23 MiB | 597.00 KiB/s   Escribiendo objetos:  76% (23/30), 47.84 MiB | 547.00 KiB/s   Escribiendo objetos:  76% (23/30), 48.47 MiB | 637.00 KiB/s   Escribiendo objetos:  76% (23/30), 49.09 MiB | 577.00 KiB/s   Escribiendo objetos:  76% (23/30), 49.71 MiB | 578.00 KiB/s   Escribiendo objetos:  76% (23/30), 50.33 MiB | 577.00 KiB/s   Escribiendo objetos:  76% (23/30), 50.95 MiB | 579.00 KiB/s   Escribiendo objetos:  76% (23/30), 51.57 MiB | 577.00 KiB/s   Escribiendo objetos:  76% (23/30), 52.20 MiB | 568.00 KiB/s   Escribiendo objetos:  76% (23/30), 52.81 MiB | 563.00 KiB/s   Escribiendo objetos:  76% (23/30), 53.44 MiB | 616.00 KiB/s   Escribiendo objetos:  76% (23/30), 54.05 MiB | 609.00 KiB/s   Escribiendo objetos:  76% (23/30), 54.68 MiB | 598.00 KiB/s   Escribiendo objetos:  76% (23/30), 55.30 MiB | 590.00 KiB/s   Escribiendo objetos:  76% (23/30), 55.92 MiB | 573.00 KiB/s   Escribiendo objetos:  76% (23/30), 56.54 MiB | 565.00 KiB/s   Escribiendo objetos:  76% (23/30), 57.16 MiB | 566.00 KiB/s   Escribiendo objetos:  76% (23/30), 57.78 MiB | 571.00 KiB/s   Escribiendo objetos:  80% (24/30), 57.78 MiB | 571.00 KiB/s   Escribiendo objetos:  80% (24/30), 58.33 MiB | 573.00 KiB/s   Escribiendo objetos:  80% (24/30), 59.02 MiB | 574.00 KiB/s   Escribiendo objetos:  80% (24/30), 59.65 MiB | 580.00 KiB/s   Escribiendo objetos:  80% (24/30), 60.27 MiB | 591.00 KiB/s   Escribiendo objetos:  80% (24/30), 60.89 MiB | 599.00 KiB/s   Escribiendo objetos:  80% (24/30), 61.51 MiB | 618.00 KiB/s   Escribiendo objetos:  80% (24/30), 62.13 MiB | 627.00 KiB/s   Escribiendo objetos:  80% (24/30), 62.75 MiB | 625.00 KiB/s   Escribiendo objetos:  80% (24/30), 63.38 MiB | 632.00 KiB/s   Escribiendo objetos:  80% (24/30), 64.00 MiB | 635.00 KiB/s   Escribiendo objetos:  80% (24/30), 64.62 MiB | 639.00 KiB/s   Escribiendo objetos:  80% (24/30), 65.24 MiB | 639.00 KiB/s   Escribiendo objetos:  80% (24/30), 65.86 MiB | 639.00 KiB/s   Escribiendo objetos:  80% (24/30), 66.48 MiB | 639.00 KiB/s   Escribiendo objetos:  80% (24/30), 67.10 MiB | 639.00 KiB/s   Escribiendo objetos:  80% (24/30), 67.73 MiB | 639.00 KiB/s   Escribiendo objetos:  80% (24/30), 68.34 MiB | 639.00 KiB/s   Escribiendo objetos:  80% (24/30), 68.97 MiB | 639.00 KiB/s   Escribiendo objetos:  80% (24/30), 69.59 MiB | 638.00 KiB/s   Escribiendo objetos:  80% (24/30), 70.21 MiB | 640.00 KiB/s   Escribiendo objetos:  80% (24/30), 70.83 MiB | 638.00 KiB/s   Escribiendo objetos:  80% (24/30), 71.45 MiB | 640.00 KiB/s   Escribiendo objetos:  80% (24/30), 72.07 MiB | 638.00 KiB/s   Escribiendo objetos:  80% (24/30), 72.70 MiB | 641.00 KiB/s   Escribiendo objetos:  80% (24/30), 73.31 MiB | 639.00 KiB/s   Escribiendo objetos:  80% (24/30), 73.93 MiB | 639.00 KiB/s   Escribiendo objetos:  80% (24/30), 74.55 MiB | 639.00 KiB/s   Escribiendo objetos:  80% (24/30), 75.17 MiB | 611.00 KiB/s   Escribiendo objetos:  80% (24/30), 75.80 MiB | 612.00 KiB/s   Escribiendo objetos:  80% (24/30), 76.41 MiB | 612.00 KiB/s   Escribiendo objetos:  80% (24/30), 77.03 MiB | 610.00 KiB/s   Escribiendo objetos:  83% (25/30), 77.03 MiB | 610.00 KiB/s   Escribiendo objetos:  83% (25/30), 77.07 MiB | 509.00 KiB/s   Escribiendo objetos:  83% (25/30), 78.27 MiB | 566.00 KiB/s   Escribiendo objetos:  83% (25/30), 78.89 MiB | 565.00 KiB/s   Escribiendo objetos:  83% (25/30), 79.52 MiB | 567.00 KiB/s   Escribiendo objetos:  83% (25/30), 80.13 MiB | 565.00 KiB/s   Escribiendo objetos:  83% (25/30), 80.76 MiB | 546.00 KiB/s   Escribiendo objetos:  83% (25/30), 81.38 MiB | 543.00 KiB/s   Escribiendo objetos:  83% (25/30), 82.00 MiB | 545.00 KiB/s   Escribiendo objetos:  83% (25/30), 82.62 MiB | 545.00 KiB/s   Escribiendo objetos:  83% (25/30), 83.24 MiB | 645.00 KiB/s   Escribiendo objetos:  83% (25/30), 83.86 MiB | 585.00 KiB/s   Escribiendo objetos:  83% (25/30), 84.48 MiB | 588.00 KiB/s   Escribiendo objetos:  83% (25/30), 85.10 MiB | 586.00 KiB/s   Escribiendo objetos:  83% (25/30), 85.73 MiB | 588.00 KiB/s   Escribiendo objetos:  83% (25/30), 86.34 MiB | 638.00 KiB/s   Escribiendo objetos:  83% (25/30), 86.98 MiB | 641.00 KiB/s   Escribiendo objetos:  83% (25/30), 87.59 MiB | 639.00 KiB/s   Escribiendo objetos:  83% (25/30), 88.20 MiB | 639.00 KiB/s   Escribiendo objetos:  83% (25/30), 88.83 MiB | 639.00 KiB/s   Escribiendo objetos:  83% (25/30), 89.45 MiB | 628.00 KiB/s   Escribiendo objetos:  83% (25/30), 90.07 MiB | 639.00 KiB/s   Escribiendo objetos:  83% (25/30), 90.69 MiB | 639.00 KiB/s   Escribiendo objetos:  83% (25/30), 91.31 MiB | 639.00 KiB/s   Escribiendo objetos:  86% (26/30), 91.31 MiB | 639.00 KiB/s   Escribiendo objetos:  86% (26/30), 91.88 MiB | 603.00 KiB/s   Escribiendo objetos:  86% (26/30), 92.55 MiB | 638.00 KiB/s   Escribiendo objetos:  86% (26/30), 93.17 MiB | 638.00 KiB/s   Escribiendo objetos:  86% (26/30), 93.80 MiB | 639.00 KiB/s   Escribiendo objetos:  86% (26/30), 94.41 MiB | 638.00 KiB/s   Escribiendo objetos:  86% (26/30), 95.04 MiB | 651.00 KiB/s   Escribiendo objetos:  86% (26/30), 95.66 MiB | 637.00 KiB/s   Escribiendo objetos:  86% (26/30), 96.28 MiB | 640.00 KiB/s   Escribiendo objetos:  86% (26/30), 96.90 MiB | 638.00 KiB/s   Escribiendo objetos:  86% (26/30), 97.52 MiB | 679.00 KiB/s   Escribiendo objetos:  86% (26/30), 98.14 MiB | 638.00 KiB/s   Escribiendo objetos:  86% (26/30), 98.77 MiB | 640.00 KiB/s   Escribiendo objetos:  86% (26/30), 99.38 MiB | 638.00 KiB/s   Escribiendo objetos:  86% (26/30), 100.01 MiB | 640.00 KiB/s   Escribiendo objetos:  86% (26/30), 100.63 MiB | 638.00 KiB/s   Escribiendo objetos:  86% (26/30), 101.25 MiB | 640.00 KiB/s   Escribiendo objetos:  86% (26/30), 101.88 MiB | 639.00 KiB/s   Escribiendo objetos:  86% (26/30), 102.49 MiB | 639.00 KiB/s   Escribiendo objetos:  86% (26/30), 103.13 MiB | 640.00 KiB/s   Escribiendo objetos:  86% (26/30), 103.73 MiB | 640.00 KiB/s   Escribiendo objetos:  86% (26/30), 104.35 MiB | 638.00 KiB/s   Escribiendo objetos:  86% (26/30), 104.98 MiB | 640.00 KiB/s   Escribiendo objetos:  86% (26/30), 105.59 MiB | 638.00 KiB/s   Escribiendo objetos:  86% (26/30), 106.22 MiB | 630.00 KiB/s   Escribiendo objetos:  90% (27/30), 106.22 MiB | 630.00 KiB/s   Escribiendo objetos:  90% (27/30), 106.39 MiB | 521.00 KiB/s   Escribiendo objetos:  90% (27/30), 107.46 MiB | 576.00 KiB/s   Escribiendo objetos:  90% (27/30), 108.09 MiB | 578.00 KiB/s   Escribiendo objetos:  90% (27/30), 108.70 MiB | 576.00 KiB/s   Escribiendo objetos:  90% (27/30), 109.33 MiB | 577.00 KiB/s   Escribiendo objetos:  90% (27/30), 109.95 MiB | 569.00 KiB/s   Escribiendo objetos:  90% (27/30), 110.57 MiB | 577.00 KiB/s   Escribiendo objetos:  90% (27/30), 111.19 MiB | 547.00 KiB/s   Escribiendo objetos:  90% (27/30), 111.81 MiB | 557.00 KiB/s   Escribiendo objetos:  90% (27/30), 112.43 MiB | 667.00 KiB/s   Escribiendo objetos:  90% (27/30), 113.05 MiB | 606.00 KiB/s   Escribiendo objetos:  90% (27/30), 113.67 MiB | 605.00 KiB/s   Escribiendo objetos:  90% (27/30), 114.30 MiB | 607.00 KiB/s   Escribiendo objetos:  90% (27/30), 114.91 MiB | 605.00 KiB/s   Escribiendo objetos:  90% (27/30), 115.54 MiB | 616.00 KiB/s   Escribiendo objetos:  90% (27/30), 116.16 MiB | 605.00 KiB/s   Escribiendo objetos:  90% (27/30), 116.78 MiB | 645.00 KiB/s   Escribiendo objetos:  90% (27/30), 117.40 MiB | 638.00 KiB/s   Escribiendo objetos:  90% (27/30), 118.02 MiB | 640.00 KiB/s   Escribiendo objetos:  93% (28/30), 118.02 MiB | 640.00 KiB/s   Escribiendo objetos:  93% (28/30), 118.31 MiB | 558.00 KiB/s   Escribiendo objetos:  93% (28/30), 119.88 MiB | 621.00 KiB/s   Escribiendo objetos:  93% (28/30), 120.51 MiB | 623.00 KiB/s   Escribiendo objetos:  93% (28/30), 121.13 MiB | 621.00 KiB/s   Escribiendo objetos:  93% (28/30), 121.75 MiB | 623.00 KiB/s   Escribiendo objetos:  93% (28/30), 122.37 MiB | 621.00 KiB/s   Escribiendo objetos:  93% (28/30), 123.00 MiB | 624.00 KiB/s   Escribiendo objetos:  93% (28/30), 123.62 MiB | 623.00 KiB/s   Escribiendo objetos:  93% (28/30), 124.23 MiB | 713.00 KiB/s   Escribiendo objetos:  93% (28/30), 124.84 MiB | 638.00 KiB/s   Escribiendo objetos:  93% (28/30), 125.47 MiB | 640.00 KiB/s   Escribiendo objetos:  93% (28/30), 126.09 MiB | 639.00 KiB/s   Escribiendo objetos:  93% (28/30), 126.71 MiB | 640.00 KiB/s   Escribiendo objetos:  93% (28/30), 127.33 MiB | 639.00 KiB/s   Escribiendo objetos:  93% (28/30), 127.95 MiB | 640.00 KiB/s   Escribiendo objetos:  93% (28/30), 128.57 MiB | 638.00 KiB/s   Escribiendo objetos:  93% (28/30), 129.20 MiB | 638.00 KiB/s   Escribiendo objetos:  93% (28/30), 129.81 MiB | 638.00 KiB/s   Escribiendo objetos:  93% (28/30), 130.44 MiB | 641.00 KiB/s   Escribiendo objetos:  93% (28/30), 131.05 MiB | 638.00 KiB/s   Escribiendo objetos:  93% (28/30), 131.68 MiB | 640.00 KiB/s   Escribiendo objetos:  96% (29/30), 131.68 MiB | 640.00 KiB/s   Escribiendo objetos:  96% (29/30), 132.07 MiB | 566.00 KiB/s   Escribiendo objetos:  96% (29/30), 133.54 MiB | 633.00 KiB/s   Escribiendo objetos:  96% (29/30), 134.16 MiB | 633.00 KiB/s   Escribiendo objetos:  96% (29/30), 134.78 MiB | 633.00 KiB/s   Escribiendo objetos:  96% (29/30), 135.41 MiB | 633.00 KiB/s   Escribiendo objetos:  96% (29/30), 136.02 MiB | 633.00 KiB/s   Escribiendo objetos:  96% (29/30), 136.65 MiB | 633.00 KiB/s   Escribiendo objetos:  96% (29/30), 137.27 MiB | 632.00 KiB/s   Escribiendo objetos:  96% (29/30), 137.89 MiB | 633.00 KiB/s   Escribiendo objetos:  96% (29/30), 138.51 MiB | 707.00 KiB/s   Escribiendo objetos:  96% (29/30), 139.13 MiB | 640.00 KiB/s   Escribiendo objetos:  96% (29/30), 139.75 MiB | 638.00 KiB/s   Escribiendo objetos:  96% (29/30), 140.38 MiB | 640.00 KiB/s   Escribiendo objetos:  96% (29/30), 140.99 MiB | 638.00 KiB/s   Escribiendo objetos:  96% (29/30), 141.62 MiB | 640.00 KiB/s   Escribiendo objetos:  96% (29/30), 142.23 MiB | 628.00 KiB/s   Escribiendo objetos:  96% (29/30), 142.86 MiB | 629.00 KiB/s   Escribiendo objetos:  96% (29/30), 143.48 MiB | 627.00 KiB/s   Escribiendo objetos:  96% (29/30), 144.10 MiB | 629.00 KiB/s   Escribiendo objetos:  96% (29/30), 144.72 MiB | 628.00 KiB/s   Escribiendo objetos:  96% (29/30), 145.34 MiB | 629.00 KiB/s   Escribiendo objetos: 100% (30/30), 145.34 MiB | 629.00 KiB/s   Escribiendo objetos: 100% (30/30), 145.48 MiB | 608.00 KiB/s, listo.
+Total 30 (delta 5), reused 0 (delta 0)
+remote: Resolving deltas:   0% (0/5)[Kremote: Resolving deltas:  20% (1/5)[Kremote: Resolving deltas:  40% (2/5)[Kremote: Resolving deltas:  60% (3/5)[Kremote: Resolving deltas:  80% (4/5)[Kremote: Resolving deltas: 100% (5/5)[Kremote: Resolving deltas: 100% (5/5), completed with 5 local objects.[K
+To github.com:maRce10/flight_coordination_in_Thyroptera.git
+   5c553c15..e1b4a534  master -> master
+]0;/home/m/Documentos/Github_projects/flight_coordination_thyroptera]0;m@m-MacBookPro: ~/Documentos/Github_projects/flight_coordination_thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/Documentos/Github_projects/flight_coordinattion_thyroptera[00m$ git pushcommit -m "more sound files"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[KR[Kgit commit -m "more sound files"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[KR[Kgit pushcommit -m "1 sound file"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cadd .[K
+^[[A^[[A^[[A^[[B^[[B^[[B                        ]0;/home/m/Documentos/Github_projects/flight_coordination_thyroptera]0;m@m-MacBookPro: ~/Documentos/Github_projects/flight_coordination_thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/Documentos/Github_projects/flight_coordinattion_thyroptera[00m$ git add .[1Ppush
+Everything up-to-date
+]0;/home/m/Documentos/Github_projects/flight_coordination_thyroptera]0;m@m-MacBookPro: ~/Documentos/Github_projects/flight_coordination_thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/Documentos/Github_projects/flight_coordinattion_thyroptera[00m$ git pushadd .[1Ppushcommit -m "more sound files" "2"
+[master 982a45a5] more sound files 2
+ 759 files changed, 34 insertions(+), 3 deletions(-)
+ create mode 100644 data/raw/resample_80kHz/T2018-01-08_12-55-37_0000132.wav_22.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-16_10-51-59_0000013.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-16_10-54-05_0000014.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-16_11-09-25_0000015.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-16_11-16-22_0000016.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-16_11-26-24_0000017.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-16_11-46-10_0000018.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-16_13-40-58_0000019.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-16_13-56-13_0000020.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-16_14-20-33_0000022.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-16_14-28-25_0000023.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-17_08-01-10_0000024.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-17_08-11-19_0000025.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-17_08-25-57_0000026.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-17_08-34-37_0000027.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-17_08-44-19_0000028.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-17_08-51-36_0000029.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-17_09-36-16_0000030.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-17_09-43-51_0000031.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-17_10-09-41_0000034.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-17_10-17-16_0000036.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-18_10-18-02_0000037.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-18_10-28-46_0000038.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-18_10-41-30_0000039.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-18_10-48-28_0000040.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-18_10-54-10_0000041.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-18_11-00-17_0000042.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-18_14-27-34_0000045.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-18_14-37-08_0000046.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-18_14-53-09_0000047.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-18_15-00-32_0000048.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-18_15-07-20_0000049.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-18_15-15-34_0000050.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-18_15-22-21_0000051.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-19_13-43-18_0000052.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-19_13-57-01_0000053.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-19_14-05-57_0000054.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-19_14-11-27_0000055.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-19_14-51-57_0000056.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-19_15-03-57_0000057.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-20_09-10-06_0000058.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-20_09-17-06_0000059.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-20_09-32-47_0000060.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-20_09-39-03_0000061.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-20_09-45-34_0000062.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-20_09-54-54_0000063.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-20_10-00-15_0000064.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-20_10-07-41_0000065.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-20_10-13-09_0000066.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-20_10-18-25_0000067.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-20_10-23-37_0000068.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-20_10-46-19_0000069.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-20_10-54-26_0000070.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-20_11-00-02_0000071.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-20_11-29-17_0000072.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-20_11-35-36_0000073.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-20_11-46-51_0000074.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-20_11-58-43_0000075.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-20_12-09-41_0000076.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-20_12-17-11_0000077.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-20_12-24-20_0000080.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-20_12-29-15_0000081.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-20_12-34-54_0000082.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-22_10-53-06_0000083.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-22_10-59-46_0000084.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-22_11-09-47_0000085.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-22_11-16-34_0000086.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-22_11-31-21_0000087.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-22_11-38-08_0000088.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-22_11-44-26_0000089.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-22_11-51-45_0000090.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-22_12-17-20_0000091.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-22_12-23-01_0000092.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-22_13-23-53_0000093.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-22_13-28-31_0000094.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-22_13-33-42_0000095.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-22_13-40-55_0000096.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-22_13-48-59_0000097.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-23_09-36-48_0000098.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-23_09-42-31_0000099.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-23_09-50-10_0000100.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-23_09-57-21_0000101.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-23_10-04-56_0000102.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-23_10-11-16_0000103.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-23_10-18-08_0000104.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-23_10-23-55_0000105.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-23_10-30-35_0000106.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-23_10-55-35_0000107.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-23_11-03-09_0000108.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-23_11-26-40_0000109.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-23_11-32-03_0000110.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-23_11-41-09_0000111.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-23_11-45-51_0000112.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-23_11-50-34_0000113.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-24_08-16-06_0000114.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-24_08-22-39_0000115.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-24_08-39-14_0000116.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-24_08-45-19_0000117.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-24_09-50-13_0000118.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-24_10-18-47_0000119.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-24_10-33-26_0000120.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-24_10-49-16_0000122.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-24_10-59-54_0000123.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-24_11-28-15_0000124.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-24_11-34-33_0000125.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-24_11-43-39_0000126.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-24_11-50-05_0000127.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-24_11-57-34_0000128.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-24_12-06-50_0000129.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-24_12-11-06_0000130.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-24_12-15-41_0000131.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-24_12-19-59_0000132.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-24_12-25-00_0000133.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-24_14-25-38_0000135.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-24_14-40-43_0000136.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-24_14-52-27_0000137.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-24_15-02-25_0000138.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-24_15-16-37_0000139.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-24_15-28-18_0000140.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-24_16-09-19_0000141.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-24_16-16-01_0000142.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-24_16-24-45_0000143.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-24_16-30-26_0000144.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-25_10-23-41_0000145.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-25_10-29-50_0000146.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-25_10-48-48_0000147.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-25_11-05-48_0000148.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-25_11-27-26_0000149.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-25_11-37-47_0000150.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-25_11-46-17_0000151.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-25_11-54-51_0000152.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-25_12-00-05_0000153.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-25_12-05-21_0000154.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-25_12-12-45_0000156.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-25_12-18-59_0000157.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-25_12-24-50_0000158.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-25_12-31-40_0000159.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-25_12-37-42_0000160.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-25_12-42-12_0000161.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-26_09-17-12_0000162.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-26_09-22-11_0000163.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-26_09-43-14_0000164.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-26_09-50-55_0000165.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-26_10-07-16_0000166.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-26_10-12-22_0000167.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-26_10-18-23_0000168.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-26_10-26-08_0000169.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-26_10-47-04_0000170.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-26_11-00-06_0000171.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-26_11-05-06_0000172.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-26_11-11-26_0000173.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-26_11-16-42_0000174.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-26_11-22-37_0000175.wav
+ create mode 100644 data/raw/resample_80kHz/ch1MPI_2020-01-28_11-29-07_0000176-1.wav
+ create mode 100644 data/raw/resample_80kHz/ch1MPI_2020-01-28_11-29-07_0000176-2.wav
+ create mode 100644 data/raw/resample_80kHz/ch1MPI_2020-01-28_11-29-07_0000176-3.wav
+ create mode 100644 data/raw/resample_80kHz/ch1MPI_2020-01-28_11-29-07_0000176-4.wav
+ create mode 100644 data/raw/resample_80kHz/ch1MPI_2020-01-28_11-29-07_0000176-5.wav
+ create mode 100644 data/raw/resample_80kHz/ch1MPI_2020-01-28_11-29-07_0000176-6.wav
+ create mode 100644 data/raw/resample_80kHz/ch1MPI_2020-01-28_11-29-07_0000176-7.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI_2020-01-28_11-29-07_0000176.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI_2020-01-28_11-58-25_0000177.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI_2020-01-28_12-35-36_0000178.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI_2020-01-28_13-37-03_0000179.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI_2020-01-28_13-53-43_0000180.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI_2020-01-29_09-18-28_0000181.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI_2020-01-29_09-38-27_0000182.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI_2020-01-29_10-02-22_0000183.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI_2020-01-29_10-31-59_0000184.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI_2020-01-29_10-38-08_0000185.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI_2020-01-29_10-50-39_0000186.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI_2020-01-29_10-57-16_0000187.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI_2020-01-29_11-03-22_0000188.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI_2020-01-30_12-27-12_0000189.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI_2020-01-30_12-52-01_0000190.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI_2020-01-30_13-29-39_0000191.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI_2020-01-30_13-53-47_0000192.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI_2020-01-30_15-06-38_0000193.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI_2020-01-30_15-12-56_0000194.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI_2020-01-30_15-31-29_0000195.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI_2020-01-31_10-12-23_0000196.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI_2020-01-31_10-57-51_0000197.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI_2020-01-31_11-18-00_0000198.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI_2020-01-31_11-41-25_0000199.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI_2020-01-31_11-41-33_0000200.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI_2020-01-31_12-02-32_0000201.wav
+ create mode 100755 data/raw/resample_80kHz/ch1MPI_2020-01-31_12-15-48_0000202.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-15_12-03-59_0000001.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-15_12-18-06_0000002.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-15_12-27-23_0000003.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-15_12-38-07_0000004.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-15_14-17-44_0000005.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-15_15-42-25_0000006.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-16_09-42-52_0000008.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-16_09-54-41_0000009.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-16_10-02-10_0000010.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-16_10-13-18_0000011.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-16_10-21-37_0000012.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-16_10-51-59_0000013.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-16_10-54-05_0000014.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-16_11-09-25_0000015.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-16_11-16-22_0000016.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-16_11-26-24_0000017.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-16_11-46-10_0000018.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-16_13-40-58_0000019.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-16_13-56-13_0000020.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-16_14-20-33_0000022.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-16_14-28-25_0000023.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-17_08-01-10_0000024.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-17_08-11-19_0000025.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-17_08-25-57_0000026.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-17_08-34-37_0000027.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-17_08-44-19_0000028.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-17_08-51-36_0000029.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-17_09-36-16_0000030.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-17_09-43-51_0000031.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-17_10-09-41_0000034.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-17_10-17-16_0000036.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-18_10-18-02_0000037.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-18_10-28-46_0000038.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-18_10-41-30_0000039.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-18_10-48-28_0000040.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-18_10-54-10_0000041.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-18_11-00-17_0000042.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-18_14-27-34_0000045.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-18_14-37-08_0000046.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-18_14-53-09_0000047.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-18_15-00-32_0000048.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-18_15-07-20_0000049.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-18_15-15-35_0000050.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-18_15-22-21_0000051.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-19_13-43-18_0000052.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-19_13-57-01_0000053.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-19_14-05-57_0000054.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-19_14-11-27_0000055.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-19_14-51-57_0000056.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-19_15-03-57_0000057.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-20_09-10-06_0000058.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-20_09-17-06_0000059.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-20_09-32-47_0000060.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-20_09-39-03_0000061.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-20_09-45-34_0000062.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-20_09-54-54_0000063.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-20_10-00-15_0000064.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-20_10-07-41_0000065.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-20_10-13-09_0000066.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-20_10-18-25_0000067.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-20_10-23-37_0000068.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-20_10-46-19_0000069.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-20_10-54-26_0000070.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-20_11-00-02_0000071.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-20_11-29-17_0000072.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-20_11-35-36_0000073.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-20_11-46-51_0000074.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-20_11-58-43_0000075.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-20_12-09-41_0000076.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-20_12-17-11_0000077.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-20_12-24-20_0000080.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-20_12-29-15_0000081.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-20_12-34-54_0000082.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-22_10-53-06_0000083.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-22_10-59-46_0000084.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-22_11-09-47_0000085.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-22_11-16-34_0000086.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-22_11-31-21_0000087.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-22_11-38-08_0000088.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-22_11-44-26_0000089.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-22_11-51-45_0000090.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-22_12-17-20_0000091.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-22_12-23-01_0000092.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-22_13-23-54_0000093.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-22_13-28-31_0000094.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-22_13-33-42_0000095.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-22_13-40-55_0000096.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-22_13-48-59_0000097.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-23_09-36-48_0000098.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-23_09-42-31_0000099.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-23_09-50-10_0000100.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-23_09-57-21_0000101.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-23_10-04-56_0000102.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-23_10-11-16_0000103.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-23_10-18-08_0000104.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-23_10-23-55_0000105.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-23_10-30-35_0000106.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-23_10-55-35_0000107.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-23_11-03-09_0000108.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-23_11-26-40_0000109.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-23_11-32-03_0000110.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-23_11-41-09_0000111.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-23_11-45-51_0000112.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-23_11-50-34_0000113.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-24_08-16-06_0000114.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-24_08-22-39_0000115.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-24_08-39-14_0000116.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-24_08-45-19_0000117.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-24_09-50-13_0000118.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-24_10-18-47_0000119.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-24_10-33-26_0000120.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-24_10-49-16_0000122.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-24_10-59-54_0000123.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-24_11-28-15_0000124.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-24_11-34-33_0000125.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-24_11-43-39_0000126.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-24_11-50-05_0000127.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-24_11-57-34_0000128.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-24_12-06-50_0000129.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-24_12-11-07_0000130.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-24_12-15-41_0000131.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-24_12-19-59_0000132.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-24_12-25-00_0000133.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-24_14-25-38_0000135.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-24_14-40-43_0000136.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-24_14-52-27_0000137.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-24_15-02-25_0000138.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-24_15-16-37_0000139.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-24_15-28-18_0000140.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-24_16-09-19_0000141.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-24_16-16-01_0000142.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-24_16-24-45_0000143.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-24_16-30-26_0000144.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-25_10-23-41_0000145.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-25_10-29-50_0000146.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-25_10-48-48_0000147.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-25_11-05-48_0000148.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-25_11-27-26_0000149.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-25_11-37-47_0000150.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-25_11-46-17_0000151.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-25_11-54-51_0000152.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-25_12-00-05_0000153.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-25_12-05-21_0000154.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-25_12-12-45_0000156.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-25_12-18-59_0000157.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-25_12-24-50_0000158.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-25_12-31-40_0000159.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-25_12-37-42_0000160.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-25_12-42-12_0000161.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-26_09-17-12_0000162.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-26_09-22-11_0000163.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-26_09-43-14_0000164.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-26_09-50-55_0000165.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-26_10-07-16_0000166.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-26_10-12-22_0000167.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-26_10-18-23_0000168.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-26_10-26-08_0000169.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-26_10-47-04_0000170.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-26_11-00-06_0000171.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-26_11-05-06_0000172.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-26_11-11-26_0000173.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-26_11-16-42_0000174.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI2020-01-26_11-22-37_0000175.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI_2020-01-28_11-29-07_0000176.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI_2020-01-28_11-58-25_0000177.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI_2020-01-28_12-35-36_0000178.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI_2020-01-28_13-37-03_0000179.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI_2020-01-28_13-53-43_0000180.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI_2020-01-29_09-18-28_0000181.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI_2020-01-29_09-38-27_0000182.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI_2020-01-29_10-02-22_0000183.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI_2020-01-29_10-31-59_0000184.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI_2020-01-29_10-38-08_0000185.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI_2020-01-29_10-50-39_0000186.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI_2020-01-29_10-57-16_0000187.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI_2020-01-29_11-03-22_0000188.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI_2020-01-30_12-27-12_0000189.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI_2020-01-30_12-52-01_0000190.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI_2020-01-30_13-29-39_0000191.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI_2020-01-30_13-53-47_0000192.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI_2020-01-30_15-06-38_0000193.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI_2020-01-30_15-12-56_0000194.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI_2020-01-30_15-31-29_0000195.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI_2020-01-31_10-12-23_0000196.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI_2020-01-31_10-57-51_0000197.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI_2020-01-31_11-18-00_0000198.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI_2020-01-31_11-41-25_0000199.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI_2020-01-31_11-41-33_0000200.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI_2020-01-31_12-02-32_0000201.wav
+ create mode 100755 data/raw/resample_80kHz/ch2MPI_2020-01-31_12-15-48_0000202.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-15_12-03-59_0000001.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-15_12-18-06_0000002.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-15_12-27-23_0000003.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-15_12-38-07_0000004.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-15_14-17-44_0000005.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-15_15-42-25_0000006.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-16_09-42-52_0000008.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-16_09-54-41_0000009.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-16_10-02-10_0000010.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-16_10-13-18_0000011.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-16_10-21-37_0000012.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-16_10-51-59_0000013.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-16_10-54-05_0000014.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-16_11-09-25_0000015.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-16_11-16-22_0000016.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-16_11-26-24_0000017.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-16_11-46-10_0000018.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-16_13-40-58_0000019.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-16_13-56-13_0000020.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-16_14-20-33_0000022.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-16_14-28-25_0000023.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-17_08-01-10_0000024.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-17_08-11-19_0000025.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-17_08-25-57_0000026.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-17_08-34-37_0000027.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-17_08-44-19_0000028.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-17_08-51-36_0000029.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-17_09-36-16_0000030.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-17_09-43-51_0000031.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-17_10-09-41_0000034.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-17_10-17-16_0000036.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-18_10-18-02_0000037.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-18_10-28-46_0000038.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-18_10-41-30_0000039.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-18_10-48-28_0000040.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-18_10-54-10_0000041.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-18_11-00-17_0000042.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-18_14-27-34_0000045.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-18_14-37-08_0000046.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-18_14-53-09_0000047.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-18_15-00-32_0000048.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-18_15-07-20_0000049.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-18_15-15-35_0000050.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-18_15-22-21_0000051.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-19_13-43-18_0000052.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-19_13-57-01_0000053.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-19_14-05-57_0000054.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-19_14-11-27_0000055.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-19_14-51-57_0000056.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-19_15-03-57_0000057.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-20_09-10-06_0000058.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-20_09-17-06_0000059.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-20_09-32-47_0000060.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-20_09-39-03_0000061.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-20_09-45-34_0000062.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-20_09-54-54_0000063.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-20_10-00-15_0000064.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-20_10-07-41_0000065.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-20_10-13-09_0000066.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-20_10-18-25_0000067.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-20_10-23-37_0000068.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-20_10-46-19_0000069.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-20_10-54-26_0000070.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-20_11-00-02_0000071.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-20_11-29-17_0000072.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-20_11-35-36_0000073.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-20_11-46-51_0000074.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-20_11-58-43_0000075.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-20_12-09-41_0000076.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-20_12-17-11_0000077.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-20_12-24-20_0000080.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-20_12-29-15_0000081.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-20_12-34-54_0000082.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-22_10-53-06_0000083.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-22_10-59-46_0000084.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-22_11-09-47_0000085.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-22_11-16-34_0000086.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-22_11-31-21_0000087.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-22_11-38-08_0000088.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-22_11-44-26_0000089.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-22_11-51-45_0000090.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-22_12-17-20_0000091.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-22_12-23-01_0000092.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-22_13-23-54_0000093.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-22_13-28-31_0000094.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-22_13-33-42_0000095.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-22_13-40-55_0000096.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-22_13-48-59_0000097.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-23_09-36-48_0000098.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-23_09-42-31_0000099.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-23_09-50-10_0000100.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-23_09-57-21_0000101.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-23_10-04-56_0000102.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-23_10-11-16_0000103.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-23_10-18-08_0000104.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-23_10-23-55_0000105.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-23_10-30-35_0000106.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-23_10-55-35_0000107.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-23_11-03-09_0000108.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-23_11-26-40_0000109.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-23_11-32-03_0000110.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-23_11-41-09_0000111.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-23_11-45-51_0000112.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-23_11-50-34_0000113.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-24_08-16-06_0000114.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-24_08-22-39_0000115.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-24_08-39-14_0000116.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-24_08-45-19_0000117.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-24_09-50-13_0000118.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-24_10-18-47_0000119.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-24_10-33-26_0000120.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-24_10-49-16_0000122.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-24_10-59-54_0000123.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-24_11-28-15_0000124.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-24_11-34-33_0000125.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-24_11-43-39_0000126.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-24_11-50-05_0000127.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-24_11-57-34_0000128.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-24_12-06-50_0000129.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-24_12-11-07_0000130.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-24_12-15-41_0000131.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-24_12-19-59_0000132.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-24_12-25-00_0000133.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-24_14-25-38_0000135.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-24_14-40-43_0000136.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-24_14-52-27_0000137.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-24_15-02-25_0000138.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-24_15-16-37_0000139.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-24_15-28-18_0000140.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-24_16-09-19_0000141.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-24_16-16-01_0000142.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-24_16-24-45_0000143.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-24_16-30-26_0000144.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-25_10-23-41_0000145.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-25_10-29-50_0000146.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-25_10-48-48_0000147.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-25_11-05-48_0000148.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-25_11-27-26_0000149.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-25_11-37-47_0000150.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-25_11-46-17_0000151.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-25_11-54-51_0000152.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-25_12-00-05_0000153.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-25_12-05-21_0000154.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-25_12-12-45_0000156.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-25_12-18-59_0000157.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-25_12-24-50_0000158.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-25_12-31-40_0000159.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-25_12-37-42_0000160.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-25_12-42-12_0000161.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-26_09-17-12_0000162.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-26_09-22-11_0000163.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-26_09-43-14_0000164.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-26_09-50-55_0000165.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-26_10-07-16_0000166.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-26_10-12-22_0000167.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-26_10-18-23_0000168.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-26_10-26-08_0000169.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-26_10-47-04_0000170.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-26_11-00-06_0000171.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-26_11-05-06_0000172.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-26_11-11-26_0000173.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-26_11-16-42_0000174.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI2020-01-26_11-22-37_0000175.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI_2020-01-28_11-29-07_0000176.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI_2020-01-28_11-58-25_0000177.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI_2020-01-28_12-35-36_0000178.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI_2020-01-28_13-37-03_0000179.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI_2020-01-28_13-53-43_0000180.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI_2020-01-29_09-18-28_0000181.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI_2020-01-29_09-38-27_0000182.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI_2020-01-29_10-02-22_0000183.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI_2020-01-29_10-31-59_0000184.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI_2020-01-29_10-38-08_0000185.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI_2020-01-29_10-50-39_0000186.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI_2020-01-29_10-57-16_0000187.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI_2020-01-29_11-03-22_0000188.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI_2020-01-30_12-27-12_0000189.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI_2020-01-30_12-52-01_0000190.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI_2020-01-30_13-29-39_0000191.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI_2020-01-30_13-53-47_0000192.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI_2020-01-30_15-06-38_0000193.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI_2020-01-30_15-12-56_0000194.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI_2020-01-30_15-31-29_0000195.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI_2020-01-31_10-12-23_0000196.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI_2020-01-31_10-57-51_0000197.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI_2020-01-31_11-18-00_0000198.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI_2020-01-31_11-41-25_0000199.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI_2020-01-31_11-41-33_0000200.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI_2020-01-31_12-02-32_0000201.wav
+ create mode 100755 data/raw/resample_80kHz/ch3MPI_2020-01-31_12-15-48_0000202.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-15_12-03-59_0000001.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-15_12-18-06_0000002.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-15_12-27-23_0000003.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-15_12-38-07_0000004.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-15_14-17-44_0000005.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-15_15-42-25_0000006.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-16_09-42-52_0000008.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-16_09-54-41_0000009.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-16_10-02-10_0000010.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-16_10-13-18_0000011.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-16_10-21-37_0000012.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-16_10-51-59_0000013.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-16_10-54-05_0000014.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-16_11-09-25_0000015.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-16_11-16-22_0000016.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-16_11-26-24_0000017.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-16_11-46-10_0000018.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-16_13-40-58_0000019.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-16_13-56-13_0000020.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-16_14-20-33_0000022.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-16_14-28-25_0000023.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-17_08-01-10_0000024.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-17_08-11-19_0000025.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-17_08-25-57_0000026.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-17_08-34-37_0000027.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-17_08-44-19_0000028.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-17_08-51-36_0000029.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-17_09-36-16_0000030.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-17_09-43-51_0000031.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-17_10-09-41_0000034.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-17_10-17-16_0000036.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-18_10-18-02_0000037.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-18_10-28-46_0000038.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-18_10-41-30_0000039.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-18_10-48-28_0000040.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-18_10-54-10_0000041.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-18_11-00-17_0000042.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-18_14-27-34_0000045.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-18_14-37-08_0000046.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-18_14-53-09_0000047.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-18_15-00-32_0000048.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-18_15-07-20_0000049.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-18_15-15-35_0000050.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-18_15-22-21_0000051.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-19_13-43-18_0000052.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-19_13-57-01_0000053.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-19_14-05-57_0000054.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-19_14-11-27_0000055.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-19_14-51-57_0000056.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-19_15-03-57_0000057.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-20_09-10-06_0000058.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-20_09-17-06_0000059.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-20_09-32-47_0000060.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-20_09-39-03_0000061.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-20_09-45-34_0000062.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-20_09-54-54_0000063.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-20_10-00-15_0000064.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-20_10-07-41_0000065.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-20_10-13-09_0000066.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-20_10-18-25_0000067.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-20_10-23-37_0000068.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-20_10-46-19_0000069.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-20_10-54-26_0000070.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-20_11-00-02_0000071.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-20_11-29-17_0000072.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-20_11-35-36_0000073.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-20_11-46-51_0000074.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-20_11-58-43_0000075.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-20_12-09-41_0000076.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-20_12-17-11_0000077.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-20_12-24-20_0000080.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-20_12-29-15_0000081.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-20_12-34-54_0000082.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-22_10-53-06_0000083.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-22_10-59-46_0000084.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-22_11-09-47_0000085.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-22_11-16-34_0000086.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-22_11-31-21_0000087.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-22_11-38-08_0000088.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-22_11-44-26_0000089.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-22_11-51-45_0000090.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-22_12-17-20_0000091.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-22_12-23-01_0000092.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-22_13-23-54_0000093.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-22_13-28-31_0000094.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-22_13-33-42_0000095.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-22_13-40-55_0000096.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-22_13-48-59_0000097.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-23_09-36-48_0000098.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-23_09-42-32_0000099.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-23_09-50-10_0000100.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-23_09-57-21_0000101.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-23_10-04-56_0000102.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-23_10-11-16_0000103.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-23_10-18-08_0000104.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-23_10-23-55_0000105.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-23_10-30-35_0000106.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-23_10-55-35_0000107.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-23_11-03-09_0000108.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-23_11-26-40_0000109.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-23_11-32-03_0000110.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-23_11-41-09_0000111.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-23_11-45-51_0000112.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-23_11-50-34_0000113.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-24_08-16-06_0000114.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-24_08-22-39_0000115.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-24_08-39-14_0000116.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-24_08-45-19_0000117.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-24_09-50-13_0000118.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-24_10-18-47_0000119.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-24_10-33-26_0000120.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-24_10-49-16_0000122.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-24_10-59-54_0000123.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-24_11-28-15_0000124.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-24_11-34-33_0000125.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-24_11-43-39_0000126.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-24_11-50-05_0000127.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-24_11-57-34_0000128.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-24_12-06-50_0000129.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-24_12-11-07_0000130.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-24_12-15-41_0000131.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-24_12-19-59_0000132.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-24_12-25-00_0000133.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-24_14-25-38_0000135.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-24_14-40-43_0000136.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-24_14-52-27_0000137.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-24_15-02-25_0000138.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-24_15-16-37_0000139.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-24_15-28-18_0000140.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-24_16-09-19_0000141.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-24_16-16-01_0000142.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-24_16-24-45_0000143.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-24_16-30-26_0000144.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-25_10-23-41_0000145.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-25_10-29-50_0000146.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-25_10-48-48_0000147.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-25_11-05-48_0000148.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-25_11-27-26_0000149.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-25_11-37-47_0000150.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-25_11-46-17_0000151.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-25_11-54-51_0000152.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-25_12-00-05_0000153.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-25_12-05-21_0000154.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-25_12-12-45_0000156.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-25_12-18-59_0000157.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-25_12-24-50_0000158.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-25_12-31-40_0000159.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-25_12-37-42_0000160.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-25_12-42-12_0000161.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-26_09-17-12_0000162.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-26_09-22-11_0000163.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-26_09-43-14_0000164.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-26_09-50-55_0000165.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-26_10-07-16_0000166.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-26_10-12-22_0000167.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-26_10-18-23_0000168.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-26_10-26-08_0000169.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-26_10-47-04_0000170.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-26_11-00-06_0000171.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-26_11-05-06_0000172.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-26_11-11-26_0000173.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-26_11-16-42_0000174.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI2020-01-26_11-22-37_0000175.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI_2020-01-28_11-29-07_0000176.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI_2020-01-28_11-58-25_0000177.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI_2020-01-28_12-35-36_0000178.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI_2020-01-28_13-37-03_0000179.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI_2020-01-28_13-53-44_0000180.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI_2020-01-29_09-18-28_0000181.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI_2020-01-29_09-38-27_0000182.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI_2020-01-29_10-02-22_0000183.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI_2020-01-29_10-31-59_0000184.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI_2020-01-29_10-38-08_0000185.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI_2020-01-29_10-50-39_0000186.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI_2020-01-29_10-57-16_0000187.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI_2020-01-29_11-03-22_0000188.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI_2020-01-30_12-27-12_0000189.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI_2020-01-30_12-52-01_0000190.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI_2020-01-30_13-29-39_0000191.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI_2020-01-30_13-53-47_0000192.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI_2020-01-30_15-06-38_0000193.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI_2020-01-30_15-12-56_0000194.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI_2020-01-30_15-31-29_0000195.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI_2020-01-31_10-12-23_0000196.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI_2020-01-31_10-57-51_0000197.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI_2020-01-31_11-18-00_0000198.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI_2020-01-31_11-41-25_0000199.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI_2020-01-31_11-41-33_0000200.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI_2020-01-31_12-02-32_0000201.wav
+ create mode 100755 data/raw/resample_80kHz/ch4MPI_2020-01-31_12-15-48_0000202.wav
+]0;/home/m/Documentos/Github_projects/flight_coordination_thyroptera]0;m@m-MacBookPro: ~/Documentos/Github_projects/flight_coordination_thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/Documentos/Github_projects/flight_coordinattion_thyroptera[00m$ git commit -m "more sound files 2"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpush[K
+Contando objetos: 767, listo.
+Delta compression using up to 4 threads.
+Comprimiendo objetos:   0% (1/766)   Comprimiendo objetos:   1% (8/766)   Comprimiendo objetos:   1% (10/766)   Comprimiendo objetos:   1% (15/766)   Comprimiendo objetos:   2% (16/766)   Comprimiendo objetos:   2% (18/766)   Comprimiendo objetos:   2% (19/766)   Comprimiendo objetos:   2% (20/766)   Comprimiendo objetos:   2% (21/766)   Comprimiendo objetos:   2% (22/766)   Comprimiendo objetos:   3% (23/766)   Comprimiendo objetos:   3% (24/766)   Comprimiendo objetos:   3% (26/766)   Comprimiendo objetos:   3% (27/766)   Comprimiendo objetos:   3% (28/766)   Comprimiendo objetos:   3% (29/766)   Comprimiendo objetos:   3% (30/766)   Comprimiendo objetos:   4% (31/766)   Comprimiendo objetos:   4% (32/766)   Comprimiendo objetos:   4% (33/766)   Comprimiendo objetos:   4% (34/766)   Comprimiendo objetos:   4% (35/766)   Comprimiendo objetos:   4% (36/766)   Comprimiendo objetos:   4% (37/766)   error: pack-objects died of signal 9
+error: pack-objects died of signal 9
+error: desempaquetado remoto falló: eof before pack header was fully read
+error: fallo el push de algunas referencias a 'git@github.com:maRce10/flight_coordination_in_Thyroptera.git'
+]0;/home/m/Documentos/Github_projects/flight_coordination_thyroptera]0;m@m-MacBookPro: ~/Documentos/Github_projects/flight_coordination_thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/Documentos/Github_projects/flight_coordinattion_thyroptera[00m$ git push
+Contando objetos: 767, listo.
+Delta compression using up to 4 threads.
+Comprimiendo objetos:   0% (1/766)   Comprimiendo objetos:   1% (8/766)   Comprimiendo objetos:   1% (14/766)   Comprimiendo objetos:   1% (15/766)   Comprimiendo objetos:   2% (16/766)   Comprimiendo objetos:   2% (17/766)   Comprimiendo objetos:   2% (18/766)   Comprimiendo objetos:   2% (19/766)   Comprimiendo objetos:   2% (20/766)   Comprimiendo objetos:   2% (22/766)   Comprimiendo objetos:   3% (23/766)   Comprimiendo objetos:   3% (24/766)   Comprimiendo objetos:   3% (26/766)   Comprimiendo objetos:   3% (27/766)   Comprimiendo objetos:   3% (29/766)   Comprimiendo objetos:   3% (30/766)   Comprimiendo objetos:   4% (31/766)   Comprimiendo objetos:   4% (32/766)   Comprimiendo objetos:   4% (33/766)   Comprimiendo objetos:   4% (34/766)   Comprimiendo objetos:   4% (35/766)   Comprimiendo objetos:   4% (36/766)   error: pack-objects died of signal 9
+error: pack-objects died of signal 9
+error: desempaquetado remoto falló: eof before pack header was fully read
+error: fallo el push de algunas referencias a 'git@github.com:maRce10/flight_coordination_in_Thyroptera.git'
+git reset HEAD~ 
+Cambios fuera del área de stage tras el reset:
+M	.Rproj.user/8E659706/console06/B053551
+M	.Rproj.user/8E659706/console06/B053551.env
+M	.Rproj.user/8E659706/console06/INDEX001
+M	.Rproj.user/8E659706/sources/prop/INDEX
+D	.Rproj.user/8E659706/sources/s-8269F54B/lock_file
+D	.Rproj.user/shared/notebooks/5E4D3A8B-acoustic_analysis_inquiry_calls/1/8E659706EF865571/chunks.json
+D	.Rproj.user/shared/notebooks/5E4D3A8B-acoustic_analysis_inquiry_calls/1/s/chunks.json
+M	.Rproj.user/shared/notebooks/paths
+M	scripts/acoustic_analysis_inquiry_calls.Rmd
+]0;/home/m/Documentos/Github_projects/flight_coordination_thyroptera]0;m@m-MacBookPro: ~/Documentos/Github_projects/flight_coordination_thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/Documentos/Github_projects/flight_coordinattion_thyroptera[00m$ git reset HEAD~ [8Ppullshcommit -m "fix rebayes output name"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cadd .[Kcommit -m "fix rebayes output name"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpush[Kllreset HEAD~ [Kgit reset HEAD~ [8Ppullshcommit -m "fix rebayes output name"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cadd .[K[1Ppushadd .
