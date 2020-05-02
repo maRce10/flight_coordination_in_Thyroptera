@@ -4,17 +4,17 @@
     "created" : 1588024409755.000,
     "dirty" : false,
     "encoding" : "UTF-8",
-    "folds" : "144|38|241|0|\n",
-    "hash" : "1570380392",
+    "folds" : "193|46|210|2|\n",
+    "hash" : "0",
     "id" : "5513C48F",
-    "lastKnownWriteTime" : 1588461714,
-    "last_content_update" : 1588461714280,
+    "lastKnownWriteTime" : 1588463047,
+    "last_content_update" : 1588463047981,
     "path" : "~/Documentos/Github_projects/flight_coordination_thyroptera/scripts/acoustic_analysis_inquiry_calls.Rmd",
     "project_path" : "scripts/acoustic_analysis_inquiry_calls.Rmd",
     "properties" : {
         "chunk_output_type" : "console",
-        "cursorPosition" : "309,5",
-        "scrollLine" : "306"
+        "cursorPosition" : "383,0",
+        "scrollLine" : "377"
     },
     "relative_order" : 1,
     "source_on_save" : false,
