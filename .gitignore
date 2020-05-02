@@ -1,2 +1,3 @@
 packrat/lib*/
-data/raw/resample_80kHz
+data/raw/converted_sound_files_90_kHz
+.httr-oauth

@@ -16,9 +16,12 @@ RoxygenNote: 6.1.1
 LinkingTo: Rcpp
 Encoding: UTF-8
 Collate: 'RcppExports.R' 'html_dependency.R' 'html_escape.R'
-        'html_print.R' 'shim.R' 'utils.R' 'tags.R' 'template.R'
+    'html_print.R' 'shim.R' 'utils.R' 'tags.R' 'template.R'
 NeedsCompilation: yes
 Packaged: 2019-10-04 17:43:48 UTC; jcheng
 Repository: CRAN
 Date/Publication: 2019-10-04 23:00:08 UTC
 Built: R 3.6.1; x86_64-pc-linux-gnu; 2020-04-24 01:31:09 UTC; unix
+InstallAgent: packrat 0.5.0
+InstallSource: CRAN
+Hash: 140efd8a56fc8404e81f7ac44731ce47

@@ -20,8 +20,15 @@ editor_options:
 # unset github credentials
 Sys.unsetenv("GITHUB_PAT")
 
+#clean session
+rm(list = ls())
+
+# unload all non-based packages
+out <- sapply(paste('package:', names(sessionInfo()$otherPkgs), sep = ""), function(x) try(detach(x, unload = FALSE, character.only = TRUE), silent = T))
+
+
 ## add 'developer/' to packages to be installed from github
-x <- c("devtools", "maRce10/warbleR", "bioacoustics", "pbapply", "Rraven", "parallel", "viridis")
+x <- c("devtools", "maRce10/warbleR", "bioacoustics", "pbapply", "Rraven", "parallel", "viridis", "RJSONIO", "ropensci/rfigshare")
 
 aa <- lapply(x, function(y) {
   
@@ -44,7 +51,7 @@ aa <- lapply(x, function(y) {
 
 ```{r functions, eval = TRUE, echo = FALSE}
 
-warbleR_options(wav.path = "/home/m/Documentos/Github_projects/flight_coordination_thyroptera/data/raw/resample_80kHz", wl = 300, parallel = parallel::detectCores() - 1, bp = "frange", fast = F, threshold = 15, ovlp = 20)
+warbleR_options(wav.path = "/home/m/Documentos/Github_projects/flight_coordination_thyroptera/data/raw/converted_sound_files_90_kHz", wl = 300, parallel = parallel::detectCores() - 1, bp = "frange", fast = F, threshold = 15, ovlp = 20)
 
 # wav_info()
 
@@ -52,9 +59,9 @@ warbleR_options(wav.path = "/home/m/Documentos/Github_projects/flight_coordinati
 
 ```{r autodetec, eval = FALSE}
 
-# setwd("/media/m/Seagate Expansion Drive/Proyecto MPI/Enero 2020/audios")
-# 
-# fix_wavs(samp.rate = 80, bit.depth = 16, sox = TRUE)
+# setwd("/media/m/Seagate\ Expansion\ Drive/Proyecto\ MPI/Enero_2020/audios")
+#  
+# fix_wavs(samp.rate = 90, bit.depth = 16, sox = TRUE)
 
 # plit in segments of 30 s without saving clips
 split_sels <- split_wavs(only.sels = TRUE, sgmt.dur = 30)
@@ -335,8 +342,10 @@ comp_mat2 <- comp_mat[1, , drop = FALSE]
 
 comp_mat2[, 2] <- "ch1MPI2020-01-15_12-03-59_0000001.wav"
 
-xc.output <- x_corr(X = sub_slsX, output = "list",
+xc.output2 <- x_corr(X = sub_slsX, output = "list",
     compare.matrix = comp_mat2, pb = TRUE, bp = c(12, 35))
+
+saveRDS(list(sub_slsX = sub_slsX, comp_mat2 = comp_mat2), "~/Downloads/delete.RDS")
 
 ```
 

@@ -1,76 +1,4 @@
 
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/specs/interpolation.yml
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/specs/inverted.json
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/specs/inverted.yml
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/specs/lambdas.json
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/specs/lambdas.yml
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/specs/partials.json
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/specs/partials.yml
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/specs/sections.json
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/specs/sections.yml
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/tests/testComments.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/tests/testName.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/tests/testdelimiters.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/tests/testinterpolation.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/tests/testinverted.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/tests/testpartials.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/whisker/tests/testsections.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/withr/DESCRIPTION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/withr/INDEX
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/withr/Meta/Rd.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/withr/Meta/features.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/withr/Meta/hsearch.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/withr/Meta/links.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/withr/Meta/nsInfo.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/withr/Meta/package.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/withr/Meta/vignette.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/withr/NAMESPACE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/withr/NEWS.md
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/withr/R/withr
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/withr/R/withr.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/withr/R/withr.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/withr/doc/index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/withr/doc/withr.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/withr/doc/withr.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/withr/doc/withr.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/withr/help/AnIndex
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/withr/help/aliases.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/withr/help/figures/README-unnamed-chunk-3-1.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/withr/help/figures/logo.png
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/withr/help/paths.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/withr/help/withr.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/withr/help/withr.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/withr/html/00Index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/withr/html/R.css
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xfun/DESCRIPTION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xfun/INDEX
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xfun/LICENSE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xfun/Meta/Rd.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xfun/Meta/features.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xfun/Meta/hsearch.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xfun/Meta/links.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xfun/Meta/nsInfo.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xfun/Meta/package.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xfun/Meta/vignette.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xfun/NAMESPACE
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xfun/NEWS.md
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xfun/R/xfun
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xfun/R/xfun.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xfun/R/xfun.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xfun/doc/index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xfun/doc/xfun.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xfun/doc/xfun.Rmd
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xfun/doc/xfun.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xfun/help/AnIndex
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xfun/help/aliases.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xfun/help/paths.rds
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xfun/help/xfun.rdb
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xfun/help/xfun.rdx
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xfun/html/00Index.html
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xfun/html/R.css
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xfun/scripts/call-fun.R
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/DESCRIPTION
- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/INDEX
  create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/Meta/Rd.rds
  create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/Meta/features.rds
  create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/Meta/hsearch.rds
@@ -1011,3 +939,64 @@ D	.Rproj.user/shared/notebooks/5E4D3A8B-acoustic_analysis_inquiry_calls/1/s/chun
 M	.Rproj.user/shared/notebooks/paths
 M	scripts/acoustic_analysis_inquiry_calls.Rmd
 ]0;/home/m/Documentos/Github_projects/flight_coordination_thyroptera]0;m@m-MacBookPro: ~/Documentos/Github_projects/flight_coordination_thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/Documentos/Github_projects/flight_coordinattion_thyroptera[00m$ git reset HEAD~ [8Ppullshcommit -m "fix rebayes output name"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cadd .[Kcommit -m "fix rebayes output name"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpush[Kllreset HEAD~ [Kgit reset HEAD~ [8Ppullshcommit -m "fix rebayes output name"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cadd .[K[1Ppushadd .
+]0;/home/m/Documentos/Github_projects/flight_coordination_thyroptera]0;m@m-MacBookPro: ~/Documentos/Github_projects/flight_coordination_thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/Documentos/Github_projects/flight_coordinattion_thyroptera[00m$ git add .reset HEAD~ [8Ppullshcommit -m "fix rebayes output name"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"r"e"m"o"v"e" "s"o"u"n"d" "f"i"l"e"s"
+[master f088a890] remove sound files
+ 20 files changed, 2072 insertions(+), 1019 deletions(-)
+ rewrite .Rproj.user/8E659706/console06/B053551 (60%)
+ rewrite .Rproj.user/8E659706/console06/INDEX001 (87%)
+ create mode 100644 .Rproj.user/8E659706/sources/prop/66763F48
+ rename .Rproj.user/8E659706/sources/{s-8269F54B/lock_file => s-FAF30CAF/476F956E-contents} (100%)
+ create mode 100644 .Rproj.user/8E659706/sources/s-FAF30CAF/5513C48F
+ create mode 100644 .Rproj.user/8E659706/sources/s-FAF30CAF/5513C48F-contents
+ create mode 100644 .Rproj.user/8E659706/sources/s-FAF30CAF/lock_file
+ delete mode 100644 .Rproj.user/shared/notebooks/5E4D3A8B-acoustic_analysis_inquiry_calls/1/8E659706EF865571/chunks.json
+ delete mode 100644 .Rproj.user/shared/notebooks/5E4D3A8B-acoustic_analysis_inquiry_calls/1/s/chunks.json
+ create mode 100644 .Rproj.user/shared/notebooks/DAA45658-acoustic_analysis_inquiry_calls/1/8E659706FAF30CAF/chunks.json
+ create mode 100644 .Rproj.user/shared/notebooks/DAA45658-acoustic_analysis_inquiry_calls/1/s/chunks.json
+ create mode 100644 data/processed/ad_delete.txt
+ create mode 100644 data/processed/ad_fr_delete.txt
+ create mode 100644 data/processed/ad_snr_delete.txt
+ create mode 100644 data/processed/ad_xcrr_delete.txt
+]0;/home/m/Documentos/Github_projects/flight_coordination_thyroptera]0;m@m-MacBookPro: ~/Documentos/Github_projects/flight_coordination_thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/Documentos/Github_projects/flight_coordinattion_thyroptera[00m$ git commit -m "remove sound files"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cadd .[Kreset HEAD~ [7Padd .[K[K[K[K[Kpush
+Contando objetos: 31, listo.
+Delta compression using up to 4 threads.
+Comprimiendo objetos:   3% (1/27)   Comprimiendo objetos:   7% (2/27)   Comprimiendo objetos:  11% (3/27)   Comprimiendo objetos:  14% (4/27)   Comprimiendo objetos:  18% (5/27)   Comprimiendo objetos:  22% (6/27)   Comprimiendo objetos:  25% (7/27)   Comprimiendo objetos:  29% (8/27)   Comprimiendo objetos:  33% (9/27)   Comprimiendo objetos:  37% (10/27)   Comprimiendo objetos:  40% (11/27)   Comprimiendo objetos:  44% (12/27)   Comprimiendo objetos:  48% (13/27)   Comprimiendo objetos:  51% (14/27)   Comprimiendo objetos:  55% (15/27)   Comprimiendo objetos:  59% (16/27)   Comprimiendo objetos:  62% (17/27)   Comprimiendo objetos:  66% (18/27)   Comprimiendo objetos:  70% (19/27)   Comprimiendo objetos:  74% (20/27)   Comprimiendo objetos:  77% (21/27)   Comprimiendo objetos:  81% (22/27)   Comprimiendo objetos:  85% (23/27)   Comprimiendo objetos:  88% (24/27)   Comprimiendo objetos:  92% (25/27)   Comprimiendo objetos:  96% (26/27)   Comprimiendo objetos: 100% (27/27)   Comprimiendo objetos: 100% (27/27), listo.
+Escribiendo objetos:   3% (1/31)   Escribiendo objetos:   6% (2/31)   Escribiendo objetos:   9% (3/31)   Escribiendo objetos:  12% (4/31)   Escribiendo objetos:  16% (5/31)   Escribiendo objetos:  19% (6/31)   Escribiendo objetos:  22% (7/31)   Escribiendo objetos:  25% (8/31)   Escribiendo objetos:  29% (9/31)   Escribiendo objetos:  32% (10/31)   Escribiendo objetos:  35% (11/31)   Escribiendo objetos:  38% (12/31)   Escribiendo objetos:  41% (13/31)   Escribiendo objetos:  45% (14/31)   Escribiendo objetos:  48% (15/31)   Escribiendo objetos:  51% (16/31)   Escribiendo objetos:  54% (17/31)   Escribiendo objetos:  58% (18/31)   Escribiendo objetos:  61% (19/31)   Escribiendo objetos:  64% (20/31)   Escribiendo objetos:  67% (21/31)   Escribiendo objetos:  70% (22/31)   Escribiendo objetos:  74% (23/31)   Escribiendo objetos:  77% (24/31)   Escribiendo objetos:  80% (25/31)   Escribiendo objetos:  83% (26/31)   Escribiendo objetos:  93% (29/31)   Escribiendo objetos:  96% (30/31)   Escribiendo objetos: 100% (31/31)   Escribiendo objetos: 100% (31/31), 30.83 KiB | 4.40 MiB/s, listo.
+Total 31 (delta 10), reused 0 (delta 0)
+remote: Resolving deltas:   0% (0/10)[Kremote: Resolving deltas:  10% (1/10)[Kremote: Resolving deltas:  30% (3/10)[Kremote: Resolving deltas:  40% (4/10)[Kremote: Resolving deltas:  50% (5/10)[Kremote: Resolving deltas:  60% (6/10)[Kremote: Resolving deltas:  70% (7/10)[Kremote: Resolving deltas:  80% (8/10)[Kremote: Resolving deltas:  90% (9/10)[Kremote: Resolving deltas: 100% (10/10)[Kremote: Resolving deltas: 100% (10/10), completed with 7 local objects.[K
+To github.com:maRce10/flight_coordination_in_Thyroptera.git
+   e1b4a534..f088a890  master -> master
+]0;/home/m/Documentos/Github_projects/flight_coordination_thyroptera]0;m@m-MacBookPro: ~/Documentos/Github_projects/flight_coordination_thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/Documentos/Github_projects/flight_coordinattion_thyroptera[00m$ git pull
+remote: Enumerating objects: 57, done.[K
+remote: Counting objects:   1% (1/57)[Kremote: Counting objects:   3% (2/57)[Kremote: Counting objects:   5% (3/57)[Kremote: Counting objects:   7% (4/57)[Kremote: Counting objects:   8% (5/57)[Kremote: Counting objects:  10% (6/57)[Kremote: Counting objects:  12% (7/57)[Kremote: Counting objects:  14% (8/57)[Kremote: Counting objects:  15% (9/57)[Kremote: Counting objects:  17% (10/57)[Kremote: Counting objects:  19% (11/57)[Kremote: Counting objects:  21% (12/57)[Kremote: Counting objects:  22% (13/57)[Kremote: Counting objects:  24% (14/57)[Kremote: Counting objects:  26% (15/57)[Kremote: Counting objects:  28% (16/57)[Kremote: Counting objects:  29% (17/57)[Kremote: Counting objects:  31% (18/57)[Kremote: Counting objects:  33% (19/57)[Kremote: Counting objects:  35% (20/57)[Kremote: Counting objects:  36% (21/57)[Kremote: Counting objects:  38% (22/57)[Kremote: Counting objects:  40% (23/57)[Kremote: Counting objects:  42% (24/57)[Kremote: Counting objects:  43% (25/57)[Kremote: Counting objects:  45% (26/57)[Kremote: Counting objects:  47% (27/57)[Kremote: Counting objects:  49% (28/57)[Kremote: Counting objects:  50% (29/57)[Kremote: Counting objects:  52% (30/57)[Kremote: Counting objects:  54% (31/57)[Kremote: Counting objects:  56% (32/57)[Kremote: Counting objects:  57% (33/57)[Kremote: Counting objects:  59% (34/57)[Kremote: Counting objects:  61% (35/57)[Kremote: Counting objects:  63% (36/57)[Kremote: Counting objects:  64% (37/57)[Kremote: Counting objects:  66% (38/57)[Kremote: Counting objects:  68% (39/57)[Kremote: Counting objects:  70% (40/57)[Kremote: Counting objects:  71% (41/57)[Kremote: Counting objects:  73% (42/57)[Kremote: Counting objects:  75% (43/57)[Kremote: Counting objects:  77% (44/57)[Kremote: Counting objects:  78% (45/57)[Kremote: Counting objects:  80% (46/57)[Kremote: Counting objects:  82% (47/57)[Kremote: Counting objects:  84% (48/57)[Kremote: Counting objects:  85% (49/57)[Kremote: Counting objects:  87% (50/57)[Kremote: Counting objects:  89% (51/57)[Kremote: Counting objects:  91% (52/57)[Kremote: Counting objects:  92% (53/57)[Kremote: Counting objects:  94% (54/57)[Kremote: Counting objects:  96% (55/57)[Kremote: Counting objects:  98% (56/57)[Kremote: Counting objects: 100% (57/57)[Kremote: Counting objects: 100% (57/57), done.[K
+remote: Compressing objects:   2% (1/42)[Kremote: Compressing objects:   4% (2/42)[Kremote: Compressing objects:   7% (3/42)[Kremote: Compressing objects:   9% (4/42)[Kremote: Compressing objects:  11% (5/42)[Kremote: Compressing objects:  14% (6/42)[Kremote: Compressing objects:  16% (7/42)[Kremote: Compressing objects:  19% (8/42)[Kremote: Compressing objects:  21% (9/42)[Kremote: Compressing objects:  23% (10/42)[Kremote: Compressing objects:  26% (11/42)[Kremote: Compressing objects:  28% (12/42)[Kremote: Compressing objects:  30% (13/42)[Kremote: Compressing objects:  33% (14/42)[Kremote: Compressing objects:  35% (15/42)[Kremote: Compressing objects:  38% (16/42)[Kremote: Compressing objects:  40% (17/42)[Kremote: Compressing objects:  42% (18/42)[Kremote: Compressing objects:  45% (19/42)[Kremote: Compressing objects:  47% (20/42)[Kremote: Compressing objects:  50% (21/42)[Kremote: Compressing objects:  52% (22/42)[Kremote: Compressing objects:  54% (23/42)[Kremote: Compressing objects:  57% (24/42)[Kremote: Compressing objects:  59% (25/42)[Kremote: Compressing objects:  61% (26/42)[Kremote: Compressing objects:  64% (27/42)[Kremote: Compressing objects:  66% (28/42)[Kremote: Compressing objects:  69% (29/42)[Kremote: Compressing objects:  71% (30/42)[Kremote: Compressing objects:  73% (31/42)[Kremote: Compressing objects:  76% (32/42)[Kremote: Compressing objects:  78% (33/42)[Kremote: Compressing objects:  80% (34/42)[Kremote: Compressing objects:  83% (35/42)[Kremote: Compressing objects:  85% (36/42)[Kremote: Compressing objects:  88% (37/42)[Kremote: Compressing objects:  90% (38/42)[Kremote: Compressing objects:  92% (39/42)[Kremote: Compressing objects:  95% (40/42)[Kremote: Compressing objects:  97% (41/42)[Kremote: Compressing objects: 100% (42/42)[Kremote: Compressing objects: 100% (42/42), done.[K
+remote: Total 53 (delta 21), reused 0 (delta 0), pack-reused 0[K
+Desempaquetando objetos:   1% (1/53)   Desempaquetando objetos:   3% (2/53)   Desempaquetando objetos:   5% (3/53)   Desempaquetando objetos:   7% (4/53)   Desempaquetando objetos:   9% (5/53)   Desempaquetando objetos:  11% (6/53)   Desempaquetando objetos:  13% (7/53)   Desempaquetando objetos:  15% (8/53)   Desempaquetando objetos:  16% (9/53)   Desempaquetando objetos:  18% (10/53)   Desempaquetando objetos:  20% (11/53)   Desempaquetando objetos:  22% (12/53)   Desempaquetando objetos:  24% (13/53)   Desempaquetando objetos:  26% (14/53)   Desempaquetando objetos:  28% (15/53)   Desempaquetando objetos:  30% (16/53)   Desempaquetando objetos:  32% (17/53)   Desempaquetando objetos:  33% (18/53)   Desempaquetando objetos:  35% (19/53)   Desempaquetando objetos:  37% (20/53)   Desempaquetando objetos:  39% (21/53)   Desempaquetando objetos:  41% (22/53)   Desempaquetando objetos:  43% (23/53)   Desempaquetando objetos:  45% (24/53)   Desempaquetando objetos:  47% (25/53)   Desempaquetando objetos:  49% (26/53)   Desempaquetando objetos:  50% (27/53)   Desempaquetando objetos:  52% (28/53)   Desempaquetando objetos:  54% (29/53)   Desempaquetando objetos:  56% (30/53)   Desempaquetando objetos:  58% (31/53)   Desempaquetando objetos:  60% (32/53)   Desempaquetando objetos:  62% (33/53)   Desempaquetando objetos:  64% (34/53)   Desempaquetando objetos:  66% (35/53)   Desempaquetando objetos:  67% (36/53)   Desempaquetando objetos:  69% (37/53)   Desempaquetando objetos:  71% (38/53)   Desempaquetando objetos:  73% (39/53)   Desempaquetando objetos:  75% (40/53)   Desempaquetando objetos:  77% (41/53)   Desempaquetando objetos:  79% (42/53)   Desempaquetando objetos:  81% (43/53)   Desempaquetando objetos:  83% (44/53)   Desempaquetando objetos:  84% (45/53)   Desempaquetando objetos:  86% (46/53)   Desempaquetando objetos:  88% (47/53)   Desempaquetando objetos:  90% (48/53)   Desempaquetando objetos:  92% (49/53)   Desempaquetando objetos:  94% (50/53)   Desempaquetando objetos:  96% (51/53)   Desempaquetando objetos:  98% (52/53)   Desempaquetando objetos: 100% (53/53)   Desempaquetando objetos: 100% (53/53), listo.
+Desde github.com:maRce10/flight_coordination_in_Thyroptera
+   f088a890..91137ef5  master     -> origin/master
+Actualizando f088a890..91137ef5
+Fast-forward
+ ...MPI2020-01-15_12-03-59_0000001.wav | Bin [31m60466180[m -> [32m0[m bytes
+ ...MPI2020-01-15_12-18-06_0000002.wav | Bin [31m21113122[m -> [32m0[m bytes
+ ...MPI2020-01-15_12-27-23_0000003.wav | Bin [31m26670574[m -> [32m0[m bytes
+ ...MPI2020-01-15_12-38-07_0000004.wav | Bin [31m23016288[m -> [32m0[m bytes
+ ...MPI2020-01-15_14-17-44_0000005.wav | Bin [31m27724394[m -> [32m0[m bytes
+ ...MPI2020-01-15_15-42-25_0000006.wav | Bin [31m21071178[m -> [32m0[m bytes
+ ...MPI2020-01-16_09-42-52_0000008.wav | Bin [31m22738414[m -> [32m0[m bytes
+ ...MPI2020-01-16_09-54-41_0000009.wav | Bin [31m20908650[m -> [32m0[m bytes
+ ...MPI2020-01-16_10-02-10_0000010.wav | Bin [31m20704178[m -> [32m0[m bytes
+ ...MPI2020-01-16_10-13-18_0000011.wav | Bin [31m21427694[m -> [32m0[m bytes
+ ...MPI2020-01-16_10-21-37_0000012.wav | Bin [31m20908650[m -> [32m0[m bytes
+ 11 files changed, 0 insertions(+), 0 deletions(-)
+ delete mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-15_12-03-59_0000001.wav
+ delete mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-15_12-18-06_0000002.wav
+ delete mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-15_12-27-23_0000003.wav
+ delete mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-15_12-38-07_0000004.wav
+ delete mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-15_14-17-44_0000005.wav
+ delete mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-15_15-42-25_0000006.wav
+ delete mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-16_09-42-52_0000008.wav
+ delete mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-16_09-54-41_0000009.wav
+ delete mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-16_10-02-10_0000010.wav
+ delete mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-16_10-13-18_0000011.wav
+ delete mode 100755 data/raw/resample_80kHz/ch1MPI2020-01-16_10-21-37_0000012.wav
+[K[A]0;m@m-MacBookPro: ~/Documentos/Github_projects/flight_coordination_thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/Documentos/Github_projects/flight_coordinattion_thyroptera[00m$ git add .
