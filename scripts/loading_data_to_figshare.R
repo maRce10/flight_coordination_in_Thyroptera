@@ -24,3 +24,19 @@ mss <- fls_df[!fls_df$fls %in% fs.fls, , drop = FALSE]
 if (nrow(mss) > 0)
 out <- pbsapply(mss$path, function(x) fs_upload(article_id = art.id.part2, file = x))
 
+# or download
+setwd("./data/raw/converted_sound_files_90_kHz/")
+fs_download(article_id = art.id.part1, FALSE)
+
+fs_download(article_id = art.id.part1, FALSE)
+
+
+
+fs.fls1 <- sapply(p1$files, '[[', 3)[-1]
+
+fs.fls2 <- sapply(p2$files, '[[', 3)[-1]
+
+fs.fls1 <- fs.fls1[!fs.fls1 %in%  wvs]
+
+if (length(fs.fls1) > 0)
+  out <- pbsapply(fs.fls1, function(x) fs_download(article_id = art.id.part1, file = x, urls_only = FALSE), dest.file)
