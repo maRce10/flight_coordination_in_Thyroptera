@@ -387,15 +387,15 @@ comp_mat <- cbind(paste(split_sels2$sound.files[1], split_sels2$selec[1], sep = 
 xc.output <- x_corr(X = split_sels2, output = "list", parallel = 1,
     compare.matrix = comp_mat, pb = TRUE, bp = c(12, 37))
 
-xc.output[[1]]
+
+saveRDS(xc.output, "./output/test_detection_xcorr.RDS")
 
 # find peaks
-pks <- find_peaks(xc.output = xc.output, pb = TRUE)
+pks <- find_peaks(xc.output = xc.output, pb = TRUE, max.peak = 0.3)
 
 pks$bottom.freq <- templ$bottom.freq[1]
 pks$top.freq <- templ$top.freq[1]
 
-saveRDS(pks, "./output/test_detection_xcorr.RDS")
 
 
 lspec(pks, sxrow = 2, flim = c(10, 50), ovlp = 0, fast.spec = TRUE)
