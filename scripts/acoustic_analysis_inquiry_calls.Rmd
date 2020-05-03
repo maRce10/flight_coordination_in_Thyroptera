@@ -398,7 +398,7 @@ pks$top.freq <- templ$top.freq[1]
 saveRDS(pks, "./output/test_detection_xcorr.RDS")
 
 
-lspec(pks, sxrow = 4)
+lspec(pks, sxrow = 2, flim = c(10, 50), ovlp = 0, fast.spec = TRUE)
 
 ```
 
