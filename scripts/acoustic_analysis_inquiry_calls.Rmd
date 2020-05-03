@@ -355,15 +355,15 @@ saveRDS(list(sub_slsX = sub_slsX, comp_mat2 = comp_mat2), "~/Downloads/delete.RD
 
 ```{r test detection}
 
-warbleR_options(wav.path = "/home/m/Documentos/Github_projects/flight_coordination_thyroptera/data/raw/subset_for_testing/", wl = 300, parallel = parallel::detectCores() - 1, bp = "frange", fast = F, threshold = 15, ovlp = 20)
+warbleR_options(wav.path = "./data/raw/subset_for_testing/", wl = 300, parallel = parallel::detectCores() - 1, bp = "frange", fast = F, threshold = 15, ovlp = 20)
 
 
 # plit in segments of 30 s without saving clips
-split_sels <- split_wavs(only.sels = TRUE, sgmt.dur = 20)
+split_sels <- split_wavs(only.sels = TRUE, sgmt.dur = 200000)
 
 # relabels sels to make it and regular selection table
 split_sels$selec <- 1:nrow(split_sels)
-split_sels$sound.files <- split_sels$org.sound.files
+# split_sels$sound.files <- split_sels$org.sound.files
 split_sels$org.sound.files <- NULL
 
 # check
@@ -372,26 +372,28 @@ cs <- check_sels(split_sels)
 # get template
 templ <- split_sels[split_sels$sound.files == "ch3MPI2020-01-26_10-18-23_0000168.wav", ][1, ]
 
+split_sels$top.freq <- split_sels$bottom.freq <- NA
 
 templ$start[1] <- 92.173	
 templ$end[1] <- 92.209		
 templ$top.freq[1] <- 36.9351	
 templ$bottom.freq[1] <- 12.7403
+templ$selec <- 10000
+split_sels2 <- rbind(templ, split_sels)
 
-split_sels2 <- cbind(templ, split_sels)
-
-comp_mat <- cbind(paste(split_sels2$sound.files[1], split_sels2$selec[1], sep = "-"), paste(split_sels2$sound.files[-1], split_sels2$selec[-1], sep = "-"))
+comp_mat <- cbind(paste(split_sels2$sound.files[1], split_sels2$selec[1], sep = "-"), split_sels2$sound.files[-1])
 
 
-xc.output <- x_corr(X = split_sels2, output = "list",
+xc.output <- x_corr(X = split_sels2, output = "list", parallel = 1,
     compare.matrix = comp_mat, pb = TRUE, bp = c(12, 37))
 
+xc.output[[1]]
 
 # find peaks
 pks <- find_peaks(xc.output = xc.output, pb = TRUE)
 
-pks$bottom.freq <- sub_slsX$bottom.freq[1]
-pks$top.freq <- sub_slsX$top.freq[1]
+pks$bottom.freq <- templ$bottom.freq[1]
+pks$top.freq <- templ$top.freq[1]
 
 saveRDS(pks, "./output/test_detection_xcorr.RDS")
 

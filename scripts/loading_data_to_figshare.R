@@ -39,11 +39,11 @@ fs.url1 <- sapply(p1$files, '[[', 2)[-1]
 fs.url2 <- sapply(p2$files, '[[', 2)[-1]
 
 
-df <- data.frame(sound.files = c(fs.fls1, fs.fls2), recording_url = c(fs.url1, fs.url2))
+df <- data.frame(sound.files = c(fs.fls1, fs.fls2), recording_url = c(fs.url1, fs.url2), stringsAsFactors = FALSE)
 
 library(warbleR)
 
-find_annotations(X = df, parallel = 3)
+find_annotations(X = df, parallel = 7)
 
 # if (length(fs.fls1) > 0)
 #   out <- pbsapply(fs.fls1, function(x) fs_download(article_id = art.id.part1, file = x, urls_only = FALSE), dest.file)
