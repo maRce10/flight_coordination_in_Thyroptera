@@ -51,9 +51,7 @@ aa <- lapply(x, function(y) {
 
 ```{r functions, eval = TRUE, echo = FALSE}
 
-warbleR_options(wav.path = "/home/m/Documentos/Github_projects/flight_coordination_thyroptera/data/raw/converted_sound_files_90_kHz", wl = 300, parallel = parallel::detectCores() - 1, bp = "frange", fast = F, threshold = 15, ovlp = 20)
-
-# wav_info()
+warbleR_options(wav.path = "./data/raw/converted_sound_files_90_kHz", wl = 300, parallel = parallel::detectCores() - 1, fast = F, threshold = 15, ovlp = 20)
 
 ```
 
@@ -64,7 +62,7 @@ warbleR_options(wav.path = "/home/m/Documentos/Github_projects/flight_coordinati
 # fix_wavs(samp.rate = 90, bit.depth = 16, sox = TRUE)
 
 # plit in segments of 30 s without saving clips
-split_sels <- split_wavs(only.sels = TRUE, sgmt.dur = 30)
+split_sels <- split_wavs(only.sels = TRUE, sgmt.dur = 300000)
 
 # relabels sels to make it and regular selection table
 split_sels$selec <- 1:nrow(split_sels)
@@ -74,69 +72,46 @@ split_sels$org.sound.files <- NULL
 # check
 cs <- check_sels(split_sels)
 
-# get template
-# inq_est <- readRDS("/home/m/sda5/Dropbox/Projects/Ontogenia respuesta Thyroptera/suppl_mat/ext_sel_tab_inquiry.RDS")
-
-# get mean duration one
-# inq_est <- sig2noise(inq_est, mar = 0.01)
-# 
-# inq_est <- inq_est[inq_est$SNR > quantile(inq_est$SNR, 0.75), ]
-# 
-# inq_est$dur <- inq_est$end - inq_est$start
-# 
-# template <- inq_est[which.min(abs(inq_est$dur - mean(inq_est$dur))),, drop = FALSE]
-# 
-# template <- resample_est(template, samp.rate = 80, bit.depth = 16)
-# 
-# temp_st <- exp_est(template, selection.table = FALSE)
-# 
-# temp_st$type <- "template"
-# split_sels$type <- NA
-# split_sels$top.freq <- 35
-# split_sels$bottom.freq <- 10
-
-# temp_st <- temp_st[, names(split_sels)]
-
-# split_sels_detec <- rbind(temp_st, split_sels)
-# 
-# comp_mat <- cbind(paste(split_sels_detec$sound.files[1], split_sels_detec$selec[1], sep = "-"), paste(split_sels$sound.files, split_sels$selec, sep = "-"))
-# 
-# 
-# 
-# 
-# nrow(comp_mat)
-# nrow(split_sels_detec)
 
 
-# autodetec
-ad <- autodetec(X = split_sels, threshold = 4, mindur= 0.02, maxdur = 0.07, bp = c(10, 35), img = FALSE, ssmooth = 400, parallel = 2)
+templ <- split_sels[split_sels$sound.files == "ch4MPI2020-01-19_15-03-57_0000057.wav", ][1, ]
 
-# save non-detected
-no_dtct <- ad[is.na(ad$start), ]
 
-# exclude non-detected
-ad <- ad[!is.na(ad$start), ]
+templ <- data.frame(sound.files = "ch4MPI2020-01-19_15-03-57_0000057.wav", selec = 0)
 
-# get frequency range
-fr_ad <- freq_range(X = ad, bp = c(8, 70), fsmooth = 0.001, ovlp = 90,
-                          threshold = 5, img = FALSE)
+templ$start[1] <- 96.587	
+templ$end[1] <- 96.638		
+# templ$top.freq[1] <- 42.8226	
+# templ$bottom.freq[1] <- 13.3548
 
-fr_ad$bottom.freq[is.na(fr_ad$bottom.freq)] <- mean(fr_ad$bottom.freq, na.rm = TRUE)
-fr_ad$top.freq[is.na(fr_ad$top.freq)] <- mean(fr_ad$top.freq, na.rm = TRUE)
+wvs <- list.files(path = "./data/raw/converted_sound_files_90_kHz/", pattern = "\\.wav$")
 
-write.csv(fr_ad, "./data/processed/automatic_detections_inquiry_calls.csv", row.names = FALSE)
+splt_wvs <- split(wvs, rep(1:80, each = 10)[1:length(wvs)])
 
-# Export raven selection tables
-st <- selection_table(whole.recs = TRUE)
+out <- lapply(1:length(splt_wvs), function(x){
+  
+  print(round(y / length(splt_wvs), 2))
+  y <-splt_wvs[[x]]
+  
+  comp_mat <- cbind(paste(templ$sound.files[1], templ$selec[1], sep = "-"), y)
+  
+  xc.output <- x_corr(X = templ, output = "list", parallel = 1,
+    compare.matrix = comp_mat, pb = FALSE, bp = c(12, 42), type = "mfcc")
 
-st$end <- 0.01
-st$bottom.freq <- 10
-st$top.freq <- 12
-st$channel <- NULL
+  saveRDS(xc.output, paste0("./data/processed/xc_outputs/xc.output_", x, ".RDS"))
+  
+  # find peaks
+  pks <- find_peaks(xc.output = xc.output, pb = FALSE, cutoff = 0.55, output = "list")
+  
+  lspec(pks, sxrow = 2, flim = c(10, 50), ovlp = 0, fast.spec = TRUE, it = "tiff", pb = FALSE)
+  
+  move_imgs(from = "./data/raw/converted_sound_files_90_kHz/", to = "./data/processed/mfcc_detection", cut = TRUE, overwrite = TRUE)
 
-ad2 <- rbind(as.data.frame(st), fr_ad)
+  return(pks$selection.table)
+  })
 
-exp_raven(X = ad2, file.name = "./data/processed/automatic_detections_inquiry_calls_Raven_format.txt", sound.file.path =  .Options$warbleR$wav.path)
+
+# exp_raven(X = ad2, file.name = "./data/processed/automatic_detections_inquiry_calls_Raven_format.txt", sound.file.path =  .Options$warbleR$wav.path)
 
 
 
@@ -353,7 +328,8 @@ saveRDS(list(sub_slsX = sub_slsX, comp_mat2 = comp_mat2), "~/Downloads/delete.RD
 ```
 
 
-```{r test detection}
+```{r test mfcc detection}
+
 
 warbleR_options(wav.path = "./data/raw/subset_for_testing/", wl = 300, parallel = parallel::detectCores() - 1, bp = "frange", fast = F, threshold = 15, ovlp = 20)
 
@@ -384,6 +360,21 @@ split_sels2 <- rbind(templ, split_sels)
 comp_mat <- cbind(paste(split_sels2$sound.files[1], split_sels2$selec[1], sep = "-"), split_sels2$sound.files[-1])
 
 
+# xc.output <- x_corr(X = split_sels2, output = "list", parallel = 1,
+    # compare.matrix = comp_mat, pb = TRUE, bp = c(12, 37), type = "mfcc")
+
+
+# saveRDS(xc.output, "./output/test_detection_xcorr.RDS")
+
+# find peaks
+# pks <- find_peaks(xc.output = xc.output, pb = TRUE, cutoff = 0.5, output = "list")
+
+# pks$bottom.freq <- templ$bottom.freq[1]
+# pks$top.freq <- templ$top.freq[1]
+
+# lspec(pks2, sxrow = 2, flim = c(10, 50), ovlp = 0, fast.spec = TRUE, it = "jpeg")
+
+
 templ2 <- split_sels[split_sels$sound.files == "ch4MPI2020-01-19_15-03-57_0000057.wav", ][1, ]
 
 
@@ -392,26 +383,101 @@ templ2$end[1] <- 96.638
 templ2$top.freq[1] <- 42.8226	
 templ2$bottom.freq[1] <- 13.3548
 templ2$selec <- 10001
-split_sels3 <- rbind(templ2, split_sels2)
+split_sels3 <- rbind(templ2, split_sels)
 
 comp_mat2 <- cbind(paste(split_sels3$sound.files[1], split_sels3$selec[1], sep = "-"), split_sels2$sound.files[-1])
 
-comp_mat3 <- rbind(comp_mat, comp_mat2)
+xc.output2 <- x_corr(X = split_sels3, output = "list", parallel = 1,
+    compare.matrix = comp_mat2, pb = TRUE, bp = c(12, 42), type = "mfcc")
 
 
-xc.output <- x_corr(X = split_sels3, output = "list", parallel = 1,
-    compare.matrix = comp_mat3, pb = TRUE, bp = c(12, 37))
-
-
-saveRDS(xc.output, "./output/test_detection_xcorr.RDS")
+# saveRDS(xc.output, "./output/test_detection_xcorr.RDS")
 
 # find peaks
-pks <- find_peaks(xc.output = xc.output, pb = TRUE, max.peak = 0.3, output = "list")
+pks2 <- find_peaks(xc.output = xc.output2, pb = TRUE, cutoff = 0.55, output = "list")
 
 # pks$bottom.freq <- templ$bottom.freq[1]
 # pks$top.freq <- templ$top.freq[1]
 
-lspec(pks, sxrow = 2, flim = c(10, 50), ovlp = 0, fast.spec = TRUE)
+lspec(pks2, sxrow = 2, flim = c(10, 50), ovlp = 0, fast.spec = TRUE, it = "tiff")
+
+move_imgs(from = "./data/raw/subset_for_testing", to = "./data/processed/mfcc_detection", cut = TRUE, overwrite = TRUE)
 
 ```
 
+
+```{r test mfcc detection}
+
+warbleR_options(wav.path = "./data/raw/subset_for_testing/", wl = 300, parallel = parallel::detectCores() - 1, bp = "frange", fast = F, threshold = 15, ovlp = 20)
+
+
+# plit in segments of 30 s without saving clips
+split_sels <- split_wavs(only.sels = TRUE, sgmt.dur = 200000)
+
+# relabels sels to make it and regular selection table
+split_sels$selec <- 1:nrow(split_sels)
+# split_sels$sound.files <- split_sels$org.sound.files
+split_sels$org.sound.files <- NULL
+
+# check
+cs <- check_sels(split_sels)
+
+# get template
+templ <- split_sels[split_sels$sound.files == "ch3MPI2020-01-26_10-18-23_0000168.wav", ][1, ]
+
+split_sels$top.freq <- split_sels$bottom.freq <- NA
+
+templ$start[1] <- 92.173	
+templ$end[1] <- 92.209		
+templ$top.freq[1] <- 36.9351	
+templ$bottom.freq[1] <- 12.7403
+templ$selec <- 10000
+split_sels2 <- rbind(templ, split_sels)
+
+comp_mat <- cbind(paste(split_sels2$sound.files[1], split_sels2$selec[1], sep = "-"), split_sels2$sound.files[-1])
+
+
+xc.output <- x_corr(X = split_sels2, output = "list", parallel = 1,
+    compare.matrix = comp_mat, pb = TRUE, bp = c(12, 37))
+
+
+# saveRDS(xc.output, "./output/test_detection_xcorr.RDS")
+
+# find peaks
+pks <- find_peaks(xc.output = xc.output, pb = TRUE, cutoff = 0.5, output = "list")
+
+# pks$bottom.freq <- templ$bottom.freq[1]
+# pks$top.freq <- templ$top.freq[1]
+
+lspec(pks2, sxrow = 2, flim = c(10, 50), ovlp = 0, fast.spec = TRUE, it = "jpeg")
+
+
+templ2 <- split_sels[split_sels$sound.files == "ch4MPI2020-01-19_15-03-57_0000057.wav", ][1, ]
+
+
+templ2$start[1] <- 96.587	
+templ2$end[1] <- 96.638		
+templ2$top.freq[1] <- 42.8226	
+templ2$bottom.freq[1] <- 13.3548
+templ2$selec <- 10001
+split_sels3 <- rbind(templ2, split_sels)
+
+comp_mat2 <- cbind(paste(split_sels3$sound.files[1], split_sels3$selec[1], sep = "-"), split_sels2$sound.files[-1])
+
+xc.output2 <- x_corr(X = split_sels3, output = "list", parallel = 1,
+    compare.matrix = comp_mat2, pb = TRUE, bp = c(12, 42))
+
+
+# saveRDS(xc.output, "./output/test_detection_xcorr.RDS")
+
+# find peaks
+pks2 <- find_peaks(xc.output = xc.output2, pb = TRUE, cutoff = 0.5, output = "list")
+
+# pks$bottom.freq <- templ$bottom.freq[1]
+# pks$top.freq <- templ$top.freq[1]
+
+lspec(pks2, sxrow = 2, flim = c(10, 50), ovlp = 0, fast.spec = TRUE, it = "tiff")
+
+move_imgs(from = "./data/raw/subset_for_testing", to = "./data/processed/spcc_detection", cut = TRUE, overwrite = TRUE)
+
+```

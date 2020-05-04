@@ -41,6 +41,8 @@ fs.url2 <- sapply(p2$files, '[[', 2)[-1]
 
 df <- data.frame(sound.files = c(fs.fls1, fs.fls2), recording_url = c(fs.url1, fs.url2), stringsAsFactors = FALSE)
 
+df <- df[!df$sound.files %in% wvs, ]
+
 library(warbleR)
 
 find_annotations(X = df, parallel = 7)
