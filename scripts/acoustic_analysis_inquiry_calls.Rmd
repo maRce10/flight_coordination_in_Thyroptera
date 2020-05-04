@@ -384,19 +384,32 @@ split_sels2 <- rbind(templ, split_sels)
 comp_mat <- cbind(paste(split_sels2$sound.files[1], split_sels2$selec[1], sep = "-"), split_sels2$sound.files[-1])
 
 
-xc.output <- x_corr(X = split_sels2, output = "list", parallel = 1,
-    compare.matrix = comp_mat, pb = TRUE, bp = c(12, 37))
+templ2 <- split_sels[split_sels$sound.files == "ch4MPI2020-01-19_15-03-57_0000057.wav", ][1, ]
+
+
+templ2$start[1] <- 96.587	
+templ2$end[1] <- 96.638		
+templ2$top.freq[1] <- 42.8226	
+templ2$bottom.freq[1] <- 13.3548
+templ2$selec <- 10001
+split_sels3 <- rbind(templ2, split_sels2)
+
+comp_mat2 <- cbind(paste(split_sels3$sound.files[1], split_sels3$selec[1], sep = "-"), split_sels2$sound.files[-1])
+
+comp_mat3 <- rbind(comp_mat, comp_mat2)
+
+
+xc.output <- x_corr(X = split_sels3, output = "list", parallel = 1,
+    compare.matrix = comp_mat3, pb = TRUE, bp = c(12, 37))
 
 
 saveRDS(xc.output, "./output/test_detection_xcorr.RDS")
 
 # find peaks
-pks <- find_peaks(xc.output = xc.output, pb = TRUE, max.peak = 0.3)
+pks <- find_peaks(xc.output = xc.output, pb = TRUE, max.peak = 0.3, output = "list")
 
-pks$bottom.freq <- templ$bottom.freq[1]
-pks$top.freq <- templ$top.freq[1]
-
-
+# pks$bottom.freq <- templ$bottom.freq[1]
+# pks$top.freq <- templ$top.freq[1]
 
 lspec(pks, sxrow = 2, flim = c(10, 50), ovlp = 0, fast.spec = TRUE)
 
