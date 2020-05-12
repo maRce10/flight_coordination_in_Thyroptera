@@ -1047,3 +1047,526 @@ error: Los cambios locales de los siguientes archivos serán sobrescritos al fus
 Por favor, confirma tus cambios o aguárdalos antes de fusionar.
 Abortando
 ]0;/home/m/sda5/Github_projects/flight_coordination_thyroptera]0;m@m-MacBookPro: ~/sda5/Github_projects/flight_coordination_thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/sda5/Github_projects/flight_coordination_thyropterra[00m$ git pullsh origin master[C[C[C[C[C[C[C[C[C[Cll[Ksh origin master[C[C[C[CR[Kgit push origin master[C[C[C[C[C[C[C[C[C[Cll[K[C[C[C[C[Kgit add .
+]0;/home/m/sda5/Github_projects/flight_coordination_thyroptera]0;m@m-MacBookPro: ~/sda5/Github_projects/flight_coordination_thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/sda5/Github_projects/flight_coordination_thyropterra[00m$ git commit -m 'cambios'
+[master 1bad3ab1] cambios
+ 60 files changed, 283 insertions(+), 2739 deletions(-)
+ rewrite .Rproj.user/8E659706/console06/INDEX001 (87%)
+ create mode 100644 .Rproj.user/8E659706/sources/prop/4A355C1F
+ create mode 100644 .Rproj.user/8E659706/sources/prop/6E1343EB
+ rename .Rproj.user/8E659706/sources/{s-B6AF3E00 => s-8422FB0D}/5513C48F (58%)
+ rename .Rproj.user/8E659706/sources/{s-B6AF3E00 => s-8422FB0D}/5513C48F-contents (94%)
+ rename .Rproj.user/8E659706/sources/{s-B6AF3E00 => s-8422FB0D}/E78F354A (85%)
+ rename .Rproj.user/8E659706/sources/{s-B6AF3E00 => s-8422FB0D}/E78F354A-contents (100%)
+ rename .Rproj.user/8E659706/sources/{s-B6AF3E00 => s-8422FB0D}/lock_file (100%)
+ delete mode 100644 .Rproj.user/8E659706/sources/s-B6AF3E00/444A0DC4-contents
+ delete mode 100644 .Rproj.user/8E659706/sources/s-B6AF3E00/68ECF3F5-contents
+ delete mode 100644 .Rproj.user/8E659706/sources/s-B6AF3E00/B6E20DAD-contents
+ delete mode 100644 .Rproj.user/8E659706/sources/s-B6AF3E00/BEF9F303-contents
+ delete mode 100644 .Rproj.user/8E659706/sources/s-B6AF3E00/D0CD2CDB-contents
+ delete mode 100644 .Rproj.user/8E659706/sources/s-B6AF3E00/DFAFA574-contents
+ delete mode 100644 .Rproj.user/8E659706/sources/s-B6AF3E00/E1C9B4A1-contents
+ delete mode 100644 .Rproj.user/shared/notebooks/2C57149E-Acoustic_analysis/1/8E6597061978ADA3/chunks.json
+ delete mode 100644 .Rproj.user/shared/notebooks/DAA45658-acoustic_analysis_inquiry_calls/1/8E6597061978ADA3/chunks.json
+ delete mode 100644 .Rproj.user/shared/notebooks/DAA45658-acoustic_analysis_inquiry_calls/1/8E659706B6AF3E00/chunks.json
+ delete mode 100644 .Rproj.user/shared/notebooks/DAA45658-acoustic_analysis_inquiry_calls/1/8E659706FAF30CAF/chunks.json
+ delete mode 100644 .Rproj.user/shared/notebooks/DAA45658-acoustic_analysis_inquiry_calls/1/s/chunks.json
+ rewrite .Rproj.user/shared/notebooks/paths (83%)
+ rewrite data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p1.jpeg (86%)
+ rewrite data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p2.jpeg (86%)
+ rewrite data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p3.jpeg (81%)
+ rewrite data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p4.jpeg (87%)
+ rewrite data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p5.jpeg (80%)
+ rewrite data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p6.jpeg (84%)
+ rewrite data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p7.jpeg (80%)
+ rewrite data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p1.jpeg (84%)
+ rewrite data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p2.jpeg (81%)
+ rewrite data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p3.jpeg (81%)
+ rewrite data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p4.jpeg (84%)
+ rewrite data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p5.jpeg (82%)
+ rewrite data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p6.jpeg (79%)
+ rewrite data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p7.jpeg (84%)
+ rewrite data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192-p1.jpeg (81%)
+ rewrite data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192-p2.jpeg (84%)
+ rewrite data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192-p3.jpeg (87%)
+ rewrite data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192-p4.jpeg (81%)
+ rewrite data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192-p5.jpeg (82%)
+ rewrite data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192-p6.jpeg (88%)
+ rewrite data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p1.jpeg (83%)
+ rewrite data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p2.jpeg (88%)
+ rewrite data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p3.jpeg (82%)
+ rewrite data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p4.jpeg (80%)
+ rewrite data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p5.jpeg (82%)
+ rewrite data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p6.jpeg (83%)
+ rewrite data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p7.jpeg (86%)
+ rewrite data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p1.jpeg (85%)
+ rewrite data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p2.jpeg (85%)
+ rewrite data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p3.jpeg (87%)
+ rewrite data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p4.jpeg (78%)
+ rewrite data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p5.jpeg (83%)
+ rewrite data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p6.jpeg (83%)
+ rewrite data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p7.jpeg (85%)
+ rewrite data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p8.jpeg (83%)
+]0;/home/m/sda5/Github_projects/flight_coordination_thyroptera]0;m@m-MacBookPro: ~/sda5/Github_projects/flight_coordination_thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/sda5/Github_projects/flight_coordination_thyropterra[00m$ git commit -m 'cambios'[C[C[C[C[C[C[C[Cadd .[K[1Ppullsh origin master[C[C[C[C[C[C[C[C[C[Cll[Ksh origin master
+To github.com:maRce10/flight_coordination_in_Thyroptera.git
+ ! [rejected]          master -> master (non-fast-forward)
+error: fallo el push de algunas referencias a 'git@github.com:maRce10/flight_coordination_in_Thyroptera.git'
+ayuda: Actualizaciones fueron rechazadas porque la punta de tu rama actual esta
+ayuda: detrás de su contraparte remota. Integra los cambios remotos (es decir
+ayuda: 'git pull ...') antes de hacer push de nuevo.
+ayuda: Mira 'Note about fast-forwards' en 'git push --help' para mas detalles.
+]0;/home/m/sda5/Github_projects/flight_coordination_thyroptera]0;m@m-MacBookPro: ~/sda5/Github_projects/flight_coordination_thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/sda5/Github_projects/flight_coordination_thyropterra[00m$ git push origin master[C[C[C[C[C[C[C[Ccommit -m 'cambios'[C[C[C[C[C[C[C[Cadd .[K[1Ppullsh origin master[C[C[C[C[C[C[C[C[C[Cll[K
+Realizando una detección de cambios de nombre inexacta:  13% (924/6636)   Realizando una detección de cambios de nombre inexacta:  14% (966/6636)   Realizando una detección de cambios de nombre inexacta:  15% (1008/6636)   Realizando una detección de cambios de nombre inexacta:  16% (1092/6636)   Realizando una detección de cambios de nombre inexacta:  17% (1134/6636)   Realizando una detección de cambios de nombre inexacta:  18% (1218/6636)   Realizando una detección de cambios de nombre inexacta:  19% (1302/6636)   Realizando una detección de cambios de nombre inexacta:  20% (1344/6636)   Realizando una detección de cambios de nombre inexacta:  21% (1428/6636)   Realizando una detección de cambios de nombre inexacta:  22% (1470/6636)   Realizando una detección de cambios de nombre inexacta:  23% (1554/6636)   Realizando una detección de cambios de nombre inexacta:  24% (1596/6636)   Realizando una detección de cambios de nombre inexacta:  25% (1680/6636)   Realizando una detección de cambios de nombre inexacta:  26% (1764/6636)   Realizando una detección de cambios de nombre inexacta:  27% (1806/6636)   Realizando una detección de cambios de nombre inexacta:  28% (1890/6636)   Realizando una detección de cambios de nombre inexacta:  29% (1932/6636)   Realizando una detección de cambios de nombre inexacta:  30% (2016/6636)   Realizando una detección de cambios de nombre inexacta:  31% (2058/6636)   Realizando una detección de cambios de nombre inexacta:  32% (2142/6636)   Realizando una detección de cambios de nombre inexacta:  33% (2226/6636)   Realizando una detección de cambios de nombre inexacta:  34% (2268/6636)   Realizando una detección de cambios de nombre inexacta:  35% (2352/6636)   Realizando una detección de cambios de nombre inexacta:  36% (2394/6636)   Realizando una detección de cambios de nombre inexacta:  37% (2478/6636)   Realizando una detección de cambios de nombre inexacta:  38% (2562/6636)   Realizando una detección de cambios de nombre inexacta:  39% (2604/6636)   Realizando una detección de cambios de nombre inexacta:  40% (2688/6636)   Realizando una detección de cambios de nombre inexacta:  41% (2730/6636)   Realizando una detección de cambios de nombre inexacta:  42% (2814/6636)   Realizando una detección de cambios de nombre inexacta:  43% (2856/6636)   Realizando una detección de cambios de nombre inexacta:  44% (2940/6636)   Realizando una detección de cambios de nombre inexacta:  45% (3024/6636)   Realizando una detección de cambios de nombre inexacta:  46% (3066/6636)   Realizando una detección de cambios de nombre inexacta:  47% (3150/6636)   Realizando una detección de cambios de nombre inexacta:  48% (3192/6636)   Realizando una detección de cambios de nombre inexacta:  49% (3276/6636)   Realizando una detección de cambios de nombre inexacta:  50% (3318/6636)   Realizando una detección de cambios de nombre inexacta:  50% (3360/6636)   Realizando una detección de cambios de nombre inexacta:  51% (3402/6636)   Realizando una detección de cambios de nombre inexacta:  52% (3486/6636)   Realizando una detección de cambios de nombre inexacta:  53% (3528/6636)   Realizando una detección de cambios de nombre inexacta:  54% (3612/6636)   Realizando una detección de cambios de nombre inexacta:  55% (3654/6636)   Realizando una detección de cambios de nombre inexacta:  56% (3738/6636)   Realizando una detección de cambios de nombre inexacta:  57% (3822/6636)   Realizando una detección de cambios de nombre inexacta:  58% (3864/6636)   Realizando una detección de cambios de nombre inexacta:  59% (3948/6636)   Realizando una detección de cambios de nombre inexacta:  60% (3990/6636)   Realizando una detección de cambios de nombre inexacta:  61% (4074/6636)   Realizando una detección de cambios de nombre inexacta:  62% (4116/6636)   Realizando una detección de cambios de nombre inexacta:  63% (4200/6636)   Realizando una detección de cambios de nombre inexacta:  64% (4284/6636)   Realizando una detección de cambios de nombre inexacta:  65% (4326/6636)   Realizando una detección de cambios de nombre inexacta:  66% (4410/6636)   Realizando una detección de cambios de nombre inexacta:  67% (4452/6636)   Realizando una detección de cambios de nombre inexacta:  67% (4494/6636)   Realizando una detección de cambios de nombre inexacta:  68% (4536/6636)   Realizando una detección de cambios de nombre inexacta:  69% (4620/6636)   Realizando una detección de cambios de nombre inexacta:  70% (4662/6636)   Realizando una detección de cambios de nombre inexacta:  71% (4746/6636)   Realizando una detección de cambios de nombre inexacta:  72% (4788/6636)   Realizando una detección de cambios de nombre inexacta:  73% (4872/6636)   Realizando una detección de cambios de nombre inexacta:  74% (4914/6636)   Realizando una detección de cambios de nombre inexacta:  75% (4998/6636)   Realizando una detección de cambios de nombre inexacta:  76% (5082/6636)   Realizando una detección de cambios de nombre inexacta:  77% (5124/6636)   Realizando una detección de cambios de nombre inexacta:  78% (5208/6636)   Realizando una detección de cambios de nombre inexacta:  79% (5250/6636)   Realizando una detección de cambios de nombre inexacta:  80% (5334/6636)   Realizando una detección de cambios de nombre inexacta:  81% (5376/6636)   Realizando una detección de cambios de nombre inexacta:  82% (5460/6636)   Realizando una detección de cambios de nombre inexacta:  83% (5544/6636)   Realizando una detección de cambios de nombre inexacta:  84% (5586/6636)   Realizando una detección de cambios de nombre inexacta:  85% (5670/6636)   Realizando una detección de cambios de nombre inexacta:  86% (5712/6636)   Realizando una detección de cambios de nombre inexacta:  87% (5796/6636)   Realizando una detección de cambios de nombre inexacta:  88% (5880/6636)   Realizando una detección de cambios de nombre inexacta:  89% (5922/6636)   Realizando una detección de cambios de nombre inexacta:  90% (6006/6636)   Realizando una detección de cambios de nombre inexacta:  91% (6048/6636)   Realizando una detección de cambios de nombre inexacta:  92% (6132/6636)   Realizando una detección de cambios de nombre inexacta:  93% (6174/6636)   Realizando una detección de cambios de nombre inexacta:  93% (6216/6636)   Realizando una detección de cambios de nombre inexacta:  94% (6258/6636)   Realizando una detección de cambios de nombre inexacta:  95% (6342/6636)   Realizando una detección de cambios de nombre inexacta:  96% (6384/6636)   Realizando una detección de cambios de nombre inexacta:  97% (6468/6636)   Realizando una detección de cambios de nombre inexacta:  98% (6510/6636)   Realizando una detección de cambios de nombre inexacta:  99% (6594/6636)   Realizando una detección de cambios de nombre inexacta: 100% (6636/6636)   Realizando una detección de cambios de nombre inexacta: 100% (6636/6636), listo.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p8.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p8.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p7.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p7.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p6.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p6.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p5.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p5.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p4.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p4.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p3.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p3.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p2.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p2.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p1.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p1.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p7.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p7.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p6.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p6.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p5.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p5.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p4.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p4.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p3.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p3.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p2.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p2.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p1.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p1.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192-p6.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192-p6.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192-p5.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192-p5.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192-p4.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192-p4.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192-p3.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192-p3.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192-p2.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192-p2.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192-p1.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192-p1.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p7.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p7.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p6.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p6.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p5.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p5.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p4.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p4.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p3.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p3.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p2.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p2.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p1.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p1.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p7.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p7.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p6.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p6.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p5.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p5.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p4.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p4.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p3.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p3.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p2.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p2.jpeg en el árbol.
+CONFLICTO (modificar/borrar): data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p1.jpeg borrado en 37a88fcabcc3435e9ee1ae79f22799d3cb23ac5f y modificado en HEAD. Falta versión HEAD de data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p1.jpeg en el árbol.
+Eliminando data/processed/cross-correlation_detections_inquiry_calls_Raven_format.txt
+Eliminando data/processed/automatic_detections_inquiry_calls_Raven_format.txt
+Eliminando data/processed/automatic_detections_inquiry_calls.csv
+Eliminando data/processed/ad_xcrr_delete.txt
+Eliminando data/processed/ad_snr_delete.txt
+Eliminando data/processed/ad_fr_delete.txt
+Eliminando data/processed/ad_delete.txt
+error: addinfo_cache fallo para la ruta '.Rproj.user/8E659706/sources/s-8422FB0D/5513C48F-contents'
+error: addinfo_cache fallo para la ruta '.Rproj.user/8E659706/sources/s-8422FB0D/5513C48F'
+Fusión automática falló; arregle los conflictos y luego realice un commit con el resultado.
+]0;/home/m/sda5/Github_projects/flight_coordination_thyroptera]0;m@m-MacBookPro: ~/sda5/Github_projects/flight_coordination_thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/sda5/Github_projects/flight_coordination_thyropterra[00m$ git pull
+error: No es posible hacer pull porque tienes archivos sin fusionar.
+ayuda: Corrígelos en el árbol de trabajo y entonces usa 'git add/rm <archivo>',
+ayuda: como sea apropiado, para marcar la resolución y realizar un commit.
+fatal: Saliendo porque existe un conflicto sin resolver.
+]0;/home/m/sda5/Github_projects/flight_coordination_thyroptera]0;m@m-MacBookPro: ~/sda5/Github_projects/flight_coordination_thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/sda5/Github_projects/flight_coordination_thyropterra[00m$ git 
+add                  filter-branch        reflog 
+am                   format-patch         remote 
+annotate             fsck                 repack 
+apply                gc                   replace 
+archive              get-tar-commit-id    request-pull 
+bisect               grep                 reset 
+blame                help                 revert 
+branch               imap-send            rm 
+bundle               init                 shortlog 
+checkout             instaweb             show 
+cherry               interpret-trailers   show-branch 
+cherry-pick          log                  stage 
+clean                merge                stash 
+clone                mergetool            status 
+commit               mv                   submodule 
+--More--[Kconfig               name-rev             subtree 
+--More--[Kdescribe             notes                tag 
+--More--[Kdiff                 pull                 verify-commit 
+--More--[Kdifftool             push                 whatchanged 
+--More--[Kfetch                rebase               worktree 
+]0;m@m-MacBookPro: ~/sda5/Github_projects/flight_coordination_thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/sda5/Github_projects/flight_coordination_thyropterra[00m$ git 
+usage: git [--version] [--help] [-C <path>] [-c <name>=<value>]
+           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
+           [-p | --paginate | --no-pager] [--no-replace-objects] [--bare]
+           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
+           <command> [<args>]
+
+Estos son comandos comunes de Git usados en varias situaciones:
+
+comienza un área de trabajo (ver también: git help tutorial)
+   clone      Clona un repositorio dentro de un nuevo directorio
+   init       Crea un repositorio de Git vacío o reinicia el que ya existe
+
+trabaja en los cambios actuales (ver también: git help everyday)
+   add        Agrega contenido de carpetas al índice
+   mv         Mueve o cambia el nombre a archivos, directorios o enlaces simbólicos
+   reset      Reinicia el HEAD actual a un estado especifico
+   rm         Borra archivos del árbol de trabajo y del índice
+
+examina el historial y el estado (ver también: git help revisions)
+   bisect     Use la búsqueda binaria para encontrar el commit que introdujo el bug
+   grep       Imprime las líneas que concuerdan con el patron
+   log        Muestra los logs de los commits
+   show       Muestra varios tipos de objetos
+   status     Muestra el estado del árbol de trabajo
+
+crece, marca y ajusta tu historial común
+   branch     Lista, crea, o borra ramas
+   checkout   Cambia ramas o restaura los archivos de tu árbol de trabajo
+   commit     Graba los cambios en tu repositorio
+   diff       Muestra los cambios entre commits, commit y árbol de trabajo, etc
+   merge      Junta dos o mas historiales de desarrollo juntos
+   rebase     Vuelve a aplicar commits en la punta de otra rama
+   tag        Crea, lista, borra o verifica un tag de objeto firmado con GPG
+
+colabora (mira también: git help workflows)
+   fetch      Descarga objetos y referencias de otro repositorio
+   pull       Realiza un fetch e integra con otro repositorio o rama local
+   push       Actualiza referencias remotas junto con sus objetos asociados
+
+'git help -a' y 'git help -g' listan los subcomandos disponibles y algunas
+guías de concepto. Consulte 'git help <command>' o 'git help <concepto>'
+para leer sobre un subcomando o concepto específico.
+]0;/home/m/sda5/Github_projects/flight_coordination_thyroptera]0;m@m-MacBookPro: ~/sda5/Github_projects/flight_coordination_thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/sda5/Github_projects/flight_coordination_thyropterra[00m$ [K[A]0;m@m-MacBookPro: ~/sda5/Github_projects/flight_coordination_thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/sda5/Github_projects/flight_coordination_thyropterra[00m$ git show
+[?1h=[33mcommit 1bad3ab1c59c9478c8f87febe5a6c07ea6b0cc3d[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m[m
+Author: maRce10 <marceloa27@gmail.com>[m
+Date:   Tue May 12 12:39:27 2020 -0600[m
+[m
+    cambios[m
+[m
+[1mdiff --git a/.Rproj.user/8E659706/console06/B053551 b/.Rproj.user/[m [1m8E659706/console06/B053551[m[m
+[1mindex 58bc4583..f69ba5f3 100644[m[m
+[1m--- a/.Rproj.user/8E659706/console06/B053551[m[m
+[1m+++ b/.Rproj.user/8E659706/console06/B053551[m[m
+[36m@@ -1,446 +1,4 @@[m[m
+ [m[m
+[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/Me[m [31mta/Rd.rds[m[m
+[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/Me[m [31mta/features.rds[m[m
+[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/Me[m [31mta/hsearch.rds[m[m
+[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/Me[m [31mta/links.rds[m[m
+[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/Me[m [31mta/nsInfo.rds[m[m
+[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/Me[m [31mta/package.rds[m[m
+[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/Me[m [31mta/vignette.rds[m[m
+:[K[K [KESCESC[KOO[KAA[K[K:[K[K:[K[K [KESCESC[KOO[KAA[K[K:[K[K:[K[K [KESCESC[KESCESC[K:[K[K [KESCESC[KOO[KBB[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/NA[m :[K[K[31mMESPACE[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/NE[m :[K[K[31mWS.md[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/R/[m :[K[K[31mxml2[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/R/[m :[K[K[31mxml2.rdb[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/R/[m :[K[K[31mxml2.rdx[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/do[m :[K[K[31mc/index.html[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/do[m :[K[K[31mc/modification.R[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/do[m :[K[K[31mc/modification.Rmd[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/do[m :[K[K[31mc/modification.html[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/ex[m :[K[K[31mtdata/cd_catalog.xml[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/ex[m :[K[K[31mtdata/order-doc.xml[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/ex[m :[K[K[31mtdata/order-schema.xml[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/ex[m :[K[K[31mtdata/r-project.html[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/he[m :[K[K[31mlp/AnIndex[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/he[m :[K[K[31mlp/aliases.rds[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/he[m :[K[K[31mlp/paths.rds[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/he[m :[K[K[31mlp/xml2.rdb[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/he[m :[K[K[31mlp/xml2.rdx[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/ht[m :[K[K[31mml/00Index.html[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/ht[m :[K[K[31mml/R.css[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/in[m :[K[K[31mclude/xml2_types.h[m[m
+:[K[K[31m- create mode 100755 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xml2/li[m :[K[K[31mbs/xml2.so[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xopen/D[m :[K[K[31mESCRIPTION[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xopen/I[m :[K[K[31mNDEX[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xopen/L[m :[K[K[31mICENSE[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xopen/M[m :[K[K[31meta/Rd.rds[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xopen/M[m :[K[K[31meta/features.rds[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xopen/M[m :[K[K[31meta/hsearch.rds[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xopen/M[m :[K[K[31meta/links.rds[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xopen/M[m :[K[K[31meta/nsInfo.rds[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xopen/M[m :[K[K[31meta/package.rds[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xopen/N[m :[K[K[31mAMESPACE[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xopen/N[m :[K[K[31mEWS.md[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xopen/R[m :[K[K[31m/xopen[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xopen/R[m :[K[K[31m/xopen.rdb[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xopen/R[m :[K[K[31m/xopen.rdx[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xopen/h[m :[K[K[31melp/AnIndex[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xopen/h[m :[K[K[31melp/aliases.rds[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xopen/h[m :[K[K[31melp/paths.rds[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xopen/h[m :[K[K[31melp/xopen.rdb[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xopen/h[m :[K[K[31melp/xopen.rdx[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xopen/h[m :[K[K[31mtml/00Index.html[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xopen/h[m :[K[K[31mtml/R.css[m[m
+:[K[K[31m- create mode 100755 packrat/lib/x86_64-pc-linux-gnu/3.6.1/xopen/x[m :[K[K[31mdg-open[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/CH[m :[K[K[31mANGELOG[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/DE[m :[K[K[31mSCRIPTION[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/IN[m :[K[K[31mDEX[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/LI[m :[K[K[31mCENSE[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/Me[m :[K[K[31mta/Rd.rds[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/Me[m :[K[K[31mta/features.rds[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/Me[m :[K[K[31mta/hsearch.rds[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/Me[m :[K[K[31mta/links.rds[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/Me[m :[K[K[31mta/nsInfo.rds[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/Me[m :[K[K[31mta/package.rds[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/NA[m :[K[K[31mMESPACE[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/R/[m :[K[K [KESCESC[KESCESC[K:[K[K [KESCESC[KESCESC[K:[K[K [KESCESC[KESCESC[K:[K[K [KESCESC[K^J^J[K:[K[K [KESCESC[KESCESC[K:[K[K [KESCESC[KESCESC[K:[K[K [KESCESC[KESCESC[K:[K[K [KESCESC[KESCESC[K:[K[K [KESCESC[KESCESC[K:[K[K [KESCESC[KESCESC[K:[K[K [KESCESC[KESCESC[K:[K[K [KESCESC[KESCESC[K:[K[K [KESCESC[KESCESC[K:[K[K [KESCESC[KESCESC[K:[K[K [KESCESC[KESCESC[K:[K[K [KESCESC[KESCESC[K:[K[K [KESCESC[K:[K[K:[K[K:[K[K:[K[K[31myaml[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/R/[m :[K[K[31myaml.rdb[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/R/[m :[K[K[31myaml.rdx[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/TH[m :[K[K[31mANKS[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/he[m :[K[K[31mlp/AnIndex[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/he[m :[K[K[31mlp/aliases.rds[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/he[m :[K[K[31mlp/paths.rds[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/he[m :[K[K[31mlp/yaml.rdb[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/he[m :[K[K[31mlp/yaml.rdx[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/ht[m :[K[K[31mml/00Index.html[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/ht[m :[K[K[31mml/R.css[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/im[m :[K[K[31mplicit.re[m[m
+:[K[K[31m- create mode 100755 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/li[m :[K[K[31mbs/yaml.so[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/te[m :[K[K[31msts/files/merge.yml[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/te[m :[K[K[31msts/files/test.yml[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/te[m :[K[K[31msts/test_as_yaml.R[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/te[m :[K[K[31msts/test_read_yaml.R[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/te[m :[K[K[31msts/test_write_yaml.R[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/te[m :[K[K[31msts/test_yaml_load.R[m[m
+:[K[K[31m- create mode 100644 packrat/lib/x86_64-pc-linux-gnu/3.6.1/yaml/te[m :[K[K[31msts/test_yaml_load_file.R[m[m
+:[K[K[31m- create mode 100644 packrat/packrat.lock[m[m
+:[K[K[31m- create mode 100644 packrat/packrat.opts[m[m
+:[K[K[31m- create mode 100644 packrat/src/packrat/packrat_0.5.0.tar.gz[m[m
+:[K[K[31m- create mode 100644 scripts/acoustic_analysis_inquiry_calls.Rmd[m[m
+:[K[K[31m-0;/home/m/Documentos/Github_projects/flight_coordination_thyropte[m :[K[K[31mra[7m^G[27m0;m@m-MacBookPro: ~/Documentos/Github_projects/flight_coordina[m :[K[K[31mtion_thyroptera[7m^G[27m[01;32mm@m-MacBookPro[00m:[01;34m~/Documentos/Github_projects/fligh[m :[K[K[31m[01;32m[00m[01;34mt_coordinat[7m^M[27mtion_thyroptera[00m$ git commit -m "first commit"[7m^M[27mcommit[m :[K[K[31m[01;32m[00m[01;34m[00m -m "first commit"[7m^M[27mremote add origin git@github.com:maRce1[7m^M[27m10/fl[m :[K[K[31m[01;32m[00m[01;34m[00might_coordinatioinit[m[m
+:[K[K[31m-[7m^M^H^H^H^H[27mpush[m[m
+:[K[K[31m-fatal: La rama actual master no tiene una rama upstream.[m[m
+:[K[K[31m-Para realizar un push de la rama actual y configurar el remoto co[m :[K[K[31mmo upstream, use[m[m
+:[K[K[31m-[m[m
+:[K[K[31m-       git push --set-upstream origin master[m[m
+:[K[K[31m-[m[m
+:[K[K[31m-0;/home/m/Documentos/Github_projects/flight_coordination_thyropte[m :[K[K[31mra[7m^G[27m0;m@m-MacBookPro: ~/Documentos/Github_projects/flight_coordina[m :[K[K[31mtion_thyroptera[7m^G[27m[01;32mm@m-MacBookPro[00m:[01;34m~/Documentos/Github_projects/fligh[m :[K[K[31m[01;32m[00m[01;34mt_coordinat[7m^M[27mtion_thyroptera[00m$ git push --set-upstream origin maste[m :[K[K[31m[01;32m[00m[01;34m[00mr[m[m
+:[K[K[31m-Contando objetos: 17050, listo.[m[m
+:[K[K[31m-Delta compression using up to 4 threads.[m[m
+:[K[K[31m-Comprimiendo objetos:   0% (1/12882)   [7m^M[27mComprimiendo objetos:   [m :[K[K[31m1% (129/12882)   [7m^M[27mComprimiendo objetos:   2% (258/12882)   [7m^M[27mComp[m :[K[K[31mrimiendo objetos:   3% (387/12882)   [7m^M[27mComprimiendo objetos:   4% [m :[K[K[31m(516/12882)   [7m^M[27mComprimiendo objetos:   5% (645/12882)   [7m^M[27mComprim[m :[K[K[31miendo objetos:   6% (773/12882)   [7m^M[27mComprimiendo objetos:   7% (90[m :[K[K[31m2/12882)   [7m^M[27mComprimiendo objetos:   8% (1031/12882)   [7m^M[27mComprimie[m :[K[K[31mndo objetos:   9% (1160/12882)   [7m^M[27mComprimiendo objetos:  10% (128[m :[K[K[31m9/12882)   [7m^M[27mComprimiendo objetos:  11% (1418/12882)   [7m^M[27mComprimie[m :[K[K[31mndo objetos:  12% (1546/12882)   [7m^M[27mComprimiendo objetos:  13% (167[m :[K[K[31m5/12882)   [7m^M[27mComprimiendo objetos:  14% (1804/12882)   [7m^M[27mComprimie[m :[K[K[31mndo objetos:  15% (1933/12882)   [7m^M[27mComprimiendo objetos:  16% (206[m :[K[K[31m2/12882)   [7m^M[27mComprimiendo objetos:  17% (2190/12882)   [7m^M[27mComprimie[m :[K[K[31mndo objetos:  18% (2319/12882)   [7m^M[27mComprimiendo objetos:  19% (244[m :[K[K[31m8/12882)   [7m^M[27mComprimiendo objetos:  20% (2577/12882)   [7m^M[27mComprimie[m :[K[K[31mndo objetos:  21% (2706/12882)   [7m^M[27mComprimiendo objetos:  22% (283[m :[K[K[31m5/12882)   [7m^M[27mComprimiendo objetos:  23% (2963/12882)   [7m^M[27mComprimie[m :[K[K[31mndo objetos:  24% (3092/12882)   [7m^M[27mComprimiendo objetos:  25% (322[m :[K[K[31m1/12882)   [7m^M[27mComprimiendo objetos:  26% (3350/12882)   [7m^M[27mComprimie[m :[K[K[31mndo objetos:  27% (3479/12882)   [7m^M[27mComprimiendo objetos:  28% (360[m :[K[K[31m7/12882)   [7m^M[27mComprimiendo objetos:  29% (3736/12882)   [7m^M[27mComprimie[m :[K[K[31mndo objetos:  30% (3865/12882)   [7m^M[27mComprimiendo objetos:  31% (399[m :[K[K[31m4/12882)   [7m^M[27mComprimiendo objetos:  32% (4123/12882)   [7m^M[27mComprimie[m :[K[K[31mndo objetos:  33% (4252/12882)   [7m^M[27mComprimiendo objetos:  34% (438[m :[K[K[31m0/12882)   [7m^M[27mComprimiendo objetos:  35% (4509/12882)   [7m^M[27mComprimie[m :[K[K[31mndo objetos:  36% (4638/12882)   [7m^M[27mComprimiendo objetos:  37% (476[m :[K[K[31m7/12882)   [7m^M[27mComprimiendo objetos:  38% (4896/12882)   [7m^M[27mComprimie[m :[K[K[31mndo objetos:  39% (5024/12882)   [7m^M[27mComprimiendo objetos:  40% (515[m :[K[K[31m3/12882)   [7m^M[27mComprimiendo objetos:  41% (5282/12882)   [7m^M[27mComprimie[m :[K[K[31mndo objetos:  42% (5411/12882)   [7m^M[27mComprimiendo objetos:  43% (554[m :[K[K[31m0/12882)   [7m^M[27mComprimiendo objetos:  44% (5669/12882)   [7m^M[27mComprimie[m :[K[K[31mndo objetos:  45% (5797/12882)   [7m^M[27mComprimiendo objetos:  46% (592[m :[K[K[31m6/12882)   [7m^M[27mComprimiendo objetos:  47% (6055/12882)   [7m^M[27mComprimie[m :[K[K [K^X^X[K^J^J[K:[K[K[?1l>
+[1]+  Detenido                git show
+]0;/home/m/sda5/Github_projects/flight_coordination_thyroptera]0;m@m-MacBookPro: ~/sda5/Github_projects/flight_coordination_thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/sda5/Github_projects/flight_coordination_thyropterra[00m$ git show[Kpullsh origin master[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kshow[K[K[K[Kstatus
+En la rama master
+Tu rama y 'origin/master' han divergido,
+y tienen 1 y 2 commits diferentes cada una respectivamente.
+  (usa "git pull" para fusionar la rama remota en la tuya)
+
+Tienes rutas no fusionadas.
+  (arregla los conflictos y corre "git commit"
+  (usa "git merge --abort" para abortar la fusion)
+
+Cambios a ser confirmados:
+
+	[32mborrado:        data/processed/ad_delete.txt[m
+	[32mborrado:        data/processed/ad_fr_delete.txt[m
+	[32mborrado:        data/processed/ad_snr_delete.txt[m
+	[32mborrado:        data/processed/ad_xcrr_delete.txt[m
+	[32mborrado:        data/processed/automatic_detections_inquiry_calls.csv[m
+	[32mborrado:        data/processed/automatic_detections_inquiry_calls_Raven_format.txt[m
+	[32mborrado:        data/processed/cross-correlation_detections_inquiry_calls_Raven_format.txt[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_11-29-07_0000176-p1.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p1.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p10.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p11.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p12.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p13.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p14.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p15.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p16.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p17.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p18.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p19.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p2.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p20.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p3.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p4.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p5.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p6.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p7.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p8.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p9.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_12-35-36_0000178-p1.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_12-35-36_0000178-p2.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_12-35-36_0000178-p3.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p1.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p10.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p11.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p12.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p13.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p14.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p15.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p16.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p17.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p18.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p19.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p2.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p3.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p4.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p5.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p6.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p7.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p8.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p9.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-29_10-38-08_0000185-p1.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-29_10-38-08_0000185-p2.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-29_10-38-08_0000185-p3.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-29_10-38-08_0000185-p4.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-29_10-38-08_0000185-p5.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-29_10-38-08_0000185-p6.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-29_10-38-08_0000185-p7.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-29_10-38-08_0000185-p8.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch1MPI_2020-01-29_10-38-08_0000185-p9.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch3MPI2020-01-26_10-18-23_0000168-p1.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch3MPI2020-01-26_10-18-23_0000168-p2.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch3MPI2020-01-26_10-18-23_0000168-p3.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch3MPI2020-01-26_10-18-23_0000168-p4.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch3MPI2020-01-26_10-18-23_0000168-p5.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch3MPI2020-01-26_10-18-23_0000168-p6.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch3MPI2020-01-26_10-18-23_0000168-p7.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch3MPI2020-01-26_11-05-06_0000172-p1.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch3MPI2020-01-26_11-05-06_0000172-p2.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch3MPI2020-01-26_11-05-06_0000172-p3.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch3MPI2020-01-26_11-05-06_0000172-p4.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch3MPI2020-01-26_11-05-06_0000172-p5.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch3MPI2020-01-26_11-05-06_0000172-p6.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch3MPI2020-01-26_11-05-06_0000172-p7.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch3MPI_2020-01-30_13-53-47_0000192-p1.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch3MPI_2020-01-30_13-53-47_0000192-p2.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch3MPI_2020-01-30_13-53-47_0000192-p3.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch3MPI_2020-01-30_13-53-47_0000192-p4.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch3MPI_2020-01-30_13-53-47_0000192-p5.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch3MPI_2020-01-30_13-53-47_0000192-p6.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch4MPI2020-01-19_15-03-57_0000057-p1.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch4MPI2020-01-19_15-03-57_0000057-p2.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch4MPI2020-01-19_15-03-57_0000057-p3.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch4MPI2020-01-19_15-03-57_0000057-p4.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch4MPI2020-01-19_15-03-57_0000057-p5.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch4MPI2020-01-19_15-03-57_0000057-p6.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch4MPI2020-01-19_15-03-57_0000057-p7.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p1.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p2.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p3.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p4.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p5.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p6.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p7.tiff[m
+	[32mnuevo archivo:  data/processed/mfcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p8.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI2020-01-26_10-18-23_0000168-p1.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI2020-01-26_10-18-23_0000168-p1.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI2020-01-26_10-18-23_0000168-p2.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI2020-01-26_10-18-23_0000168-p2.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI2020-01-26_10-18-23_0000168-p3.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI2020-01-26_10-18-23_0000168-p3.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI2020-01-26_10-18-23_0000168-p4.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI2020-01-26_10-18-23_0000168-p4.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI2020-01-26_10-18-23_0000168-p5.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI2020-01-26_10-18-23_0000168-p5.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI2020-01-26_10-18-23_0000168-p6.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI2020-01-26_10-18-23_0000168-p6.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI2020-01-26_10-18-23_0000168-p7.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI2020-01-26_10-18-23_0000168-p7.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI2020-01-26_11-05-06_0000172-p1.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI2020-01-26_11-05-06_0000172-p1.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI2020-01-26_11-05-06_0000172-p2.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI2020-01-26_11-05-06_0000172-p2.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI2020-01-26_11-05-06_0000172-p3.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI2020-01-26_11-05-06_0000172-p3.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI2020-01-26_11-05-06_0000172-p4.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI2020-01-26_11-05-06_0000172-p4.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI2020-01-26_11-05-06_0000172-p5.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI2020-01-26_11-05-06_0000172-p5.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI2020-01-26_11-05-06_0000172-p6.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI2020-01-26_11-05-06_0000172-p6.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI2020-01-26_11-05-06_0000172-p7.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI2020-01-26_11-05-06_0000172-p7.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI_2020-01-30_13-53-47_0000192-p1.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI_2020-01-30_13-53-47_0000192-p1.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI_2020-01-30_13-53-47_0000192-p2.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI_2020-01-30_13-53-47_0000192-p2.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI_2020-01-30_13-53-47_0000192-p3.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI_2020-01-30_13-53-47_0000192-p3.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI_2020-01-30_13-53-47_0000192-p4.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI_2020-01-30_13-53-47_0000192-p4.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI_2020-01-30_13-53-47_0000192-p5.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI_2020-01-30_13-53-47_0000192-p5.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI_2020-01-30_13-53-47_0000192-p6.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch3MPI_2020-01-30_13-53-47_0000192-p6.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch4MPI2020-01-19_15-03-57_0000057-p1.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch4MPI2020-01-19_15-03-57_0000057-p1.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch4MPI2020-01-19_15-03-57_0000057-p2.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch4MPI2020-01-19_15-03-57_0000057-p2.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch4MPI2020-01-19_15-03-57_0000057-p3.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch4MPI2020-01-19_15-03-57_0000057-p3.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch4MPI2020-01-19_15-03-57_0000057-p4.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch4MPI2020-01-19_15-03-57_0000057-p4.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch4MPI2020-01-19_15-03-57_0000057-p5.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch4MPI2020-01-19_15-03-57_0000057-p5.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch4MPI2020-01-19_15-03-57_0000057-p6.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch4MPI2020-01-19_15-03-57_0000057-p6.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch4MPI2020-01-19_15-03-57_0000057-p7.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch4MPI2020-01-19_15-03-57_0000057-p7.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p1.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p1.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p2.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p2.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p3.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p3.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p4.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p4.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p5.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p5.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p6.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p6.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p7.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p7.tiff[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p8.jpeg[m
+	[32mnuevo archivo:  data/processed/spcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p8.tiff[m
+	[32mnuevo archivo:  data/processed/xc_outputs/xc.output_1.RDS[m
+	[32mmodificado:     scripts/acoustic_analysis_inquiry_calls.Rmd[m
+	[32mmodificado:     scripts/loading_data_to_figshare.R[m
+
+Rutas no fusionadas:
+  (usa "git add/rm <archivo>..." como una forma apropiada de marcar la resolución)
+
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p1.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p2.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p3.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p4.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p5.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p6.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p7.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p1.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p2.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p3.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p4.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p5.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p6.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p7.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192-p1.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192-p2.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192-p3.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192-p4.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192-p5.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192-p6.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p1.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p2.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p3.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p4.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p5.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p6.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p7.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p1.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p2.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p3.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p4.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p5.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p6.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p7.jpeg[m
+	[31mborrados por ellos:    data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p8.jpeg[m
+
+Cambios no rastreados para el commit:
+  (usa "git add <archivo>..." para actualizar lo que será confirmado)
+  (usa "git checkout -- <archivo>..." para descartar los cambios en el directorio de trabajo)
+
+	[31mmodificado:     .Rproj.user/8E659706/console06/B053551[m
+	[31mmodificado:     .Rproj.user/8E659706/console06/INDEX001[m
+	[31mmodificado:     .Rproj.user/8E659706/sources/s-8422FB0D/5513C48F[m
+	[31mmodificado:     .Rproj.user/8E659706/sources/s-8422FB0D/5513C48F-contents[m
+
+]0;/home/m/sda5/Github_projects/flight_coordination_thyroptera]0;m@m-MacBookPro: ~/sda5/Github_projects/flight_coordination_thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/sda5/Github_projects/flight_coordination_thyropterra[00m$ git  add.[K .
