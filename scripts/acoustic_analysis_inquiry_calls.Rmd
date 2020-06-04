@@ -51,433 +51,232 @@ aa <- lapply(x, function(y) {
 
 ```{r functions, eval = TRUE, echo = FALSE}
 
-warbleR_options(wav.path = "./data/raw/converted_sound_files_90_kHz", wl = 300, parallel = parallel::detectCores() - 1, fast = F, threshold = 15, ovlp = 20)
+warbleR_options(wav.path = "~/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/", wl = 300, parallel = parallel::detectCores() - 1, bp = "frange", fast = F, threshold = 15, ovlp = 20)
 
 ```
 
-```{r autodetec, eval = FALSE}
+```{r mfcc cross-correlation detection}
+                                
+# get in whole file clips
+split_sels <- split_wavs(only.sels = TRUE, sgmt.dur = 200000)
 
-# setwd("/media/m/Seagate\ Expansion\ Drive/Proyecto\ MPI/Enero_2020/audios")
-#  
-# fix_wavs(samp.rate = 90, bit.depth = 16, sox = TRUE)
-
-# plit in segments of 30 s without saving clips
-split_sels <- split_wavs(only.sels = TRUE, sgmt.dur = 300000)
+# split_sels <- split_sels[645:646, ]
 
 # relabels sels to make it and regular selection table
 split_sels$selec <- 1:nrow(split_sels)
-split_sels$sound.files <- split_sels$org.sound.files
+
+# split_sels$sound.files <- split_sels$org.sound.files
 split_sels$org.sound.files <- NULL
 
 # check
 cs <- check_sels(split_sels)
 
-
-
+# get template
 templ <- split_sels[split_sels$sound.files == "ch4MPI2020-01-19_15-03-57_0000057.wav", ][1, ]
 
 
-templ <- data.frame(sound.files = "ch4MPI2020-01-19_15-03-57_0000057.wav", selec = 0)
+templ$start[1] <- 96.587	
+templ$end[1] <- 96.638		
+# templ2$top.freq[1] <- 42.8226	
+# templ2$bottom.freq[1] <- 13.3548
+templ$selec <- 10001
+split_sels_temp <- rbind(templ, split_sels)
+
+comp_mat <- cbind(paste(split_sels_temp$sound.files[1], split_sels_temp$selec[1], sep = "-"), split_sels$sound.files)
+
+# make a sequence to do 100 files at the time
+sq <- c(seq(0, nrow(comp_mat), by = 100), nrow(comp_mat))
+
+for(i in 2:length(sq))
+{
+  xc.output <- xcorr(X = split_sels_temp, output = "list", 
+    compare.matrix = comp_mat[(sq[i-1] + 1):sq[i], ], pb = TRUE, bp = c(12, 42), type = "mfcc", na.rm = TRUE)
+
+  saveRDS(xc.output, paste0("./output/detection_xcorr_", i - 1, ".RDS"))
+  
+}
+
+```
+
+```{r redo problematic ones}
+
+
+xcd_l <- list.files(path = "./output/", pattern = "xcorr_", full.names = TRUE)
+
+out <- lapply(xcd_l, function(i){
+  
+    xcd <- readRDS(i)
+    
+    return(as.character(unique(xcd$scores$sound.files)))
+    
+    }
+)
+
+done <- unlist(out)
+
+all_files <- list.files(path = .Options$warbleR$wav.path)
+
+not_done <- c(setdiff(all_files, gsub("-whole.file", "", done)), "ch4MPI2020-01-19_15-03-57_0000057.wav")
+
+length(not_done)
+
+# get in whole file clips
+split_sels <- split_wavs(only.sels = TRUE, sgmt.dur = 200000, files = not_done)
+
+
+# relabels sels to make it and regular selection table
+split_sels$selec <- 1:nrow(split_sels)
+
+# split_sels$sound.files <- split_sels$org.sound.files
+split_sels$org.sound.files <- NULL
+
+# check
+cs <- check_sels(split_sels)
+
+# get template
+templ <- split_sels[split_sels$sound.files == "ch4MPI2020-01-19_15-03-57_0000057.wav", ][1, ]
 
 templ$start[1] <- 96.587	
 templ$end[1] <- 96.638		
-# templ$top.freq[1] <- 42.8226	
-# templ$bottom.freq[1] <- 13.3548
+# templ2$top.freq[1] <- 42.8226	
+# templ2$bottom.freq[1] <- 13.3548
+templ$selec <- 10001
+split_sels <- split_sels[split_sels$sound.files != "ch4MPI2020-01-19_15-03-57_0000057.wav", ]
 
-wvs <- list.files(path = "./data/raw/converted_sound_files_90_kHz/", pattern = "\\.wav$")
+split_sels_temp <- rbind(templ, split_sels)
 
-splt_wvs <- split(wvs, rep(1:80, each = 10)[1:length(wvs)])
+comp_mat <- cbind(paste(split_sels_temp$sound.files[1], split_sels_temp$selec[1], sep = "-"), split_sels$sound.files)
 
-out <- lapply(1:length(splt_wvs), function(x){
-  
-  print(round(y / length(splt_wvs), 2))
-  y <-splt_wvs[[x]]
-  
-  comp_mat <- cbind(paste(templ$sound.files[1], templ$selec[1], sep = "-"), y)
-  
-  xc.output <- x_corr(X = templ, output = "list", parallel = 1,
-    compare.matrix = comp_mat, pb = FALSE, bp = c(12, 42), type = "mfcc")
+xc.output <- xcorr(X = split_sels_temp, output = "list", 
+    compare.matrix = comp_mat, pb = TRUE, bp = c(12, 42), type = "mfcc", na.rm = TRUE)
 
-  saveRDS(xc.output, paste0("./data/processed/xc_outputs/xc.output_", x, ".RDS"))
-  
-  # find peaks
-  pks <- find_peaks(xc.output = xc.output, pb = FALSE, cutoff = 0.55, output = "list")
-  
-  lspec(pks, sxrow = 2, flim = c(10, 50), ovlp = 0, fast.spec = TRUE, it = "tiff", pb = FALSE)
-  
-  move_imgs(from = "./data/raw/converted_sound_files_90_kHz/", to = "./data/processed/mfcc_detection", cut = TRUE, overwrite = TRUE)
-
-  return(pks$selection.table)
-  })
+xc.output$scores <- xc.output$scores[!is.na(xc.output$scores$score), ]
 
 
-# exp_raven(X = ad2, file.name = "./data/processed/automatic_detections_inquiry_calls_Raven_format.txt", sound.file.path =  .Options$warbleR$wav.path)
-
-
-
-```
-
-```{r cross-correlation, eval = FALSE}
-
-# plit in segments of 30 s without saving clips
-split_sels <- split_wavs(only.sels = TRUE, sgmt.dur = 30)
-
-# relabels sels to make it and regular selection table
-split_sels$selec <- 1:nrow(split_sels)
-split_sels$sound.files <- split_sels$org.sound.files
-split_sels$org.sound.files <- NULL
-
-
-# do subset
-split_sels <- split_sels[1:100, ]
-
-# check
-cs <- check_sels(split_sels)
-
-# get template
-inq_est <- readRDS("/home/m/sda5/Dropbox/Projects/Ontogenia respuesta Thyroptera/suppl_mat/ext_sel_tab_inquiry.RDS")
-
-# get mean duration one
-inq_est <- sig2noise(inq_est, mar = 0.01)
-
-inq_est <- inq_est[inq_est$SNR > quantile(inq_est$SNR, 0.75), ]
-
-inq_est$dur <- inq_est$end - inq_est$start
-
-template <- inq_est[which.min(abs(inq_est$dur - mean(inq_est$dur))),, drop = FALSE]
-
-template <- resample_est(template, samp.rate = 80, bit.depth = 16)
-
-temp_st <- exp_est(template, selection.table = FALSE)
-
-temp_st$type <- "template"
-split_sels$type <- NA
-split_sels$top.freq <- 35
-split_sels$bottom.freq <- 10
-
-temp_st <- temp_st[, names(split_sels)]
-
-split_sels_detec <- rbind(temp_st, split_sels)
-
-comp_mat <- cbind(paste(split_sels_detec$sound.files[1], split_sels_detec$selec[1], sep = "-"), paste(split_sels$sound.files, split_sels$selec, sep = "-"))
-
-sq_rws <- seq(1, nrow(split_sels), by = 4)
-
-sq_rws <- c(sq_rws, nrow(split_sels))
-
-# loop over rows
-pks_l <- lapply(2:length(sq_rws), function(x){
-  
-  # get progress
-  print(round(x / length(sq_rws), 2))
-
-    # cross correlation
-  xc.output <- xcorr(
-  X = split_sels_detec[c(1, sq_rws[x - 1]:sq_rws[x] + 1), ], output = "list",
-  compare.matrix = comp_mat[sq_rws[x - 1]:sq_rws[x], ], 
-  pb = FALSE, bp = "pairwise.freq.range",
-  path = "/home/m/Documentos/Github_projects/flight_coordination_thyroptera/data/raw/resample_80kHz", 
-  wl = 300, ovlp = 0)
-  
-  # find peaks
-  pks <- find_peaks(xc.output = xc.output, pb = FALSE, cutoff = 0.1)
-  
-  return(pks)
-  })
-
-
-pks <- do.call(rbind, pks_l)
-
-# exclude non-detected
-pks <- pks[!is.na(pks$start), ]
-
-# get frequency range
-fr_pks <- freq_range(X = pks, bp = c(8, 70), fsmooth = 0.001, ovlp = 90,
-                          threshold = 5, img = FALSE)
-
-fr_pks$bottom.freq[is.na(fr_pks$bottom.freq)] <- mean(fr_pks$bottom.freq, na.rm = TRUE)
-fr_pks$top.freq[is.na(fr_pks$top.freq)] <- mean(fr_pks$top.freq, na.rm = TRUE)
-
-write.csv(fr_pks, "./data/processed/cross-correlation_detections_inquiry_calls.csv", row.names = FALSE)
-
-# Export raven selection tables
-st <- selection_table(whole.recs = TRUE)
-
-st$end <- 0.01
-st$bottom.freq <- 10
-st$top.freq <- 12
-st$channel <- NULL
-
-ad2 <- rbind(as.data.frame(st), fr_pks)
-
-exp_raven(X = ad2, file.name = "./data/processed/cross-correlation_detections_inquiry_calls_Raven_format.txt", sound.file.path =  .Options$warbleR$wav.path)
+if (nrow(xc.output$scores) > 0)
+  saveRDS(xc.output, paste0("./output/detection_xcorr_15.RDS")) else print("nothing worked")
 
 
 
 ```
 
 
+```{r find peaks}
 
-```{r}
+# find peaks
+xcd_l <- list.files(path = "./output/", pattern = "xcorr_", full.names = TRUE)
 
-# plit in segments of 30 s without saving clips
-split_sels <- split_wavs(only.sels = TRUE, sgmt.dur = 20)
-
-# relabels sels to make it and regular selection table
-split_sels$selec <- 1:nrow(split_sels)
-split_sels$sound.files <- split_sels$org.sound.files
-split_sels$org.sound.files <- NULL
-
-
-sub_sls <- split_sels[split_sels$sound.files %in% c("ch1MPI2020-01-15_12-03-59_0000001.wav", "ch1MPI2020-01-15_12-18-06_0000002.wav"), ]
-
-
-adX <- autodetec(X = sub_sls, threshold = 10, mindur= 0.02, maxdur = 0.07, bp = c(10, 35), img = FALSE, ssmooth = 400, parallel = 3)
-
-
-# exclude non-detected
-adX <- adX[!is.na(adX$start), ]
-
-exp_raven(X = adX, file.name = "./data/processed/ad_delete.txt", sound.file.path =  .Options$warbleR$wav.path)
-
-
-
-# get frequency range
-fr_pks <- freq_range(X = adX, bp = c(8, 55), fsmooth = 0.001, ovlp = 90,
-                          threshold = 5, img = F)
-
-
-
-fr_pks <- fr_pks[!is.na(fr_pks$bottom.freq), ]
-
-exp_raven(X = fr_pks, file.name = "./data/processed/ad_fr_delete.txt", sound.file.path =  .Options$warbleR$wav.path)
-
-ad_snrX <- sig2noise(adX, mar = 0.01, bp = c(10, 35))
-
-ad_snrX <- ad_snrX[ad_snrX$SNR > 5, ]
-
-exp_raven(X = ad_snrX, file.name = "./data/processed/ad_snr_delete.txt", sound.file.path =  .Options$warbleR$wav.path)
-
-
-nrow(ad_snrX)
-nrow(fr_pks)
-
-
-# get template
-inq_est <- readRDS("/home/m/sda5/Dropbox/Projects/Ontogenia respuesta Thyroptera/suppl_mat/ext_sel_tab_inquiry.RDS")
-
-# get mean duration one
-inq_est <- sig2noise(inq_est, mar = 0.01)
-
-inq_est <- inq_est[inq_est$SNR > quantile(inq_est$SNR, 0.75), ]
-
-inq_est$dur <- inq_est$end - inq_est$start
-
-template <- inq_est[which.min(abs(inq_est$dur - mean(inq_est$dur))),, drop = FALSE]
-
-template <- resample_est(template, samp.rate = 80, bit.depth = 16)
-
-temp_st <- exp_est(template, selection.table = FALSE)
-
-temp_st$type <- "template"
-split_sels$type <- NA
-split_sels$top.freq <- 35
-split_sels$bottom.freq <- 10
-
-temp_st <- temp_st[, names(sub_sls)]
-
-sub_slsX <- rbind(temp_st, sub_sls)
-
-
-sub_slsX$sound.files[1] <- "ch1MPI2020-01-15_12-03-59_0000001.wav"
+for(i in xcd_l){
   
-sub_slsX$start[1] <- 153.954	
-sub_slsX$end[1] <- 154.007		
-sub_slsX$top.freq[1] <- 37.7358	
-sub_slsX$bottom.freq[1] <- 15.3459
-					
-comp_mat <- cbind(paste(sub_slsX$sound.files[1], sub_slsX$selec[1], sep = "-"), paste(sub_sls$sound.files, sub_sls$selec, sep = "-"))
+    xcd <- readRDS(i)
+  
+  pks <- find_peaks(xc.output = xcd, pb = TRUE, cutoff = 0.45, output = "list")
+  
+  saveRDS(pks, paste0("./output/peaks_", gsub("./output//detection_xcorr_", "", i)))
 
-
-xc.output <- x_corr(X = sub_slsX, output = "list",
-    compare.matrix = comp_mat, pb = TRUE, bp = c(12, 35))
-
-# find peaks
-pks <- find_peaks(xc.output = xc.output, pb = TRUE)
-
-pks$bottom.freq <- sub_slsX$bottom.freq[1]
-pks$top.freq <- sub_slsX$top.freq[1]
-
-
-exp_raven(X = pks, file.name = "./data/processed/ad_xcrr_delete.txt", sound.file.path =  .Options$warbleR$wav.path)
-
-
-
-comp_mat2 <- comp_mat[1, , drop = FALSE]
-
-comp_mat2[, 2] <- "ch1MPI2020-01-15_12-03-59_0000001.wav"
-
-xc.output2 <- x_corr(X = sub_slsX, output = "list",
-    compare.matrix = comp_mat2, pb = TRUE, bp = c(12, 35))
-
-saveRDS(list(sub_slsX = sub_slsX, comp_mat2 = comp_mat2), "~/Downloads/delete.RDS")
-
-
+}
 
 
 ```
 
+```{r plot spectrograms}
 
-```{r test mfcc detection}
+pks_l <- list.files(path = "./output/", pattern = "peaks_", full.names = TRUE)
 
+pks <- lapply(pks_l, function(x){
 
-warbleR_options(wav.path = "./data/raw/subset_for_testing/", wl = 300, parallel = parallel::detectCores() - 1, bp = "frange", fast = F, threshold = 15, ovlp = 20)
+  pks <- readRDS(x)
+  pks$selection.table$bottom.freq <-  13.3548
+pks$selection.table$top.freq <-  42.8226
 
+lspec(pks, sxrow = 2, flim = c(10, 50), ovlp = 50, fast.spec = TRUE, it = "tiff", res = 60)
 
-# plit in segments of 30 s without saving clips
-split_sels <- split_wavs(only.sels = TRUE, sgmt.dur = 200000)
+move_imgs(from = .Options$warbleR$wav.path, to = "./data/processed/mfcc_detection", cut = TRUE, overwrite = TRUE)
 
-# relabels sels to make it and regular selection table
-split_sels$selec <- 1:nrow(split_sels)
-# split_sels$sound.files <- split_sels$org.sound.files
-split_sels$org.sound.files <- NULL
+return(pks$selection.table)
+})
 
-# check
-cs <- check_sels(split_sels)
+peaks <- do.call(rbind, pks)
 
-# get template
-templ <- split_sels[split_sels$sound.files == "ch3MPI2020-01-26_10-18-23_0000168.wav", ][1, ]
+write.csv(peaks, "./data/processed/peaks_xcorr_mfcc.csv", row.names = FALSE)
 
-split_sels$top.freq <- split_sels$bottom.freq <- NA
+Rraven::exp_raven(X = peaks, single.file = TRUE, sound.file.path = .Options$warbleR$wav.path, file.name = "./data/processed/peaks_xcorr_mfcc_for_raven.txt")
+  
 
-templ$start[1] <- 92.173	
-templ$end[1] <- 92.209		
-templ$top.freq[1] <- 36.9351	
-templ$bottom.freq[1] <- 12.7403
-templ$selec <- 10000
-split_sels2 <- rbind(templ, split_sels)
+```
 
-comp_mat <- cbind(paste(split_sels2$sound.files[1], split_sels2$selec[1], sep = "-"), split_sels2$sound.files[-1])
+```{r find overlaps}
 
+peaks <- read.csv("./data/processed/peaks_xcorr_mfcc.csv")
 
-# xc.output <- x_corr(X = split_sels2, output = "list", parallel = 1,
-    # compare.matrix = comp_mat, pb = TRUE, bp = c(12, 37), type = "mfcc")
+head(peaks)
+
+peaks$event <- substr(peaks$sound.files, 4, 1000)
 
 
-# saveRDS(xc.output, "./output/test_detection_xcorr.RDS")
-
-# find peaks
-# pks <- find_peaks(xc.output = xc.output, pb = TRUE, cutoff = 0.5, output = "list")
-
-# pks$bottom.freq <- templ$bottom.freq[1]
-# pks$top.freq <- templ$top.freq[1]
-
-# lspec(pks2, sxrow = 2, flim = c(10, 50), ovlp = 0, fast.spec = TRUE, it = "jpeg")
-
-
-templ2 <- split_sels[split_sels$sound.files == "ch4MPI2020-01-19_15-03-57_0000057.wav", ][1, ]
-
-
-templ2$start[1] <- 96.587	
-templ2$end[1] <- 96.638		
-templ2$top.freq[1] <- 42.8226	
-templ2$bottom.freq[1] <- 13.3548
-templ2$selec <- 10001
-split_sels3 <- rbind(templ2, split_sels)
-
-comp_mat2 <- cbind(paste(split_sels3$sound.files[1], split_sels3$selec[1], sep = "-"), split_sels2$sound.files[-1])
-
-xc.output2 <- x_corr(X = split_sels3, output = "list", parallel = 1,
-    compare.matrix = comp_mat2, pb = TRUE, bp = c(12, 42), type = "mfcc")
+ovlp_l <- lapply(unique(peaks$event), function(x){
+    
+  Y  <- peaks[peaks$event == x, ]
+  Y$org.sound.files <- Y$sound.files
+    Y$selec <- 1:nrow(Y)
+  Y$sound.files <- Y$event
+  
+  ov <- ovlp_sels(X = Y)
+  ov$sound.files <- Y$org.sound.files
+  
+  return(ov)
+})
 
 
-# saveRDS(xc.output, "./output/test_detection_xcorr.RDS")
+ovlps <- do.call(rbind, ovlp_l)
 
-# find peaks
-pks2 <- find_peaks(xc.output = xc.output2, pb = TRUE, cutoff = 0.55, output = "list")
 
-# pks$bottom.freq <- templ$bottom.freq[1]
-# pks$top.freq <- templ$top.freq[1]
+write.csv(ovlps, "./data/processed/overlapping_peaks.csv", row.names = FALSE)
 
-lspec(pks2, sxrow = 2, flim = c(10, 50), ovlp = 0, fast.spec = TRUE, it = "tiff")
+Rraven::exp_raven(X = ovlps, single.file = TRUE, sound.file.path = .Options$warbleR$wav.path, file.name = "./data/processed/overlap_peaks_xcorr_mfcc_for_raven.txt")
+  
 
-move_imgs(from = "./data/raw/subset_for_testing", to = "./data/processed/mfcc_detection", cut = TRUE, overwrite = TRUE)
+# remove overlaps and keep only channel 1 no duplicates
+ovlp_l_nd <- lapply(unique(peaks$event), function(x){
+    
+  Y  <- peaks[peaks$event == x, ]
+  Y$org.sound.files <- Y$sound.files
+  Y$sound.files <- Y$event
+  Y$selec <- 1:nrow(Y)
+  
+  ov <- ovlp_sels(X = Y)
+  ov$sound.files <- sort(unique(Y$org.sound.files))[1]
+  
+  ov <- ov[order(ov$ovlp.sels, - ov$score), ]
+  
+  if (!all(is.na(ov$ovlp.sels)))
+  ov <- ov[!duplicated(ov$ovlp.sels), ]
+  
+  return(ov)
+})
+
+
+ovlps_nd <- do.call(rbind, ovlp_l_nd)
+
+
+write.csv(ovlps, "./data/processed/non_overlapping_peaks.csv", row.names = FALSE)
+
+Rraven::exp_raven(X = ovlps, single.file = TRUE, sound.file.path = .Options$warbleR$wav.path, file.name = "./data/processed/no_overlap_peaks_xcorr_mfcc_for_raven.txt")
+  
 
 ```
 
 
-```{r test mfcc detection}
-
-warbleR_options(wav.path = "./data/raw/subset_for_testing/", wl = 300, parallel = parallel::detectCores() - 1, bp = "frange", fast = F, threshold = 15, ovlp = 20)
+```{r plot spectrograms}
 
 
-# plit in segments of 30 s without saving clips
-split_sels <- split_wavs(only.sels = TRUE, sgmt.dur = 200000)
+nd_peaks <- read.csv("./data/processed/non_overlapping_peaks.csv")
 
-# relabels sels to make it and regular selection table
-split_sels$selec <- 1:nrow(split_sels)
-# split_sels$sound.files <- split_sels$org.sound.files
-split_sels$org.sound.files <- NULL
+cs <- check_sels(nd_peaks)
 
-# check
-cs <- check_sels(split_sels)
+lspec(nd_peaks, sxrow = 2, flim = c(10, 50), ovlp = 50, fast.spec = TRUE, it = "tiff", res = 50)
 
-# get template
-templ <- split_sels[split_sels$sound.files == "ch3MPI2020-01-26_10-18-23_0000168.wav", ][1, ]
-
-split_sels$top.freq <- split_sels$bottom.freq <- NA
-
-templ$start[1] <- 92.173	
-templ$end[1] <- 92.209		
-templ$top.freq[1] <- 36.9351	
-templ$bottom.freq[1] <- 12.7403
-templ$selec <- 10000
-split_sels2 <- rbind(templ, split_sels)
-
-comp_mat <- cbind(paste(split_sels2$sound.files[1], split_sels2$selec[1], sep = "-"), split_sels2$sound.files[-1])
-
-
-xc.output <- x_corr(X = split_sels2, output = "list", parallel = 1,
-    compare.matrix = comp_mat, pb = TRUE, bp = c(12, 37))
-
-
-# saveRDS(xc.output, "./output/test_detection_xcorr.RDS")
-
-# find peaks
-pks <- find_peaks(xc.output = xc.output, pb = TRUE, cutoff = 0.5, output = "list")
-
-# pks$bottom.freq <- templ$bottom.freq[1]
-# pks$top.freq <- templ$top.freq[1]
-
-lspec(pks2, sxrow = 2, flim = c(10, 50), ovlp = 0, fast.spec = TRUE, it = "jpeg")
-
-
-templ2 <- split_sels[split_sels$sound.files == "ch4MPI2020-01-19_15-03-57_0000057.wav", ][1, ]
-
-
-templ2$start[1] <- 96.587	
-templ2$end[1] <- 96.638		
-templ2$top.freq[1] <- 42.8226	
-templ2$bottom.freq[1] <- 13.3548
-templ2$selec <- 10001
-split_sels3 <- rbind(templ2, split_sels)
-
-comp_mat2 <- cbind(paste(split_sels3$sound.files[1], split_sels3$selec[1], sep = "-"), split_sels2$sound.files[-1])
-
-xc.output2 <- x_corr(X = split_sels3, output = "list", parallel = 1,
-    compare.matrix = comp_mat2, pb = TRUE, bp = c(12, 42))
-
-
-# saveRDS(xc.output, "./output/test_detection_xcorr.RDS")
-
-# find peaks
-pks2 <- find_peaks(xc.output = xc.output2, pb = TRUE, cutoff = 0.5, output = "list")
-
-# pks$bottom.freq <- templ$bottom.freq[1]
-# pks$top.freq <- templ$top.freq[1]
-
-lspec(pks2, sxrow = 2, flim = c(10, 50), ovlp = 0, fast.spec = TRUE, it = "tiff")
-
-move_imgs(from = "./data/raw/subset_for_testing", to = "./data/processed/spcc_detection", cut = TRUE, overwrite = TRUE)
+move_imgs(from = .Options$warbleR$wav.path, to = "./data/processed/non_duplicated_peaks", cut = TRUE, overwrite = TRUE)
 
 ```
+

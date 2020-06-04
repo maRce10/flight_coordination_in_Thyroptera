@@ -32,11 +32,11 @@ out <- pbsapply(mss$path, function(x) fs_upload(article_id = art.id.part2, file 
 # or download
 setwd("./data/raw/converted_sound_files_90_kHz/")
 
-fs.fls1 <- sapply(p1$files, '[[', 3)[-1]
-fs.fls2 <- sapply(p2$files, '[[', 3)[-1]
+fs.fls1 <- sapply(p1$files, '[[', "name")[-1]
+fs.fls2 <- sapply(p2$files, '[[', "name")[-1]
 
-fs.url1 <- sapply(p1$files, '[[', 2)[-1]
-fs.url2 <- sapply(p2$files, '[[', 2)[-1]
+fs.url1 <- sapply(p1$files, '[[', "download_url")[-1]
+fs.url2 <- sapply(p2$files, '[[', "download_url")[-1]
 
 
 df <- data.frame(sound.files = c(fs.fls1, fs.fls2), recording_url = c(fs.url1, fs.url2), stringsAsFactors = FALSE)
@@ -45,7 +45,7 @@ df <- df[!df$sound.files %in% wvs, ]
 
 library(warbleR)
 
-find_annotations(X = df, parallel = 7)
+find_annotations(X = df, parallel = parallel::detectCores() - 2)
 
 # if (length(fs.fls1) > 0)
 #   out <- pbsapply(fs.fls1, function(x) fs_download(article_id = art.id.part1, file = x, urls_only = FALSE), dest.file)

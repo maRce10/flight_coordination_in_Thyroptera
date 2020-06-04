@@ -26,6 +26,12 @@ Version: 1.0.3
 Hash: 474a347a28e4f51d8f5845384650dbef
 Requires: knitr, tuneR
 
+Package: PKI
+Source: CRAN
+Version: 0.1-7
+Hash: 80608a04bc62e93bddf85c2acf76d568
+Requires: base64enc
+
 Package: R6
 Source: CRAN
 Version: 2.4.1
@@ -519,6 +525,12 @@ Version: 1.3-2
 Hash: a25c3f70c166fb3fbabc410eb32b6366
 Requires: backports
 
+Package: rsconnect
+Source: CRAN
+Version: 0.8.16
+Hash: 88c8ca5cd5688ce9dfa26be667cabff9
+Requires: curl, digest, jsonlite, openssl, packrat, rstudioapi, yaml
+
 Package: rstudioapi
 Source: CRAN
 Version: 0.11
@@ -627,19 +639,19 @@ Hash: 78bb072c4f9e729a283d4c40ec93f9c6
 
 Package: warbleR
 Source: github
-Version: 1.1.23
-Hash: 338ae6b4ed80fd6c764c07ccaa9c1966
+Version: 1.1.24
+Hash: be4ad9b39542324868a3834e35178551
 Requires: NatureSounds, RCurl, dtw, fftw, monitoR, pbapply, rjson,
     seewave, tuneR
 GithubRepo: warbleR
 GithubUsername: maRce10
 GithubRef: master
-GithubSha1: 0ca30ddb4299529ceaf6d36093cc85fc1351acfd
+GithubSha1: 828e45504d0e620aea36505f4ce4df5f15466b45
 RemoteHost: api.github.com
 RemoteRepo: warbleR
 RemoteUsername: maRce10
 RemoteRef: master
-RemoteSha: 0ca30ddb4299529ceaf6d36093cc85fc1351acfd
+RemoteSha: 828e45504d0e620aea36505f4ce4df5f15466b45
 
 Package: whisker
 Source: CRAN

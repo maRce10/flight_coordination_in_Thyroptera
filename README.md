@@ -2,7 +2,7 @@
 
 > analyzing vocal behavior during group flight in Spix's disc-winged bats (Thyroptera tricolor)
 
-![Example figure](./img/example_fig.png)
+![Inquiry call automatic detection](./img/example_fig.png)
 
 ## Table of contents
 * [General info](#general-info)
@@ -16,6 +16,7 @@ Code used for detecting inquiry calls produced during flight tests
 
 ## Analysis
 
+* [Calling activity results](https://rpubs.com/marcelo-araya-salas/624039) 
 
 ## In progress
 
