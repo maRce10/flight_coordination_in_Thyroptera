@@ -20,10 +20,16 @@ Code used for detecting inquiry calls produced during flight tests
 
 ## In progress
 
-* Testing detection algorithm
 
 ## To-do list
 
+* Detecting with 2 or 3 different templates
+* Cure current detections
+* Repeatibility of calling rate (**groups** and individuals)
+* Calling rate along recordings
+* Call individuality within groups based on acoustic structure
+* Indetifying individuals in group flight
+* Control for noise level (adjust SNR on low noise recs)
 * Measure signal structure
 
 ## Status
