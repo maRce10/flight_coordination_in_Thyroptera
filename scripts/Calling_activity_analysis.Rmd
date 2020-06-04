@@ -86,7 +86,7 @@ call_count <- call_count[order(call_count$file_ID), ]
 datatable(call_count, editable = list(
   target = 'row'
 ), rownames = FALSE, style = "bootstrap",  filter = 'top', options = list(
-  pageLength = 100, autoWidth = TRUE, dom = 'ft'
+  pageLength = 300, autoWidth = TRUE, dom = 'ft'
 ), autoHideNavigation = TRUE)
 
 
