@@ -1,0 +1,490 @@
+---
+title: <center><font size="6"><b>Calling activity</b></font></center>
+subtitle: <center><font size="4"><b>Group flight coordination in Thyroptera</b></font></center>
+author: <center><font size="4"><a href="http://marceloarayasalas.weebly.com/">Marcelo Araya-Salas, PhD</a> & <a href="https://www.batcr.com/">Gloriana Chaverri, PhD</a></font></center>
+date: <center>`r format(Sys.Date(), "%d-%m-%Y")`</center>
+output:
+  html_document:
+    code_folding: hide
+    toc: yes
+    toc_depth: 3
+    toc_float:
+      collapsed: no
+      smooth_scroll: no
+fontsize: 12pt 
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r packages, message = FALSE, warning = FALSE, echo = FALSE, eval = TRUE, include = FALSE}
+
+# unload all non-based packages
+out <- sapply(paste('package:', names(sessionInfo()$otherPkgs), sep = ""), function(x) try(detach(x, unload = FALSE, character.only = TRUE), silent = T))
+
+
+## add 'developer/' to packages to be installed from github
+x <- c("devtools", "maRce10/warbleR", "bioacoustics", "pbapply", "Rraven", "parallel", "viridis", "RJSONIO", "ropensci/rfigshare", "ranger", "Sim.DiffProc", "readxl", "ggplot2", "cowplot")
+
+aa <- lapply(x, function(y) {
+  
+  # get pakage name
+  pkg <- strsplit(y, "/")[[1]]
+  pkg <- pkg[length(pkg)]
+  
+  # check if installed, if not then install 
+  if (!pkg %in% installed.packages()[,"Package"])  {
+
+      if (grepl("/", y))  devtools::install_github(y, force = TRUE) else
+    install.packages(y) 
+    }
+
+  # load package
+  try(require(pkg, character.only = T), silent = T)
+})
+
+```
+
+```{r functions, eval = TRUE, echo = FALSE}
+
+warbleR_options(
+  wav.path = "~/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/",
+  wl = 300,
+  parallel = parallel::detectCores() - 4,
+  bp = "frange",
+  fast = F,
+  threshold = 15,
+  ovlp = 20
+)
+
+opts_knit$set(root.dir = "..")
+
+opts_chunk$set(fig.width = 8, fig.height = 3.5)
+
+```
+
+```{r number of calls per recording, eval = TRUE, echo = FALSE}
+
+# read all detections
+calls <- read.csv("./data/processed/manually_fixed_call_detections.csv")
+
+calls$sound.files <- gsub("ch2|ch3|ch4", "ch1", calls$sound.files)
+
+wd <- wav_dur()
+
+wd_ch1 <- wd[grep("^ch1", wd$sound.files), ]
+
+# count number of calls per recording
+wd_ch1$calls <- sapply(1:nrow(wd_ch1), function(x) sum(calls$sound.files == wd_ch1$sound.files[x]))
+
+# call rate
+wd_ch1$call.rate <- wd_ch1$calls / wd_ch1$duration
+
+wd_ch1 <- wd_ch1[order(wd_ch1$calls, decreasing = TRUE), ]
+
+metadat <- as.data.frame(read_excel("./data/raw/Proyecto MPI enero 2020_2.xlsx", sheet = "Experimento video coor vuelo"))
+
+# remove video calibration
+metadat <- metadat[metadat$`tipo de video`  !=  "calibracion de video", ]
+
+group_info <- lapply(unique(metadat$Grupo), function(x) data.frame(group = x, size = length(unique(metadat$Individuo[metadat$Grupo == x & !is.na(metadat$Individuo)])))
+   )
+
+group_info <- do.call(rbind, group_info)
+
+wd_ch1$sound.files <- as.character(wd_ch1$sound.files)
+
+# head(metadat)
+
+metadat <- metadat[!is.na(metadat$Audio), ]
+
+# rename experiments
+metadat$Experimento[metadat$Experimento == "vuelo solo"] <- "Solo flight"
+metadat$Experimento[metadat$Experimento == "Búsqueda refugio con obstaculos" ] <- "Group/obstacles"
+metadat$Experimento[metadat$Experimento == "Búsqueda refugio con obstaculos" ] <- "Group/obstacles"
+metadat$Experimento[metadat$Experimento == "vuelo grupal/sin sonido" ] <- "Group flight"
+metadat$Experimento[metadat$Experimento == "vuelo grupal/enmascarando busqueda" ] <- "Group flight with noise"
+
+
+# most individual have more than 1 solo flight
+a <- sapply(unique(metadat$Individuo), function(x) length(unique(metadat$Día[metadat$Experimento == "Solo flight" & metadat$Individuo == x & !is.na(metadat$Experimento)])))
+
+
+
+
+
+wd_ch1$audio.num <- substr(wd_ch1$sound.files, nchar(wd_ch1$sound.files) - 10, nchar(wd_ch1$sound.files)- 4)
+
+wd_ch1$audio.num2 <- as.numeric(wd_ch1$audio.num)
+
+wd_ch1 <- wd_ch1[wd_ch1$audio.num2 %in% metadat$Audio, ]
+
+
+wd_ch1$video.type <- sapply(wd_ch1$audio.num2, function(x) metadat$`tipo de video`[metadat$Audio == x][1])
+
+wd_ch1$indiv <- sapply(wd_ch1$audio.num2, function(x) metadat$Individuo[metadat$Audio == x][1])
+
+wd_ch1$group <- sapply(wd_ch1$audio.num2, function(x) metadat$Grupo[metadat$Audio == x][1])
+
+wd_ch1$exp.type <- sapply(wd_ch1$audio.num2, function(x) metadat$Experimento[metadat$Audio == x][1])
+
+wd_ch1$indiv[wd_ch1$exp.type != "Solo flight"] <- "group"
+
+# table(wd_ch1$exp.type)
+
+# View(wd_ch1)
+
+
+# histograms 
+
+
+## call rate
+# distribution call rate per experiment
+# ggplot(wd_ch1[!is.na(wd_ch1$exp.type),], aes(x = exp.type, y = call.rate)) +
+#   geom_violin(fill = viridis(10, alpha = 0.5)[3]) +
+#   scale_fill_viridis_d(alpha = 0.4) +
+#   ggtitle("distribution call rate per experiment") +
+#   theme_classic()
+
+
+# wd_ch1 <- wd_ch1[!wd_ch1$exp.type %in% c("vuelo grupal/enmascarando busqueda", "Búsqueda refugio con obstaculos"),]
+
+wd_ch1 <- wd_ch1[!is.na(wd_ch1$sound.files), ]
+
+wd_ch1 <- wd_ch1[order(wd_ch1$exp.type), ]
+
+
+# table(wd_ch1$exp.type)
+
+## calculate call count by time window ###
+
+time_window <- 10
+
+
+out <- pblapply(unique(wd_ch1$sound.files), function(i){
+
+exmp <- wd_ch1[wd_ch1$sound.files == i, ]
+
+
+sgmts <- seq(0, exmp$duration, by = time_window)
+
+sgmts_df <- data.frame(sgmts = sgmts)
+
+# sgmts
+
+sgmts_df$call_cnt <- c(0, sapply(2:length(sgmts), function(x) {
+  
+  sum(calls$sound.files == exmp$sound.files & calls$start > sgmts[x - 1] & calls$end < sgmts[x])
+  
+}))
+
+
+sgmts_df$indiv <- exmp$indiv[1]
+sgmts_df$group <- exmp$group[1]
+sgmts_df$exp.type <- exmp$exp.type[1]
+
+return(sgmts_df)
+})
+
+sgmts_df <- do.call(rbind, out)
+
+# View(sgmts_df)
+
+# aggregate call counts by event
+agg_cnt <- aggregate(call_cnt ~ indiv + group + exp.type, data = sgmts_df, FUN = mean)
+
+agg_cnt <- merge(agg_cnt, group_info)
+
+agg_cnt$size[agg_cnt$exp.type == "Solo flight"] <- 1
+
+agg_cnt$stand_count <- agg_cnt$call_cnt / agg_cnt$size
+
+# aggregate call counts by time window
+
+agg_cnt_sgmt <- aggregate(call_cnt ~ sgmts + indiv + group + exp.type, data = sgmts_df, FUN = mean)
+
+agg_cnt_sgmt <- merge(agg_cnt_sgmt, group_info)
+
+agg_cnt_sgmt$size[agg_cnt_sgmt$exp.type == "Solo flight"] <- 1
+
+agg_cnt_sgmt$stand_count <- agg_cnt_sgmt$call_cnt / agg_cnt_sgmt$size
+
+mean_cnt <- aggregate(call_cnt ~ exp.type, data = agg_cnt, FUN = mean)
+
+mean_std_cnt <- aggregate(stand_count ~ exp.type, data = agg_cnt, FUN = mean)
+
+```
+
+## Exploratory graphs on calling rate 
+
+Calls per experiment
+
+```{r, echo = TRUE}
+
+ggplot(agg_cnt, aes(x = exp.type, y = call_cnt)) + 
+  geom_violin(fill = viridis(10, alpha = 0.5)[3]) +
+  scale_fill_viridis_d(alpha = 0.4) + 
+  geom_point(data = mean_cnt, size = 3) +
+  labs(x = "Experiment", y = "Call counts per time window") +
+  theme_classic() + ggtitle("Raw counts")
+
+
+ggplot(agg_cnt, aes(x = exp.type, y = stand_count)) + 
+  geom_violin(fill = viridis(10, alpha = 0.5)[3]) +
+  scale_fill_viridis_d(alpha = 0.4) + 
+ geom_point(data = mean_std_cnt, size = 3) +
+ labs(x = "Experiment", y = "Call counts per time window / group size") +
+  theme_classic() + ggtitle("Standardize counts")
+
+```
+
+### Calls per experiment by time window
+
+- Time windows after 140 s were excluded
+
+```{r, echo = TRUE}
+agg_cnt_sgmt$sgmts <- as.factor(agg_cnt_sgmt$sgmts)
+
+# View(agg_cnt_sgmt)
+
+mean_cnt_sgmt <- aggregate(stand_count ~ sgmts + exp.type, data = agg_cnt_sgmt[as.numeric(as.character(agg_cnt_sgmt$sgmts)) < 140, ], FUN = mean)
+
+
+mean_cnt_sgmt$sd <- aggregate(stand_count ~ sgmts + exp.type, data = agg_cnt_sgmt[as.numeric(as.character(agg_cnt_sgmt$sgmts)) < 140, ], FUN = sd)[, 3]
+
+mean_cnt_sgmt$se <- aggregate(stand_count ~ sgmts + exp.type, data = agg_cnt_sgmt[as.numeric(as.character(agg_cnt_sgmt$sgmts)) < 140, ], FUN = function(x) sd(x) / sqrt(length(x)))[, 3]
+
+
+# ggplot(agg_cnt_sgmt[as.numeric(as.character(agg_cnt_sgmt$sgmts)) < 140, ], aes(x = sgmts, y = stand_count)) +   geom_violin(fill = viridis(10, alpha = 0.5)[3]) +
+#   scale_fill_viridis_d(alpha = 0.4) + 
+#   facet_wrap(~ exp.type, nrow = 2) +
+#   geom_point(data = mean_cnt_sgmt[as.numeric(as.character(mean_cnt_sgmt$sgmts)) < 140, ], size = 2) +
+#   theme_classic()
+
+
+pd <- position_dodge(0.2) 
+
+ggplot(mean_cnt_sgmt, aes(x = sgmts, y = stand_count, col = exp.type, group = exp.type)) +   
+  # scale_fill_viridis_d(alpha = 0.4) + 
+  scale_color_manual(values = viridis(10)[c(1, 4, 10, 7)]) +
+  geom_point( size = 2) +
+    geom_line() +
+  labs(x = "Time (s)",y = "Call count  / group size") + 
+   geom_errorbar(aes(ymin = stand_count - se, ymax = stand_count + se, col = exp.type), width = .1, position = pd) +
+  theme_classic() + 
+  theme(legend.position = c(0.2, 0.8))
+
+
+ggplot(mean_cnt_sgmt[!grepl("obsta", mean_cnt_sgmt$exp.type), ], aes(x = sgmts, y = stand_count, col = exp.type, group = exp.type)) +   
+  scale_color_manual(values = viridis(10)[c(1, 4, 7)]) +
+  geom_point(size = 2) +
+    geom_line() +
+  labs(x = "Time (s)",y = "Call count  / group size") + 
+   geom_errorbar(aes(ymin = stand_count - se, ymax = stand_count + se, col = exp.type), width = .1, position = pd) +
+  theme_classic() + guides(color = FALSE) 
+ 
+
+```
+
+### Calling activity per individual
+
+```{r, fig.height = 20, eval = TRUE}
+
+caps <- as.data.frame(read_excel("./data/raw/Proyecto MPI enero 2020_3.xlsx", sheet = "Capturas"))
+
+agg_cnt_sgmt$sex <- sapply(agg_cnt_sgmt$indiv, function(x) na.exclude(caps$Sexo[caps$Murci == x])[1], USE.NAMES = FALSE)
+
+agg_cnt_sgmt$sex <- ifelse(agg_cnt_sgmt$sex == "m", "Male", "Female")
+
+agg_cnt_sgmt$sex[agg_cnt_sgmt$indiv == "group"] <- "group"
+
+agg_cnt_sgmt$age <- sapply(agg_cnt_sgmt$indiv, function(x) na.exclude(caps$Edad[caps$Murci == x])[1], USE.NAMES = FALSE)
+
+agg_cnt_sgmt$age <- ifelse(agg_cnt_sgmt$age == "sa", "Sub-adult", "Adult")
+
+agg_cnt_sgmt$age[agg_cnt_sgmt$indiv == "group"] <- "group"
+
+agg_cnt_sgmt$reprod.stg <- sapply(agg_cnt_sgmt$indiv, function(x) na.exclude(caps$`Estado reproductivo`[caps$Murci == x])[1], USE.NAMES = FALSE)
+
+agg_cnt_sgmt$reprod.stg[agg_cnt_sgmt$reprod.stg == "p?"] <- "p"
+agg_cnt_sgmt$reprod.stg[agg_cnt_sgmt$reprod.stg == "ne"] <- "in"
+
+agg_cnt_sgmt$reprod.stg[agg_cnt_sgmt$indiv == "group"] <- "group"
+
+
+grp_cnt_sgmt <- aggregate(stand_count ~ sgmts + exp.type + indiv + group + sex, data = agg_cnt_sgmt, FUN = mean)
+
+ggs <- lapply(unique(grp_cnt_sgmt$group), function(x){
+
+  grp <- grp_cnt_sgmt[grp_cnt_sgmt$group == x, ]
+
+  nind <- length(unique(grp$indiv)) - 1
+  
+  gg <- ggplot(grp, aes(x = sgmts, y = stand_count, col = sex, group = indiv)) +   
+    # scale_color_manual(values = c(rep(viridis(10)[8], nind), "black")) +
+    geom_point(size = 1) +
+    geom_line(aes(linetype = indiv)) +
+    scale_linetype_manual(values = c(rep(1, nind), 2)) +
+    labs(x = "Time (s)",y = "Call count  / group size") + 
+    theme_classic() + 
+    ggtitle(x) +
+    theme(
+      axis.title.x = element_blank(),
+      axis.text.x = element_blank(),
+      axis.ticks.x = element_blank(),
+      axis.title.y = element_blank(),
+      axis.text.y = element_blank(),
+      axis.ticks.y = element_blank()
+    )
+  
+  gg <- #if (x != 1)  gg + guides(color = FALSE, linetype = FALSE) else 
+    gg + guides(linetype = FALSE) + 
+  theme(legend.position = c(0.2, 0.8))
+
+  return(gg)  
+})
+
+# ggs[[1]]
+
+plot_grid(plotlist = ggs, ncol = 2)
+
+##### by age
+
+grp_cnt_sgmt2 <- aggregate(stand_count ~ sgmts + exp.type + indiv + group + age, data = agg_cnt_sgmt, FUN = mean)
+
+ggs2 <- lapply(unique(grp_cnt_sgmt2$group), function(x){
+
+  grp <- grp_cnt_sgmt2[grp_cnt_sgmt2$group == x, ]
+
+  nind <- length(unique(grp$indiv)) - 1
+  
+  gg <- ggplot(grp, aes(x = sgmts, y = stand_count, col = age, group = indiv)) +   
+    # scale_color_manual(values = c(rep(viridis(10)[8], nind), "black")) +
+    geom_point(size = 1) +
+    geom_line(aes(linetype = indiv)) +
+    scale_linetype_manual(values = c(rep(1, nind), 2)) +
+    labs(x = "Time (s)",y = "Call count  / group size") + 
+    theme_classic() + 
+    ggtitle(x) +
+    theme(
+      axis.title.x = element_blank(),
+      axis.text.x = element_blank(),
+      axis.ticks.x = element_blank(),
+      axis.title.y = element_blank(),
+      axis.text.y = element_blank(),
+      axis.ticks.y = element_blank()
+    )
+  
+  gg <- #if (x != 1)  gg + guides(color = FALSE, linetype = FALSE) else 
+    gg + guides(linetype = FALSE) + 
+  theme(legend.position = c(0.2, 0.8))
+
+  return(gg)  
+})
+
+# ggs2[[1]]
+
+plot_grid(plotlist = ggs2, ncol = 2)
+
+##### by repr stage
+
+grp_cnt_sgmt3 <- aggregate(stand_count ~ sgmts + exp.type + indiv + group + reprod.stg, data = agg_cnt_sgmt, FUN = mean)
+
+ggs3 <- lapply(unique(grp_cnt_sgmt3$group), function(x){
+
+  grp <- grp_cnt_sgmt3[grp_cnt_sgmt3$group == x, ]
+
+  nind <- length(unique(grp$indiv)) - 1
+  
+  gg <- ggplot(grp, aes(x = sgmts, y = stand_count, col = reprod.stg, group = indiv)) +   
+    # scale_color_manual(values = c(rep(viridis(10)[8], nind), "black")) +
+    geom_point(size = 1) +
+    geom_line(aes(linetype = indiv)) +
+    scale_linetype_manual(values = c(rep(1, nind), 2)) +
+    labs(x = "Time (s)",y = "Call count  / group size") + 
+    theme_classic() + 
+    ggtitle(x) +
+    theme(
+      axis.title.x = element_blank(),
+      axis.text.x = element_blank(),
+      axis.ticks.x = element_blank(),
+      axis.title.y = element_blank(),
+      axis.text.y = element_blank(),
+      axis.ticks.y = element_blank()
+    )
+  
+  gg <- #if (x != 1)  gg + guides(color = FALSE, linetype = FALSE) else 
+    gg + guides(linetype = FALSE) + 
+  theme(legend.position = c(0.2, 0.8))
+
+  return(gg)  
+})
+
+# ggs3[[1]]
+
+plot_grid(plotlist = ggs3, ncol = 2)
+
+```
+
+```{r find example files NOT USED, , eval = FALSE, echo = FALSE}
+
+# read all detections
+all_d <- read.csv("./data/processed/all_detections_no_duplicates.csv")
+
+calls <- all_d[all_d$class_fixed == "call", ]
+
+calls$sound.files <- gsub("ch2|ch3|ch4", "ch1", calls$sound.files)
+
+
+wd <- wav_dur()
+
+wd_ch1 <- wd[grep("^ch1", wd$sound.files), ]
+
+wd_ch1$calls <- sapply(1:nrow(wd_ch1), function(x) sum(calls$sound.files == wd_ch1$sound.files[x]))
+
+
+wd_ch1 <- wd_ch1[order(wd_ch1$calls, decreasing = TRUE), ]
+
+
+sl_recs <- wd_ch1[wd_ch1$duration < 100,][1:4,]$sound.files
+
+
+
+library(rfigshare)
+
+dt1 <- rfigshare::fs_details("12233780")  
+dt2 <- rfigshare::fs_details("12218288")  
+
+nms1 <- sapply(dt1$files, function(x) x$name)
+nms2 <- sapply(dt2$files, function(x) x$name)
+ids1 <- sapply(dt1$files, function(x) x$id)
+ids2 <- sapply(dt2$files, function(x) x$id)
+
+nms <- c(nms1, nms2)
+ids <- c(ids1, ids2)
+
+
+df_id <- data.frame(nms, ids)
+
+c(22495364, 22495355, 22495397, 22495409)
+
+
+df_id <- df_id[df_id$nms %in% sl_recs, ]
+
+dir.create(path = "./examples/bat_inquiry")
+
+for(i in 1:length(ids))
+ download.file(url = paste0("https://ndownloader.figshare.com/files/", ids[i]), 
+ destfile = file.path("./examples/bat_inquiry", nms[i]))
+
+
+```
+
+---
+
+<font size="4">Session information</font>
+
+```{r session info, echo=F}
+
+sessionInfo()
+
+```

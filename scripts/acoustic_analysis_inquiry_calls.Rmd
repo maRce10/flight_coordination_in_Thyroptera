@@ -51,28 +51,19 @@ aa <- lapply(x, function(y) {
 
 ```{r functions, eval = TRUE, echo = FALSE}
 
-warbleR_options(wav.path = "~/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/", wl = 300, parallel = parallel::detectCores() - 1, bp = "frange", fast = F, threshold = 15, ovlp = 20)
+warbleR_options(wav.path = "~/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/", wl = 300, parallel = parallel::detectCores() - 3, bp = "frange", fast = F, threshold = 15, ovlp = 20)
 
 ```
 
 ```{r mfcc cross-correlation detection}
                                 
 # get in whole file clips
-split_sels <- split_wavs(only.sels = TRUE, sgmt.dur = 200000)
+all_recs <- selection_table(whole.recs = TRUE)
 
-# split_sels <- split_sels[645:646, ]
-
-# relabels sels to make it and regular selection table
-split_sels$selec <- 1:nrow(split_sels)
-
-# split_sels$sound.files <- split_sels$org.sound.files
-split_sels$org.sound.files <- NULL
-
-# check
-cs <- check_sels(split_sels)
+all_recs$sound.files <- as.character(all_recs$sound.files)
 
 # get template
-templ <- split_sels[split_sels$sound.files == "ch4MPI2020-01-19_15-03-57_0000057.wav", ][1, ]
+templ <- all_recs[all_recs$sound.files == "ch4MPI2020-01-19_15-03-57_0000057.wav", , drop = FALSE]
 
 
 templ$start[1] <- 96.587	
@@ -80,18 +71,22 @@ templ$end[1] <- 96.638
 # templ2$top.freq[1] <- 42.8226	
 # templ2$bottom.freq[1] <- 13.3548
 templ$selec <- 10001
-split_sels_temp <- rbind(templ, split_sels)
+all_recs_temp <- rbind(templ, all_recs)
 
-comp_mat <- cbind(paste(split_sels_temp$sound.files[1], split_sels_temp$selec[1], sep = "-"), split_sels$sound.files)
+# make compare matrix
+comp_mat <- cbind(paste(all_recs_temp$sound.files[1], all_recs_temp$selec[1], sep = "-"), all_recs$sound.files[-1])
 
 # make a sequence to do 100 files at the time
 sq <- c(seq(0, nrow(comp_mat), by = 100), nrow(comp_mat))
 
 for(i in 2:length(sq))
 {
-  xc.output <- xcorr(X = split_sels_temp, output = "list", 
+  xc.output <- xcorr(X = all_recs_temp, output = "list", 
     compare.matrix = comp_mat[(sq[i-1] + 1):sq[i], ], pb = TRUE, bp = c(12, 42), type = "mfcc", na.rm = TRUE)
 
+  xc.output <- xcorr(X = all_recs_temp, output = "list", 
+    compare.matrix = comp_mat[(sq[i-1] + 1):sq[i], ], pb = TRUE, bp = c(12, 42), type = "spectrogram", na.rm = TRUE)
+  
   saveRDS(xc.output, paste0("./output/detection_xcorr_", i - 1, ".RDS"))
   
 }
@@ -121,33 +116,33 @@ not_done <- c(setdiff(all_files, gsub("-whole.file", "", done)), "ch4MPI2020-01-
 length(not_done)
 
 # get in whole file clips
-split_sels <- split_wavs(only.sels = TRUE, sgmt.dur = 200000, files = not_done)
+all_recs <- split_wavs(only.sels = TRUE, sgmt.dur = 200000, files = not_done)
 
 
 # relabels sels to make it and regular selection table
-split_sels$selec <- 1:nrow(split_sels)
+all_recs$selec <- 1:nrow(all_recs)
 
-# split_sels$sound.files <- split_sels$org.sound.files
-split_sels$org.sound.files <- NULL
+# all_recs$sound.files <- all_recs$org.sound.files
+all_recs$org.sound.files <- NULL
 
 # check
-cs <- check_sels(split_sels)
+cs <- check_sels(all_recs)
 
 # get template
-templ <- split_sels[split_sels$sound.files == "ch4MPI2020-01-19_15-03-57_0000057.wav", ][1, ]
+templ <- all_recs[all_recs$sound.files == "ch4MPI2020-01-19_15-03-57_0000057.wav", ][1, ]
 
 templ$start[1] <- 96.587	
 templ$end[1] <- 96.638		
 # templ2$top.freq[1] <- 42.8226	
 # templ2$bottom.freq[1] <- 13.3548
 templ$selec <- 10001
-split_sels <- split_sels[split_sels$sound.files != "ch4MPI2020-01-19_15-03-57_0000057.wav", ]
+all_recs <- all_recs[all_recs$sound.files != "ch4MPI2020-01-19_15-03-57_0000057.wav", ]
 
-split_sels_temp <- rbind(templ, split_sels)
+all_recs_temp <- rbind(templ, all_recs)
 
-comp_mat <- cbind(paste(split_sels_temp$sound.files[1], split_sels_temp$selec[1], sep = "-"), split_sels$sound.files)
+comp_mat <- cbind(paste(all_recs_temp$sound.files[1], all_recs_temp$selec[1], sep = "-"), all_recs$sound.files)
 
-xc.output <- xcorr(X = split_sels_temp, output = "list", 
+xc.output <- xcorr(X = all_recs_temp, output = "list", 
     compare.matrix = comp_mat, pb = TRUE, bp = c(12, 42), type = "mfcc", na.rm = TRUE)
 
 xc.output$scores <- xc.output$scores[!is.na(xc.output$scores$score), ]

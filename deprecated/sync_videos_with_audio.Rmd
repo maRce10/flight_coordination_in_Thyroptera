@@ -1,0 +1,292 @@
+---
+title: "Untitled"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+
+# install packages
+```{r packages, eval=T}
+
+rm(list = ls())
+# 
+# unload all non-based packages
+out <- sapply(paste('package:', names(sessionInfo()$otherPkgs), sep = ""), function(x) try(detach(x, unload = FALSE, character.only = TRUE), silent = T))
+
+x <- c( "devtools", "seewave", "warbleR", "monitoR",  "baRulho", "readxl")
+
+aa <- lapply(x, function(y) {
+  if(!y %in% installed.packages()[,"Package"])  {if(!y %in% c("warbleR", "Rraven", "baRulho", "NatureSounds")) install.packages(y) else devtools::install_github(paste0("maRce10/", y))
+  } 
+  
+try(require(y, character.only = T), silent = T)
+  }
+)
+
+```
+
+
+```{r create marker, include=FALSE}
+
+par(mar = rep(0, 4))
+
+# empty plot
+plot(0, type='n',axes = FALSE, ann = FALSE, xlim = c(0, 1), ylim = c(0, 1))
+
+# text to include
+text <- "miriam \napagate"
+
+# add text
+text(x = 0.5, y = 0.5, labels = text, cex = 11, font = 1)
+
+# save image in temporary directory
+dev2bitmap(file.path(tempdir(), "temp-img.png"), type = "pngmono", res = 30)
+
+# read it 
+wv <- image_to_wave(file = file.path(tempdir(), "temp-img.png"), plot = TRUE, flim = c(1, 10), duration = 1)
+
+# output wave object
+# wv
+
+## plot it   
+# reset margins
+
+
+text(x = 0.5, y = 0.5, labels = text, cex = 11, font = 1)
+
+# text to include
+text <- "marcelo!"
+
+# save image in temporary directory
+dev2bitmap(file.path(tempdir(), "temp-img2.png"), type = "pngmono", res = 30)
+
+# read it 
+wv2 <- image_to_wave(file = file.path(tempdir(), "temp-img2.png"), plot = TRUE, flim = c(1, 10), duration = 1)
+
+
+
+par(mar = c(5, 4, 4, 2) + 0.1)
+
+
+wv <- pastew(wv, wv2, output = "Wave")
+
+# plot spectrogram
+spectro(wave = wv, scale = FALSE, collevels = seq(-40, 0, 5), wl = 300,
+palette = reverse.gray.colors.2, ovlp = 95, grid = FALSE, flim = c(2, 9))
+
+
+wv <- addsilw(wv, at = "start", d = 2, output = "Wave")
+wv <- addsilw(wv, at = "end", d = 2, output = "Wave")
+
+
+wv <- normalize(wv, unit = "16")
+
+spectro(wave = wv, scale = FALSE, collevels = seq(-100, 0, 5), wl = 200,
+        palette = reverse.gray.colors.2, ovlp = 95, grid = FALSE, flim = c(2, 9))
+
+writeWave(wv, filename = "~/Downloads/start_marker.wav", extensible = FALSE)
+
+wvmill <- resamp(wv, g = 1000000, output = "Wave")
+
+wvmill <- normalize(wvmill, unit = "16")
+
+writeWave(wvmill, filename = "~/Downloads/start_marker1000000.wav", extensible = FALSE)
+
+
+```
+
+# Extract audio
+
+```{r}
+
+setwd("~/")
+vds <- list.files(path = "~/Dropbox/Projects/group_flight_Thyroptera/videos/", include.dirs = TRUE, full.names = TRUE)
+
+for(i in vds)
+system(paste("ffmpeg -i ", i, "-vn -acodec pcm_s16le -ar 44100 -ac 2", paste0(i, ".wav")))
+
+
+```
+
+
+## align
+
+```{r align}
+# extract audio
+
+td <- "/home/m/Dropbox/Projects/group_flight_Thyroptera/videos/"
+
+
+sls <- selection_table(whole.recs = TRUE, path = td, extended = F, confirm.extended = F)
+
+sls$bottom.freq <- 3.475
+sls$top.freq <- 7.15
+
+
+sls$end[1:3] <- 16
+
+
+# create a matrix that contains the selection/files to be cross-correlated
+comp_mat <- matrix(c(rep("start_marker.wav-1", nrow(sls) - 1), paste(as.character(sls$sound.files[sls$sound.files != "start_marker.wav"]), "1", sep = "-")), ncol = 2)
+
+
+source("~/Dropbox/R_package_testing/warbleR/warbleR/R/xcorr.R")
+# run cross correlation
+xc <- xcorr(X = sls, compare.matrix = comp_mat, wl = 100, ovlp = 95, path = td, output = "list")
+
+# find peaks
+pks <- find_peaks(xc.output = xc, max.peak = TRUE, path = td)
+
+(pks$start[1] - pks$start[-1]) * 120
+
+```
+
+
+```{r check videos}
+
+xl <- read_excel("Proyecto MPI enero 2020_2.xlsx", sheet = "Experimento video coor vuelo")
+
+mp4s <- list.files("/media/m/GChaverri_MPI_1/Proyecto MPI/Enero 2020/videos_gopro/ordenados")
+
+mp4s <- gsub(".mp4", "", mp4s, ignore.case = TRUE)
+
+
+
+
+
+
+vd.xl <- c(xl$`Video camara 1`, xl$`Video camara 3`, xl$`Video camara 5`, xl$`Video camara respaldo`)
+
+
+
+setdiff(mp4s, vd.xl)
+setdiff(vd.xl, mp4s)
+
+
+```
+
+
+
+```{r check audio}
+
+xl <- read_excel("Proyecto MPI enero 2020_2.xlsx", sheet = "Experimento video coor vuelo")
+
+wavs <- list.files("/media/m/GChaverri_MPI_1/Proyecto MPI/Enero 2020/audios/", pattern = ".wav$", ignore.case = TRUE)
+
+wavs <- gsub(".wav", "", wavs, ignore.case = TRUE)
+
+
+nums <- sapply(wavs, function(x) strsplit(x, "_")[[1]][3], USE.NAMES = FALSE)
+
+nums <- as.numeric(nums)
+
+aud.xl <- as.numeric(xl$Audio)
+
+setdiff(nums, aud.xl)
+
+setdiff(aud.xl, nums)
+
+
+all(table(nums) == 4)
+
+
+```
+
+
+
+```{r rename videos}
+
+xl <- read_excel("Proyecto MPI enero 2020_2.xlsx", sheet = "Experimento video coor vuelo")
+
+mp4s2 <- mp4s <- list.files("/media/m/GChaverri_MPI_1/Proyecto MPI/Enero 2020/videos_gopro/ordenados")
+
+mp4s <- grep("patron", mp4s, invert = TRUE, value = TRUE)
+
+mp4s <- ifelse( grepl("exp", mp4s), gsub("_2020", "_exp_2020", mp4s, ignore.case = TRUE), gsub("_2020", "_cal_2020", mp4s, ignore.case = TRUE))
+
+mp4s <- gsub("UCR-MPI_exp|UCR-MPI_cal", "", mp4s, ignore.case = TRUE)
+
+
+mp4s <- gsub(".mp4", "_UCR-MPI.mp4", mp4s, ignore.case = TRUE)
+
+
+vn <- as.numeric(sapply(mp4s, function(x) strsplit(x, "_")[[1]][1], USE.NAMES = FALSE))
+
+
+nvn <- sapply(vn, function(x) paste(c(rep(0, 4 - nchar(x)), x), collapse = ""))
+
+
+n2 <- sapply(mp4s, function(x) paste(strsplit(x, "_")[[1]][-1], collapse = "_"), USE.NAMES = FALSE)
+
+
+mp4s.new <- paste(nvn, n2, sep = "-")
+
+mp4s.new <- c(mp4s2[1:3], mp4s.new)
+
+unique(mp4s.new)
+
+
+a <- data.frame(old = mp4s2, new = mp4s.new)
+
+
+a$old <- gsub(".mp4", "", a$old, ignore.case = TRUE)
+a$new <- gsub(".mp4", "", a$new, ignore.case = TRUE)
+
+
+
+xl2 <- merge(xl, a, by.x = "Video camara 1", by.y = "old", all.x = TRUE)
+
+names(xl2)[ncol(xl2)] <- "Nuevo video camara 1"
+
+xl2 <- merge(xl2, a, by.x = "Video camara 3", by.y = "old", all.x = TRUE)
+
+names(xl2)[ncol(xl2)] <- "Nuevo video camara 3"
+
+xl2 <- merge(xl2, a, by.x = "Video camara 5", by.y = "old", all.x = TRUE)
+
+names(xl2)[ncol(xl2)] <- "Nuevo video camara 5"
+
+xl2 <- merge(xl2, a, by.x = "Video camara respaldo", by.y = "old", all.x = TRUE)
+
+names(xl2)[ncol(xl2)] <- "Nuevo video camara respaldo"
+
+
+head(xl2)
+
+
+nrow(xl2) == nrow(xl)
+
+write.csv(xl2, "new names video.csv", row.names = FALSE)
+
+
+
+
+
+```
+
+
+```{r find groups}
+
+
+xl <- read_excel("Proyecto MPI enero 2020_2.xlsx", sheet = "Experimento video coor vuelo")
+
+xl$Día <- as.Date(xl$Día)
+
+# not to do 
+ntd <- unique(xl$Grupo[xl$Día >= "2020-01-25 UTC"])
+
+
+xl3 <- xl[xl$Día< "2020-01-25 UTC", ] 
+
+xl3 <- xl3[!xl3$Grupo %in% ntd, ]
+
+
+xl3 <- xl3[!is.na(xl3$Individuo), ]
+
+for( i in unique(xl3$Grupo))
+{print(i)
+  print(unique(xl3$Individuo[xl3$Grupo == i]))
+}
+```
+

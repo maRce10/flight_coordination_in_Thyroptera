@@ -1,0 +1,668 @@
+---
+title: <center><font size="6"><b>Automatic call detection</b></font></center>
+subtitle: <center><font size="4"><b>Group flight coordination in Thyroptera</b></font></center>
+author: <center><font size="4"><a href="http://marceloarayasalas.weebly.com/">Marcelo Araya-Salas, PhD</a> & <a href="https://www.batcr.com/">Gloriana Chaverri, PhD</a></font></center>
+date: <center>`r format(Sys.Date(), "%d-%m-%Y")`</center>
+output:
+  html_document:
+    
+    code_folding: show
+    toc: yes
+    toc_depth: 3
+    toc_float:
+      collapsed: no
+      smooth_scroll: no
+fontsize: 12pt 
+editor_options: 
+  chunk_output_type: console
+---
+
+Code for automatic detection using MFCC cross-correlation
+
+```{r packages, message = FALSE, warning = FALSE, echo = TRUE, eval = TRUE, include = FALSE}
+
+# unload all non-based packages
+out <- sapply(paste('package:', names(sessionInfo()$otherPkgs), sep = ""), function(x) try(detach(x, unload = FALSE, character.only = TRUE), silent = T))
+
+
+## add 'developer/' to packages to be installed from github
+x <- c("devtools", "maRce10/warbleR", "bioacoustics", "pbapply", "Rraven", "parallel", "viridis", "RJSONIO", "ropensci/rfigshare", "ranger", "Sim.DiffProc", "readxl", "ggplot2", "cowplot")
+
+aa <- lapply(x, function(y) {
+  
+  # get pakage name
+  pkg <- strsplit(y, "/")[[1]]
+  pkg <- pkg[length(pkg)]
+  
+  # check if installed, if not then install 
+  if (!pkg %in% installed.packages()[,"Package"])  {
+
+      if (grepl("/", y))  devtools::install_github(y, force = TRUE) else
+    install.packages(y) 
+    }
+
+  # load package
+  try(require(pkg, character.only = T), silent = T)
+})
+
+```
+
+```{r functions, eval = TRUE, echo = TRUE}
+
+warbleR_options(wav.path = "~/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/", wl = 300, parallel = parallel::detectCores() - 4, bp = "frange", fast = F, threshold = 15, ovlp = 20)
+
+opts_knit$set(root.dir = "..")
+
+opts_chunk$set( fig.width = 8, fig.height = 3.5)
+
+```
+
+## MFCC cross-correlation detection
+
+```{r mfcc cross-correlation detection, eval = FALSE, echo = TRUE}
+                                
+# get in whole file clips
+all_files <- selection_table(whole.recs = TRUE)
+
+all_files$sound.files <- as.character(all_files$sound.files)
+
+# get template
+templ <- all_files[all_files$sound.files == "ch4MPI2020-01-19_15-03-57_0000057.wav", , drop = FALSE ]
+
+
+templ$start[1] <- 96.587	
+templ$end[1] <- 96.638		
+# templ2$top.freq[1] <- 42.8226	
+# templ2$bottom.freq[1] <- 13.3548
+templ$selec <- "temp"
+all_files_temp <- rbind(templ, all_files)
+
+comp_mat <- cbind(paste(all_files_temp$sound.files[1], all_files_temp$selec[1], sep = "-"), all_files$sound.files)
+
+# make a sequence to do 100 files at the time
+sq <- c(seq(0, nrow(comp_mat), by = 100), nrow(comp_mat))
+
+for(i in 2:length(sq))
+{
+# i<- 2
+  xc.output <- xcorr(X = all_files_temp, output = "list",
+    compare.matrix = comp_mat[(sq[i-1] + 1):sq[i], ], pb = TRUE, bp = c(12, 42), type = "mfcc", na.rm = TRUE)
+
+  # saveRDS(xc.output, paste0("./output/detection_xcorr_", i - 1, ".RDS"))
+  
+  #   xc.output <- xcorr(X = all_files_temp, output = "list", 
+  #   compare.matrix = comp_mat[(sq[i-1] + 1):sq[i], ], pb = TRUE, bp = c(12, 42), type = "spectrogram", na.rm = TRUE, ovlp = 50)
+  # 
+  # 
+  # saveRDS(xc.output, paste0("./output/detection_xcorr_", i - 1, ".RDS"))
+        
+    # nrow(mfcc.output$scores)
+    # nrow(spc.output$scores)
+    # 
+    # hybrid <- mfcc.output
+    
+    
+    # score_l <- lapply(unique(hybrid$scores$dyad), function(x){
+    # 
+    #   Y <- hybrid$scores[hybrid$scores$dyad == x, ]
+    #   Z <- spc.output$scores[spc.output$scores$dyad == x, ] 
+    #   
+    #   ap <- try(approx(x = seq(0, max(Y$)), 
+    #       y = Z$scores, 
+    #       xout = seq(from = min(dfrq$relative.time, 
+    #         na.rm = TRUE), to = max(dfrq$relative.time, 
+    #         na.rm = TRUE), length.out = length.out), 
+    #       method = "linear"), silent = TRUE)
+    #   
+    #   
+    # })
+    # 
+    # outputs <- list(mfcc.output, spc.output)
+
+  saveRDS(xc.output, paste0("./output/detection_xcorr_", i - 1, ".RDS"))
+
+}
+
+```
+
+## Redo problematic ones
+
+```{r redo problematic ones, eval = FALSE, echo = TRUE}
+
+
+# get in whole file clips
+all_files <- selection_table(whole.recs = TRUE)
+
+all_files$sound.files <- as.character(all_files$sound.files)
+
+
+xcd_l <- list.files(path = "./output/", pattern = "xcorr_", full.names = TRUE)
+
+wavs <- list.files(path = .Options$warbleR$wav.path)
+
+done <- unlist(lapply(xcd_l, function(i){
+  
+    xcd <- readRDS(i)
+    
+    X <- xcd$scores
+    
+    y <- X$sound.files[!is.na(X$score)]
+    
+    return(as.character(unique(y)))
+    
+    }
+))
+
+
+not_done <- c(setdiff(wavs, unique(gsub("-whole.file", "", done))), "ch4MPI2020-01-19_15-03-57_0000057.wav")
+
+# get template
+templ <- all_files[all_files$sound.files == "ch4MPI2020-01-19_15-03-57_0000057.wav", , drop = FALSE]
+
+templ$start[1] <- 96.587	
+templ$end[1] <- 96.638		
+# templ2$top.freq[1] <- 42.8226	
+# templ2$bottom.freq[1] <- 13.3548
+templ$selec <- 'templ'
+
+
+while(length(not_done) > 0) {
+print(length(not_done))
+miss <- all_files[all_files$sound.files %in% not_done, ]
+
+miss_temp <- rbind(templ, miss)
+
+comp_mat <- cbind(paste(miss_temp$sound.files[1], miss_temp$selec[1], sep = "-"), miss$sound.files)
+
+xc.output <- xcorr(X = miss_temp, output = "list", 
+    compare.matrix = comp_mat, pb = TRUE, bp = c(12, 42), type = "mfcc", na.rm = TRUE)
+
+xc.output$scores <- xc.output$scores[!is.na(xc.output$scores$score), ]
+
+
+num <- length(list.files(path = "./output/", pattern = "xcorr_", full.names = TRUE))
+
+if (nrow(xc.output$scores) > 0)
+  saveRDS(xc.output, paste0("./output/detection_xcorr_", num + 1, ".RDS")) else print("nothing worked")
+
+xcd_l <- list.files(path = "./output/", pattern = "xcorr_", full.names = TRUE)
+
+done <- unlist(lapply(xcd_l, function(i){
+  
+    xcd <- readRDS(i)
+    
+    X <- xcd$scores
+    
+    y <- X$sound.files[is.na(X$score)]
+    
+    return(as.character(unique(y)))
+    
+    }
+))
+
+
+not_done <- c(setdiff(wavs, gsub("-whole.file", "", done)), "ch4MPI2020-01-19_15-03-57_0000057.wav")
+
+
+}
+
+```
+
+## Find peaks
+
+```{r find peaks, eval = FALSE, echo = TRUE}
+
+# find peaks
+xcd_l <- list.files(path = "./output/", pattern = "xcorr_", full.names = TRUE)
+
+for(i in xcd_l){
+  
+    xcd <- readRDS(i)
+  
+  pks <- find_peaks(xc.output = xcd, pb = TRUE, cutoff = 0.30, output = "list")
+  
+  saveRDS(pks, paste0("./output/peaks_", gsub("./output//detection_xcorr_", "", i)))
+
+}
+
+
+```
+
+## Extract peaks to selection table
+
+```{r extract peaks to selection table, eval = FALSE, echo = TRUE}
+
+pks_l <- list.files(path = "./output/", pattern = "peaks_", full.names = TRUE)
+
+pks <- lapply(pks_l, function(x){
+
+  pks <- readRDS(x)
+  pks$selection.table$bottom.freq <-  13.3548
+pks$selection.table$top.freq <-  42.8226
+
+
+return(pks$selection.table)
+})
+
+peaks <- do.call(rbind, pks)
+
+write.csv(peaks, "./data/processed/peaks_xcorr_mfcc.csv", row.names = FALSE)
+
+```
+
+## Select subset for training and plot spectrograms specreator
+
+```{r select subset for training and plot spectrograms specreator, eval = FALSE, echo = TRUE}
+
+peaks <- read.csv("./data/processed/peaks_xcorr_mfcc.csv", stringsAsFactors = FALSE)
+
+
+set.seed(102)
+smp <- sample(1:nrow(peaks), 3000)
+smpl_pks <- peaks[smp, ]
+
+# spectrograms(smpl_pks, sxrow = 2, flim = c(10, 50), ovlp = 90, fast.spec = TRUE, res = 100, dest.path = "./img/manual_labeling_spectrograms",  xl = 1.5, pal = viridis, col = "black")
+
+filt_ind <- filter_sels(X = smpl_pks, path = "./img/manual_labeling_spectrograms", index = TRUE)
+
+smpl_pks$class <- "no_call"
+
+smpl_pks$class[filt_ind] <- "call"
+
+catalog(X = smpl_pks[smpl_pks$class == "call", ], flim = c(10, 50), nrow = 10, ncol = 10, 
+        same.time.scale = T, mar = 0.01, gr = FALSE, img.suffix = "calls", 
+        labels = c("sound.files", "selec"), legend = 0, rm.axes = TRUE, 
+        box = F, width = 20, height = 15, fast.spec = TRUE,  pal = viridis)
+
+catalog(X = smpl_pks[smpl_pks$class == "no_call", ], flim = c(10, 50), nrow = 10, ncol = 10, 
+        same.time.scale = T, mar = 0.01, gr = FALSE, img.suffix = "no_calls", 
+        labels = c("sound.files", "selec"), legend = 0, rm.axes = TRUE, 
+        box = F, width = 20, height = 15, fast.spec = TRUE,  pal = viridis)
+
+sp <- specan(smpl_pks, bp = c(10, 50), threshold = 5)
+
+sp$class <- smpl_pks$class
+
+anyNA(sp)
+
+write.csv(sp, "acoustic parameters 3000 samples.csv", row.names = FALSE)
+
+```
+
+## Measure spectral parameters on all detections
+
+```{r measure spectral parameters on new data, eval = FALSE, echo = TRUE}
+
+sp <- read.csv("acoustic parameters 3000 samples.csv")
+
+# RF model
+rfm <- ranger(class ~ ., data = sp[, !names(sp) %in%  grep("dom$|slope$|^sound.files$|^selec$", names(sp), value = TRUE)], num.trees = 100000)
+
+
+rfm
+
+saveRDS(rfm, "random_forest_model_3000_samples.RDS")
+
+# run on new data
+peaks <- read.csv("./data/processed/peaks_xcorr_mfcc.csv", stringsAsFactors = FALSE)
+
+
+set.seed(102)
+smp <- sample(1:nrow(peaks), 3000)
+not_smpl_pks <- peaks[-smp, ]
+
+sp_test <- specan(not_smpl_pks, bp = c(10, 50), threshold = 5)
+
+sp_test$xc.score <- snr$score
+
+sp_test$start <- not_smpl_pks$start
+sp_test$end <- not_smpl_pks$end
+sp_test$score <- not_smpl_pks$score
+
+write.csv(sp_test, "spectral_parameters_test_data.csv", row.names = FALSE)
+
+```
+
+##  Predict all detections
+
+```{r predict new data, eval = FALSE, echo = TRUE}
+
+sp_test <- read.csv("spectral_parameters_test_data.csv")
+
+rfm <- readRDS("random_forest_model_3000_samples.RDS")
+
+sqs <- c(seq(0, nrow(sp_test), by = 3000), nrow(sp_test))
+
+na_vars <- names(sp_test)[sapply(sp_test, function(x) sum(is.na(x))) > 0]
+
+# replace NAs with mean values
+for(i in na_vars) sp_test[ is.na(sp_test[, i]), i] <- mean(sp_test[, i], na.rm = TRUE)
+
+# predict new data
+preds <- pblapply(2:length(sqs), cl = detectCores() - 4, function(x){
+
+  Y <- sp_test[(sqs[x - 1] + 1):sqs[x], ]
+  
+  pred <- predict(rfm, data = Y)
+
+ res <- data.frame(sp_test[(sqs[x - 1] + 1):sqs[x], c("sound.files", "selec", "start", "end", "score")], class = pred$predictions)
+  
+ return(res)
+ })
+
+
+preds_df <- do.call(rbind, preds)
+
+preds_df$event <- substr(preds_df$sound.files, 4, 1000)
+
+nrow(preds_df)
+
+anyNA(preds_df)
+
+saveRDS(preds_df, "./output/predictions.RDS")
+
+
+```
+
+## Find duplicates and plot spectros
+
+```{read predictions find duplicates and plot spectros, eval = FALSE, echo = TRUE}
+
+preds_df <- readRDS("./output/predictions.RDS")
+
+# check predictions
+table(preds_df$class)
+
+preds_calls <- preds_df[preds_df$class == "call", ]
+
+# remove overlaps and keep only channel 1 no duplicates
+ovlp_l_nd <- lapply(unique(preds_calls$event), function(x){
+  # print(x)  
+  Y  <- preds_calls[preds_calls$event == x, ]
+  Y$org.sound.files <- Y$sound.files
+  Y$sound.files <- Y$event
+  Y$selec <- 1:nrow(Y)
+  
+  # max overlap 1/4 of the duration of the template
+  ov <- ovlp_sels(X = Y, max.ovlp = 0.051 / 4)
+  ov$sound.files <- sort(unique(Y$org.sound.files))[1]
+  
+  ov <- ov[order(ov$ovlp.sels, - ov$score), ]
+  
+  if (!all(is.na(ov$ovlp.sels)))
+  ov <- ov[!duplicated(ov$ovlp.sels, incomparables = NA), ]
+  
+  return(ov)
+})
+
+call_df <- do.call(rbind, ovlp_l_nd)
+
+call_df$sound.files <- call_df$org.sound.files
+
+preds_no_calls <- preds_df[preds_df$class != "call", ]
+
+# remove overlaps no duplicates
+ovlp_l_nd_nc <- lapply(unique(preds_no_calls$event), function(x){
+  # print(x)  
+  Y  <- preds_no_calls[preds_no_calls$event == x, ]
+  Y$org.sound.files <- Y$sound.files
+  Y$sound.files <- Y$event
+  Y$selec <- 1:nrow(Y)
+  
+  ov <- ovlp_sels(X = Y)
+  ov$sound.files <- sort(unique(Y$org.sound.files))[1]
+  
+  ov <- ov[order(ov$ovlp.sels, - ov$score), ]
+  
+  if (!all(is.na(ov$ovlp.sels)))
+  ov <- ov[!duplicated(ov$ovlp.sels, incomparables = NA), ]
+  
+  return(ov)
+})
+
+no_call_df <- do.call(rbind, ovlp_l_nd_nc)
+
+
+no_call_df$sound.files <- no_call_df$org.sound.files
+
+non_dup_preds <- rbind(call_df, no_call_df)
+
+
+# remove overlaps and keep only those no - call that do not overlap with calls
+ovlp_c_nc <- lapply(unique(non_dup_preds$event), function(x){
+  # print(x)  
+  Y  <- non_dup_preds[non_dup_preds$event == x, ]
+  Y$org.sound.files <- Y$sound.files
+  Y$sound.files <- Y$event
+  Y$selec <- 1:nrow(Y)
+  
+  ov <- ovlp_sels(X = Y, parallel = 1)
+  ov$sound.files <- sort(unique(Y$org.sound.files))[1]
+  
+  ov <- ov[order(ov$ovlp.sels, - ov$score), ]
+
+    if (!all(is.na(ov$ovlp.sels))){
+    
+      ovs <- lapply(c(na.omit(unique(ov$ovlp.sels))), function(i) {
+       
+          W <- ov[ov$ovlp.sels == i, ]
+      
+          if (any(W$class == "call"))
+              W <- W[W$class == "call", ] else
+         
+           W[!duplicated(W$ovlp.sels, incomparables = NA), ]
+ })
+      
+      ov2 <- do.call(rbind, ovs)
+  
+      ov.na <- ov[is.na(ov$ovlp.sels), ]
+      
+      ov <- rbind(ov2, ov.na)
+                
+    }  
+  
+  
+  return(ov)
+})
+
+non_dup_preds <- do.call(rbind, ovlp_c_nc)
+
+non_dup_preds <- non_dup_preds[!is.na(non_dup_preds$sound.files), ]
+
+non_dup_preds$sound.files <- non_dup_preds$org.sound.files
+
+
+table(non_dup_preds$class)
+
+
+spectrograms(X = non_dup_preds[non_dup_preds$class == "no_call", ], flim = c(10, 50), img.suffix = "pred_no_calls", fast.spec = TRUE,  pal = viridis, res = 70, dest.path = "./img/pred_test_no_calls_single_spectro", mar = 0.01, inner.mar = rep(0, 4), picsize = 0.5)
+
+spectrograms(X = non_dup_preds[non_dup_preds$class == "call", ], flim = c(10, 50), img.suffix = "pred_no_calls", fast.spec = TRUE,  pal = viridis, res = 70, dest.path = "./img/pred_test_calls_single_spectro", mar = 0.01, inner.mar = rep(0, 4), picsize = 0.5)
+
+
+## HERE SPECTROGRAMS WERE FILTERED MANUALLY ###
+
+filt_ind_call <- filter_sels(X = non_dup_preds, path = "./img/pred_test_calls_single_spectro", index = TRUE)
+
+filt_ind_no_call <- filter_sels(X = non_dup_preds, path = "./img/pred_test_calls_single_spectro", index = TRUE, missing = TRUE)
+
+
+length(filt_ind_no_call) + length(filt_ind_call) == nrow(non_dup_preds)
+
+
+
+non_dup_preds$class_fixed <- "no_call"
+
+non_dup_preds$class_fixed[filt_ind_call] <- "call"
+
+# overall performance
+sum(non_dup_preds$class == non_dup_preds$class_fixed) / nrow(non_dup_preds)
+
+# sensitivity (true positive rate)
+sum(non_dup_preds$class[non_dup_preds$class == "call"] == non_dup_preds$class_fixed[non_dup_preds$class == "call"]) / sum(non_dup_preds$class == "call")
+
+# specificity (true negative rate)
+sum(non_dup_preds$class[non_dup_preds$class == "no_call"] == non_dup_preds$class_fixed[non_dup_preds$class == "no_call"]) / sum(non_dup_preds$class == "no_call")
+
+write.csv(non_dup_preds, "./data/processed/non_duplicated_detections.csv", row.names = FALSE)
+
+
+
+sp <- read.csv("acoustic parameters 3000 samples.csv")
+
+names(non_dup_preds)
+names(sp)
+
+peaks <- read.csv("./data/processed/peaks_xcorr_mfcc.csv", stringsAsFactors = FALSE)
+
+
+set.seed(102)
+smp <- sample(1:nrow(peaks), 3000)
+smpl_pks <- peaks[smp, ]
+
+smpl_pks$class <- smpl_pks$class_fixed <- sp$class
+
+
+clms <- intersect(names(smpl_pks), names(non_dup_preds))
+
+all_detects <- rbind(smpl_pks[, clms], non_dup_preds[, clms])
+all_detects$bottom.freq <- smpl_pks$bottom.freq[1]
+all_detects$top.freq <- smpl_pks$top.freq[1]
+
+all_detects$selec <- 1:nrow(all_detects)
+
+all_detects <- sort_colms(all_detects)
+
+cs <- check_sels(all_detects)
+
+
+# sensitivity (true positive rate)
+sum(all_detects$class[all_detects$class == "call"] == all_detects$class_fixed[all_detects$class == "call"]) / sum(all_detects$class == "call")
+
+# specificity (true negative rate)
+sum(all_detects$class[all_detects$class == "no_call"] == all_detects$class_fixed[all_detects$class == "no_call"]) / sum(all_detects$class == "no_call")
+
+
+# catalogs
+catalog(X = all_detects[all_detects$class_fixed == "call", ], flim = c(10, 50), nrow = 10, ncol = 14, 
+        same.time.scale = T, mar = 0.01, gr = FALSE, img.suffix = "calls", 
+        labels = c("sound.files", "selec"), legend = 0, rm.axes = TRUE, 
+        box = F, width = 24 / 2, height = 15 / 2, fast.spec = TRUE,  pal = viridis, res = 60, lab.mar = 0.01)
+
+move_imgs(from = .Options$warbleR$wav.path, to = "./img/catalog_pred_test_calls")
+
+catalog2pdf(path = "./img/catalog_pred_test_calls") 
+
+catalog(X = all_detects[all_detects$class_fixed == "no_call", ], flim = c(10, 50), nrow = 10, ncol = 14, 
+        same.time.scale = T, mar = 0.01, gr = FALSE, img.suffix = "no_calls", 
+           labels = c("sound.files", "selec"), legend = 0, rm.axes = TRUE, 
+        box = F, width = 24 / 2, height = 15 / 2, fast.spec = TRUE,  pal = viridis, res = 60, lab.mar = 0.01)
+
+
+move_imgs(from = .Options$warbleR$wav.path, to = "./img/catalog_pred_test_no_calls")
+
+catalog2pdf(path = "./img/catalog_pred_test_no_calls") 
+
+table(all_detects$class_fixed)
+
+# save data
+write.csv(all_detects, "./data/processed/all_detections_no_duplicates.csv", row.names = FALSE)
+
+
+est_all <- selection_table(all_detects, mar = 0.01, extended = TRUE, confirm.extended = FALSE)
+
+
+attributes(est_all)$description <- "Spix's disc-winged bat inquiry calls detected with MFCC cross-correlation and random forest. Data contains both signals and noise ('class_fixed' column). Wrong detections were manually fixed"
+
+saveRDS(est_all, "fixed_detections_inquiry_calls.RDS")
+
+saveRDS(est_all[est_all$class_fixed == "call", ], "CALLS_fixed_detections_inquiry_calls.RDS")
+
+saveRDS(est_all[est_all$class_fixed == "no_call", ], "NOISE_fixed_detections_inquiry_calls.RDS")
+
+
+```
+
+## Plot full spectrograms
+
+```{r plot full spectrograms, eval = FALSE, echo = TRUE}
+
+# read all detections
+all_d <- read.csv("./data/processed/all_detections_no_duplicates.csv")
+
+calls <- all_d[all_d$class_fixed == "call", ]
+
+
+# force all to be on channel 1
+calls$org.sound.files <- calls$sound.files
+calls$sound.files <- gsub("ch2|ch3|ch4", "ch1", calls$sound.files)
+
+full_spec(X = calls, flim = c(10, 50), width = 24 / 1.5, height = 15 / 1.5, fast.spec = TRUE, pal = reverse.gray.colors.1, res = 70, sxrow = 5, rows = 15)
+
+move_imgs(from = .Options$warbleR$wav.path, to = "./img/full_spectrograms")
+
+
+```
+
+## Adjust manual on Raven
+
+```{r adjust manual on Raven, eval = FALSE, echo = TRUE}
+
+# read all detections
+all_d <- read.csv("./data/processed/all_detections_no_duplicates.csv")
+
+cs <- check_sels(all_d)
+
+calls <- all_d[all_d$class_fixed == "call", ]
+
+
+# force all to be on channel 1
+calls$org.sound.files <- calls$sound.files
+calls$sound.files <- gsub("ch2|ch3|ch4", "ch1", calls$sound.files)
+
+
+
+# fix those that don't have a first channel recording
+prblm_files <- c("ch1MPI2020-01-18_15-15-35_0000050.wav", "ch1MPI2020-01-24_12-11-07_0000130.wav", "ch1MPI2020-01-22_13-23-54_0000093.wav", "ch1MPI2020-01-23_09-42-32_0000099.wav")
+
+fixed_files <- gsub("ch1", "ch2", prblm_files)
+fixed_files <- gsub("ch2MPI2020-01-23_09-42-32_0000099.wav", "ch4MPI2020-01-23_09-42-32_0000099.wav", fixed_files)
+
+for(i in 1:length(prblm_files))
+  calls$sound.files <- gsub(prblm_files[i], fixed_files[i], calls$sound.files) 
+    
+cs <- check_sels(calls)
+calls$sound.files[cs$check.res != "OK"]
+
+exp_raven(X = calls, sound.file.path = .Options$warbleR$wav.path, file.name = "./data/processed/raven_selection_table_calls.txt")
+
+
+############ check false negatives in raven here ####################
+
+
+fixed_calls <- imp_raven(path = "./data/processed", files = "raven_selection_table_calls.txt", all.data = TRUE, warbler.format = TRUE)
+
+
+str(fixed_calls)
+
+fixed_calls$detection <- ifelse(fixed_calls$class == "", "manual", "automatic")  
+
+fixed_calls$class <- "call"
+
+fixed_calls$org.sound.files[fixed_calls$org.sound.files == ""] <- fixed_calls$sound.files[fixed_calls$org.sound.files == ""]
+
+
+write.csv(fixed_calls, "./data/processed/manually_fixed_call_detections.csv", row.names = FALSE)
+
+
+```
+
+---
+
+<font size="4">Session information</font>
+
+```{r session info, echo=F}
+
+sessionInfo()
+
+```

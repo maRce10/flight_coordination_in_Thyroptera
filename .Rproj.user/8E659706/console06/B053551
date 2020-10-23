@@ -1,1025 +1,0 @@
-
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_11-29-17_0000072-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_11-29-17_0000072-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_11-29-17_0000072-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_11-29-17_0000072-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_11-29-17_0000072-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_11-29-17_0000072-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_11-46-51_0000074-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_11-46-51_0000074-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_11-46-51_0000074-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_11-46-51_0000074-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_11-46-51_0000074-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_11-46-51_0000074-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_11-46-51_0000074-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_11-58-43_0000075-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_11-58-43_0000075-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_11-58-43_0000075-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_11-58-43_0000075-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_11-58-43_0000075-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_11-58-43_0000075-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_11-58-43_0000075-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-09-41_0000076-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-09-41_0000076-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-09-41_0000076-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-09-41_0000076-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-09-41_0000076-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-09-41_0000076-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-09-41_0000076-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-17-11_0000077-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-17-11_0000077-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-17-11_0000077-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-17-11_0000077-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-17-11_0000077-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-17-11_0000077-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-17-11_0000077-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-17-11_0000077-p8.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-24-20_0000080-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-24-20_0000080-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-24-20_0000080-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-24-20_0000080-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-24-20_0000080-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-24-20_0000080-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-24-20_0000080-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-29-15_0000081-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-29-15_0000081-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-29-15_0000081-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-29-15_0000081-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-29-15_0000081-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-29-15_0000081-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-29-15_0000081-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-34-54_0000082-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-34-54_0000082-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-34-54_0000082-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-34-54_0000082-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-34-54_0000082-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-34-54_0000082-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-20_12-34-54_0000082-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_10-53-06_0000083-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_10-53-06_0000083-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_10-53-06_0000083-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_10-53-06_0000083-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_10-53-06_0000083-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_10-53-06_0000083-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_10-53-06_0000083-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_10-59-46_0000084-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_10-59-46_0000084-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_10-59-46_0000084-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_10-59-46_0000084-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_10-59-46_0000084-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_10-59-46_0000084-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_10-59-46_0000084-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-16-34_0000086-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-16-34_0000086-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-16-34_0000086-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-16-34_0000086-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-16-34_0000086-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-16-34_0000086-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-31-21_0000087-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-31-21_0000087-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-31-21_0000087-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-31-21_0000087-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-31-21_0000087-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-31-21_0000087-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-31-21_0000087-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-38-08_0000088-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-38-08_0000088-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-38-08_0000088-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-38-08_0000088-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-38-08_0000088-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-38-08_0000088-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-38-08_0000088-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-44-26_0000089-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-44-26_0000089-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-44-26_0000089-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-44-26_0000089-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-44-26_0000089-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-44-26_0000089-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-44-26_0000089-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-51-45_0000090-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-51-45_0000090-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-51-45_0000090-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-51-45_0000090-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-51-45_0000090-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-51-45_0000090-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_11-51-45_0000090-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_12-17-20_0000091-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_12-17-20_0000091-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_12-17-20_0000091-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_12-17-20_0000091-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_12-17-20_0000091-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_12-17-20_0000091-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_12-17-20_0000091-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_12-23-01_0000092-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_12-23-01_0000092-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_12-23-01_0000092-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_12-23-01_0000092-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_12-23-01_0000092-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_12-23-01_0000092-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_12-23-01_0000092-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_13-23-54_0000093-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_13-23-54_0000093-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_13-23-54_0000093-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_13-23-54_0000093-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_13-23-54_0000093-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_13-23-54_0000093-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_13-23-54_0000093-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_13-28-31_0000094-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_13-28-31_0000094-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_13-28-31_0000094-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_13-28-31_0000094-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_13-28-31_0000094-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_13-28-31_0000094-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_13-28-31_0000094-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_13-33-42_0000095-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_13-33-42_0000095-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_13-33-42_0000095-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_13-33-42_0000095-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_13-33-42_0000095-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_13-33-42_0000095-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_13-33-42_0000095-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_13-48-59_0000097-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_13-48-59_0000097-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_13-48-59_0000097-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_13-48-59_0000097-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_13-48-59_0000097-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_13-48-59_0000097-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-22_13-48-59_0000097-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_09-36-48_0000098-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_09-36-48_0000098-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_09-36-48_0000098-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_09-36-48_0000098-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_09-36-48_0000098-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_09-36-48_0000098-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_09-36-48_0000098-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_09-42-32_0000099-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_09-42-32_0000099-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_09-42-32_0000099-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_09-42-32_0000099-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_09-42-32_0000099-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_09-42-32_0000099-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_09-42-32_0000099-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_09-50-10_0000100-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_09-50-10_0000100-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_09-50-10_0000100-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_09-50-10_0000100-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_09-50-10_0000100-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_09-50-10_0000100-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_09-50-10_0000100-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_09-50-10_0000100-p8.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_09-57-21_0000101-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_09-57-21_0000101-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_09-57-21_0000101-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_09-57-21_0000101-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_09-57-21_0000101-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_09-57-21_0000101-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_09-57-21_0000101-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_10-11-16_0000103-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_10-11-16_0000103-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_10-11-16_0000103-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_10-11-16_0000103-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_10-11-16_0000103-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_10-11-16_0000103-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_10-11-16_0000103-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_10-18-08_0000104-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_10-18-08_0000104-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_10-18-08_0000104-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_10-18-08_0000104-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_10-18-08_0000104-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_10-18-08_0000104-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_10-18-08_0000104-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_10-23-55_0000105-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_10-23-55_0000105-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_10-23-55_0000105-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_10-23-55_0000105-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_10-23-55_0000105-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_10-23-55_0000105-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_10-23-55_0000105-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_10-55-35_0000107-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_10-55-35_0000107-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_10-55-35_0000107-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_10-55-35_0000107-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_10-55-35_0000107-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_10-55-35_0000107-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_10-55-35_0000107-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_11-26-40_0000109-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_11-26-40_0000109-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_11-26-40_0000109-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_11-26-40_0000109-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_11-26-40_0000109-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_11-26-40_0000109-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_11-26-40_0000109-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_11-41-09_0000111-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_11-41-09_0000111-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_11-41-09_0000111-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_11-41-09_0000111-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_11-41-09_0000111-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_11-41-09_0000111-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_11-41-09_0000111-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_11-45-51_0000112-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_11-45-51_0000112-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_11-45-51_0000112-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_11-45-51_0000112-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_11-45-51_0000112-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_11-45-51_0000112-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-23_11-45-51_0000112-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_08-16-06_0000114-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_08-16-06_0000114-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_08-16-06_0000114-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_08-16-06_0000114-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_08-16-06_0000114-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_08-16-06_0000114-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_08-16-06_0000114-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_08-22-39_0000115-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_08-22-39_0000115-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_08-22-39_0000115-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_08-22-39_0000115-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_08-22-39_0000115-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_08-22-39_0000115-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_08-22-39_0000115-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_08-39-14_0000116-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_08-39-14_0000116-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_08-39-14_0000116-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_08-39-14_0000116-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_08-39-14_0000116-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_08-39-14_0000116-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_08-39-14_0000116-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_08-45-19_0000117-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_08-45-19_0000117-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_08-45-19_0000117-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_08-45-19_0000117-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_08-45-19_0000117-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_08-45-19_0000117-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_08-45-19_0000117-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_10-18-47_0000119-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_10-18-47_0000119-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_10-18-47_0000119-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_10-18-47_0000119-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_10-18-47_0000119-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_10-18-47_0000119-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_10-18-47_0000119-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_10-33-26_0000120-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_10-33-26_0000120-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_10-33-26_0000120-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_10-33-26_0000120-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_10-33-26_0000120-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_10-33-26_0000120-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_10-33-26_0000120-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_10-59-54_0000123-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_10-59-54_0000123-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_10-59-54_0000123-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_10-59-54_0000123-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_10-59-54_0000123-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_10-59-54_0000123-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_10-59-54_0000123-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_11-28-15_0000124-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_11-28-15_0000124-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_11-28-15_0000124-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_11-28-15_0000124-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_11-28-15_0000124-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_11-28-15_0000124-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_11-28-15_0000124-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_11-34-33_0000125-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_11-34-33_0000125-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_11-34-33_0000125-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_11-34-33_0000125-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_11-34-33_0000125-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_11-34-33_0000125-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_11-34-33_0000125-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_11-43-39_0000126-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_11-43-39_0000126-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_11-43-39_0000126-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_11-43-39_0000126-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_11-43-39_0000126-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_11-43-39_0000126-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_11-43-39_0000126-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_11-57-34_0000128-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_11-57-34_0000128-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_11-57-34_0000128-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_11-57-34_0000128-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_11-57-34_0000128-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_11-57-34_0000128-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_11-57-34_0000128-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_11-57-34_0000128-p8.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-06-50_0000129-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-06-50_0000129-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-06-50_0000129-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-06-50_0000129-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-06-50_0000129-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-06-50_0000129-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-06-50_0000129-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-11-07_0000130-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-11-07_0000130-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-11-07_0000130-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-11-07_0000130-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-11-07_0000130-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-11-07_0000130-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-11-07_0000130-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-15-41_0000131-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-15-41_0000131-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-15-41_0000131-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-15-41_0000131-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-15-41_0000131-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-15-41_0000131-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-15-41_0000131-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-19-59_0000132-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-19-59_0000132-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-19-59_0000132-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-19-59_0000132-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-19-59_0000132-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-19-59_0000132-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-19-59_0000132-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-25-00_0000133-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-25-00_0000133-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-25-00_0000133-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-25-00_0000133-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-25-00_0000133-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-25-00_0000133-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_12-25-00_0000133-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_14-25-38_0000135-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_14-25-38_0000135-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_14-25-38_0000135-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_14-25-38_0000135-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_14-25-38_0000135-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_14-25-38_0000135-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_14-25-38_0000135-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_14-25-38_0000135-p8.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_14-40-43_0000136-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_14-40-43_0000136-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_14-40-43_0000136-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_14-40-43_0000136-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_14-40-43_0000136-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_14-40-43_0000136-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_14-40-43_0000136-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_15-02-25_0000138-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_15-02-25_0000138-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_15-02-25_0000138-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_15-02-25_0000138-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_15-02-25_0000138-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_15-02-25_0000138-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_15-02-25_0000138-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_15-28-18_0000140-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_15-28-18_0000140-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_15-28-18_0000140-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_15-28-18_0000140-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_15-28-18_0000140-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_15-28-18_0000140-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_15-28-18_0000140-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_16-09-19_0000141-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_16-09-19_0000141-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_16-09-19_0000141-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_16-09-19_0000141-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_16-09-19_0000141-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_16-09-19_0000141-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_16-09-19_0000141-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_16-16-01_0000142-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_16-16-01_0000142-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_16-16-01_0000142-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_16-16-01_0000142-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_16-16-01_0000142-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_16-16-01_0000142-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_16-16-01_0000142-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_16-24-45_0000143-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_16-24-45_0000143-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_16-24-45_0000143-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_16-24-45_0000143-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_16-24-45_0000143-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_16-24-45_0000143-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_16-24-45_0000143-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-24_16-24-45_0000143-p8.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_10-23-41_0000145-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_10-23-41_0000145-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_10-23-41_0000145-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_10-23-41_0000145-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_10-23-41_0000145-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_10-23-41_0000145-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_11-27-26_0000149-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_11-27-26_0000149-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_11-27-26_0000149-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_11-27-26_0000149-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_11-27-26_0000149-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_11-27-26_0000149-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_11-27-26_0000149-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_11-27-26_0000149-p8.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_11-27-26_0000149-p9.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_11-37-47_0000150-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_11-37-47_0000150-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_11-37-47_0000150-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_11-37-47_0000150-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_11-37-47_0000150-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_11-37-47_0000150-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_11-37-47_0000150-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_11-46-17_0000151-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_11-46-17_0000151-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_11-46-17_0000151-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_11-46-17_0000151-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_11-46-17_0000151-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_11-46-17_0000151-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_11-46-17_0000151-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_11-54-51_0000152-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_11-54-51_0000152-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_11-54-51_0000152-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_11-54-51_0000152-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_11-54-51_0000152-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_11-54-51_0000152-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_11-54-51_0000152-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-00-05_0000153-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-00-05_0000153-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-00-05_0000153-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-00-05_0000153-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-00-05_0000153-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-00-05_0000153-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-00-05_0000153-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-05-21_0000154-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-05-21_0000154-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-05-21_0000154-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-05-21_0000154-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-05-21_0000154-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-05-21_0000154-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-05-21_0000154-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-12-45_0000156-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-12-45_0000156-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-12-45_0000156-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-12-45_0000156-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-12-45_0000156-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-12-45_0000156-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-12-45_0000156-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-18-59_0000157-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-18-59_0000157-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-18-59_0000157-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-18-59_0000157-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-18-59_0000157-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-18-59_0000157-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-18-59_0000157-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-24-50_0000158-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-24-50_0000158-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-24-50_0000158-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-24-50_0000158-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-24-50_0000158-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-24-50_0000158-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-24-50_0000158-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-31-40_0000159-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-31-40_0000159-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-31-40_0000159-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-31-40_0000159-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-31-40_0000159-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-31-40_0000159-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-31-40_0000159-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-37-42_0000160-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-37-42_0000160-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-37-42_0000160-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-37-42_0000160-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-37-42_0000160-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-37-42_0000160-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-25_12-37-42_0000160-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_09-22-11_0000163-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_09-22-11_0000163-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_09-22-11_0000163-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_09-22-11_0000163-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_09-22-11_0000163-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_09-22-11_0000163-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_09-22-11_0000163-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_09-22-11_0000163-p8.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_09-43-14_0000164-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_09-43-14_0000164-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_09-43-14_0000164-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_09-43-14_0000164-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_09-43-14_0000164-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_09-43-14_0000164-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_09-43-14_0000164-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_09-50-55_0000165-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_09-50-55_0000165-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_09-50-55_0000165-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_09-50-55_0000165-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_09-50-55_0000165-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_09-50-55_0000165-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_09-50-55_0000165-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-07-16_0000166-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-07-16_0000166-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-07-16_0000166-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-07-16_0000166-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-07-16_0000166-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-07-16_0000166-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-07-16_0000166-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-12-22_0000167-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-12-22_0000167-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-12-22_0000167-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-12-22_0000167-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-12-22_0000167-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-12-22_0000167-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-12-22_0000167-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-18-23_0000168-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-18-23_0000168-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-18-23_0000168-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-18-23_0000168-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-18-23_0000168-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-18-23_0000168-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-18-23_0000168-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-26-08_0000169-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-26-08_0000169-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-26-08_0000169-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-26-08_0000169-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-26-08_0000169-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-26-08_0000169-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-26-08_0000169-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-47-04_0000170-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-47-04_0000170-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-47-04_0000170-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-47-04_0000170-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-47-04_0000170-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-47-04_0000170-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_10-47-04_0000170-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_11-05-06_0000172-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_11-05-06_0000172-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_11-05-06_0000172-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_11-05-06_0000172-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_11-05-06_0000172-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_11-05-06_0000172-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_11-05-06_0000172-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_11-11-26_0000173-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_11-11-26_0000173-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_11-11-26_0000173-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_11-11-26_0000173-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_11-11-26_0000173-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_11-11-26_0000173-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_11-11-26_0000173-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_11-22-37_0000175-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_11-22-37_0000175-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_11-22-37_0000175-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_11-22-37_0000175-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_11-22-37_0000175-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_11-22-37_0000175-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI2020-01-26_11-22-37_0000175-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_11-29-07_0000176-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_11-29-07_0000176-p10.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_11-29-07_0000176-p11.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_11-29-07_0000176-p12.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_11-29-07_0000176-p13.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_11-29-07_0000176-p14.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_11-29-07_0000176-p15.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_11-29-07_0000176-p16.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_11-29-07_0000176-p17.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_11-29-07_0000176-p18.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_11-29-07_0000176-p19.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_11-29-07_0000176-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_11-29-07_0000176-p20.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_11-29-07_0000176-p21.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_11-29-07_0000176-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_11-29-07_0000176-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_11-29-07_0000176-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_11-29-07_0000176-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_11-29-07_0000176-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_11-29-07_0000176-p8.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_11-29-07_0000176-p9.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_12-35-36_0000178-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_12-35-36_0000178-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_12-35-36_0000178-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_13-37-03_0000179-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_13-37-03_0000179-p10.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_13-37-03_0000179-p11.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_13-37-03_0000179-p12.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_13-37-03_0000179-p13.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_13-37-03_0000179-p14.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_13-37-03_0000179-p15.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_13-37-03_0000179-p16.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_13-37-03_0000179-p17.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_13-37-03_0000179-p18.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_13-37-03_0000179-p19.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_13-37-03_0000179-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_13-37-03_0000179-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_13-37-03_0000179-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_13-37-03_0000179-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_13-37-03_0000179-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_13-37-03_0000179-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_13-37-03_0000179-p8.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_13-37-03_0000179-p9.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_13-53-44_0000180-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-28_13-53-44_0000180-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_09-18-28_0000181-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_09-18-28_0000181-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_09-38-27_0000182-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-02-22_0000183-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-02-22_0000183-p10.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-02-22_0000183-p11.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-02-22_0000183-p12.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-02-22_0000183-p13.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-02-22_0000183-p14.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-02-22_0000183-p15.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-02-22_0000183-p16.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-02-22_0000183-p17.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-02-22_0000183-p18.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-02-22_0000183-p19.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-02-22_0000183-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-02-22_0000183-p20.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-02-22_0000183-p21.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-02-22_0000183-p22.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-02-22_0000183-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-02-22_0000183-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-02-22_0000183-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-02-22_0000183-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-02-22_0000183-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-02-22_0000183-p8.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-02-22_0000183-p9.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-31-59_0000184-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-38-08_0000185-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-38-08_0000185-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-38-08_0000185-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-38-08_0000185-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-38-08_0000185-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-38-08_0000185-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-38-08_0000185-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-38-08_0000185-p8.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-38-08_0000185-p9.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-50-39_0000186-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-50-39_0000186-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-50-39_0000186-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-50-39_0000186-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-50-39_0000186-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-50-39_0000186-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-50-39_0000186-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-50-39_0000186-p8.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-50-39_0000186-p9.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-57-16_0000187-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-29_10-57-16_0000187-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-27-12_0000189-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-27-12_0000189-p10.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-27-12_0000189-p11.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-27-12_0000189-p12.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-27-12_0000189-p13.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-27-12_0000189-p14.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-27-12_0000189-p15.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-27-12_0000189-p16.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-27-12_0000189-p17.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-27-12_0000189-p18.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-27-12_0000189-p19.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-27-12_0000189-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-27-12_0000189-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-27-12_0000189-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-27-12_0000189-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-27-12_0000189-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-27-12_0000189-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-27-12_0000189-p8.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-27-12_0000189-p9.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-52-01_0000190-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-52-01_0000190-p10.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-52-01_0000190-p11.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-52-01_0000190-p12.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-52-01_0000190-p13.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-52-01_0000190-p14.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-52-01_0000190-p15.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-52-01_0000190-p16.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-52-01_0000190-p17.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-52-01_0000190-p18.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-52-01_0000190-p19.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-52-01_0000190-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-52-01_0000190-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-52-01_0000190-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-52-01_0000190-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-52-01_0000190-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-52-01_0000190-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-52-01_0000190-p8.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_12-52-01_0000190-p9.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_13-29-39_0000191-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_13-29-39_0000191-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_13-29-39_0000191-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_13-53-47_0000192-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_13-53-47_0000192-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_13-53-47_0000192-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_13-53-47_0000192-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_13-53-47_0000192-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_13-53-47_0000192-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_15-06-38_0000193-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_15-06-38_0000193-p10.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_15-06-38_0000193-p11.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_15-06-38_0000193-p12.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_15-06-38_0000193-p13.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_15-06-38_0000193-p14.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_15-06-38_0000193-p15.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_15-06-38_0000193-p16.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_15-06-38_0000193-p17.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_15-06-38_0000193-p18.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_15-06-38_0000193-p19.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_15-06-38_0000193-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_15-06-38_0000193-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_15-06-38_0000193-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_15-06-38_0000193-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_15-06-38_0000193-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_15-06-38_0000193-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_15-06-38_0000193-p8.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_15-06-38_0000193-p9.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_15-12-56_0000194-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_15-31-29_0000195-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_15-31-29_0000195-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_15-31-29_0000195-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_15-31-29_0000195-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-30_15-31-29_0000195-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-12-23_0000196-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-12-23_0000196-p10.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-12-23_0000196-p11.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-12-23_0000196-p12.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-12-23_0000196-p13.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-12-23_0000196-p14.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-12-23_0000196-p15.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-12-23_0000196-p16.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-12-23_0000196-p17.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-12-23_0000196-p18.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-12-23_0000196-p19.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-12-23_0000196-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-12-23_0000196-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-12-23_0000196-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-12-23_0000196-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-12-23_0000196-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-12-23_0000196-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-12-23_0000196-p8.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-12-23_0000196-p9.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-57-51_0000197-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-57-51_0000197-p10.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-57-51_0000197-p11.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-57-51_0000197-p12.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-57-51_0000197-p13.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-57-51_0000197-p14.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-57-51_0000197-p15.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-57-51_0000197-p16.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-57-51_0000197-p17.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-57-51_0000197-p18.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-57-51_0000197-p19.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-57-51_0000197-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-57-51_0000197-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-57-51_0000197-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-57-51_0000197-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-57-51_0000197-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-57-51_0000197-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-57-51_0000197-p8.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_10-57-51_0000197-p9.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_11-18-00_0000198-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_11-18-00_0000198-p10.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_11-18-00_0000198-p11.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_11-18-00_0000198-p12.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_11-18-00_0000198-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_11-18-00_0000198-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_11-18-00_0000198-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_11-18-00_0000198-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_11-18-00_0000198-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_11-18-00_0000198-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_11-18-00_0000198-p8.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_11-18-00_0000198-p9.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_11-41-25_0000199-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_11-41-33_0000200-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_11-41-33_0000200-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_11-41-33_0000200-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_11-41-33_0000200-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_11-41-33_0000200-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_11-41-33_0000200-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_11-41-33_0000200-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_11-41-33_0000200-p8.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_12-02-32_0000201-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_12-02-32_0000201-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_12-15-48_0000202-p1.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_12-15-48_0000202-p2.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_12-15-48_0000202-p3.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_12-15-48_0000202-p4.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_12-15-48_0000202-p5.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_12-15-48_0000202-p6.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_12-15-48_0000202-p7.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_12-15-48_0000202-p8.tiff[m
-	[31mdata/processed/mfcc_detection/ch4MPI_2020-01-31_12-15-48_0000202-p9.tiff[m
-	[31mdata/processed/non_duplicated_peaks/[m
-	[31moutput/detection_xcorr_1.RDS[m
-	[31moutput/detection_xcorr_10.RDS[m
-	[31moutput/detection_xcorr_11.RDS[m
-	[31moutput/detection_xcorr_12.RDS[m
-	[31moutput/detection_xcorr_13.RDS[m
-	[31moutput/detection_xcorr_14.RDS[m
-	[31moutput/detection_xcorr_15.RDS[m
-	[31moutput/detection_xcorr_2.RDS[m
-	[31moutput/detection_xcorr_3.RDS[m
-	[31moutput/detection_xcorr_4.RDS[m
-	[31moutput/detection_xcorr_5.RDS[m
-	[31moutput/detection_xcorr_6.RDS[m
-	[31moutput/detection_xcorr_7.RDS[m
-	[31moutput/detection_xcorr_8.RDS[m
-	[31moutput/detection_xcorr_9.RDS[m
-	[31moutput/peaks_1.RDS[m
-	[31moutput/peaks_10.RDS[m
-	[31moutput/peaks_11.RDS[m
-	[31moutput/peaks_12.RDS[m
-	[31moutput/peaks_13.RDS[m
-	[31moutput/peaks_14.RDS[m
-	[31moutput/peaks_15.RDS[m
-	[31moutput/peaks_2.RDS[m
-	[31moutput/peaks_3.RDS[m
-	[31moutput/peaks_4.RDS[m
-	[31moutput/peaks_5.RDS[m
-	[31moutput/peaks_6.RDS[m
-	[31moutput/peaks_7.RDS[m
-	[31moutput/peaks_8.RDS[m
-	[31moutput/peaks_9.RDS[m
-	[31mpackrat/lib-R/x86_64-pc-linux-gnu/3.6.3/[m
-	[31mpackrat/lib/x86_64-pc-linux-gnu/3.6.1/PKI/[m
-	[31mpackrat/lib/x86_64-pc-linux-gnu/3.6.1/RJSONIO/[m
-	[31mpackrat/lib/x86_64-pc-linux-gnu/3.6.1/XML/[m
-	[31mpackrat/lib/x86_64-pc-linux-gnu/3.6.1/httpuv/[m
-	[31mpackrat/lib/x86_64-pc-linux-gnu/3.6.1/rfigshare/[m
-	[31mpackrat/lib/x86_64-pc-linux-gnu/3.6.1/rsconnect/[m
-	[31mpackrat/lib/x86_64-pc-linux-gnu/3.6.3/[m
-
-sin cambios agregados al commit (usa "git add" y/o "git commit -a")
-]0;/home/m/sda5/Dropbox/Projects/flight_coordination_in_Thyroptera]0;m@m-MacBookPro: ~/sda5/Dropbox/Projects/flight_coordination_in_Thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/sda5/Dropbox/Projects/flight_coordination__in_Thyroptera[00m$ git  add .[1P
-]0;/home/m/sda5/Dropbox/Projects/flight_coordination_in_Thyroptera]0;m@m-MacBookPro: ~/sda5/Dropbox/Projects/flight_coordination_in_Thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/sda5/Dropbox/Projects/flight_coordination__in_Thyroptera[00m$ git commit -m "git[K[K[Kt[Kg[Kflight[K[K[K[K[K[Kflight[K[K[K[K[K[Kcount calls"
-[master d4753b68] count calls
- 172 files changed, 86087 insertions(+), 2156 deletions(-)
- rewrite .Rhistory (99%)
- rewrite .Rproj.user/8E659706/console06/INDEX001 (87%)
- delete mode 100644 .Rproj.user/8E659706/sources/s-8422FB0D/5513C48F
- delete mode 100644 .Rproj.user/8E659706/sources/s-8422FB0D/5513C48F-contents
- delete mode 100644 .Rproj.user/8E659706/sources/s-8422FB0D/E78F354A
- delete mode 100644 .Rproj.user/8E659706/sources/s-8422FB0D/E78F354A-contents
- delete mode 100644 .Rproj.user/8E659706/sources/s-8422FB0D/lock_file
- rewrite .Rproj.user/shared/notebooks/paths (100%)
- create mode 100644 README.html
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-28_11-29-07_0000176-p1.tiff (91%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p1.tiff (91%)
- delete mode 100644 data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p10.tiff
- delete mode 100644 data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p11.tiff
- delete mode 100644 data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p12.tiff
- delete mode 100644 data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p13.tiff
- delete mode 100644 data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p14.tiff
- delete mode 100644 data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p15.tiff
- delete mode 100644 data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p16.tiff
- delete mode 100644 data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p17.tiff
- delete mode 100644 data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p18.tiff
- delete mode 100644 data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p19.tiff
- delete mode 100644 data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p2.tiff
- delete mode 100644 data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p20.tiff
- delete mode 100644 data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p3.tiff
- delete mode 100644 data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p4.tiff
- delete mode 100644 data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p5.tiff
- delete mode 100644 data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p6.tiff
- delete mode 100644 data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p7.tiff
- delete mode 100644 data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p8.tiff
- delete mode 100644 data/processed/mfcc_detection/ch1MPI_2020-01-28_11-58-25_0000177-p9.tiff
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-28_12-35-36_0000178-p1.tiff (91%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-28_12-35-36_0000178-p2.tiff (91%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-28_12-35-36_0000178-p3.tiff (89%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p1.tiff (91%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p10.tiff (91%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p11.tiff (91%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p12.tiff (91%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p13.tiff (91%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p14.tiff (91%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p15.tiff (91%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p16.tiff (91%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p17.tiff (91%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p18.tiff (91%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p19.tiff (91%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p2.tiff (91%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p3.tiff (91%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p4.tiff (91%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p5.tiff (91%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p6.tiff (91%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p7.tiff (91%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p8.tiff (91%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-28_13-37-03_0000179-p9.tiff (91%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-29_10-38-08_0000185-p1.tiff (91%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-29_10-38-08_0000185-p2.tiff (91%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-29_10-38-08_0000185-p3.tiff (91%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-29_10-38-08_0000185-p4.tiff (91%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-29_10-38-08_0000185-p5.tiff (91%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-29_10-38-08_0000185-p6.tiff (91%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-29_10-38-08_0000185-p7.tiff (91%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-29_10-38-08_0000185-p8.tiff (91%)
- rewrite data/processed/mfcc_detection/ch1MPI_2020-01-29_10-38-08_0000185-p9.tiff (89%)
- rewrite data/processed/mfcc_detection/ch3MPI2020-01-26_10-18-23_0000168-p1.tiff (91%)
- rewrite data/processed/mfcc_detection/ch3MPI2020-01-26_10-18-23_0000168-p2.tiff (91%)
- rewrite data/processed/mfcc_detection/ch3MPI2020-01-26_10-18-23_0000168-p3.tiff (91%)
- rewrite data/processed/mfcc_detection/ch3MPI2020-01-26_10-18-23_0000168-p4.tiff (91%)
- rewrite data/processed/mfcc_detection/ch3MPI2020-01-26_10-18-23_0000168-p5.tiff (91%)
- rewrite data/processed/mfcc_detection/ch3MPI2020-01-26_10-18-23_0000168-p6.tiff (91%)
- rewrite data/processed/mfcc_detection/ch3MPI2020-01-26_10-18-23_0000168-p7.tiff (89%)
- delete mode 100644 data/processed/mfcc_detection/ch3MPI2020-01-26_11-05-06_0000172-p1.tiff
- delete mode 100644 data/processed/mfcc_detection/ch3MPI2020-01-26_11-05-06_0000172-p2.tiff
- delete mode 100644 data/processed/mfcc_detection/ch3MPI2020-01-26_11-05-06_0000172-p3.tiff
- delete mode 100644 data/processed/mfcc_detection/ch3MPI2020-01-26_11-05-06_0000172-p4.tiff
- delete mode 100644 data/processed/mfcc_detection/ch3MPI2020-01-26_11-05-06_0000172-p5.tiff
- delete mode 100644 data/processed/mfcc_detection/ch3MPI2020-01-26_11-05-06_0000172-p6.tiff
- delete mode 100644 data/processed/mfcc_detection/ch3MPI2020-01-26_11-05-06_0000172-p7.tiff
- rewrite data/processed/mfcc_detection/ch3MPI_2020-01-30_13-53-47_0000192-p1.tiff (91%)
- rewrite data/processed/mfcc_detection/ch3MPI_2020-01-30_13-53-47_0000192-p2.tiff (91%)
- rewrite data/processed/mfcc_detection/ch3MPI_2020-01-30_13-53-47_0000192-p3.tiff (91%)
- rewrite data/processed/mfcc_detection/ch3MPI_2020-01-30_13-53-47_0000192-p4.tiff (91%)
- rewrite data/processed/mfcc_detection/ch3MPI_2020-01-30_13-53-47_0000192-p5.tiff (91%)
- rewrite data/processed/mfcc_detection/ch3MPI_2020-01-30_13-53-47_0000192-p6.tiff (89%)
- rewrite data/processed/mfcc_detection/ch4MPI2020-01-19_15-03-57_0000057-p1.tiff (91%)
- rewrite data/processed/mfcc_detection/ch4MPI2020-01-19_15-03-57_0000057-p2.tiff (91%)
- rewrite data/processed/mfcc_detection/ch4MPI2020-01-19_15-03-57_0000057-p3.tiff (91%)
- rewrite data/processed/mfcc_detection/ch4MPI2020-01-19_15-03-57_0000057-p4.tiff (91%)
- rewrite data/processed/mfcc_detection/ch4MPI2020-01-19_15-03-57_0000057-p5.tiff (91%)
- rewrite data/processed/mfcc_detection/ch4MPI2020-01-19_15-03-57_0000057-p6.tiff (91%)
- rewrite data/processed/mfcc_detection/ch4MPI2020-01-19_15-03-57_0000057-p7.tiff (91%)
- delete mode 100644 data/processed/mfcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p1.tiff
- delete mode 100644 data/processed/mfcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p2.tiff
- delete mode 100644 data/processed/mfcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p3.tiff
- delete mode 100644 data/processed/mfcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p4.tiff
- delete mode 100644 data/processed/mfcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p5.tiff
- delete mode 100644 data/processed/mfcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p6.tiff
- delete mode 100644 data/processed/mfcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p7.tiff
- delete mode 100644 data/processed/mfcc_detection/ch4MPI2020-01-20_09-17-06_0000059-p8.tiff
- create mode 100644 data/processed/no_overlap_peaks_xcorr_mfcc_for_raven.txt
- create mode 100644 data/processed/non_overlapping_peaks.csv
- create mode 100644 data/processed/overlap_peaks_xcorr_mfcc_for_raven.txt
- create mode 100644 data/processed/overlapping_peaks.csv
- create mode 100644 data/processed/peaks_xcorr_mfcc.csv
- create mode 100644 data/processed/peaks_xcorr_mfcc_for_raven.txt
- delete mode 100644 data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p1.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p2.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p3.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p4.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p5.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p6.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168-p7.jpeg
- delete mode 100755 data/raw/subset_for_testing/ch3MPI2020-01-26_10-18-23_0000168.wav
- delete mode 100644 data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p1.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p2.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p3.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p4.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p5.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p6.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172-p7.jpeg
- delete mode 100755 data/raw/subset_for_testing/ch3MPI2020-01-26_11-05-06_0000172.wav
- delete mode 100644 data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192-p1.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192-p2.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192-p3.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192-p4.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192-p5.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192-p6.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p1.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p2.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p3.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p4.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p5.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p6.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057-p7.jpeg
- delete mode 100755 data/raw/subset_for_testing/ch4MPI2020-01-19_15-03-57_0000057.wav
- delete mode 100644 data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p1.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p2.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p3.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p4.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p5.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p6.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p7.jpeg
- delete mode 100644 data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059-p8.jpeg
- delete mode 100755 data/raw/subset_for_testing/ch4MPI2020-01-20_09-17-06_0000059.wav
- create mode 100644 img/example_fig.png
- delete mode 100644 output/test_detection_xcorr.RDS
- rewrite packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/Meta/package.rds (100%)
- rewrite packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/R/warbleR.rdb (79%)
- rewrite packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/R/warbleR.rdx (100%)
- rewrite packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/help/paths.rds (100%)
- rewrite packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/help/warbleR.rdb (83%)
- rewrite packrat/lib/x86_64-pc-linux-gnu/3.6.1/warbleR/help/warbleR.rdx (100%)
- create mode 100644 packrat/src/PKI/PKI_0.1-7.tar.gz
- create mode 100644 packrat/src/rsconnect/rsconnect_0.8.16.tar.gz
- rename data/raw/subset_for_testing/ch3MPI_2020-01-30_13-53-47_0000192.wav => packrat/src/warbleR/828e45504d0e620aea36505f4ce4df5f15466b45.tar.gz (66%)
- mode change 100755 => 100644
- create mode 100644 scripts/Calling_activity_analysis.Rmd
- create mode 100644 scripts/Calling_activity_analysis.html
- create mode 100644 scripts/Calling_activity_analysis.knit.md
- create mode 100644 scripts/Calling_activity_analysis.utf8.md
- rewrite scripts/acoustic_analysis_inquiry_calls.Rmd (83%)
- create mode 100644 scripts/mod_xcorr.R
- create mode 100644 scripts/rsconnect/documents/Calling_activity_analysis.Rmd/rpubs.com/rpubs/Document.dcf
-]0;/home/m/sda5/Dropbox/Projects/flight_coordination_in_Thyroptera]0;m@m-MacBookPro: ~/sda5/Dropbox/Projects/flight_coordination_in_Thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/sda5/Dropbox/Projects/flight_coordination__in_Thyroptera[00m$ git push
-Username for 'https://github.com': maRce10
-Password for 'https://maRce10@github.com': 
-Contando objetos: 123, listo.
-Delta compression using up to 4 threads.
-Comprimiendo objetos:   0% (1/112)   Comprimiendo objetos:   1% (2/112)   Comprimiendo objetos:   2% (3/112)   Comprimiendo objetos:   3% (4/112)   Comprimiendo objetos:   4% (5/112)   Comprimiendo objetos:   5% (6/112)   Comprimiendo objetos:   6% (7/112)   Comprimiendo objetos:   7% (8/112)   Comprimiendo objetos:   8% (9/112)   Comprimiendo objetos:   9% (11/112)   Comprimiendo objetos:  10% (12/112)   Comprimiendo objetos:  11% (13/112)   Comprimiendo objetos:  12% (14/112)   Comprimiendo objetos:  13% (15/112)   Comprimiendo objetos:  14% (16/112)   Comprimiendo objetos:  15% (17/112)   Comprimiendo objetos:  16% (18/112)   Comprimiendo objetos:  17% (20/112)   Comprimiendo objetos:  18% (21/112)   Comprimiendo objetos:  19% (22/112)   Comprimiendo objetos:  20% (23/112)   Comprimiendo objetos:  21% (24/112)   Comprimiendo objetos:  22% (25/112)   Comprimiendo objetos:  23% (26/112)   Comprimiendo objetos:  24% (27/112)   Comprimiendo objetos:  25% (28/112)   Comprimiendo objetos:  26% (30/112)   Comprimiendo objetos:  27% (31/112)   Comprimiendo objetos:  28% (32/112)   Comprimiendo objetos:  29% (33/112)   Comprimiendo objetos:  30% (34/112)   Comprimiendo objetos:  31% (35/112)   Comprimiendo objetos:  32% (36/112)   Comprimiendo objetos:  33% (37/112)   Comprimiendo objetos:  34% (39/112)   Comprimiendo objetos:  35% (40/112)   Comprimiendo objetos:  36% (41/112)   Comprimiendo objetos:  37% (42/112)   Comprimiendo objetos:  38% (43/112)   Comprimiendo objetos:  39% (44/112)   Comprimiendo objetos:  40% (45/112)   Comprimiendo objetos:  41% (46/112)   Comprimiendo objetos:  42% (48/112)   Comprimiendo objetos:  43% (49/112)   Comprimiendo objetos:  44% (50/112)   Comprimiendo objetos:  45% (51/112)   Comprimiendo objetos:  46% (52/112)   Comprimiendo objetos:  47% (53/112)   Comprimiendo objetos:  48% (54/112)   Comprimiendo objetos:  49% (55/112)   Comprimiendo objetos:  50% (56/112)   Comprimiendo objetos:  51% (58/112)   Comprimiendo objetos:  52% (59/112)   Comprimiendo objetos:  53% (60/112)   Comprimiendo objetos:  54% (61/112)   Comprimiendo objetos:  55% (62/112)   Comprimiendo objetos:  56% (63/112)   Comprimiendo objetos:  57% (64/112)   Comprimiendo objetos:  58% (65/112)   Comprimiendo objetos:  59% (67/112)   Comprimiendo objetos:  60% (68/112)   Comprimiendo objetos:  61% (69/112)   Comprimiendo objetos:  62% (70/112)   Comprimiendo objetos:  63% (71/112)   Comprimiendo objetos:  64% (72/112)   Comprimiendo objetos:  65% (73/112)   Comprimiendo objetos:  66% (74/112)   Comprimiendo objetos:  67% (76/112)   Comprimiendo objetos:  68% (77/112)   Comprimiendo objetos:  69% (78/112)   Comprimiendo objetos:  70% (79/112)   Comprimiendo objetos:  71% (80/112)   Comprimiendo objetos:  72% (81/112)   Comprimiendo objetos:  73% (82/112)   Comprimiendo objetos:  74% (83/112)   Comprimiendo objetos:  75% (84/112)   Comprimiendo objetos:  76% (86/112)   Comprimiendo objetos:  77% (87/112)   Comprimiendo objetos:  78% (88/112)   Comprimiendo objetos:  79% (89/112)   Comprimiendo objetos:  80% (90/112)   Comprimiendo objetos:  81% (91/112)   Comprimiendo objetos:  82% (92/112)   Comprimiendo objetos:  83% (93/112)   Comprimiendo objetos:  84% (95/112)   Comprimiendo objetos:  85% (96/112)   Comprimiendo objetos:  86% (97/112)   Comprimiendo objetos:  87% (98/112)   Comprimiendo objetos:  88% (99/112)   Comprimiendo objetos:  89% (100/112)   Comprimiendo objetos:  90% (101/112)   Comprimiendo objetos:  91% (102/112)   Comprimiendo objetos:  92% (104/112)   Comprimiendo objetos:  93% (105/112)   Comprimiendo objetos:  94% (106/112)   Comprimiendo objetos:  95% (107/112)   Comprimiendo objetos:  96% (108/112)   Comprimiendo objetos:  97% (109/112)   Comprimiendo objetos:  98% (110/112)   Comprimiendo objetos:  99% (111/112)   Comprimiendo objetos: 100% (112/112)   Comprimiendo objetos: 100% (112/112), listo.
-Escribiendo objetos:   0% (1/123)   Escribiendo objetos:   1% (2/123)   Escribiendo objetos:   2% (3/123)   Escribiendo objetos:   3% (4/123)   Escribiendo objetos:   4% (5/123)   Escribiendo objetos:   5% (7/123)   Escribiendo objetos:   6% (8/123)   Escribiendo objetos:   7% (9/123)   Escribiendo objetos:   8% (10/123)   Escribiendo objetos:   9% (12/123)   Escribiendo objetos:  10% (13/123)   Escribiendo objetos:  11% (14/123)   Escribiendo objetos:  12% (15/123)   Escribiendo objetos:  13% (16/123)   Escribiendo objetos:  14% (18/123)   Escribiendo objetos:  15% (19/123)   Escribiendo objetos:  16% (20/123)   Escribiendo objetos:  17% (22/123)   Escribiendo objetos:  18% (23/123)   Escribiendo objetos:  19% (24/123)   Escribiendo objetos:  20% (25/123)   Escribiendo objetos:  21% (26/123)   Escribiendo objetos:  22% (28/123)   Escribiendo objetos:  23% (29/123)   Escribiendo objetos:  23% (29/123), 1.06 MiB | 39.00 KiB/s   Escribiendo objetos:  23% (29/123), 1.18 MiB | 42.00 KiB/s   Escribiendo objetos:  24% (30/123), 1.18 MiB | 42.00 KiB/s   Escribiendo objetos:  24% (30/123), 1.24 MiB | 43.00 KiB/s   Escribiendo objetos:  24% (30/123), 1.37 MiB | 45.00 KiB/s   Escribiendo objetos:  24% (30/123), 1.43 MiB | 45.00 KiB/s   Escribiendo objetos:  26% (32/123), 1.43 MiB | 45.00 KiB/s   Escribiendo objetos:  26% (32/123), 1.49 MiB | 46.00 KiB/s   Escribiendo objetos:  26% (33/123), 1.55 MiB | 47.00 KiB/s   Escribiendo objetos:  26% (33/123), 1.61 MiB | 83.00 KiB/s   Escribiendo objetos:  27% (34/123), 1.62 MiB | 77.00 KiB/s   Escribiendo objetos:  27% (34/123), 1.68 MiB | 67.00 KiB/s   Escribiendo objetos:  27% (34/123), 1.74 MiB | 66.00 KiB/s   Escribiendo objetos:  27% (34/123), 1.80 MiB | 63.00 KiB/s   Escribiendo objetos:  27% (34/123), 1.87 MiB | 59.00 KiB/s   Escribiendo objetos:  27% (34/123), 1.99 MiB | 61.00 KiB/s   Escribiendo objetos:  27% (34/123), 2.05 MiB | 56.00 KiB/s   Escribiendo objetos:  27% (34/123), 2.12 MiB | 61.00 KiB/s   Escribiendo objetos:  30% (37/123), 2.12 MiB | 61.00 KiB/s   Escribiendo objetos:  30% (37/123), 2.18 MiB | 69.00 KiB/s   Escribiendo objetos:  30% (37/123), 2.24 MiB | 73.00 KiB/s   Escribiendo objetos:  30% (38/123), 2.43 MiB | 96.00 KiB/s   Escribiendo objetos:  31% (39/123), 2.43 MiB | 96.00 KiB/s   Escribiendo objetos:  31% (39/123), 2.55 MiB | 103.00 KiB/s   Escribiendo objetos:  32% (40/123), 2.62 MiB | 103.00 KiB/s   Escribiendo objetos:  32% (40/123), 2.74 MiB | 114.00 KiB/s   Escribiendo objetos:  33% (41/123), 2.74 MiB | 114.00 KiB/s   Escribiendo objetos:  33% (41/123), 2.86 MiB | 136.00 KiB/s   Escribiendo objetos:  34% (42/123), 2.86 MiB | 136.00 KiB/s   Escribiendo objetos:  34% (43/123), 3.12 MiB | 168.00 KiB/s   Escribiendo objetos:  35% (44/123), 3.12 MiB | 168.00 KiB/s   Escribiendo objetos:  35% (44/123), 3.37 MiB | 180.00 KiB/s   Escribiendo objetos:  35% (44/123), 3.49 MiB | 189.00 KiB/s   Escribiendo objetos:  37% (46/123), 3.49 MiB | 189.00 KiB/s   Escribiendo objetos:  38% (47/123), 3.55 MiB | 186.00 KiB/s   Escribiendo objetos:  38% (47/123), 3.68 MiB | 194.00 KiB/s   Escribiendo objetos:  38% (47/123), 3.93 MiB | 200.00 KiB/s   Escribiendo objetos:  39% (49/123), 3.93 MiB | 200.00 KiB/s   Escribiendo objetos:  39% (49/123), 4.05 MiB | 201.00 KiB/s   Escribiendo objetos:  40% (50/123), 4.12 MiB | 182.00 KiB/s   Escribiendo objetos:  40% (50/123), 4.24 MiB | 181.00 KiB/s   Escribiendo objetos:  40% (50/123), 4.37 MiB | 178.00 KiB/s   Escribiendo objetos:  42% (52/123), 4.37 MiB | 178.00 KiB/s   Escribiendo objetos:  43% (53/123), 4.49 MiB | 174.00 KiB/s   Escribiendo objetos:  43% (54/123), 4.74 MiB | 182.00 KiB/s   Escribiendo objetos:  44% (55/123), 4.87 MiB | 184.00 KiB/s   Escribiendo objetos:  44% (55/123), 4.99 MiB | 183.00 KiB/s   Escribiendo objetos:  45% (56/123), 4.99 MiB | 183.00 KiB/s   Escribiendo objetos:  46% (57/123), 5.12 MiB | 183.00 KiB/s   Escribiendo objetos:  46% (57/123), 5.24 MiB | 196.00 KiB/s   Escribiendo objetos:  47% (58/123), 5.24 MiB | 196.00 KiB/s   Escribiendo objetos:  47% (58/123), 5.37 MiB | 193.00 KiB/s   Escribiendo objetos:  47% (59/123), 5.49 MiB | 184.00 KiB/s   Escribiendo objetos:  47% (59/123), 5.61 MiB | 188.00 KiB/s   Escribiendo objetos:  49% (61/123), 5.68 MiB | 174.00 KiB/s   Escribiendo objetos:  49% (61/123), 5.74 MiB | 165.00 KiB/s   Escribiendo objetos:  50% (62/123), 5.74 MiB | 165.00 KiB/s   Escribiendo objetos:  50% (62/123), 5.86 MiB | 163.00 KiB/s   Escribiendo objetos:  51% (63/123), 5.86 MiB | 163.00 KiB/s   Escribiendo objetos:  52% (64/123), 5.93 MiB | 150.00 KiB/s   Escribiendo objetos:  52% (64/123), 6.11 MiB | 141.00 KiB/s   Escribiendo objetos:  52% (64/123), 6.30 MiB | 135.00 KiB/s   Escribiendo objetos:  53% (66/123), 6.30 MiB | 135.00 KiB/s   Escribiendo objetos:  53% (66/123), 6.43 MiB | 133.00 KiB/s   Escribiendo objetos:  54% (67/123), 6.43 MiB | 133.00 KiB/s   Escribiendo objetos:  55% (68/123), 6.43 MiB | 133.00 KiB/s   Escribiendo objetos:  56% (69/123), 6.55 MiB | 146.00 KiB/s   Escribiendo objetos:  56% (70/123), 6.80 MiB | 160.00 KiB/s   Escribiendo objetos:  57% (71/123), 6.80 MiB | 160.00 KiB/s   Escribiendo objetos:  58% (72/123), 6.93 MiB | 172.00 KiB/s   Escribiendo objetos:  58% (72/123), 7.05 MiB | 172.00 KiB/s   Escribiendo objetos:  59% (73/123), 7.05 MiB | 172.00 KiB/s   Escribiendo objetos:  59% (73/123), 7.18 MiB | 181.00 KiB/s   Escribiendo objetos:  60% (74/123), 7.18 MiB | 181.00 KiB/s   Escribiendo objetos:  60% (75/123), 7.43 MiB | 202.00 KiB/s   Escribiendo objetos:  61% (76/123), 7.43 MiB | 202.00 KiB/s   Escribiendo objetos:  62% (77/123), 7.55 MiB | 202.00 KiB/s   Escribiendo objetos:  62% (77/123), 7.80 MiB | 202.00 KiB/s   Escribiendo objetos:  63% (78/123), 7.80 MiB | 202.00 KiB/s   Escribiendo objetos:  64% (79/123), 7.93 MiB | 200.00 KiB/s   Escribiendo objetos:  64% (79/123), 8.05 MiB | 196.00 KiB/s   Escribiendo objetos:  64% (79/123), 8.18 MiB | 194.00 KiB/s   Escribiendo objetos:  64% (79/123), 8.43 MiB | 195.00 KiB/s   Escribiendo objetos:  64% (79/123), 8.55 MiB | 201.00 KiB/s   Escribiendo objetos:  65% (80/123), 8.55 MiB | 201.00 KiB/s   Escribiendo objetos:  65% (80/123), 8.74 MiB | 189.00 KiB/s   Escribiendo objetos:  65% (80/123), 8.93 MiB | 170.00 KiB/s   Escribiendo objetos:  65% (81/123), 8.93 MiB | 170.00 KiB/s   Escribiendo objetos:  66% (82/123), 9.05 MiB | 169.00 KiB/s   Escribiendo objetos:  66% (82/123), 9.12 MiB | 164.00 KiB/s   Escribiendo objetos:  66% (82/123), 9.24 MiB | 143.00 KiB/s   Escribiendo objetos:  66% (82/123), 9.43 MiB | 131.00 KiB/s   Escribiendo objetos:  66% (82/123), 9.55 MiB | 130.00 KiB/s   Escribiendo objetos:  67% (83/123), 9.55 MiB | 130.00 KiB/s   Escribiendo objetos:  68% (84/123), 9.55 MiB | 130.00 KiB/s   Escribiendo objetos:  68% (84/123), 9.68 MiB | 134.00 KiB/s   Escribiendo objetos:  68% (84/123), 9.80 MiB | 137.00 KiB/s   Escribiendo objetos:  69% (85/123), 9.80 MiB | 137.00 KiB/s   Escribiendo objetos:  70% (87/123), 9.80 MiB | 137.00 KiB/s   Escribiendo objetos:  71% (88/123), 9.80 MiB | 137.00 KiB/s   Escribiendo objetos:  72% (89/123), 9.80 MiB | 137.00 KiB/s   Escribiendo objetos:  73% (90/123), 9.80 MiB | 137.00 KiB/s   Escribiendo objetos:  74% (92/123), 9.80 MiB | 137.00 KiB/s   Escribiendo objetos:  75% (93/123), 9.80 MiB | 137.00 KiB/s   Escribiendo objetos:  76% (94/123), 9.80 MiB | 137.00 KiB/s   Escribiendo objetos:  77% (95/123), 9.80 MiB | 137.00 KiB/s   Escribiendo objetos:  77% (95/123), 9.93 MiB | 140.00 KiB/s   Escribiendo objetos:  77% (95/123), 10.18 MiB | 155.00 KiB/s   Escribiendo objetos:  77% (95/123), 10.43 MiB | 172.00 KiB/s   Escribiendo objetos:  77% (95/123), 10.55 MiB | 185.00 KiB/s   Escribiendo objetos:  78% (96/123), 10.68 MiB | 194.00 KiB/s   Escribiendo objetos:  79% (98/123), 10.68 MiB | 194.00 KiB/s   Escribiendo objetos:  80% (99/123), 10.68 MiB | 194.00 KiB/s   Escribiendo objetos:  80% (99/123), 10.80 MiB | 199.00 KiB/s   Escribiendo objetos:  80% (99/123), 11.05 MiB | 205.00 KiB/s   Escribiendo objetos:  81% (100/123), 11.05 MiB | 205.00 KiB/s   Escribiendo objetos:  82% (101/123), 11.05 MiB | 205.00 KiB/s   Escribiendo objetos:  83% (103/123), 11.05 MiB | 205.00 KiB/s   Escribiendo objetos:  84% (104/123), 11.05 MiB | 205.00 KiB/s   Escribiendo objetos:  85% (105/123), 11.05 MiB | 205.00 KiB/s   Escribiendo objetos:  86% (106/123), 11.05 MiB | 205.00 KiB/s   Escribiendo objetos:  87% (108/123), 11.05 MiB | 205.00 KiB/s   Escribiendo objetos:  87% (108/123), 11.18 MiB | 207.00 KiB/s   Escribiendo objetos:  87% (108/123), 11.30 MiB | 202.00 KiB/s   Escribiendo objetos:  88% (109/123), 11.43 MiB | 200.00 KiB/s   Escribiendo objetos:  89% (110/123), 11.43 MiB | 200.00 KiB/s   Escribiendo objetos:  89% (110/123), 11.79 MiB | 192.00 KiB/s   Escribiendo objetos:  89% (110/123), 11.91 MiB | 183.00 KiB/s   Escribiendo objetos:  89% (110/123), 12.04 MiB | 182.00 KiB/s   Escribiendo objetos:  89% (110/123), 12.16 MiB | 178.00 KiB/s   Escribiendo objetos:  89% (110/123), 12.29 MiB | 164.00 KiB/s   Escribiendo objetos:  89% (110/123), 12.41 MiB | 152.00 KiB/s   Escribiendo objetos:  89% (110/123), 12.54 MiB | 176.00 KiB/s   Escribiendo objetos:  89% (110/123), 12.73 MiB | 131.00 KiB/s   Escribiendo objetos:  89% (110/123), 12.79 MiB | 123.00 KiB/s   Escribiendo objetos:  89% (110/123), 12.85 MiB | 117.00 KiB/s   Escribiendo objetos:  89% (110/123), 12.98 MiB | 110.00 KiB/s   Escribiendo objetos:  89% (110/123), 13.04 MiB | 111.00 KiB/s   Escribiendo objetos:  89% (110/123), 13.16 MiB | 106.00 KiB/s   Escribiendo objetos:  89% (110/123), 13.41 MiB | 116.00 KiB/s   Escribiendo objetos:  89% (110/123), 13.54 MiB | 123.00 KiB/s   Escribiendo objetos:  89% (110/123), 13.66 MiB | 131.00 KiB/s   Escribiendo objetos:  89% (110/123), 13.91 MiB | 157.00 KiB/s   Escribiendo objetos:  89% (110/123), 14.04 MiB | 163.00 KiB/s   Escribiendo objetos:  89% (110/123), 14.29 MiB | 176.00 KiB/s   Escribiendo objetos:  89% (110/123), 14.41 MiB | 182.00 KiB/s   Escribiendo objetos:  89% (110/123), 14.66 MiB | 195.00 KiB/s   Escribiendo objetos:  89% (110/123), 14.79 MiB | 197.00 KiB/s   Escribiendo objetos:  89% (110/123), 14.98 MiB | 180.00 KiB/s   Escribiendo objetos:  89% (110/123), 15.10 MiB | 180.00 KiB/s   Escribiendo objetos:  89% (110/123), 15.22 MiB | 178.00 KiB/s   Escribiendo objetos:  89% (110/123), 15.48 MiB | 185.00 KiB/s   Escribiendo objetos:  89% (110/123), 15.73 MiB | 187.00 KiB/s   Escribiendo objetos:  89% (110/123), 15.98 MiB | 197.00 KiB/s   Escribiendo objetos:  89% (110/123), 16.10 MiB | 196.00 KiB/s   Escribiendo objetos:  89% (110/123), 16.22 MiB | 203.00 KiB/s   Escribiendo objetos:  89% (110/123), 16.48 MiB | 198.00 KiB/s   Escribiendo objetos:  89% (110/123), 16.60 MiB | 196.00 KiB/s   Escribiendo objetos:  89% (110/123), 16.73 MiB | 168.00 KiB/s   Escribiendo objetos:  89% (110/123), 16.85 MiB | 169.00 KiB/s   Escribiendo objetos:  89% (110/123), 17.04 MiB | 159.00 KiB/s   Escribiendo objetos:  89% (110/123), 17.10 MiB | 149.00 KiB/s   Escribiendo objetos:  89% (110/123), 17.29 MiB | 132.00 KiB/s   Escribiendo objetos:  89% (110/123), 17.41 MiB | 126.00 KiB/s   Escribiendo objetos:  89% (110/123), 17.54 MiB | 134.00 KiB/s   Escribiendo objetos:  89% (110/123), 17.66 MiB | 139.00 KiB/s   Escribiendo objetos:  89% (110/123), 17.91 MiB | 143.00 KiB/s   Escribiendo objetos:  89% (110/123), 18.04 MiB | 150.00 KiB/s   Escribiendo objetos:  89% (110/123), 18.29 MiB | 166.00 KiB/s   Escribiendo objetos:  89% (110/123), 18.41 MiB | 173.00 KiB/s   Escribiendo objetos:  89% (110/123), 18.54 MiB | 180.00 KiB/s   Escribiendo objetos:  89% (110/123), 18.73 MiB | 182.00 KiB/s   Escribiendo objetos:  89% (110/123), 18.85 MiB | 179.00 KiB/s   Escribiendo objetos:  89% (110/123), 18.97 MiB | 170.00 KiB/s   Escribiendo objetos:  89% (110/123), 19.23 MiB | 162.00 KiB/s   Escribiendo objetos:  89% (110/123), 19.35 MiB | 164.00 KiB/s   Escribiendo objetos:  89% (110/123), 19.60 MiB | 164.00 KiB/s   Escribiendo objetos:  89% (110/123), 19.73 MiB | 170.00 KiB/s   Escribiendo objetos:  89% (110/123), 19.98 MiB | 174.00 KiB/s   Escribiendo objetos:  89% (110/123), 20.10 MiB | 184.00 KiB/s   Escribiendo objetos:  89% (110/123), 20.35 MiB | 195.00 KiB/s   Escribiendo objetos:  89% (110/123), 20.48 MiB | 187.00 KiB/s   Escribiendo objetos:  89% (110/123), 20.54 MiB | 180.00 KiB/s   Escribiendo objetos:  89% (110/123), 20.79 MiB | 168.00 KiB/s   Escribiendo objetos:  89% (110/123), 20.91 MiB | 160.00 KiB/s   Escribiendo objetos:  89% (110/123), 21.04 MiB | 154.00 KiB/s   Escribiendo objetos:  89% (110/123), 21.16 MiB | 149.00 KiB/s   Escribiendo objetos:  89% (110/123), 21.29 MiB | 139.00 KiB/s   Escribiendo objetos:  89% (110/123), 21.35 MiB | 132.00 KiB/s   Escribiendo objetos:  89% (110/123), 21.54 MiB | 136.00 KiB/s   Escribiendo objetos:  89% (110/123), 21.66 MiB | 140.00 KiB/s   Escribiendo objetos:  89% (110/123), 21.91 MiB | 150.00 KiB/s   Escribiendo objetos:  89% (110/123), 22.04 MiB | 155.00 KiB/s   Escribiendo objetos:  89% (110/123), 22.16 MiB | 158.00 KiB/s   Escribiendo objetos:  89% (110/123), 22.41 MiB | 178.00 KiB/s   Escribiendo objetos:  89% (110/123), 22.54 MiB | 184.00 KiB/s   Escribiendo objetos:  89% (110/123), 22.79 MiB | 168.00 KiB/s   Escribiendo objetos:  89% (110/123), 22.98 MiB | 165.00 KiB/s   Escribiendo objetos:  89% (110/123), 23.23 MiB | 165.00 KiB/s   Escribiendo objetos:  89% (110/123), 23.35 MiB | 166.00 KiB/s   Escribiendo objetos:  89% (110/123), 23.60 MiB | 169.00 KiB/s   Escribiendo objetos:  89% (110/123), 23.72 MiB | 176.00 KiB/s   Escribiendo objetos:  89% (110/123), 23.98 MiB | 193.00 KiB/s   Escribiendo objetos:  89% (110/123), 24.04 MiB | 186.00 KiB/s   Escribiendo objetos:  89% (110/123), 24.29 MiB | 187.00 KiB/s   Escribiendo objetos:  89% (110/123), 24.41 MiB | 188.00 KiB/s   Escribiendo objetos:  89% (110/123), 24.54 MiB | 166.00 KiB/s   Escribiendo objetos:  89% (110/123), 24.66 MiB | 150.00 KiB/s   Escribiendo objetos:  89% (110/123), 24.79 MiB | 141.00 KiB/s   Escribiendo objetos:  89% (110/123), 24.91 MiB | 144.00 KiB/s   Escribiendo objetos:  89% (110/123), 25.10 MiB | 128.00 KiB/s   Escribiendo objetos:  89% (110/123), 25.22 MiB | 142.00 KiB/s   Escribiendo objetos:  89% (110/123), 25.41 MiB | 152.00 KiB/s   Escribiendo objetos:  89% (110/123), 25.66 MiB | 170.00 KiB/s   Escribiendo objetos:  89% (110/123), 25.79 MiB | 184.00 KiB/s   Escribiendo objetos:  89% (110/123), 25.98 MiB | 186.00 KiB/s   Escribiendo objetos:  89% (110/123), 26.23 MiB | 186.00 KiB/s   Escribiendo objetos:  89% (110/123), 26.35 MiB | 196.00 KiB/s   Escribiendo objetos:  89% (110/123), 26.60 MiB | 192.00 KiB/s   Escribiendo objetos:  89% (110/123), 26.72 MiB | 197.00 KiB/s   Escribiendo objetos:  89% (110/123), 26.98 MiB | 205.00 KiB/s   Escribiendo objetos:  89% (110/123), 27.16 MiB | 192.00 KiB/s   Escribiendo objetos:  89% (110/123), 27.23 MiB | 184.00 KiB/s   Escribiendo objetos:  89% (110/123), 27.35 MiB | 155.00 KiB/s   Escribiendo objetos:  89% (110/123), 27.41 MiB | 140.00 KiB/s   Escribiendo objetos:  89% (110/123), 27.47 MiB | 128.00 KiB/s   Escribiendo objetos:  89% (110/123), 27.60 MiB | 100.00 KiB/s   Escribiendo objetos:  89% (110/123), 27.66 MiB | 95.00 KiB/s   Escribiendo objetos:  89% (110/123), 27.79 MiB | 96.00 KiB/s   Escribiendo objetos:  89% (110/123), 27.91 MiB | 100.00 KiB/s   Escribiendo objetos:  89% (110/123), 28.16 MiB | 119.00 KiB/s   Escribiendo objetos:  89% (110/123), 28.29 MiB | 131.00 KiB/s   Escribiendo objetos:  89% (110/123), 28.48 MiB | 146.00 KiB/s   Escribiendo objetos:  89% (110/123), 28.60 MiB | 152.00 KiB/s   Escribiendo objetos:  89% (110/123), 28.85 MiB | 173.00 KiB/s   Escribiendo objetos:  89% (110/123), 28.98 MiB | 178.00 KiB/s   Escribiendo objetos:  89% (110/123), 29.16 MiB | 169.00 KiB/s   Escribiendo objetos:  89% (110/123), 29.29 MiB | 170.00 KiB/s   Escribiendo objetos:  89% (110/123), 29.54 MiB | 175.00 KiB/s   Escribiendo objetos:  89% (110/123), 29.66 MiB | 181.00 KiB/s   Escribiendo objetos:  89% (110/123), 29.91 MiB | 178.00 KiB/s   Escribiendo objetos:  89% (110/123), 30.04 MiB | 179.00 KiB/s   Escribiendo objetos:  89% (110/123), 30.29 MiB | 182.00 KiB/s   Escribiendo objetos:  89% (110/123), 30.41 MiB | 176.00 KiB/s   Escribiendo objetos:  89% (110/123), 30.54 MiB | 173.00 KiB/s   Escribiendo objetos:  89% (110/123), 30.66 MiB | 174.00 KiB/s   Escribiendo objetos:  90% (111/123), 30.79 MiB | 172.00 KiB/s   Escribiendo objetos:  91% (112/123), 30.79 MiB | 172.00 KiB/s   Escribiendo objetos:  92% (114/123), 30.79 MiB | 172.00 KiB/s   Escribiendo objetos:  93% (115/123), 30.79 MiB | 172.00 KiB/s   Escribiendo objetos:  94% (116/123), 30.79 MiB | 172.00 KiB/s   Escribiendo objetos:  95% (117/123), 30.79 MiB | 172.00 KiB/s   Escribiendo objetos:  96% (119/123), 30.79 MiB | 172.00 KiB/s   Escribiendo objetos:  97% (120/123), 30.79 MiB | 172.00 KiB/s   Escribiendo objetos:  98% (121/123), 30.79 MiB | 172.00 KiB/s   Escribiendo objetos:  99% (122/123), 30.79 MiB | 172.00 KiB/s   Escribiendo objetos: 100% (123/123), 30.79 MiB | 172.00 KiB/s   Escribiendo objetos: 100% (123/123), 30.89 MiB | 143.00 KiB/s, listo.
-Total 123 (delta 73), reused 1 (delta 0)
-remote: Resolving deltas:   0% (0/73)[Kremote: Resolving deltas:   1% (1/73)[Kremote: Resolving deltas:  26% (19/73)[Kremote: Resolving deltas:  41% (30/73)[Kremote: Resolving deltas:  58% (43/73)[Kremote: Resolving deltas:  68% (50/73)[Kremote: Resolving deltas:  72% (53/73)[Kremote: Resolving deltas:  73% (54/73)[Kremote: Resolving deltas:  75% (55/73)[Kremote: Resolving deltas:  76% (56/73)[Kremote: Resolving deltas:  78% (57/73)[Kremote: Resolving deltas:  79% (58/73)[Kremote: Resolving deltas:  80% (59/73)[Kremote: Resolving deltas:  82% (60/73)[Kremote: Resolving deltas:  83% (61/73)[Kremote: Resolving deltas:  84% (62/73)[Kremote: Resolving deltas:  86% (63/73)[Kremote: Resolving deltas:  87% (64/73)[Kremote: Resolving deltas:  89% (65/73)[Kremote: Resolving deltas:  90% (66/73)[Kremote: Resolving deltas:  91% (67/73)[Kremote: Resolving deltas:  93% (68/73)[Kremote: Resolving deltas:  94% (69/73)[Kremote: Resolving deltas:  95% (70/73)[Kremote: Resolving deltas:  97% (71/73)[Kremote: Resolving deltas:  98% (72/73)[Kremote: Resolving deltas: 100% (73/73)[Kremote: Resolving deltas: 100% (73/73), completed with 19 local objects.[K
-To https://github.com/maRce10/flight_coordination_in_Thyroptera.git
-   6b071a7e..d4753b68  master -> master
- add .
-]0;/home/m/sda5/Dropbox/Projects/flight_coordination_in_Thyroptera]0;m@m-MacBookPro: ~/sda5/Dropbox/Projects/flight_coordination_in_Thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/sda5/Dropbox/Projects/flight_coordination__in_Thyroptera[00m$ git commit =[K0 [K[K/[K.[K-m "long tale[K[Kble[C[C[C[C[Ce tabler table[C[C[C[C[C[C output"
-[master d690bc0b] longer table output
- 8 files changed, 1019 insertions(+), 6142 deletions(-)
- rewrite .Rproj.user/8E659706/console06/B053551 (90%)
- rewrite .Rproj.user/8E659706/console06/INDEX001 (88%)
- delete mode 100644 scripts/Calling_activity_analysis.knit.md
- delete mode 100644 scripts/Calling_activity_analysis.utf8.md
- create mode 100644 scripts/rsconnect/documents/Calling_activity_analysis.Rmd/rpubs.com/rpubs/Publish Document.dcf
-]0;/home/m/sda5/Dropbox/Projects/flight_coordination_in_Thyroptera]0;m@m-MacBookPro: ~/sda5/Dropbox/Projects/flight_coordination_in_Thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/sda5/Dropbox/Projects/flight_coordination__in_Thyroptera[00m$ git push
-Username for 'https://github.com': maRce10
-Password for 'https://maRce10@github.com': 
-Contando objetos: 19, listo.
-Delta compression using up to 4 threads.
-Comprimiendo objetos:   6% (1/15)   Comprimiendo objetos:  13% (2/15)   Comprimiendo objetos:  20% (3/15)   Comprimiendo objetos:  26% (4/15)   Comprimiendo objetos:  33% (5/15)   Comprimiendo objetos:  40% (6/15)   Comprimiendo objetos:  46% (7/15)   Comprimiendo objetos:  53% (8/15)   Comprimiendo objetos:  60% (9/15)   Comprimiendo objetos:  66% (10/15)   Comprimiendo objetos:  73% (11/15)   Comprimiendo objetos:  80% (12/15)   Comprimiendo objetos:  86% (13/15)   Comprimiendo objetos:  93% (14/15)   Comprimiendo objetos: 100% (15/15)   Comprimiendo objetos: 100% (15/15), listo.
-Escribiendo objetos:   5% (1/19)   Escribiendo objetos:  10% (2/19)   Escribiendo objetos:  15% (3/19)   Escribiendo objetos:  21% (4/19)   Escribiendo objetos:  26% (5/19)   Escribiendo objetos:  31% (6/19)   Escribiendo objetos:  36% (7/19)   Escribiendo objetos:  42% (8/19)   Escribiendo objetos:  47% (9/19)   Escribiendo objetos:  52% (10/19)   Escribiendo objetos:  57% (11/19)   Escribiendo objetos:  63% (12/19)   Escribiendo objetos:  68% (13/19)   Escribiendo objetos:  73% (14/19)   Escribiendo objetos:  78% (15/19)   Escribiendo objetos:  84% (16/19)   Escribiendo objetos:  89% (17/19)   Escribiendo objetos:  94% (18/19)   Escribiendo objetos: 100% (19/19)   Escribiendo objetos: 100% (19/19), 6.13 KiB | 1.02 MiB/s, listo.
-Total 19 (delta 8), reused 0 (delta 0)
-remote: Resolving deltas:   0% (0/8)[Kremote: Resolving deltas:  12% (1/8)[Kremote: Resolving deltas:  25% (2/8)[Kremote: Resolving deltas:  37% (3/8)[Kremote: Resolving deltas:  50% (4/8)[Kremote: Resolving deltas:  62% (5/8)[Kremote: Resolving deltas:  75% (6/8)[Kremote: Resolving deltas:  87% (7/8)[Kremote: Resolving deltas: 100% (8/8)[Kremote: Resolving deltas: 100% (8/8), completed with 8 local objects.[K
-To https://github.com/maRce10/flight_coordination_in_Thyroptera.git
-   d4753b68..d690bc0b  master -> master
-]0;/home/m/sda5/Dropbox/Projects/flight_coordination_in_Thyroptera]0;m@m-MacBookPro: ~/sda5/Dropbox/Projects/flight_coordination_in_Thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/sda5/Dropbox/Projects/flight_coordination__in_Thyroptera[00m$ git pushcommit -m "longer table output"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cadd .[K
-]0;/home/m/sda5/Dropbox/Projects/flight_coordination_in_Thyroptera]0;m@m-MacBookPro: ~/sda5/Dropbox/Projects/flight_coordination_in_Thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/sda5/Dropbox/Projects/flight_coordination__in_Thyroptera[00m$ git add .[1Ppushcommit -m "longer table output"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpush[K
-Username for 'https://github.com': ^C
-]0;/home/m/sda5/Dropbox/Projects/flight_coordination_in_Thyroptera]0;m@m-MacBookPro: ~/sda5/Dropbox/Projects/flight_coordination_in_Thyroptera[01;32mm@m-MacBookPro[00m:[01;34m~/sda5/Dropbox/Projects/flight_coordination__in_Thyroptera[00m$ git pushadd .[1Ppushcommit -m "longer table output"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"n"e"x"t"[1P"[1P"n"[1P"push[Kadd .[1Ppushadd .
