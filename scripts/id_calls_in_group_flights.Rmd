@@ -61,7 +61,7 @@ num.trees <- 2000
 reps <- 50
 
 # sensitivity cutoff
-cutoff <- 0.85
+cutoff <- 0.86
 
 # function to calculate classification random forest models with balanced sample sizes across categories
 balanced_rf <- function(X, num.trees = 1000, random = FALSE, seed = 506){
@@ -260,16 +260,26 @@ if (any(grepl("grupal", tb$Experimento)) & length(unique(grp_test$Individuo[grp_
   # measure cepstral coeffs
   cc <- mfcc_stats(grp_test, pb = FALSE)[, -c(1, 2)]
 
-  # cross correlation
-  xc <- xcorr(grp_test, pb = FALSE)
+  # spectrographic cross correlation
+  spxc <- xcorr(grp_test, pb = FALSE)
   
   # MDS
-  xc <- cmdscale(1 - xc, k = 10, list. = TRUE)
+  spxc <- cmdscale(1 - spxc, k = 10, list. = TRUE)
 
-  xc_mds <- xc$points
+  spxc_mds <- spxc$points
   
-  colnames(xc_mds) <- paste0("xcMDS", 1:ncol(xc_mds))
+  colnames(spxc_mds) <- paste0("spxcMDS", 1:ncol(spxc_mds))
    
+  # mfcc cross correlation
+  mfccxc <- xcorr(grp_test, pb = FALSE, type = "mfcc")
+  
+  # MDS
+  mfccxc <- cmdscale(1 - mfccxc, k = 10, list. = TRUE)
+
+  mfxc_mds <- mfccxc$points
+  
+  colnames(mfxc_mds) <- paste0("mfxcMDS", 1:ncol(mfxc_mds))
+
   
   # dynamic time warping
     dtw.dists <- df_DTW(grp_test, img = FALSE, pb = FALSE, threshold.time = 1)
@@ -281,7 +291,7 @@ if (any(grepl("grupal", tb$Experimento)) & length(unique(grp_test$Individuo[grp_
   colnames(dtw_mds) <- paste0("dtwMDS", 1:ncol(dtw_mds))
 
   # put parameters in a list
-  acous_param_l <- list(sp, cc, xc_mds, dtw_mds)
+  acous_param_l <- list(sp, cc, dtw_mds, spxc_mds, mfxc_mds)
 
   # remove null ones
   acous_param_l <- acous_param_l[!sapply(acous_param_l, is.null)]
@@ -340,7 +350,7 @@ min_n <- sapply(acous_param_l, function(x) min(table(x$indiv)))
 acous_param_l <- acous_param_l[!names(acous_param_l) %in% names(min_n)[min_n < 10]]
 
 # which parameters would be measured
-param_categories <- c("mfcc",  "xcor", "dtw", "sp")
+param_categories <- c("mfcc",  "spxc", "mfxc", "dtw", "sp")
 
  # get actual parameter names
  col_names <- names(acous_param_l[[1]])
@@ -352,17 +362,18 @@ param_categories <- c("mfcc",  "xcor", "dtw", "sp")
 # name it by measurement function 
  for (i in  1:length(param_categories))
    clss_col_names[if (param_categories[i] != "sp") 
-                              grepl(c("cc", "xc", "dtw")[i], col_names) else
+                              grepl(c("cc", "spxc", "mfxc", "dtw")[i], col_names) else
                               !grepl("cc|xc|dtw|indiv|sound.files|selec", col_names)] <- param_categories[i]
 
 
 
 # all posible combinations of 2 and 3 parameters
+combs4 <- combn(param_categories, 4)
 combs3 <- combn(param_categories, 3)
 combs2 <- combn(param_categories, 2)
 
 # ake it a list
-combs <- c(as.data.frame(combs3), as.data.frame(combs2))
+combs <- c(as.data.frame(combs4), as.data.frame(combs3), as.data.frame(combs2))
 
 # add all 4 parameters as an option to the list
 combs <- c(append(combs, list(param_categories)), param_categories)
@@ -676,12 +687,12 @@ kable_styling(df1, bootstrap_options = c("striped", "hover", "condensed", "respo
 
 ### Predict solo flight optimizing sensitivity
 
-- Prediction with all solo flight data with a sensitivy threshold of `r cutoff` for acoustic parameters: spectral parameters + Mel cepstral coefficients + cross-correlation
+- Prediction with all solo flight data with a sensitivy threshold of `r cutoff` for acoustic parameters: `r max_prop_calls$data_set[1]`
 
 ```{r  Predict solo flight optimizing sensitivity, eval = TRUE}
 
 # read rf outputs
-avg_mods <- readRDS("./data/processed/averaged_random_forest_models_from_solo_flights_mfcc-xcor-sp.RDS")
+avg_mods <- readRDS(paste0("./data/processed/averaged_random_forest_models_from_solo_flights_", max_prop_calls$data_set[1],".RDS"))
 
 sensitivities <- sensitivity_fun(X = avg_mods, parameters = "mfcc-sp")
 
@@ -756,83 +767,83 @@ ggplot(data = sensitivities, aes(x = mean.sensitivity, y = n_calls_prop)) + geom
     x = "Sensitivity") + theme_classic() + annotate(geom = "text", y = n_call_cutoff + 
     0.04, x = cutoff, label = round(n_call_cutoff, 2))
 
-
-# remove group 42 AND 6
-avg_mods <- avg_mods[!names(avg_mods) %in% c("42", "6", "21", "29")]
-
-# calculate sensitivities
-sensitivities <- sensitivity_fun(X = avg_mods, parameters = "mfcc-xcor-sp")
-
-# calculate threshold at cutoff
-thresh_prob <- min(sensitivities$thresholds[sensitivities$mean.sensitivity >= cutoff])
-
-avg_accuracy <- sapply(avg_mods, "[[", which(names(avg_mods[[1]]) == "accuracy"))
-
-null_accuracy <- sapply(avg_mods, "[[", which(names(avg_mods[[1]]) == "null_accuracy"))
-
-filtered_accuracy <- unlist(sensitivities[sensitivities$thresholds == thresh_prob, 
-    1:length(null_accuracy)])
-
-df <- data.frame(group = gsub("X", "", names(filtered_accuracy)), model = rep(c("real data", 
-    "null model", "filtered model"), each = length(avg_accuracy)), accuracy = c(avg_accuracy, 
-    null_accuracy, filtered_accuracy))
-
-df$model <- factor(df$model, levels = c("null model", "filtered model", "real data"))
-
-# violin plots
-ggplot(df[df$model != "filtered model", ], aes(y = accuracy, x = model, fill = model)) + 
-    geom_violin() + theme_classic() + scale_fill_viridis_d(alpha = 0.4) + ggtitle("Original accuracies") + 
-    labs(y = "Mean accuracy", x = "Model") + geom_point(aes(x = rep(c(2, 1), each = nrow(df)/3)), 
-    size = 5, show.legend = FALSE, col = "gray43", alpha = 0.8) + geom_line(aes(x = rep(c(2, 
-    1), each = nrow(df)/3), group = group), col = "gray43", alpha = 0.8)
-
-
-ggplot(df[df$model != "real data", ], aes(y = accuracy, x = model, fill = model)) + 
-    geom_violin() + theme_classic() + scale_fill_viridis_d(alpha = 0.4) + ggtitle("Optimized accuracies") + 
-    labs(y = "Mean accuracy", x = "Model") + geom_point(aes(x = rep(c(1, 2), each = nrow(df)/3)), 
-    size = 3, show.legend = FALSE, col = "gray43", alpha = 0.8) + geom_line(aes(x = rep(c(1, 
-    2), each = nrow(df)/3), group = group), col = "gray43", alpha = 0.8)
-
-
-# density plots
-ggplot(df[df$model != "filtered model", ], aes(x = accuracy, fill = model)) + geom_density(alpha = 0.4) + 
-    theme_classic() + scale_fill_viridis_d() + ggtitle("Original (non-filtered) accuracies") + 
-    labs(x = "Mean accuracy", y = "Frequency")
-
-
-ggplot(df[df$model != "real data", ], aes(x = accuracy, fill = model)) + geom_density(alpha = 0.4) + 
-    theme_classic() + scale_fill_viridis_d() + ggtitle("Optimized accuracies") + 
-    labs(x = "Mean accuracy", y = "Frequency")
-
-
-ggplot(data = sensitivities, aes(x = thresholds, y = mean.sensitivity)) + geom_hline(yintercept = cutoff, 
-    col = magma(10, alpha = 0.7)[8], size = 1.6, lty = 3) + geom_vline(xintercept = thresh_prob, 
-    col = magma(10, alpha = 0.7)[8], size = 1.6, lty = 3) + geom_point(col = magma(10, 
-    alpha = 0.7)[2]) + geom_line(col = magma(10, alpha = 0.7)[2]) + labs(y = "Mean sensitivty", 
-    x = "Probability threshold") + theme_classic() + annotate(geom = "text", x = thresh_prob + 
-    0.04, y = 0.9, label = round(thresh_prob, 2))
-
-
-# calculate threshold at
-n_call_cutoff <- max(sensitivities$n_calls_prop[sensitivities$mean.sensitivity >= 
-    cutoff])
-
-
-ggplot(data = sensitivities, aes(x = thresholds, y = n_calls_prop)) + geom_hline(yintercept = n_call_cutoff, 
-    col = magma(10, alpha = 0.7)[8], size = 1.6, lty = 3) + geom_vline(xintercept = thresh_prob, 
-    col = magma(10, alpha = 0.7)[8], size = 1.6, lty = 3) + geom_point(col = magma(10, 
-    alpha = 0.7)[2]) + geom_line(col = magma(10, alpha = 0.7)[2]) + labs(y = "Proportion of calls used", 
-    x = "Probability threshold") + theme_classic() + annotate(geom = "text", x = n_call_cutoff + 
-    0.04, y = 0.9, label = round(n_call_cutoff, 2))
-
-
-
-ggplot(data = sensitivities, aes(x = mean.sensitivity, y = n_calls_prop)) + geom_hline(yintercept = n_call_cutoff, 
-    col = magma(10, alpha = 0.7)[8], size = 1.6, lty = 3) + geom_vline(xintercept = cutoff, 
-    col = magma(10, alpha = 0.7)[8], size = 1.6, lty = 3) + geom_point(col = magma(10, 
-    alpha = 0.7)[2]) + geom_line(col = magma(10, alpha = 0.7)[2]) + labs(y = "Proportion of calls used", 
-    x = "Sensitivity") + theme_classic() + annotate(geom = "text", y = n_call_cutoff + 
-    0.04, x = cutoff, label = round(n_call_cutoff, 2))
+# 
+# # remove group 42 AND 6
+# avg_mods <- avg_mods[!names(avg_mods) %in% c("42", "6", "21", "29")]
+# 
+# # calculate sensitivities
+# sensitivities <- sensitivity_fun(X = avg_mods, parameters = max_prop_calls$data_set[1])
+# 
+# # calculate threshold at cutoff
+# thresh_prob <- min(sensitivities$thresholds[sensitivities$mean.sensitivity >= cutoff])
+# 
+# avg_accuracy <- sapply(avg_mods, "[[", which(names(avg_mods[[1]]) == "accuracy"))
+# 
+# null_accuracy <- sapply(avg_mods, "[[", which(names(avg_mods[[1]]) == "null_accuracy"))
+# 
+# filtered_accuracy <- unlist(sensitivities[sensitivities$thresholds == thresh_prob, 
+#     1:length(null_accuracy)])
+# 
+# df <- data.frame(group = gsub("X", "", names(filtered_accuracy)), model = rep(c("real data", 
+#     "null model", "filtered model"), each = length(avg_accuracy)), accuracy = c(avg_accuracy, 
+#     null_accuracy, filtered_accuracy))
+# 
+# df$model <- factor(df$model, levels = c("null model", "filtered model", "real data"))
+# 
+# # violin plots
+# ggplot(df[df$model != "filtered model", ], aes(y = accuracy, x = model, fill = model)) + 
+#     geom_violin() + theme_classic() + scale_fill_viridis_d(alpha = 0.4) + ggtitle("Original accuracies") + 
+#     labs(y = "Mean accuracy", x = "Model") + geom_point(aes(x = rep(c(2, 1), each = nrow(df)/3)), 
+#     size = 5, show.legend = FALSE, col = "gray43", alpha = 0.8) + geom_line(aes(x = rep(c(2, 
+#     1), each = nrow(df)/3), group = group), col = "gray43", alpha = 0.8)
+# 
+# 
+# ggplot(df[df$model != "real data", ], aes(y = accuracy, x = model, fill = model)) + 
+#     geom_violin() + theme_classic() + scale_fill_viridis_d(alpha = 0.4) + ggtitle("Optimized accuracies") + 
+#     labs(y = "Mean accuracy", x = "Model") + geom_point(aes(x = rep(c(1, 2), each = nrow(df)/3)), 
+#     size = 3, show.legend = FALSE, col = "gray43", alpha = 0.8) + geom_line(aes(x = rep(c(1, 
+#     2), each = nrow(df)/3), group = group), col = "gray43", alpha = 0.8)
+# 
+# 
+# # density plots
+# ggplot(df[df$model != "filtered model", ], aes(x = accuracy, fill = model)) + geom_density(alpha = 0.4) + 
+#     theme_classic() + scale_fill_viridis_d() + ggtitle("Original (non-filtered) accuracies") + 
+#     labs(x = "Mean accuracy", y = "Frequency")
+# 
+# 
+# ggplot(df[df$model != "real data", ], aes(x = accuracy, fill = model)) + geom_density(alpha = 0.4) + 
+#     theme_classic() + scale_fill_viridis_d() + ggtitle("Optimized accuracies") + 
+#     labs(x = "Mean accuracy", y = "Frequency")
+# 
+# 
+# ggplot(data = sensitivities, aes(x = thresholds, y = mean.sensitivity)) + geom_hline(yintercept = cutoff, 
+#     col = magma(10, alpha = 0.7)[8], size = 1.6, lty = 3) + geom_vline(xintercept = thresh_prob, 
+#     col = magma(10, alpha = 0.7)[8], size = 1.6, lty = 3) + geom_point(col = magma(10, 
+#     alpha = 0.7)[2]) + geom_line(col = magma(10, alpha = 0.7)[2]) + labs(y = "Mean sensitivty", 
+#     x = "Probability threshold") + theme_classic() + annotate(geom = "text", x = thresh_prob + 
+#     0.04, y = 0.9, label = round(thresh_prob, 2))
+# 
+# 
+# # calculate threshold at
+# n_call_cutoff <- max(sensitivities$n_calls_prop[sensitivities$mean.sensitivity >= 
+#     cutoff])
+# 
+# 
+# ggplot(data = sensitivities, aes(x = thresholds, y = n_calls_prop)) + geom_hline(yintercept = n_call_cutoff, 
+#     col = magma(10, alpha = 0.7)[8], size = 1.6, lty = 3) + geom_vline(xintercept = thresh_prob, 
+#     col = magma(10, alpha = 0.7)[8], size = 1.6, lty = 3) + geom_point(col = magma(10, 
+#     alpha = 0.7)[2]) + geom_line(col = magma(10, alpha = 0.7)[2]) + labs(y = "Proportion of calls used", 
+#     x = "Probability threshold") + theme_classic() + annotate(geom = "text", x = n_call_cutoff + 
+#     0.04, y = 0.9, label = round(n_call_cutoff, 2))
+# 
+# 
+# 
+# ggplot(data = sensitivities, aes(x = mean.sensitivity, y = n_calls_prop)) + geom_hline(yintercept = n_call_cutoff, 
+#     col = magma(10, alpha = 0.7)[8], size = 1.6, lty = 3) + geom_vline(xintercept = cutoff, 
+#     col = magma(10, alpha = 0.7)[8], size = 1.6, lty = 3) + geom_point(col = magma(10, 
+#     alpha = 0.7)[2]) + geom_line(col = magma(10, alpha = 0.7)[2]) + labs(y = "Proportion of calls used", 
+#     x = "Sensitivity") + theme_classic() + annotate(geom = "text", y = n_call_cutoff + 
+#     0.04, x = cutoff, label = round(n_call_cutoff, 2))
 
 ```
 
@@ -850,7 +861,7 @@ ggplot(data = sensitivities, aes(x = mean.sensitivity, y = n_calls_prop)) + geom
 avg_mods <- avg_mods[!names(avg_mods) %in% c("42", "6", "21", "29")]
 
 # calculate sensitivities
-sensitivities <- sensitivity_fun(X = avg_mods, parameters = "mfcc-xcor-sp")
+sensitivities <- sensitivity_fun(X = avg_mods, parameters = max_prop_calls$data_set[1])
 
 # calculate threshold at cutoff
 thresh_prob <- min(sensitivities$thresholds[sensitivities$mean.sensitivity >= cutoff])
