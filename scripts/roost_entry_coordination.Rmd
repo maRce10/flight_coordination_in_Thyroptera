@@ -1,0 +1,527 @@
+---
+title: <center><font size="6"><b>Roost entry coordination</b></font></center>
+subtitle: <center><font size="4"><b>Group flight coordination in Thyroptera</b></font></center>
+author: <center><font size="4"><a href="http://marceloarayasalas.weebly.com/">Marcelo Araya-Salas, PhD</a> & <a href="https://www.batcr.com/">Gloriana Chaverri, PhD</a></font></center>
+date: <center>`r format(Sys.Date(), "%d-%m-%Y")`</center>
+output:
+  html_document:
+    code_folding: show
+    toc: yes
+    toc_depth: 3
+    toc_float:
+      collapsed: no
+      smooth_scroll: no
+fontsize: 12pt 
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r packages, message = FALSE, warning = FALSE, echo = TRUE, eval = TRUE, include = FALSE}
+
+# unload all non-based packages
+out <- sapply(paste('package:', names(sessionInfo()$otherPkgs), sep = ""), function(x) try(detach(x, unload = FALSE, character.only = TRUE), silent = T))
+
+
+## add 'developer/' to packages to be installed from github
+x <- c("viridis", "ggplot2", "knitr", "readxl", "pbapply", "brms", "kableExtra", "ggridges", "tidybayes")
+
+aa <- lapply(x, function(y) {
+  
+  # get pakage name
+  pkg <- strsplit(y, "/")[[1]]
+  pkg <- pkg[length(pkg)]
+  
+  # check if installed, if not then install 
+  if (!pkg %in% installed.packages()[,"Package"])  {
+
+      if (grepl("/", y))  devtools::install_github(y, force = TRUE) else
+    install.packages(y) 
+    }
+
+  # load package
+  try(require(pkg, character.only = T), silent = T)
+})
+
+```
+
+```{r functions and options, eval = TRUE, echo = TRUE}
+
+opts_knit$set(root.dir = "..")
+
+opts_chunk$set(fig.width = 12, fig.height = 8)
+
+theme_set(theme_classic(base_size = 34))
+
+# print results brms models
+summary_brm_model <- function(x, gsub.pattern = NULL, gsub.replacement = NULL, cols = viridis(10, alpha = 0.7)){
+  
+  summ <- summary(x)$fixed
+  fit <- x$fit  
+  betas <- grep("^b_", names(fit@sim$samples[[1]]), value = TRUE)  
+  hdis <- t(sapply(betas, function(y)   hdi(fit@sim$samples[[1]][[y]]))
+)
+  summ_table <- data.frame(summ, hdis, iterations = attr(fit, "stan_args")[[1]]$iter, chains = length(attr(fit, "stan_args")))
+  summ_table <- summ_table[rownames(summ_table) != "Intercept", c("Estimate", "Rhat", "Bulk_ESS", "l.95..CI", "u.95..CI", "iterations", "chains")]
+  
+  summ_table <- as.data.frame(summ_table)  
+  summ_table$Rhat <- round(summ_table$Rhat, digits = 3)  
+  summ_table$CI_low <- round(unlist(summ_table$l.95..CI), digits = 3)  
+  summ_table$CI_high <- round(unlist(summ_table$u.95..CI), digits = 3)  
+  summ_table$l.95..CI <- summ_table$u.95..CI <- NULL
+  
+    out <- lapply(betas, function(y)  data.frame(variable = y, value = sort(fit@sim$samples[[1]][[y]], decreasing = FALSE)))
+  
+  posteriors <- do.call(rbind, out)
+  posteriors <- posteriors[posteriors$variable != "b_Intercept", ]
+  
+  if (!is.null(gsub.pattern) & !is.null(gsub.replacement))
+    posteriors$variable <- gsub(pattern = gsub.pattern, replacement = gsub.replacement, posteriors$variable)
+  
+   gg <- ggplot(data = posteriors, aes(y = variable, x = value, fill = stat(quantile))) + 
+  geom_density_ridges_gradient(quantile_lines = TRUE, quantile_fun = HDInterval::hdi,  vline_linetype = 2) + 
+  theme_classic() + 
+     xlim(range(c(min(summ_table[ , "CI_low"]), max(summ_table[ , "CI_high"])), 0)) +
+  geom_vline(xintercept = 0, col = "red") + 
+  scale_fill_manual(values = c("transparent", "lightblue", "transparent"), guide = "none") + ggtitle(x$formula)
+
+  if (!is.null(gsub.pattern) & !is.null(gsub.replacement))
+    rownames(summ_table) <- gsub(pattern = gsub.pattern, replacement = gsub.replacement, rownames(summ_table))
+   
+  summ_table$Rhat <- ifelse(summ_table$Rhat > 1.05, cell_spec(summ_table$Rhat, "html", color ="white", background = "red", bold = TRUE,  font_size = 12),  cell_spec(summ_table$Rhat, "html"))
+  
+  signif <- summ_table[,"CI_low"] * summ_table[,"CI_high"] > 0
+  
+  df1 <- kbl(summ_table, row.names = TRUE, escape = FALSE, format = "html", digits = 3)
+    
+  df1 <- row_spec(kable_input = df1,row =  which(summ_table$CI_low * summ_table$CI_high > 0), background = adjustcolor(cols[9], alpha.f = 0.3))
+
+  df1 <- kable_styling(df1, bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = FALSE, font_size = 12)
+  
+  print(df1)
+  
+  print(gg)
+
+  }
+ 
+```
+
+# Data description
+```{r data description, eval = TRUE}
+
+dat <- as.data.frame(read_excel(path = "./data/raw/Anexo 1_Entrada a refugios-2022.xlsx"))
+
+dat$entry.time <- as.numeric(dat$`Tiempo real`)
+
+# dat$entry.time
+# 
+# str(dat)
+
+cat("Number of individuals per type:")
+(table(dat$`Tipo grupo`))
+
+cat("Number of individuals per type removing missing data (NAs and Inf:")
+(table(dat$`Tipo grupo`[!is.infinite(dat$entry.time) & !is.na(dat$entry.time)]))
+
+
+```
+
+# Stats
+
+## Entry time difference
+```{r individual call rate plot, eval = TRUE}
+group_dat <- dat[!is.infinite(dat$entry.time) & !is.na(dat$entry.time) & dat$`Tipo grupo` != "Individual", ]
+
+# get difference to first entry
+group_dat_l <- lapply(unique(group_dat$Grupo), function(x){
+  # print(x)
+  X <- group_dat[group_dat$Grupo == x, ]
+  X$entry.time.diff <- X$entry.time - min(X$entry.time)
+  X <- X[-which.min(X$entry.time.diff), ]
+  
+  X$group.size <- if (nrow(X) > 0) nrow(X) - 1 else vector()
+  return(X)
+  })
+
+group_dat <- do.call(rbind, group_dat_l)
+
+group_dat$Group <- group_dat$Grupo
+group_dat$entry.time.diff[group_dat$entry.time.diff == 0] <- 0.001
+group_dat$type <- factor(ifelse(group_dat$`Tipo grupo` == "Mixto", "Aritficial", "Real"), levels = c("Aritficial", "Real"))
+
+# individual plot solo vs individual in group
+ggplot(group_dat, aes(x = type, y = log(entry.time.diff))) + 
+  geom_boxplot() +
+  # geom_point(size = 2) +
+  # scale_color_viridis_c(alpha = 0.8) +
+  labs(x = "Group type", y = "log(time after first entry (s))") + 
+  # facet_grid( ~ experiment_f) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+```{r individual call rate stats, eval = FALSE}
+chains <- 1
+iter <- 5000
+
+model_formulas <- c("entry.time.diff ~ type + (1 | Group) + (1 | group.size)", "entry.time.diff ~ 1 + (1 | Group) + (1 | group.size)")
+
+brms_models <- lapply(model_formulas, function(x){
+
+  mod <- brm(
+          formula = x,
+          iter = iter,
+          thin = 1,
+          data = group_dat,
+          family = lognormal(),
+          silent = 2,
+          chains = chains,
+          cores = chains
+          )
+  
+  mod <- add_criterion(mod, c("loo"))
+
+  return(mod)
+  })
+
+names(brms_models) <- model_formulas
+
+saveRDS(brms_models, "./data/processed/roost_entry_coordination_models.RDS")
+
+```
+
+```{r individual call rate results, eval = TRUE, results = "asis"}
+
+brms_models <- readRDS("./data/processed/roost_entry_coordination_models.RDS")
+
+cat(paste(length(brms_models),"models evaluated:\n"))
+
+for(i in names(brms_models))
+  cat(paste("-  ", i, "\n"))
+
+comp_mods <- loo_compare(brms_models[[1]], brms_models[[2]], model_names = names(brms_models))
+
+
+df1 <- kbl(comp_mods, row.names = TRUE, escape = FALSE, format = "html", digits = 3)
+
+cat("Compare models:")
+  
+ kable_styling(df1, bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = FALSE, font_size = 12)
+
+cat("Best model:\n")
+cat(paste("-  ", rownames(comp_mods)[1], "\n"))
+
+# best model
+if (!grepl("1 +", rownames(comp_mods)[1], fixed = TRUE))
+summary_brm_model(brms_models[[rownames(comp_mods)[1]]], gsub.pattern = "experiment.type", gsub.replacement = "solo_vs_")
+
+```
+
+&nbsp;
+
+<div class="alert alert-info">
+
+### Takeaways
+
+-  No differences in roost entry coordination between real and artificial groups
+</div>
+
+&nbsp;
+
+---
+
+## Simulation entry time difference
+```{r Simulation entry time difference, eval = FALSE}
+
+group_dat <- dat[!is.infinite(dat$entry.time) & !is.na(dat$entry.time) & dat$`Tipo grupo` != "Individual", ]
+
+# get difference to first entry
+group_dat_l <- lapply(unique(group_dat$Grupo), function(x){
+  # print(x)
+  X <- group_dat[group_dat$Grupo == x, ]
+  X$entry.time.diff <- X$entry.time - min(X$entry.time)
+  X <- X[-which.min(X$entry.time.diff), ]
+  
+  X$group.size <- if (nrow(X) > 0) nrow(X) + 1 else vector()
+  return(X)
+  })
+
+group_dat <- do.call(rbind, group_dat_l)
+
+
+
+group_dat$Group <- group_dat$Grupo
+group_dat$entry.time.diff[group_dat$entry.time.diff == 0] <- 0.001
+group_dat$type <- factor(ifelse(group_dat$`Tipo grupo` == "Mixto", "Artificial", "Real"), levels = c("Simulated", "Artificial", "Real"))
+
+# make random groups from individual flights
+indiv_dat <- dat[!is.infinite(dat$entry.time) & !is.na(dat$entry.time) & dat$`Tipo grupo` == "Individual", ]
+
+indivs <- unique(indiv_dat$Individuo)
+
+
+sim_groups_l <- pblapply(1:1000, function(x){
+  
+ g_size <- sample(group_dat$group.size)
+  
+ n_group <- sum(cumsum(g_size) <= length(indivs))  
+ 
+ g_size <- g_size[1:n_group]
+ 
+ sampled_indivs <- sample(indivs, sum(g_size))
+ 
+ indivs_split <- split(sampled_indivs, f = unlist(sapply(1:n_group, function(x) rep(x, g_size[x]))))
+ 
+ sub_sim_groups_l <- lapply(1:length(indivs_split), function(y) {
+   
+   sim_group <- indiv_dat[indiv_dat$Individuo %in% indivs_split[[y]], ]
+   sim_group$Group <- paste("sim",x, y, sep = "-")
+ 
+   sim_group$entry.time.diff <- sim_group$entry.time - min(sim_group$entry.time)
+   sim_group <- sim_group[-which.min(sim_group$entry.time.diff), ]
+   sim_group$group.size <- nrow(sim_group) + 1
+   sim_group$type <- factor("Simulated")
+   
+   out <- rbind(sim_group, group_dat)
+   
+   return(out)
+   }
+  )
+ 
+ sub_sim_group <- do.call(rbind, sub_sim_groups_l)
+ 
+ return(sub_sim_group)
+})
+
+
+sim_group_n <- sapply(sim_groups_l, function(x) length(unique(x$Group[x$type == "Simulated"])))
+
+table(sim_group_n)
+
+# keep those with same number of simulated groups
+sim_groups_l <- sim_groups_l[which(sim_group_n == 5)]
+
+sim_groups_l <- lapply(sim_groups_l, function(x){
+  
+  Y <- x[x$type == "Simulated", ]
+  Y$Group <- as.numeric(as.factor(Y$Group)) 
+  Y <- rbind(Y, x[x$type != "Simulated", ])
+  
+  return(Y)
+  })
+
+# keep only 30
+sim_groups_l <- sim_groups_l[1:30]
+
+sim_group_dat <- do.call(rbind, lapply(sim_groups_l, function(x) x[x$type == "Simulated", ]))
+
+sim_group_dat <- rbind(sim_group_dat, group_dat)
+
+
+# individual plot solo vs individual in group
+ggplot(sim_group_dat, aes(x = type, y = log(entry.time.diff))) + 
+  geom_boxplot() +
+  # geom_point(size = 2) +
+  # scale_color_viridis_c(alpha = 0.8) +
+  labs(x = "Flight", y = "log(time after first entry (s))") + 
+  # facet_grid( ~ experiment_f) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+saveRDS(sim_groups_l, "./data/processed/simulated_data_entry_time.RDS")
+
+```
+
+```{r simulation stats, eval = FALSE}
+
+sim_groups_l <- readRDS("./data/processed/simulated_data_entry_time.RDS")
+
+chains <- 1
+iter <- 10000
+
+mods <- brm_multiple(
+          formula = entry.time.diff ~ type + (1 | Group) + (1 | group.size),
+          iter = iter,
+          thin = 1,
+          data = sim_groups_l,
+          family = lognormal(),
+          silent = 2,
+          chains = chains,
+          cores = chains,
+          combine = FALSE
+          )
+
+combined_mod <- combine_models(mlist = mods, check_data = FALSE)
+
+
+saveRDS(combined_mod, "./data/processed/simulated_data_entry_time_models.RDS")
+
+```
+
+```{r simulations results, eval = TRUE, results = "asis"}
+
+combined_mod <- readRDS("./data/processed/simulated_data_entry_time_models.RDS")
+
+summary_brm_model(combined_mod)
+
+```
+
+ Real vs artificial:
+```{r simulation contrast}
+
+contrasts <- c(real_vs_artificial = "typeReal - typeArtificial = 0")
+hypothesis(combined_mod, contrasts)
+
+```
+
+&nbsp;
+
+<div class="alert alert-info">
+
+### Takeaways
+
+- Both real and artificial groups enter more sync'ed than simulated groups 
+-  No differences in roost entry coordination between real and artificial groups
+</div>
+
+&nbsp;
+
+---
+
+## Propensity to enter the roost
+
+```{r propensity to enter leaves plot, eval = TRUE}
+group_dat <- dat[dat$`Tipo grupo` != "Individual", ]
+group_dat$indiv.entry <- ifelse(is.na(group_dat$entry.time) | is.infinite(group_dat$entry.time), 0, 1)
+
+
+group_dat$Group <- group_dat$Grupo
+group_dat$type <- factor(ifelse(group_dat$`Tipo grupo` == "Mixto", "Aritficial", "Real"), levels = c("Aritficial", "Real"))  
+
+agg_dat <- aggregate(indiv.entry ~ Group + type, group_dat, FUN = sum)
+agg_dat$group.size <- aggregate(indiv.entry ~ Group + type, group_dat, FUN = length)$indiv.entry
+
+
+agg_dat$entry <- "Partial"
+agg_dat$entry[agg_dat$group.size == agg_dat$indiv.entry] <- "Full"
+agg_dat$entry[agg_dat$indiv.entry == 0] <- "None"
+
+count_dat <- aggregate(Group ~ entry + type, agg_dat, length)
+count_dat$entry <- factor(count_dat$entry, levels = c("None", "Partial", "Full"))
+
+# Change barplot fill colors by groups
+ggplot(count_dat, aes(x=entry, y=Group, fill=type)) +
+  geom_bar(stat="identity", position=position_dodge()) + 
+  scale_fill_viridis_d(begin = 0.3, end = 0.8) +
+  theme_classic()
+
+
+```
+
+```{r propensity to enter leaves stats, eval = FALSE}
+# mean centering
+agg_dat$group.size <- agg_dat$group.size - mean(agg_dat$group.size)
+
+chains <- 1
+iter <- 10000
+
+agg_dat$entry[agg_dat$entry == "None"] <-  "1_None"
+
+model_formulas <- c("entry ~ type + (1 | Group) + ( 1 | group.size)")
+
+brms_models <- lapply(model_formulas, function(x){
+print(x)
+  mod <- brm(data = agg_dat, 
+            family = categorical, 
+            formula = x,
+            iter = iter,
+            chains = chains, 
+            cores = chains
+              )
+  
+  try(mod <- add_criterion(mod, c("loo")))
+
+  return(mod)
+  })
+
+names(brms_models) <- model_formulas
+
+saveRDS(brms_models, "./data/processed/roost_entry_models.RDS")
+
+```
+
+```{r, results = "asis"}
+brms_models <- readRDS("./data/processed/roost_entry_models.RDS")
+
+summary_brm_model(brms_models$`entry ~ type + (1 | Group) + ( 1 | group.size)`)
+```
+
+
+```{r}
+contrasts <- c(one = "muFull_Intercept - muFull_typeReal = 0")
+hypothesis(brms_models$`entry ~ type + (1 | Group) + ( 1 | group.size)`, contrasts)
+
+```
+
+```{r propensity to enter leaves results, eval = FALSE, results = "asis"}
+
+brms_models <- readRDS("./data/processed/roost_entry_models.RDS")
+
+cat(paste(length(brms_models),"models evaluated:\n"))
+
+for(i in names(brms_models))
+  cat(paste("-  ", i, "\n"))
+
+comp_mods <- loo_compare(brms_models[[1]], brms_models[[2]],  brms_models[[3]], model_names = names(brms_models))
+
+
+df1 <- kbl(comp_mods, row.names = TRUE, escape = FALSE, format = "html", digits = 3)
+
+cat("Compare models:")
+  
+ kable_styling(df1, bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = FALSE, font_size = 12)
+
+cat("Best model:\n")
+cat(paste("-  ", rownames(comp_mods)[1], "\n"))
+
+# best model
+if (!grepl("1 +", rownames(comp_mods)[1], fixed = TRUE))
+  summary_brm_model(brms_models[[rownames(comp_mods)[1]]], gsub.pattern = "experiment.type", gsub.replacement = "solo_vs_")
+
+```
+
+Full entry of real vs artificial groups:
+```{r propensity results contrasts, eval = TRUE}
+
+
+```
+
+```{r, eval = FALSE}
+
+real_distances_l <- readRDS("./data/processed/real_trajectory_mean_distances.RDS")
+
+```
+
+&nbsp;
+
+<div class="alert alert-info">
+
+### Takeaways
+
+-  No clear differences between real and artificial groups in propensity to enter roost (full group entry)
+</div>
+
+&nbsp;
+
+
+
+
+---
+
+
+<font size="4">Session information</font>
+
+```{r session info, echo=F}
+
+sessionInfo()
+
+```

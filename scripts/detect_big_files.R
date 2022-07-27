@@ -24,4 +24,6 @@ big_files
 gitignore2 <- unique(c(gitignore, big_files))
 
 
+gitignore2 <- gitignore2[gitignore2 != ""]
+
 writeLines(text = gitignore2, con = ".gitignore")

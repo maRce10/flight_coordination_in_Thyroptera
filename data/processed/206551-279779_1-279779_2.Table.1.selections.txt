@@ -1,0 +1,27 @@
+Selection	View	Channel	Begin Time (s)	End Time (s)	Begin File	Begin Path	File Offset (s)	High Freq (Hz)	Low Freq (Hz)	score	class	event	org.sound.files	ovlp.sels	class_fixed	old.selec
+1	Spectrogram 1	1	37.944000000	37.975156363	206551.wav	/home/m/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/206551.wav	37.944000	40578.59402	12138.59402							
+2	Spectrogram 1	1	44.758344000	44.787720000	206551.wav	/home/m/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/206551.wav	44.758344	33018.59402	12858.59402							
+26	Spectrogram 1	1	103.867811769	103.867811769	279779_1.wav	/home/m/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/279779_1.wav	49.800611	13218.59402	13218.59402							
+3	Spectrogram 1	1	114.294900000	114.332287636	279779_1.wav	/home/m/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/279779_1.wav	60.227700	36258.59402	15378.59402							
+4	Spectrogram 1	1	131.138022000	131.167398000	279779_1.wav	/home/m/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/279779_1.wav	77.070822	33738.59402	15018.59402							
+5	Spectrogram 1	1	138.915544000	138.942249454	279779_1.wav	/home/m/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/279779_1.wav	84.848344	33378.59402	13578.59402							
+6	Spectrogram 1	1	144.839711000	144.873537909	279779_1.wav	/home/m/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/279779_1.wav	90.772511	33738.59402	14658.59402							
+7	Spectrogram 1	1	150.965933000	150.995309000	279779_1.wav	/home/m/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/279779_1.wav	96.898733	32658.59402	12858.59402							
+8	Spectrogram 1	1	167.179711000	167.215318272	279779_1.wav	/home/m/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/279779_1.wav	113.112511	37338.59402	12858.59402							
+9	Spectrogram 1	1	173.742133000	173.767058091	279779_1.wav	/home/m/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/279779_1.wav	119.674933	35898.59402	13218.59402							
+10	Spectrogram 1	1	181.078122000	181.120850727	279779_1.wav	/home/m/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/279779_1.wav	127.010922	40218.59402	12138.59402							
+11	Spectrogram 1	1	186.769056000	186.805553454	279779_1.wav	/home/m/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/279779_1.wav	132.701856	38418.59402	13938.59402							
+12	Spectrogram 1	1	203.282811000	203.311296818	279779_1.wav	/home/m/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/279779_1.wav	149.215611	34458.59402	13938.59402							
+13	Spectrogram 1	1	212.603911000	212.636847727	279779_1.wav	/home/m/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/279779_1.wav	158.536711	34098.59402	13578.59402							
+14	Spectrogram 1	1	221.098022000	221.138080181	279779_1.wav	/home/m/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/279779_1.wav	167.030822	35898.59402	13578.59402							
+15	Spectrogram 1	1	320.733400000	320.760105454	279779_1.wav	/home/m/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/279779_1.wav	266.666200	36978.59402	13218.59402							
+16	Spectrogram 1	1	342.454733000	342.481438454	279779_1.wav	/home/m/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/279779_1.wav	288.387533	35898.59402	13578.59402							
+17	Spectrogram 1	1	368.756933000	368.785418818	279779_1.wav	/home/m/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/279779_1.wav	314.689733	34818.59402	11778.59402							
+18	Spectrogram 1	1	390.157789000	390.195176636	279779_1.wav	/home/m/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/279779_1.wav	336.090589	39498.59402	12858.59402							
+24	Spectrogram 1	1	479.052688889	479.089186343	279779_2.wav	/home/m/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/279779_2.wav	53.265300	35409.85230	18125.08409							
+23	Spectrogram 1	1	496.172666889	496.200262525	279779_2.wav	/home/m/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/279779_2.wav	70.385278	30045.61389	13058.85892							
+25	Spectrogram 1	1	531.008144889	531.044642343	279779_2.wav	/home/m/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/279779_2.wav	105.220756	39105.63628	17556.34050							
+22	Spectrogram 1	1	583.289421889	583.326809525	279779_2.wav	/home/m/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/279779_2.wav	157.502033	35707.86555	19913.16356							
+19	Spectrogram 1	1	599.256166889	599.280201798	279779_2.wav	/home/m/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/279779_2.wav	173.468778	30858.59402	15018.59402							
+20	Spectrogram 1	1	720.529199889	720.561246434	279779_2.wav	/home/m/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/279779_2.wav	294.741811	38418.59402	16458.59402							
+21	Spectrogram 1	1	728.528366889	728.556852707	279779_2.wav	/home/m/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/279779_2.wav	302.740978	38418.59402	17538.59402							

@@ -5,7 +5,6 @@ author: <center><font size="4"><a href="http://marceloarayasalas.weebly.com/">Ma
 date: <center>`r format(Sys.Date(), "%d-%m-%Y")`</center>
 output:
   html_document:
-    
     code_folding: show
     toc: yes
     toc_depth: 3
@@ -20,10 +19,6 @@ editor_options:
 Code for automatic detection using MFCC cross-correlation
 
 ```{r packages, message = FALSE, warning = FALSE, echo = TRUE, eval = TRUE, include = FALSE}
-
-# unload all non-based packages
-out <- sapply(paste('package:', names(sessionInfo()$otherPkgs), sep = ""), function(x) try(detach(x, unload = FALSE, character.only = TRUE), silent = T))
-
 
 ## add 'developer/' to packages to be installed from github
 x <- c("devtools", "maRce10/warbleR", "bioacoustics", "pbapply", "Rraven", "parallel", "viridis", "RJSONIO", "ropensci/rfigshare", "ranger", "Sim.DiffProc", "readxl", "ggplot2", "cowplot")
@@ -49,7 +44,7 @@ aa <- lapply(x, function(y) {
 
 ```{r functions, eval = TRUE, echo = TRUE}
 
-warbleR_options(wav.path = "~/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/", wl = 300, parallel = parallel::detectCores() - 4, bp = "frange", fast = F, threshold = 15, ovlp = 20)
+warbleR_options(wav.path = "~/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/", wl = 300, parallel = 1, bp = "frange", fast = F, threshold = 15, ovlp = 20)
 
 opts_knit$set(root.dir = "..")
 
@@ -57,21 +52,26 @@ opts_chunk$set( fig.width = 8, fig.height = 3.5)
 
 ```
 
-## MFCC cross-correlation detection
+```{r, eval = FALSE}
 
+fix_wavs(path = .Options$warbleR$wav.path, samp.rate = 90, sox = TRUE)
+
+```
+
+## MFCC cross-correlation detection
 ```{r mfcc cross-correlation detection, eval = FALSE, echo = TRUE}
                                 
-# get in whole file clips
+# get in entire file clips
 all_files <- selection_table(whole.recs = TRUE)
 
 all_files$sound.files <- as.character(all_files$sound.files)
 
 # get template
-templ <- all_files[all_files$sound.files == "ch4MPI2020-01-19_15-03-57_0000057.wav", , drop = FALSE ]
-
-
-templ$start[1] <- 96.587	
-templ$end[1] <- 96.638		
+templ <- data.frame(sound.files = "ch4MPI2020-01-19_15-03-57_0000057.wav", 
+                    start = 96.587, 
+                    end = 96.638,
+                    channel = 1,
+                    selec = 1)
 # templ2$top.freq[1] <- 42.8226	
 # templ2$bottom.freq[1] <- 13.3548
 templ$selec <- "temp"
@@ -85,11 +85,15 @@ sq <- c(seq(0, nrow(comp_mat), by = 100), nrow(comp_mat))
 for(i in 2:length(sq))
 {
 # i<- 2
+  print(i)
+  if(!file.exists(paste0("./output/detection_xcorr_", i + 14, ".RDS"))){
   xc.output <- xcorr(X = all_files_temp, output = "list",
     compare.matrix = comp_mat[(sq[i-1] + 1):sq[i], ], pb = TRUE, bp = c(12, 42), type = "mfcc", na.rm = TRUE)
-
-  # saveRDS(xc.output, paste0("./output/detection_xcorr_", i - 1, ".RDS"))
+saveRDS(xc.output, paste0("./output/detection_xcorr_", i + 14, ".RDS"))
+}
+}  
   
+  # saveRDS(xc.output, paste0("./output/detection_xcorr_", i - 1, ".RDS"))
   #   xc.output <- xcorr(X = all_files_temp, output = "list", 
   #   compare.matrix = comp_mat[(sq[i-1] + 1):sq[i], ], pb = TRUE, bp = c(12, 42), type = "spectrogram", na.rm = TRUE, ovlp = 50)
   # 
@@ -119,29 +123,30 @@ for(i in 2:length(sq))
     # 
     # outputs <- list(mfcc.output, spc.output)
 
-  saveRDS(xc.output, paste0("./output/detection_xcorr_", i - 1, ".RDS"))
-
-}
+  # saveRDS(xc.output, paste0("./output/detection_xcorr_", i - 1, ".RDS"))
+  
+# }
 
 ```
 
 ## Redo problematic ones
-
 ```{r redo problematic ones, eval = FALSE, echo = TRUE}
 
 
 # get in whole file clips
 all_files <- selection_table(whole.recs = TRUE)
+# all_files <- all_files[grep("2021", all_files$sound.files), ]
 
 all_files$sound.files <- as.character(all_files$sound.files)
 
-
 xcd_l <- list.files(path = "./output/", pattern = "xcorr_", full.names = TRUE)
+# xcd_l <- xcd_l[as.numeric(gsub("./output//detection_xcorr_|.RDS", "", xcd_l)) > 15]
 
 wavs <- list.files(path = .Options$warbleR$wav.path)
+# wavs <-  grep("2021", wavs, value = TRUE)
 
-done <- unlist(lapply(xcd_l, function(i){
-  
+done <- unlist(pblapply(xcd_l, function(i){
+  # print(i)
     xcd <- readRDS(i)
     
     X <- xcd$scores
@@ -157,10 +162,11 @@ done <- unlist(lapply(xcd_l, function(i){
 not_done <- c(setdiff(wavs, unique(gsub("-whole.file", "", done))), "ch4MPI2020-01-19_15-03-57_0000057.wav")
 
 # get template
-templ <- all_files[all_files$sound.files == "ch4MPI2020-01-19_15-03-57_0000057.wav", , drop = FALSE]
-
-templ$start[1] <- 96.587	
-templ$end[1] <- 96.638		
+templ <- data.frame(sound.files = "ch4MPI2020-01-19_15-03-57_0000057.wav", 
+                    start = 96.587, 
+                    end = 96.638,
+                    channel = 1,
+                    selec = 1)
 # templ2$top.freq[1] <- 42.8226	
 # templ2$bottom.freq[1] <- 13.3548
 templ$selec <- 'templ'
@@ -208,8 +214,64 @@ not_done <- c(setdiff(wavs, gsub("-whole.file", "", done)), "ch4MPI2020-01-19_15
 
 ```
 
-## Find peaks
+```{r run cross correlation and find peaks}
 
+# get in whole file clips
+all_files <- selection_table(whole.recs = TRUE)
+all_files <- all_files[grep("2021", all_files$sound.files), ]
+
+all_files$sound.files <- as.character(all_files$sound.files)
+
+# get template
+templ <- data.frame(sound.files = "ch4MPI2020-01-19_15-03-57_0000057.wav", 
+                    start = 96.587, 
+                    end = 96.638,
+                    channel = 1,
+                    selec = 1)
+# templ2$top.freq[1] <- 42.8226	
+# templ2$bottom.freq[1] <- 13.3548
+templ$selec <- 'templ'
+
+comp_mat <- cbind(paste(templ$sound.files[1], templ$selec[1], sep = "-"), all_files$sound.files)
+
+all_files_temp <- rbind(templ, all_files)
+# make a sequence to do 100 files at the time
+sq <- c(seq(0, nrow(comp_mat), by = 50), nrow(comp_mat))
+
+
+pks_l <- list()
+for(i in 2:length(sq)){
+# i<- 2
+  print(i)
+  xc.output <- cross_correlation(X = all_files_temp, output = "list",
+    compare.matrix = comp_mat[(sq[i-1] + 1):sq[i], ], pb = TRUE, bp = c(12, 42), type = "mfcc", na.rm = TRUE)
+
+    pks <- find_peaks(xc.output = xc.output, pb = TRUE, cutoff = 0.30, output = "data.frame")
+
+    
+    
+      
+  # num <- length(list.files(path = "./output/detection_xcorr_", pattern = "xcorr_", full.names = TRUE))  
+    
+  # saveRDS(pks, paste0("./output/peaks_", gsub("./output/detection_xcorr_", num  + 1, ".DS")))
+  
+  pks$bottom.freq <-  13.3548
+pks$top.freq <-  42.8226
+
+
+pks_l[[length(pks_l) + 1]] <- pks
+
+saveRDS(pks_l, "./output/detections.RDS")
+  
+}  
+
+pks_2021 <- do.call(rbind, pks_l)
+
+saveRDS(pks_2021, "./output/detection_peaks_2021.RDS")
+
+```
+
+## Find peaks
 ```{r find peaks, eval = FALSE, echo = TRUE}
 
 # find peaks
@@ -229,7 +291,6 @@ for(i in xcd_l){
 ```
 
 ## Extract peaks to selection table
-
 ```{r extract peaks to selection table, eval = FALSE, echo = TRUE}
 
 pks_l <- list.files(path = "./output/", pattern = "peaks_", full.names = TRUE)
@@ -251,7 +312,6 @@ write.csv(peaks, "./data/processed/peaks_xcorr_mfcc.csv", row.names = FALSE)
 ```
 
 ## Select subset for training and plot spectrograms specreator
-
 ```{r select subset for training and plot spectrograms specreator, eval = FALSE, echo = TRUE}
 
 peaks <- read.csv("./data/processed/peaks_xcorr_mfcc.csv", stringsAsFactors = FALSE)
@@ -323,13 +383,72 @@ write.csv(sp_test, "spectral_parameters_test_data.csv", row.names = FALSE)
 
 ```
 
+
+```{r measure spectral parameters on new data 2021, eval = FALSE, echo = TRUE}
+
+pks_2021 <- readRDS("./output/detection_peaks_2021.RDS")
+
+
+sp_test_2021 <- spectro_analysis(pks_2021, bp = c(10, 50), threshold = 5, parallel = 10)
+
+sp_test_2021$xc.score <- pks_2021$score
+
+sp_test_2021$start <- pks_2021$start
+sp_test_2021$end <- pks_2021$end
+sp_test_2021$score <- pks_2021$score
+
+saveRDS(sp_test_2021, "./output/spectral_parameters_test_data_2021.RDS")
+
+```
+
+
+
 ##  Predict all detections
 
 ```{r predict new data, eval = FALSE, echo = TRUE}
 
-sp_test <- read.csv("spectral_parameters_test_data.csv")
+sp_test <- readRDS("./output/spectral_parameters_test_data_2021.RDS")
 
-rfm <- readRDS("random_forest_model_3000_samples.RDS")
+rfm <- readRDS("./data/processed/random_forest_model_3000_samples.RDS")
+
+sqs <- c(seq(0, nrow(sp_test), by = 500), nrow(sp_test))
+
+na_vars <- names(sp_test)[sapply(sp_test, function(x) sum(is.na(x))) > 0]
+
+# replace NAs with mean values
+for(i in na_vars) sp_test[ is.na(sp_test[, i]), i] <- mean(sp_test[, i], na.rm = TRUE)
+
+# predict new data
+preds <- pblapply(2:length(sqs), cl = 10, function(x){
+  
+  Y <- sp_test[(sqs[x - 1] + 1):sqs[x], ]
+  
+  pred <- predict(rfm, data = Y)
+
+ res <- data.frame(sp_test[(sqs[x - 1] + 1):sqs[x], c("sound.files", "selec", "start", "end", "score")], class = pred$predictions)
+  
+ return(res)
+ })
+
+
+preds_df <- do.call(rbind, preds)
+
+preds_df$event <- substr(preds_df$sound.files, 4, 1000)
+
+nrow(preds_df)
+
+anyNA(preds_df)
+
+saveRDS(preds_df, "./output/predictions.RDS")
+
+
+```
+
+```{r predict new data 2021, eval = FALSE, echo = TRUE}
+
+sp_test <- readRDS("./output/spectral_parameters_test_data_2021.RDS")
+
+rfm <- readRDS("./data/processed/random_forest_model_3000_samples.RDS")
 
 sqs <- c(seq(0, nrow(sp_test), by = 3000), nrow(sp_test))
 
@@ -359,16 +478,404 @@ nrow(preds_df)
 
 anyNA(preds_df)
 
-saveRDS(preds_df, "./output/predictions.RDS")
+saveRDS(preds_df, "./output/predictions_2021.RDS")
 
 
 ```
 
-## Find duplicates and plot spectros
+
+## Find duplicates and plot spectros for subset in which videos were analyzed
 
 ```{read predictions find duplicates and plot spectros, eval = FALSE, echo = TRUE}
 
 preds_df <- readRDS("./output/predictions.RDS")
+
+# check predictions
+table(preds_df$class)
+
+preds_calls <- preds_df[preds_df$class == "call", ]
+
+folders <- list.files(path = "/home/m/Dropbox/Salidas de videos analizados/Salidas50FramesXBicho", pattern = "^T")
+
+video <- sapply(folders, function(x) strsplit(x, "_")[[1]][1])
+
+video <- as.numeric(gsub("T", "", video))
+
+analyzed_videos <- data.frame(folder = folders, video, year = sapply(folders, function(x) strsplit(x, "_")[[1]][3]), group = sapply(folders, function(x) strsplit(x, "_")[[1]][2]))
+
+analyzed_videos <- analyzed_videos[order(analyzed_videos$video, decreasing = FALSE),]
+
+metadat <- as.data.frame(read_excel("data/raw/Anexo 1_Proyecto MPI enero 20-21.xlsx"))
+
+# subset detection to analyze only those needed from analyzed videos
+analyzed_videos$audio <- sapply(1:nrow(analyzed_videos), function(x) {
+  y <- metadat$Audio[substr(metadat$Día, 0, 4) == analyzed_videos$year[x] & metadat$Video == analyzed_videos$video[x]]
+  y <- unique(y[!is.na(y)])
+  if (length(y) == 0) y <- NA
+  return(y)
+  })
+
+preds_calls$audio <- as.numeric(gsub(x = sapply(as.character(preds_calls$sound.files), function(x) strsplit(x, "_")[[1]][3]), "\\.wav$", "", ignore.case = TRUE))
+
+preds_calls$audio[is.na(preds_calls$audio)] <- as.numeric(gsub(x = sapply(as.character(preds_calls$sound.files[is.na(preds_calls$audio)]), function(x) strsplit(x, "_")[[1]][4]), "\\.wav$", "", ignore.case = TRUE))
+
+
+# subset data to those audios from analyzed videos
+preds_calls <- preds_calls[preds_calls$audio %in% analyzed_videos$audio, ]
+
+preds_calls$video <- sapply(1:nrow(preds_calls), function(x) analyzed_videos$video[analyzed_videos$audio == preds_calls$audio[x]][1])
+
+preds_calls$video_folder <- sapply(1:nrow(preds_calls), function(x) analyzed_videos$folder[analyzed_videos$audio == preds_calls$audio[x]][1])
+
+# remove overlaps and keep only channel 1 no duplicates
+ovlp_l_nd <- lapply(unique(preds_calls$event), function(x){
+  # print(x)  
+  Y  <- preds_calls[preds_calls$event == x, ]
+  Y$org.sound.files <- Y$sound.files
+  Y$sound.files <- Y$event
+  Y$selec <- 1:nrow(Y)
+  
+  # max overlap 1/4 of the duration of the template
+  ov <- ovlp_sels(X = Y, max.ovlp = 0.051 / 4)
+  ov$sound.files <- sort(unique(Y$org.sound.files))[1]
+  
+  ov <- ov[order(ov$ovlp.sels, - ov$score), ]
+  
+  if (!all(is.na(ov$ovlp.sels)))
+  ov <- ov[!duplicated(ov$ovlp.sels, incomparables = NA), ]
+  
+  return(ov)
+})
+
+call_df <- do.call(rbind, ovlp_l_nd)
+
+call_df$sound.files <- call_df$org.sound.files
+
+# preds_no_calls <- preds_df[preds_df$class != "call", ]
+# 
+# # remove overlaps no duplicates
+# ovlp_l_nd_nc <- lapply(unique(preds_no_calls$event), function(x){
+#   # print(x)  
+#   Y  <- preds_no_calls[preds_no_calls$event == x, ]
+#   Y$org.sound.files <- Y$sound.files
+#   Y$sound.files <- Y$event
+#   Y$selec <- 1:nrow(Y)
+#   
+#   ov <- ovlp_sels(X = Y)
+#   ov$sound.files <- sort(unique(Y$org.sound.files))[1]
+#   
+#   ov <- ov[order(ov$ovlp.sels, - ov$score), ]
+#   
+#   if (!all(is.na(ov$ovlp.sels)))
+#   ov <- ov[!duplicated(ov$ovlp.sels, incomparables = NA), ]
+#   
+#   return(ov)
+# })
+# 
+# no_call_df <- do.call(rbind, ovlp_l_nd_nc)
+# 
+# 
+# no_call_df$sound.files <- no_call_df$org.sound.files
+# 
+# non_dup_preds <- rbind(call_df, no_call_df)
+# 
+# 
+# # remove overlaps and keep only those no - call that do not overlap with calls
+# ovlp_c_nc <- lapply(unique(non_dup_preds$event), function(x){
+#   # print(x)  
+#   Y  <- non_dup_preds[non_dup_preds$event == x, ]
+#   Y$org.sound.files <- Y$sound.files
+#   Y$sound.files <- Y$event
+#   Y$selec <- 1:nrow(Y)
+#   
+#   ov <- ovlp_sels(X = Y, parallel = 1)
+#   ov$sound.files <- sort(unique(Y$org.sound.files))[1]
+#   
+#   ov <- ov[order(ov$ovlp.sels, - ov$score), ]
+# 
+#     if (!all(is.na(ov$ovlp.sels))){
+#     
+#       ovs <- lapply(c(na.omit(unique(ov$ovlp.sels))), function(i) {
+#        
+#           W <- ov[ov$ovlp.sels == i, ]
+#       
+#           if (any(W$class == "call"))
+#               W <- W[W$class == "call", ] else
+#          
+#            W[!duplicated(W$ovlp.sels, incomparables = NA), ]
+#  })
+#       
+#       ov2 <- do.call(rbind, ovs)
+#   
+#       ov.na <- ov[is.na(ov$ovlp.sels), ]
+#       
+#       ov <- rbind(ov2, ov.na)
+#                 
+#     }  
+#   
+#   
+#   return(ov)
+# })
+# 
+# non_dup_preds <- do.call(rbind, ovlp_c_nc)
+# 
+# non_dup_preds <- non_dup_preds[!is.na(non_dup_preds$sound.files), ]
+# 
+# non_dup_preds$sound.files <- non_dup_preds$org.sound.files
+# 
+# 
+# table(non_dup_preds$class)
+
+
+# spectrograms(X = non_dup_preds[non_dup_preds$class == "no_call", ], flim = c(10, 50), img.suffix = "pred_no_calls", fast.spec = TRUE,  pal = viridis, res = 70, dest.path = "./img/pred_test_no_calls_single_spectro", mar = 0.01, inner.mar = rep(0, 4), picsize = 0.5)
+
+non_dup_preds$class <- "call"
+
+spectrograms(X = non_dup_preds[non_dup_preds$class == "call", ], flim = c(10, 50), img.suffix = "pred_no_calls", fast.spec = TRUE,  pal = viridis, res = 70, dest.path = "./img/pred_test_calls_single_spectro", mar = 0.01, inner.mar = rep(0, 4), picsize = 0.5)
+
+
+## HERE SPECTROGRAMS WERE FILTERED MANUALLY ###
+
+filt_ind_call <- filter_sels(X = non_dup_preds, path = "./img/pred_test_calls_single_spectro", index = TRUE)
+# 
+# filt_ind_no_call <- filter_sels(X = non_dup_preds, path = "./img/pred_test_calls_single_spectro", index = TRUE, missing = TRUE)
+# 
+# 
+# length(filt_ind_no_call) + length(filt_ind_call) == nrow(non_dup_preds)
+
+
+
+# non_dup_preds$class_fixed <- "no_call"
+
+non_dup_preds$class_fixed[filt_ind_call] <- "call"
+
+# overall performance
+sum(non_dup_preds$class == non_dup_preds$class_fixed) / nrow(non_dup_preds)
+
+# sensitivity (true positive rate)
+sum(non_dup_preds$class[non_dup_preds$class == "call"] == non_dup_preds$class_fixed[non_dup_preds$class == "call"]) / sum(non_dup_preds$class == "call")
+
+# specificity (true negative rate)
+sum(non_dup_preds$class[non_dup_preds$class == "no_call"] == non_dup_preds$class_fixed[non_dup_preds$class == "no_call"]) / sum(non_dup_preds$class == "no_call")
+
+write.csv(non_dup_preds, "./data/processed/non_duplicated_detections_to_match_analyzed_videos_may_2021.csv", row.names = FALSE)
+
+
+
+sp <- read.csv("acoustic parameters 3000 samples.csv")
+
+names(non_dup_preds)
+names(sp)
+
+peaks <- read.csv("./data/processed/peaks_xcorr_mfcc.csv", stringsAsFactors = FALSE)
+
+
+set.seed(102)
+smp <- sample(1:nrow(peaks), 3000)
+smpl_pks <- peaks[smp, ]
+
+smpl_pks$class <- smpl_pks$class_fixed <- sp$class
+
+
+clms <- intersect(names(smpl_pks), names(non_dup_preds))
+
+all_detects <- rbind(smpl_pks[, clms], non_dup_preds[, clms])
+all_detects$bottom.freq <- smpl_pks$bottom.freq[1]
+all_detects$top.freq <- smpl_pks$top.freq[1]
+
+all_detects$selec <- 1:nrow(all_detects)
+
+all_detects <- sort_colms(all_detects)
+
+cs <- check_sels(all_detects)
+
+
+# sensitivity (true positive rate)
+sum(all_detects$class[all_detects$class == "call"] == all_detects$class_fixed[all_detects$class == "call"]) / sum(all_detects$class == "call")
+
+# specificity (true negative rate)
+sum(all_detects$class[all_detects$class == "no_call"] == all_detects$class_fixed[all_detects$class == "no_call"]) / sum(all_detects$class == "no_call")
+
+
+# catalogs
+catalog(X = all_detects[all_detects$class_fixed == "call", ], flim = c(10, 50), nrow = 10, ncol = 14, 
+        same.time.scale = T, mar = 0.01, gr = FALSE, img.suffix = "calls", 
+        labels = c("sound.files", "selec"), legend = 0, rm.axes = TRUE, 
+        box = F, width = 24 / 2, height = 15 / 2, fast.spec = TRUE,  pal = viridis, res = 60, lab.mar = 0.01)
+
+move_imgs(from = .Options$warbleR$wav.path, to = "./img/catalog_pred_test_calls")
+
+catalog2pdf(path = "./img/catalog_pred_test_calls") 
+
+catalog(X = all_detects[all_detects$class_fixed == "no_call", ], flim = c(10, 50), nrow = 10, ncol = 14, 
+        same.time.scale = T, mar = 0.01, gr = FALSE, img.suffix = "no_calls", 
+           labels = c("sound.files", "selec"), legend = 0, rm.axes = TRUE, 
+        box = F, width = 24 / 2, height = 15 / 2, fast.spec = TRUE,  pal = viridis, res = 60, lab.mar = 0.01)
+
+
+move_imgs(from = .Options$warbleR$wav.path, to = "./img/catalog_pred_test_no_calls")
+
+catalog2pdf(path = "./img/catalog_pred_test_no_calls") 
+
+table(all_detects$class_fixed)
+
+# save data
+write.csv(all_detects, "./data/processed/all_detections_no_duplicates.csv", row.names = FALSE)
+
+
+est_all <- selection_table(all_detects, mar = 0.01, extended = TRUE, confirm.extended = FALSE)
+
+
+attributes(est_all)$description <- "Spix's disc-winged bat inquiry calls detected with MFCC cross-correlation and random forest. Data contains both signals and noise ('class_fixed' column). Wrong detections were manually fixed"
+
+saveRDS(est_all, "fixed_detections_inquiry_calls.RDS")
+
+saveRDS(est_all[est_all$class_fixed == "call", ], "CALLS_fixed_detections_inquiry_calls.RDS")
+
+saveRDS(est_all[est_all$class_fixed == "no_call", ], "NOISE_fixed_detections_inquiry_calls.RDS")
+
+
+```
+
+## Find duplicates and plot spectros all data
+
+```{read predictions find duplicates and plot spectros, eval = FALSE, echo = TRUE}
+
+preds_df <- readRDS("./output/predictions_2021.RDS")
+
+# check predictions
+table(preds_df$class)
+
+preds_calls <- preds_df[preds_df$class == "call", ]
+
+# folders <- list.files(path = "/home/m/Dropbox/Salidas de videos analizados/Salidas50FramesXBicho", pattern = "^T")
+
+# video <- sapply(folders, function(x) strsplit(x, "_")[[1]][1])
+
+# video <- as.numeric(gsub("T", "", video))
+# 
+# analyzed_videos <- data.frame(folder = folders, video, year = sapply(folders, function(x) strsplit(x, "_")[[1]][3]), group = sapply(folders, function(x) strsplit(x, "_")[[1]][2]))
+# 
+# analyzed_videos <- analyzed_videos[order(analyzed_videos$video, decreasing = FALSE),]
+# 
+# metadat <- as.data.frame(read_excel("data/raw/Anexo 1_Proyecto MPI enero 20-21.xlsx"))
+# 
+# # subset detection to analyze only those needed from analyzed videos
+# analyzed_videos$audio <- sapply(1:nrow(analyzed_videos), function(x) {
+#   y <- metadat$Audio[substr(metadat$Día, 0, 4) == analyzed_videos$year[x] & metadat$Video == analyzed_videos$video[x]]
+#   y <- unique(y[!is.na(y)])
+#   if (length(y) == 0) y <- NA
+#   return(y)
+#   })
+
+# preds_calls$audio <- as.numeric(gsub(x = sapply(as.character(preds_calls$sound.files), function(x) strsplit(x, "_")[[1]][3]), "\\.wav$", "", ignore.case = TRUE))
+# 
+# preds_calls$audio[is.na(preds_calls$audio)] <- as.numeric(gsub(x = sapply(as.character(preds_calls$sound.files[is.na(preds_calls$audio)]), function(x) strsplit(x, "_")[[1]][4]), "\\.wav$", "", ignore.case = TRUE))
+
+
+# subset data to those audios from analyzed videos
+# preds_calls <- preds_calls[preds_calls$audio %in% analyzed_videos$audio, ]
+
+# preds_calls$video <- sapply(1:nrow(preds_calls), function(x) analyzed_videos$video[analyzed_videos$audio == preds_calls$audio[x]][1])
+
+# preds_calls$video_folder <- sapply(1:nrow(preds_calls), function(x) analyzed_videos$folder[analyzed_videos$audio == preds_calls$audio[x]][1])
+
+# remove overlaps and keep only channel 1 no duplicates
+ovlp_l_nd <- lapply(unique(preds_calls$event), function(x){
+  # print(x)  
+  Y  <- preds_calls[preds_calls$event == x, ]
+  Y$org.sound.files <- Y$sound.files
+  Y$sound.files <- Y$event
+  Y$selec <- 1:nrow(Y)
+  
+  # max overlap 1/4 of the duration of the template
+  ov <- ovlp_sels(X = Y, max.ovlp = 0.051 / 4)
+  ov$sound.files <- sort(unique(Y$org.sound.files))[1]
+  
+  ov <- ov[order(ov$ovlp.sels, - ov$score), ]
+  
+  if (!all(is.na(ov$ovlp.sels)))
+  ov <- ov[!duplicated(ov$ovlp.sels, incomparables = NA), ]
+  
+  return(ov)
+})
+
+call_df <- do.call(rbind, ovlp_l_nd)
+
+call_df$sound.files <- call_df$org.sound.files
+
+
+call_df$class <- "call"
+
+spectrograms(X = call_df, flim = c(10, 50), img.suffix = "pred_no_calls", fast.spec = TRUE,  pal = viridis, res = 70, dest.path = "./img/pred_test_calls_single_spectro", mar = 0.01, inner.mar = rep(0, 4), picsize = 0.5)
+
+
+## HERE SPECTROGRAMS WERE FILTERED MANUALLY ###
+
+filt_ind_call <- filter_sels(X = call_df, path = "./img/pred_test_calls_single_spectro", index = TRUE)
+# 
+# filt_ind_no_call <- filter_sels(X = non_dup_preds, path = "./img/pred_test_calls_single_spectro", index = TRUE, missing = TRUE)
+# 
+# 
+# length(filt_ind_no_call) + length(filt_ind_call) == nrow(non_dup_preds)
+
+
+
+call_df$class_fixed <- "no_call"
+
+call_df$class_fixed[filt_ind_call] <- "call"
+
+# overall performance
+sum(call_df$class == call_df$class_fixed) / nrow(call_df)
+
+write.csv(call_df, "./data/processed/non_duplicated_detections_2021.csv", row.names = FALSE)
+
+
+# catalogs
+catalog(X = call_df[call_df$class_fixed == "call", ], flim = c(10, 50), nrow = 10, ncol = 14, 
+        same.time.scale = T, mar = 0.01, gr = FALSE, img.suffix = "calls-2021", 
+        labels = c("sound.files", "selec"), legend = 0, rm.axes = TRUE, 
+        box = F, width = 24 / 2, height = 15 / 2, fast.spec = TRUE,  pal = viridis, res = 60, lab.mar = 0.01)
+
+move_imgs(from = .Options$warbleR$path, to = "./img/catalog_pred_test_calls")
+
+# catalog2pdf(path = "./img/catalog_pred_test_calls") 
+
+catalog(X = call_df[call_df$class_fixed == "no_call", ], flim = c(10, 50), nrow = 10, ncol = 14, 
+        same.time.scale = T, mar = 0.01, gr = FALSE, img.suffix = "no_calls-2021", 
+           labels = c("sound.files", "selec"), legend = 0, rm.axes = TRUE, 
+        box = F, width = 24 / 2, height = 15 / 2, fast.spec = TRUE,  pal = viridis, res = 60, lab.mar = 0.01)
+
+
+move_imgs(from = .Options$warbleR$path, to = "./img/catalog_pred_test_no_calls")
+
+# catalog2pdf(path = "./img/catalog_pred_test_no_calls") 
+
+table(call_df$class_fixed)
+
+# save data
+write.csv(call_df, "./data/processed/all_detections_no_duplicates_2021.csv", row.names = FALSE)
+
+
+est_all <- selection_table(call_df, mar = 0.01, extended = TRUE, confirm.extended = FALSE)
+
+
+attributes(est_all)$description <- "Spix's disc-winged bat inquiry calls detected with MFCC cross-correlation and random forest. Data contains both signals and noise ('class_fixed' column). Wrong detections were manually fixed"
+
+saveRDS(est_all, "fixed_detections_inquiry_calls_2021.RDS")
+
+saveRDS(est_all[est_all$class_fixed == "call", ], "CALLS_fixed_detections_inquiry_calls_2021.RDS")
+
+saveRDS(est_all[est_all$class_fixed == "no_call", ], "NOISE_fixed_detections_inquiry_calls_2021.RDS")
+
+
+```
+
+
+
+```{read predictions find duplicates and plot spectros 2021, eval = FALSE, echo = TRUE}
+
+preds_df <- readRDS("./output/predictions_2021.RDS")
 
 # check predictions
 table(preds_df$class)
@@ -583,6 +1090,7 @@ saveRDS(est_all[est_all$class_fixed == "no_call", ], "NOISE_fixed_detections_inq
 
 ```
 
+
 ## Plot full spectrograms
 
 ```{r plot full spectrograms, eval = FALSE, echo = TRUE}
@@ -609,7 +1117,7 @@ move_imgs(from = .Options$warbleR$wav.path, to = "./img/full_spectrograms")
 ```{r adjust manual on Raven, eval = FALSE, echo = TRUE}
 
 # read all detections
-all_d <- read.csv("./data/processed/all_detections_no_duplicates.csv")
+all_d <- read.csv("./data/processed/non_duplicated_detections.csv")
 
 cs <- check_sels(all_d)
 
@@ -620,44 +1128,242 @@ calls <- all_d[all_d$class_fixed == "call", ]
 calls$org.sound.files <- calls$sound.files
 calls$sound.files <- gsub("ch2|ch3|ch4", "ch1", calls$sound.files)
 
+cs <- check_sels(calls)
+
+all_d2 <- read.csv("./data/processed/non_duplicated_detections_2021.csv")
+
+cs <- check_sels(all_d2)
+
+calls2 <- all_d2[all_d2$class_fixed == "call", ]
+
+
+# force all to be on channel 1
+calls2$org.sound.files <- calls2$sound.files
+calls2$sound.files <- gsub("^ch2|^ch3|^ch4|^ch5|^ch6|^ch7|^ch8", "ch1", calls2$sound.files)
+
+calls2$sound.files[cs$check.res != "OK"] <- calls2$org.sound.files[cs$check.res != "OK"] 
+
+cs <- check_sels(calls2)
+
+
+intersect(calls$sound.files, calls2$sound.files)
+
+
 
 
 # fix those that don't have a first channel recording
-prblm_files <- c("ch1MPI2020-01-18_15-15-35_0000050.wav", "ch1MPI2020-01-24_12-11-07_0000130.wav", "ch1MPI2020-01-22_13-23-54_0000093.wav", "ch1MPI2020-01-23_09-42-32_0000099.wav")
+# prblm_files <- c("ch1MPI2020-01-18_15-15-35_0000050.wav", "ch1MPI2020-01-24_12-11-07_0000130.wav", "ch1MPI2020-01-22_13-23-54_0000093.wav", "ch1MPI2020-01-23_09-42-32_0000099.wav")
 
-fixed_files <- gsub("ch1", "ch2", prblm_files)
-fixed_files <- gsub("ch2MPI2020-01-23_09-42-32_0000099.wav", "ch4MPI2020-01-23_09-42-32_0000099.wav", fixed_files)
+# fixed_files <- gsub("ch1", "ch2", prblm_files)
+# fixed_files <- gsub("ch2MPI2020-01-23_09-42-32_0000099.wav", "ch4MPI2020-01-23_09-42-32_0000099.wav", fixed_files)
 
-for(i in 1:length(prblm_files))
-  calls$sound.files <- gsub(prblm_files[i], fixed_files[i], calls$sound.files) 
-    
-cs <- check_sels(calls)
-calls$sound.files[cs$check.res != "OK"]
+# for(i in 1:length(prblm_files))
+#   calls$sound.files <- gsub(prblm_files[i], fixed_files[i], calls$sound.files) 
+#     
+# cs <- check_sels(calls)
+# calls$sound.files[cs$check.res != "OK"]
 
-exp_raven(X = calls, sound.file.path = .Options$warbleR$wav.path, file.name = "./data/processed/raven_selection_table_calls.txt")
+# exp_raven(X = calls2, sound.file.path = .Options$warbleR$path, file.name = "./data/processed/raven_selection_table_calls_2021.txt")
 
 
 ############ check false negatives in raven here ####################
 
 
-fixed_calls <- imp_raven(path = "./data/processed", files = "raven_selection_table_calls.txt", all.data = TRUE, warbler.format = TRUE)
+fixed_calls <- imp_raven(path = "./data/processed", files = "raven_selection_table_calls_2021_manually_fixed.txt", all.data = TRUE, warbler.format = TRUE)
 
 
 str(fixed_calls)
 
 fixed_calls$detection <- ifelse(fixed_calls$class == "", "manual", "automatic")  
 
-fixed_calls$class <- "call"
+fixed_calls$class[fixed_calls$class == ""] <- "call"
+fixed_calls$class_fixed[fixed_calls$class_fixed == ""] <- "call"
+table(fixed_calls$class_fixed)
+table(fixed_calls$class_fixed, fixed_calls$sound.files)
 
 fixed_calls$org.sound.files[fixed_calls$org.sound.files == ""] <- fixed_calls$sound.files[fixed_calls$org.sound.files == ""]
 
+fixed_calls$event[fixed_calls$event == ""] <- substr(fixed_calls$sound.files[fixed_calls$event == ""], 4, 1000)
 
-write.csv(fixed_calls, "./data/processed/manually_fixed_call_detections.csv", row.names = FALSE)
 
+length(unique(fixed_calls$event))
+all(tapply(fixed_calls$event, fixed_calls$sound.files, function(x) length(unique(x))) == 1)
+
+write.csv(fixed_calls, "./data/processed/manually_fixed_call_detections_2021.csv", row.names = FALSE)
 
 ```
 
+```{r put all data together}
+
+no_detec_files <- imp_raven(path = "./data/processed", warbler.format = TRUE, all.data = TRUE, files = "no_detec_files_2020_and_2021.txt")
+
+cs <- check_sels(no_detec_files)
+
+no_detec_files <- no_detec_files[cs$check.res == "OK", ]
+
+calls_2021 <- read.csv("./data/processed/manually_fixed_call_detections_2021.csv")
+
+calls_2020 <- read.csv("./data/processed/manually_fixed_call_detections.csv")
+
+calls_2020$event <-  substr(calls_2020$sound.files, 4, 1000)
+
+shared_cols <- intersect(names(calls_2020), names(calls_2021))
+
+calls <- rbind(calls_2020[, shared_cols], calls_2021[, shared_cols])
+
+setdiff(names(no_detec_files), names(calls))
+setdiff(names(calls), names(no_detec_files))
+
+names(no_detec_files)[names(no_detec_files) == "File Offset (s)"] <- "File.Offset..s."
+names(no_detec_files)[names(no_detec_files) == "Begin Path"] <- "Begin.Path"
+
+no_detec_files$bottom.freq <- no_detec_files$top.freq <- no_detec_files$Rraven.labels <- NULL
+no_detec_files$event <- substr(no_detec_files$sound.files, 4, 1000)
+
+no_detec_files$class <- no_detec_files$class_fixed <- "call"
+no_detec_files$detection <- "manual"
+
+no_detec_files$score <- NA
+  
+no_detec_files$org.sound.files <- no_detec_files$sound.files
+
+
+calls <- rbind(no_detec_files, calls)
+length(unique(calls$event))
+
+cs <- check_sels(calls)
+
+
+table(cs$check.res)
+
+# exp_raven(X = cs, sound.file.path = .Options$warbleR$path, file.name = "./data/processed/curated_calls_2020_2021.txt")
+
+calls_ok <- cs[cs$check.res == "OK", ]
+
+
+# problematic ones were manually checked and can be removed
+
+cs <- check_sels(calls_ok)
+
+exp_raven(X = calls_ok, sound.file.path = .Options$warbleR$path, file.name = "./data/processed/curated_calls_2020_2021.txt")
+
+write.csv(calls_ok, "./data/processed/curated_calls_2020_2021.csv", row.names = FALSE)
+
+
+est_all <- selection_table(calls_ok, mar = 0.01, extended = TRUE, confirm.extended = FALSE)
+
+
+attributes(est_all)$description <- "Spix's disc-winged bat inquiry calls detected with MFCC cross-correlation and random forest. Data contains both signals and noise ('class_fixed' column). Wrong detections were manually fixed. Data from both 2020 and 2021 field seasons"
+
+est_all$bottom.freq <-  13.3548
+est_all$top.freq <-  42.8226
+
+saveRDS(est_all, "./output/CALLS_fixed_detections_inquiry_calls_2020_&_2021.RDS")
+
+```
+
+# check experiments with no detections (this was done after the previous chunk)
+```{r, eval = FALSE}
+
+# read ext sel tab calls
+clls <- readRDS("./output/CALLS_fixed_detections_inquiry_calls_2020_&_2021.RDS")
+
+# read metadata
+# metadat <- as.data.frame(read_excel("./data/raw/Proyecto MPI enero 2020_3.xlsx", sheet = "Experimento video coor vuelo"))
+
+metadat <- as.data.frame(read_excel("./data/raw/Anexo 1_Proyecto MPI enero 20-21.xlsx", sheet = "Experimento video coor vuelo"))
+# nrow(metadat)
+
+# remove video calibration
+# metadat <- metadat[metadat$`tipo de video` !=  "calibracion de video", ]
+
+metadat <- metadat[!is.na(metadat$Audio), ]
+
+# get audio file name from sound files
+clls$Audio <- sapply(clls$sound.files, function(x){
+  
+  # split by _
+  spl <- strsplit(x, split = "_")[[1]]
+  
+  # take 3rd
+  spl <- spl[grep(".wav$", spl)]
+  
+  # remove .wav
+  spl <- gsub(".wav", "", spl)
+  
+  # make it anumber
+  spl <- as.numeric(spl)
+
+  return(spl)
+})
+
+clls$year <- ifelse(grepl("MPI2020", clls$event), "2020", "2021")
+
+clls$year.audio <- paste(clls$year, clls$Audio, sep = "-")
+
+metadat$year <- ifelse(grepl("^2020", metadat$Día), "2020", "2021")
+
+metadat$year.audio <- paste(metadat$year, metadat$Audio, sep = "-")
+
+table(metadat$Experimento)
+
+nrow(metadat)
+
+metadat <- metadat[grep("solo|vuelo grupal/sin sonido|vuelo grupos mixtos", metadat$Experimento), ]
+
+# setdiff(clls$year.audio, metadat$year.audio)
+miss_detections <- setdiff(metadat$year.audio, clls$year.audio)
+
+metadat[metadat$year.audio %in% miss_detections, c("Día", "year.audio")]
+
+
+no_detec_files <- c("ch1MPI2020-01-17_10-17-16_0000036.wav", "ch1MPI2020-01-20_10-13-09_0000066.wav", "ch1MPI2020-01-20_10-23-37_0000068.wav", "ch1MPI2020-01-22_11-38-08_0000088.wav", "ch1MPI2020-01-22_11-51-45_0000090.wav", "ch1MPI2020-01-24_16-24-45_0000143.wav", "ch1MPI2020-01-24_16-09-19_0000141.wav", "ch1MPI2020-01-24_11-50-05_0000127.wav", "ch1MPI2020-01-24_12-25-00_0000133.wav", "ch1MPI2020-01-25_12-31-40_0000159.wav", "ch1MPI2020-01-25_12-18-59_0000157.wav", "ch1MPI2021-01-11_11-01-20_0000070.wav", "ch1MPI2021-01-13_09-06-16_0000080.wav", "ch1MPI2021-01-13_09-18-21_0000082.wav", "ch1MPI2021-01-18_16-11-26_0000153.wav")
+
+
+
+exp_empty_sels(path = .Options$warbleR$path, file.name = "no_detec_files_2020_and_2021", sound.files = no_detec_files)
+
+```
+
+# Add manually selected data for individuals with no solo flights
+```{r, eval = FALSE}
+
+solo_miss <- imp_raven(path = "./data/processed", files = "206551-279779_1-279779_2.Table.1.selections.txt", warbler.format = TRUE, all.data = FALSE)
+
+solo_miss <- check_sels(solo_miss)
+
+
+solo_miss$bottom.freq <-  13.3548
+solo_miss$top.freq <-  42.8226
+
+# read ext sel tab calls
+clls <- readRDS("./output/CALLS_fixed_detections_inquiry_calls_2020_&_2021.RDS")
+
+# add missing columns
+setdiff(names(clls), names(solo_miss))
+
+solo_miss$View <- solo_miss$Begin.Path <- solo_miss$File.Offset..s. <- solo_miss$score  <- NA
+
+solo_miss$detection <- "manual"
+solo_miss$class_fixed <- solo_miss$class <- "call"
+
+solo_miss$org.sound.files <- solo_miss$event <- solo_miss$sound.files
+
+setdiff(names(clls), names(solo_miss))
+
+solo_miss <- selection_table(solo_miss, mar = 0.01, extended = TRUE, confirm.extended = FALSE)
+
+clls <- rbind(clls, solo_miss)
+
+attributes(clls)$description <- "Spix's disc-winged bat inquiry calls detected with MFCC cross-correlation and random forest. Data contains both signals and noise ('class_fixed' column). Wrong detections were manually fixed. Data from both 2020 and 2021 field seasons"
+
+saveRDS(clls, "./output/CALLS_fixed_detections_inquiry_calls_2020_&_2021.RDS")
+
+```
+
+
 ---
+
 
 <font size="4">Session information</font>
 
