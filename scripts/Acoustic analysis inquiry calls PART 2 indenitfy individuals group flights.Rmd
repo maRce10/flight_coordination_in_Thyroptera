@@ -1,0 +1,778 @@
+---
+title: <center><font size="6"><b>Acoustic analysis inquiry calls PART 2, indentify individuals in group flights</b></font></center>
+subtitle: <center><font size="4"><b>Group flight coordination in Thyroptera</b></font></center>
+author: <center><font size="4"><a href="http://marceloarayasalas.weebly.com/">Marcelo Araya-Salas, PhD</a> & <a href="https://www.batcr.com/">Gloriana Chaverri, PhD</a></font></center>
+date: <center>`r format(Sys.Date(), "%d-%m-%Y")`</center>
+output:
+  html_document:
+    code_folding: hide
+    toc: yes
+    toc_depth: 3
+    df_print: kable
+    toc_float:
+      collapsed: yes
+      smooth_scroll: yes
+editor_options: 
+  chunk_output_type: console
+---
+
+# next steps
+
+call rate solo vs group flight
+gap duration solo vs group flight
+
+
+# Load packages
+
+```{r packages, message = FALSE, warning = FALSE, echo = TRUE, eval = TRUE}
+
+## add 'developer' to packages to be installed from github
+x <- c("data.table", "lubridate", "devtools", "maRce10/warbleR", "readxl", "ranger", "caret", "e1071", "pbapply", "viridis", "ggplot2", "DT", "kableExtra", "rlang", "Sim.DiffProc", "soundgen"#, "markovchain", "igraph", "TraMineR", "spgs"
+       )
+
+aa <- lapply(x, function(y) {
+  
+  # get pakage name
+  pkg <- strsplit(y, "/")[[1]]
+  pkg <- pkg[length(pkg)]
+  
+  # check if installed, if not then install 
+  if (!pkg %in% installed.packages()[,"Package"])  {
+
+      if (grepl("/", y))  devtools::install_github(y, force = TRUE) else
+    install.packages(y) 
+    }
+
+  # load package
+  a <- try(require(pkg, character.only = T), silent = T)
+
+  if (!a) remove.packages(pkg)
+  })
+
+```
+
+# Functions and global parameters
+
+```{r functions and parameters, eval = TRUE, echo = TRUE}
+
+warbleR_options(wl = 300, parallel = 1, bp = "frange", fast = TRUE, threshold = 15, ovlp = 20)
+
+opts_knit$set(root.dir = "..")
+
+
+theme_set(theme_classic(base_size = 34))
+
+# set evaluation false
+opts_chunk$set( fig.width = 7, fig.height = 4, warning = FALSE, message = FALSE, tidy = FALSE)
+
+# number of trees in Random Forest models
+num.trees <- 2000
+
+# replicates in Random Forest replication
+reps <- 50
+
+# sensitivity cutoff
+cutoff <- 0.86
+
+# function to calculate classification random forest models with balanced sample sizes across categories
+balanced_rf <- function(X, num.trees = 1000, random = FALSE, seed = 506){
+  
+    # get smallest n across individuals
+    min.n <- min(table(X$indiv)) 
+  
+    # use seed
+    set.seed(seed)
+    
+    # randomly get rows for equal n across indivs
+    sel_rows <-
+    sapply(unique(X$indiv), function(x)
+      sample(rownames(X)[X$indiv == x], min.n, replace = FALSE))
+  
+  # subset to those rows  
+  X <- X[c(sel_rows), ]
+  
+  # convert to factor
+  if (random){ 
+    
+    # use seed
+    set.seed(seed)
+
+    X$indiv <- sample(X$indiv)
+  }
+  
+   # make it a factor for ranger to work 
+  X$indiv <- as.factor(X$indiv)
+  
+  # run RF model spectral and cepstral parameters
+  rfm <-
+    ranger(
+      indiv ~ .,
+      data = X[, !names(X) %in% c("sound.files", "selec")],
+      num.trees = num.trees,
+      importance = "impurity",
+      probability = TRUE,
+      seed = seed
+    )
+  
+  # get predicted individual from probs
+  pred_indiv <- apply(rfm$predictions, 1, function(x) colnames(rfm$predictions) [which.max(x)])
+  
+  rfm$predictions <- data.frame(rfm$predictions, # indiv = X$indiv, 
+                                pred_indiv, sound.files = X$sound.files)
+  
+  # remove X from start of names 
+  names(rfm$predictions) <- gsub("^X", "", names(rfm$predictions))
+  
+   return(rfm)
+  }
+
+
+# function to calculate sensitivities at increasing RF class probabilities
+
+sensitivity_fun <- function(X, parameters, thresholds = seq(0,1, by = 0.01)){
+
+# get sensitivities for each group at very threshold
+sensitiv_l <- lapply(X, function(x){
+
+  # extract prediction data.frame
+  Y <- x$aggregated_predictions
+  Y$max <- apply(Y[, sapply(Y, is.numeric)], 1, max)
+  
+  # get sensitivity at different thresholds
+  sensi_l <- lapply(thresholds, function(y) data.frame(sensitivity = sum(Y$pred_indiv[Y$max >= y] == Y$actual_indiv[Y$max >= y])/ sum(Y$max >= y), n = sum(Y$max >= y) / nrow(Y))) 
+  
+  sensi <- do.call(rbind, sensi_l)
+  
+  # add metadata
+  sensi$group <- x$group 
+  sensi$n_indiv <- x$n_indiv
+  sensi$min_n <- x$min_n
+  sensi$n_calls <- nrow(Y) * sensi$n
+
+  return(sensi)
+  })
+
+# put in a data frame
+sensitivities <- as.data.frame(lapply(sensitiv_l, "[[", which(names(sensitiv_l[[1]]) == "sensitivity")))
+
+# get minimum sensitivity at each probabilities
+sensitivities$min.sensitivity <- apply(sensitivities, 1, min, na.rm = TRUE)
+
+# get minimum sensitivity at each probabilities
+sensitivities$mean.sensitivity <- apply(sensitivities, 1, mean, na.rm = TRUE)
+
+# add thresholds to data frame
+sensitivities$thresholds <- thresholds
+
+
+# put in a data frame
+sensitivities$n_calls <- rowSums(as.data.frame(lapply(sensitiv_l, "[[", which(names(sensitiv_l[[1]]) == "n_calls"))), na.rm = TRUE)
+
+sensitivities$n_calls_prop <- sensitivities$n_calls / max(sensitivities$n_calls)
+
+sensitivities <- sensitivities[!is.infinite(sensitivities$mean.sensitivity), ]
+
+sensitivities$parameters <- parameters    
+return(sensitivities)  
+} 
+
+# function to predict group flights, x is the group name, Y the acoustic data and Z the random forest models 
+pred_group <- function(x, Y, Z){
+
+  # print(x)
+  # Z <- acous_param_l[[x]]
+  # Y <- Z[grep("grup",Z$experiment), ]
+  Y$indiv <- NULL
+  
+  # random forest models for this group
+  # rfms <- random_forests_l[[x]]
+  rfms <- Z
+    
+  # predict using all random forest models
+  rf_preds <- lapply(rfms, function(x) predict(object = x, data = Y)$predictions)
+
+    # add column (individual) if not found 
+    rf_preds <- lapply(rf_preds, function(x){
+    
+    if(ncol(x) < length(unique(Z$indiv[Z$experiment == "vuelo solo"]))){
+      # how many columns are missing
+      mssng <- length(unique(Z$indiv[Z$experiment == "vuelo solo"])) - ncol(x)
+      
+      # add missing columns with 0
+      for(i in 1:(mssng)) x <- data.frame(x, 0, check.names = FALSE)
+    names(x)[(ncol(x) - mssng + 1):ncol(x)] <- setdiff(unique(Z$indiv[Z$experiment == "vuelo solo"]), names(x)) 
+    }
+    return(x)
+  })
+  
+  # get together predictions from the same individual
+  preds_by_indv <- lapply(1:ncol(rf_preds[[1]]), function(y)
+    do.call(cbind, lapply(rf_preds, function(e) e[, y])) 
+  )
+   
+  agg_preds <- as.data.frame(lapply(preds_by_indv, rowMeans, na.rm = TRUE))  
+  
+  # add individual name to columns
+  names(agg_preds) <- colnames(rf_preds[[1]])
+  
+  # add sound file column
+  agg_preds$sound.files <- Y$sound.files
+  
+    # get predicted indiv from aggregated probabilities 
+  agg_preds$pred_indiv <- apply(agg_preds[, sapply(agg_preds, is.numeric)], 1, function(x) colnames(agg_preds)[which.max(x)])
+
+  agg_preds$group <- x
+  agg_preds$max_prob <- apply(agg_preds[, sapply(agg_preds, is.numeric)], 1, max)
+  
+  return(agg_preds)
+  }
+
+```
+
+# Read detections and prepare data
+```{r read data, eval = TRUE}
+
+clls <- readRDS("./data/processed/curated_extended_selection_table_inquiry_calls_2020_&_2021.RDS")
+
+metadat <- read.csv("./data/processed/metadata_inquiry_calls_2020_&_2021.csv", stringsAsFactors = FALSE)
+
+```
+
+# Measure acoustic parameters
+
+```{r measure acoustic parameters for each group, eval = FALSE}
+
+grps <- unique(clls$Grupo[grep("grup", clls$Experimento)])
+
+# function to get acoustic parameters
+acous_param_fun <- function(x) {
+  
+  # print(x)
+  # print(which(unique(clls$Grupo[grep("grup", clls$Experimento)]) == x) / length(unique(clls$Grupo[grep("grup", clls$Experimento)])))
+
+  indivs <- unique(clls$Individuo[clls$Grupo == x & grepl("grup", clls$Experimento)])
+  
+  # get individual IDs for the group
+  indivs <- strsplit(indivs, split = "\\|")[[1]]  
+   indivs <- indivs[indivs != "NA"]
+ 
+  indiv_calls <- clls[clls$Individuo %in% indivs & clls$Experimento == "vuelo solo", , drop = FALSE]
+    
+  # remove low SNR calls on individual flights
+  # indiv_calls <- sig2noise(indiv_calls, mar = 0.025, pb = FALSE)
+  # indiv_calls <- indiv_calls[indiv_calls$SNR > 1, , drop = FALSE]
+  # indiv_calls$SNR <- NULL 
+  
+  group_calls <- clls[clls$Grupo == x & grepl("grup", clls$Experimento), , drop = FALSE]
+  
+  # select most recent group flight  
+  group_calls <- group_calls[group_calls$date == max(unique(group_calls$date)), ]
+  
+  # measure structure only if all individuals are represented
+  if (length(indivs) >= length(unique(indiv_calls$Individuo))) {
+    
+    # put all data together
+    grp_test <- rbind(indiv_calls, group_calls)
+    
+    # measure acoustics parameters
+    sp <- specan(grp_test, pb = FALSE, harmonicity = FALSE)
+    
+    # remove time parameters
+    sp <- sp[, grep("time\\.", names(sp), invert = TRUE)]
+  
+    # measure cepstral coeffs
+    cc <- mfcc_stats(grp_test, pb = FALSE)[, -c(1, 2)]
+  
+    # spectrographic cross correlation
+    spxc <- xcorr(grp_test, pb = FALSE, parallel = 1)
+    
+    # MDS
+    spxc <- cmdscale(1 - spxc, k = 10, list. = TRUE)
+  
+    spxc_mds <- spxc$points
+    
+    colnames(spxc_mds) <- paste0("spxcMDS", 1:ncol(spxc_mds))
+     
+    # mfcc cross correlation
+    mfccxc <- xcorr(grp_test, pb = FALSE, type = "mfcc")
+    
+    # MDS
+    mfccxc <- cmdscale(1 - mfccxc, k = 10, list. = TRUE)
+  
+    mfxc_mds <- mfccxc$points
+    
+    colnames(mfxc_mds) <- paste0("mfxcMDS", 1:ncol(mfxc_mds))
+
+    # put parameters in a list
+    all_params <- data.frame(sp, cc, spxc_mds, mfxc_mds)
+
+    # scale for random forest
+    all_params[,-c(1, 2)] <- scale(all_params[,-c(1, 2)])
+    
+    # add individual and experiment
+    all_params$indiv <- grp_test$Individuo
+    all_params$experiment <- grp_test$Experimento
+    
+    # remove bottom and top freq
+    all_params$top.freq <- all_params$bottom.freq <- NULL
+    all_params$group <- x
+  
+    output <- all_params
+    }  else output <- NULL
+  
+  return(output)
+  } 
+
+# loop to measure acoustic parameters on each group
+acous_param_l <- warbleR:::pblapply_wrblr_int(grps, FUN = function(x) try(acous_param_fun(x), silent = TRUE))
+
+names(acous_param_l) <- grps
+
+acous_param_l <- acous_param_l[sapply(acous_param_l, class) == "data.frame"]
+
+names(acous_param_l)
+
+# check if all have the same number of columns
+all(sapply(acous_param_l, ncol) == max(sapply(acous_param_l, ncol)))
+
+# save as RDS
+saveRDS(acous_param_l, "./data/processed/acoustic_parameters_all_groups_specific_warbler_acoustic_measurements_curated_data_2020_&_2021.RDS")
+```
+
+# Random forest on solo flights
+
+## Run random forest to predict solo flights
+
+- Calls from solo flights of all individuals in a particular group flight (regular or mixed) where pooled together to train a random forest model that can classified calls from those individuals
+- Those models will be later used to classified calls from group flights
+- P values were calculated as the proportion of randomized data sets that generated an out-of-bag error equals to or lower than that from the actual data
+
+```{r run random forest all groups, eval = FALSE}
+
+# read acoustic parameter data
+acous_param_l <- readRDS("./data/processed/acoustic_parameters_all_groups_specific_warbler_acoustic_measurements_curated_data_2020_&_2021.RDS")
+
+# all should have 2 experiment types
+all(sapply(acous_param_l, function(x) length(unique(x$experiment))) == 2)
+
+# acous_param$idgroup <- paste(acous_param$indiv, acous_param$)
+
+# minimum sample size per group
+min_n <- sapply(acous_param_l, function(x) min(table(x$indiv)))
+
+# remove groups with less than 5 observations for minimum sample size 
+# how many left
+sum(!names(acous_param_l) %in% names(min_n)[min_n < 5])
+acous_param_l <- acous_param_l[!names(acous_param_l) %in% names(min_n)[min_n < 5]]
+
+# loop over groups
+avg_mods <- warbleR:::pblapply_wrblr_int(names(acous_param_l), function(x){
+    # for (x in names(acous_param_l)){
+      # print(x)
+        # extract data
+    X <- acous_param_l[[which(names(acous_param_l) == x)]]
+    
+    # only solo flight
+    solo_rf_input <- X[X$experiment == "vuelo solo", ]
+  
+    # rename rows for sel_rows
+    rownames(solo_rf_input) <- 1:nrow(solo_rf_input)
+    
+    # order by sound file column
+    solo_rf_input <- solo_rf_input[order(solo_rf_input$sound.files), ]
+    
+    # remove experiment column
+    solo_rf_input$experiment <- NULL
+   
+    # subset columns to keep only those from acoustic measurements 
+    # solo_rf_input <- solo_rf_input[ , !names(solo_rf_input) %in% c("sound.files", "selec")]
+   
+    # run random forest, set a seed to make it replicable
+    rf_results <- lapply(1:reps, function(x) balanced_rf(X = solo_rf_input, num.trees = num.trees, seed = x))
+    
+    # merge together predictions by sound files
+    rf_preds <- lapply(rf_results, function(x){
+      mrg <- merge(data.frame(sound.files = solo_rf_input$sound.files), x$predictions[, grep("indiv$", names(x$predictions), invert = TRUE)], all.x = TRUE)
+  
+    mrg <- mrg[order(mrg$sound.files), -1]   
+    }
+   )
+    
+    # add column (individual) if not found 
+    rf_preds <- lapply(rf_preds, function(x){
+      
+      if(ncol(x) < length(unique(solo_rf_input$indiv))){
+        # how many columns are missing
+        mssng <- length(unique(solo_rf_input$indiv)) - ncol(x)
+        
+        # add missing columns
+        for(i in 1:(mssng)) x <- data.frame(x, NA, check.names = FALSE)
+      names(x)[(ncol(x) - mssng + 1):ncol(x)] <- setdiff(unique(solo_rf_input$indiv), names(x)) 
+      }
+      return(x)
+    })
+    
+    # get together predictions from the same individual
+    preds_by_indv <- lapply(1:ncol(rf_preds[[1]]), function(y)
+      do.call(cbind, lapply(rf_preds, "[", y)) 
+    )
+     
+    agg_preds <- as.data.frame(lapply(preds_by_indv, rowMeans, na.rm = TRUE))  
+    
+    # add individual name to columns
+    names(agg_preds) <- names(rf_preds[[1]])
+    
+    # add sound file column
+    agg_preds$sound.files <- solo_rf_input$sound.files
+    
+      # get predicted indiv from aggregated probabilities 
+    agg_preds$pred_indiv <- apply(agg_preds[, sapply(agg_preds, is.numeric)], 1, function(x) colnames(agg_preds)[which.max(x)])
+  
+    # make it a factor
+    pred_indiv <- factor(agg_preds$pred_indiv, levels = unique(solo_rf_input$indiv))
+    agg_preds$actual_indiv <- actual_indiv <- factor(solo_rf_input$indiv, levels = unique(solo_rf_input$indiv))
+    
+    # get confusion matrix
+    cm_solo <- confusionMatrix(pred_indiv, reference = actual_indiv)
+    
+    ### NULL MODEL
+    # run null model by randomizing indiv labels
+    rf_null_results <- lapply(1:reps, function(x) balanced_rf(X = solo_rf_input, num.trees = num.trees, random = TRUE, seed = x))
+    
+    # get accuracies form null models  
+      # merge together predictions by sound files
+    rf_null_preds <- lapply(rf_null_results, function(x){
+      mrg <- merge(data.frame(sound.files = solo_rf_input$sound.files), x$predictions[, grep("indiv$", names(x$predictions), invert = TRUE)], all.x = TRUE)
+  
+    mrg <- mrg[order(mrg$sound.files), -1]   
+    }
+   )
+  
+    # add column (individual) if not found 
+    rf_null_preds <- lapply(rf_null_preds, function(x){
+      
+      if(ncol(x) < length(unique(solo_rf_input$indiv))){
+        # how many columns are missing
+        mssng <- length(unique(solo_rf_input$indiv)) - ncol(x)
+        
+        # add missing columns
+        for(i in 1:(mssng)) x <- data.frame(x, NA, check.names = FALSE)
+      
+        names(x)[(ncol(x) - mssng + 1):ncol(x)] <- setdiff(unique(solo_rf_input$indiv), names(x)) 
+      }
+      return(x)
+    })
+    
+    # get together predictions from the same individual
+    preds_by_indv_null <- lapply(1:ncol(rf_null_preds[[1]]), function(y)
+      do.call(cbind, lapply(rf_null_preds, "[", y)) 
+    )
+     
+    agg_preds_null <- as.data.frame(lapply(preds_by_indv_null, rowMeans, na.rm = TRUE))  
+    
+    # add individual name to columns
+    names(agg_preds_null) <- names(rf_null_preds[[1]])
+    
+    # add sound file column
+    agg_preds_null$sound.files <- solo_rf_input$sound.files
+    
+      # get predicted indiv from aggregated probabilities 
+    agg_preds_null$pred_indiv <- apply(agg_preds_null[, sapply(agg_preds_null, is.numeric)], 1, function(x) colnames(agg_preds_null)[which.max(x)])
+  
+    # make it a factor
+    pred_indiv_null <- factor(agg_preds_null$pred_indiv, levels = unique(solo_rf_input$indiv))
+    actual_indiv <- factor(solo_rf_input$indiv, levels = unique(solo_rf_input$indiv))
+    
+    # get confusion matrix
+    cm_solo_null <- confusionMatrix(pred_indiv_null, reference = actual_indiv)
+    
+  # get pvalue of mean OOB of real data
+  random_acc <- sapply(rf_null_preds, function(e){
+    
+    # add sound file column
+    e$sound.files <- solo_rf_input$sound.files
+    
+      # get predicted indiv from aggregated probabilities 
+    e$pred_indiv <- apply(e[, sapply(agg_preds_null, is.numeric)], 1, function(x) if (length(colnames(agg_preds_null)[which.max(x)]) > 0) colnames(agg_preds_null)[which.max(x)] else NA)
+  
+    # make it a factor
+    e$pred_indiv <- factor(e$pred_indiv, levels = unique(solo_rf_input$indiv))
+    
+    # get confusion matrix
+    cm_solo_null <- confusionMatrix(e$pred_indiv[!is.na(e$pred_indiv)], reference = actual_indiv[!is.na(e$pred_indiv)])
+  
+    return(as.vector(cm_solo_null$overall[1]))
+    })
+    
+    
+    ### NOTE: ranger() OOB prediction error and confusionMatrix() Accuracy are the same
+    # put all results together
+    output <- list(group = x, accuracy = cm_solo$overall[1], null_accuracy = cm_solo_null$overall[1], aggregated_predictions = agg_preds, conf_matrix = cm_solo, random_forests = rf_results, n_indiv = length(unique(solo_rf_input$indiv)), min_n = min(table(solo_rf_input$indiv)), pvalue = sum(random_acc > cm_solo$overall[1]) / length(random_acc))
+
+  return(output)
+    }
+  )
+  
+# add group name to list
+names(avg_mods) <- names(acous_param_l)
+
+# save as RDS
+saveRDS(avg_mods, "./data/processed/average_models_random_forest_all_groups_best_parameter_combination.RDS")
+
+
+```
+
+## Predicting solo flight performance 
+
+A row for each group detailing:
+
+- The total number of calls in that group flight
+- Number and proportion of calls above the lowest probability of all correctly classified calls in the training data set (for that particular group)
+
+```{r predict solo flight, eval = FALSE}
+
+# read data
+avg_mods <- readRDS("./data/processed/average_models_random_forest_all_groups_best_parameter_combination.RDS")
+
+# sensitivities <- sensitivity_fun(X = avg_mods, parameters = "best")
+  
+# calculate threshold at cutoff
+# thresh_prob <- min(sensitivities$thresholds[sensitivities$mean.sensitivity >= cutoff])
+  
+diagnostics <- data.frame(group = names(avg_mods))
+
+diagnostics$avg_accuracy <- sapply(avg_mods, "[[", which(names(avg_mods[[1]]) == "accuracy"))
+  
+diagnostics$null_accuracy <- sapply(avg_mods, "[[", which(names(avg_mods[[1]]) == "null_accuracy"))
+
+diagnostics$p_values <- sapply(avg_mods, "[[", which(names(avg_mods[[1]]) == "pvalue"))
+
+diagnostics$min_prob_threshold <- sapply(avg_mods, function(x) {
+  Y <- x$aggregated_predictions
+  Y$max.prob <- apply(Y[, !names(Y) %in%  c("sound.files", "pred_indiv", "actual_indiv")], 1, max)
+  Y$true.positive <- Y$pred_indiv == Y$actual_indiv
+  min(Y$max.prob[Y$true.positive])
+  })
+
+sub_metadat <- metadat[!grepl("refugio|enmascar", metadat$Experimento) & !is.na(metadat$Experimento),]
+
+diagnostics$experiment <- sapply(diagnostics$group, function(x) paste(unique(sub_metadat$Experimento[sub_metadat$Grupo == x & !grepl("solo", sub_metadat$Experimento)]), collapse = "-"))
+
+diagnostics$experiment <- ifelse(grepl("mixto", diagnostics$experiment), "mixed", "regular")
+
+diagnostics$group_flight_files <- sapply(diagnostics$group, function(x){ 
+  
+  year_audios <- unique(sub_metadat$year.audio[sub_metadat$Grupo == x & !grepl("solo", sub_metadat$Experimento)])
+
+  Y <- acous_param_l[[x]]
+  Y$sound.files <- sapply(Y$sound.files, function(x) strsplit(x, ".wav")[[1]][1])
+  Y$year.audio <- sapply(Y$sound.files, function(x) clls$year.audio[gsub(".wav", "", clls$org.sound.files) == x][1])
+  
+  solo_indiv <- unique(Y$indiv[acous_param_l[[x]]$experiment == "vuelo solo"])
+  
+  year_audios <- year_audios[year_audios %in% unique(Y$year.audio)]
+  
+  year_audios <- paste(year_audios, collapse = "|")
+  
+  return(year_audios)
+  }
+)
+
+
+diagnostics$no_call_solo_indivs <- sapply(1:nrow(diagnostics), function(x){
+  
+  Y <- acous_param_l[[diagnostics$group[x]]]
+  Y$sound.files <- sapply(Y$sound.files, function(x) strsplit(x, ".wav")[[1]][1])
+  Y$year.audio <- sapply(Y$sound.files, function(x) clls$year.audio[gsub(".wav", "", clls$org.sound.files) == x][1])
+  
+  indivs_in_group <- strsplit(Y$indiv[Y$year.audio == diagnostics$group_flight_files[x]], split = "\\|")[[1]] 
+  
+  indivs_in_solo <- unique(Y$indiv[grep("solo", Y$experiment)])
+  
+  return(all(indivs_in_group %in% indivs_in_solo))
+    }
+)
+
+
+diagnostics$n_indiv <- sapply(avg_mods, function(x) ncol(x$conf_matrix$table))
+
+# remove groups with no diagnostics
+diagnostics <- diagnostics[!is.na(diagnostics$avg_accuracy), ]
+
+saveRDS(diagnostics, "./data/processed/random_forests_diagnostics_solo_flight.RDS")
+
+# save sensitivities
+# saveRDS(sensitivities, "./data/processed/random_forests_sensitivity_solo_flight.RDS")
+
+```
+
+Acccuracy from observed and randomized data:
+
+```{r graph prediction diagnostics from solo flight, eval = TRUE}
+# read diagnostic
+diagnostics <- readRDS("./data/processed/random_forests_diagnostics_solo_flight.RDS")
+
+model_diagnostics <- data.frame(model = rep(c("observed", "null"), each =  nrow(diagnostics)), accuracy = c(diagnostics$avg_accuracy, diagnostics$null_accuracy), experiment = diagnostics$experiment)
+
+# density plots
+ggplot(model_diagnostics, aes(x = accuracy, fill = model)) +
+  geom_density(alpha=0.4) + 
+  theme_classic() + 
+  scale_fill_viridis_d(end = 0.8) + 
+  labs(x = "Mean accuracy", y = "Frequency") +
+  theme(legend.position = c(0.9, 0.8)) +
+  facet_wrap(~ experiment)
+
+```
+
+Table with descriptors for each group's model:
+```{r graph prediction diagnostics from solo flight 2, eval = TRUE}
+
+diagnostics <- diagnostics[order(diagnostics$avg_accuracy, decreasing = TRUE), ]
+
+
+oa_DT <- datatable(diagnostics, editable = list(
+  target = 'row'
+), rownames = FALSE, style = "bootstrap",  filter = 'top', options = list(
+  pageLength = 100, autoWidth = TRUE, dom = 'ft'
+), autoHideNavigation = TRUE, escape = FALSE)
+
+formatRound(table = oa_DT, columns = sapply(diagnostics, is.numeric), 3)
+
+
+```
+
+### Predict group flight individual ID 
+
+```{r predict group flight, eval = FALSE}
+
+# read diagnostics
+diagnostics <- readRDS("./data/processed/random_forests_diagnostics_solo_flight.RDS")
+
+# use only those with all individuals in group flight with solo flight calls and p value < 0.05
+diagnostics <- diagnostics[diagnostics$no_call_solo_indivs & diagnostics$p_values < 0.05, ]
+
+# read acoustic parameter data
+acous_param_l <- readRDS("./data/processed/acoustic_parameters_all_groups_specific_warbler_acoustic_measurements_curated_data_2020_&_2021.RDS")
+
+# read random forest models
+avg_mods <- readRDS("./data/processed/average_models_random_forest_all_groups_best_parameter_combination.RDS")
+
+# acous_param_l <- acous_param_l[names(acous_param_l) %in% names(avg_mods)]
+
+# extract random forests from acous_param_l list 
+random_forests_l <- lapply(avg_mods, "[[", which(names(avg_mods[[1]]) == "random_forests"))
+
+# predict group flights
+agg_preds_l <- warbleR:::pblapply_wrblr_int(1:nrow(diagnostics), function(x){
+  
+  preds <- try(pred_group(x = diagnostics$group[x], 
+                 Y = acous_param_l[[diagnostics$group[x]]], 
+                 Z = random_forests_l[[diagnostics$group[x]]]), 
+      silent = TRUE)
+    
+  return(preds)
+  }
+)
+
+agg_pred <- do.call(rbind, lapply(agg_preds_l, function(x) x[, c("group", "sound.files", "max_prob", "pred_indiv")]))
+
+rownames(agg_pred) <- 1:nrow(agg_pred)
+
+# save as RDS
+saveRDS(agg_pred, "./data/processed/predicted_individual_in_group_flights.RDS")
+
+```
+
+```{r results on predicted group flights, eval = TRUE}
+# read as RDS
+agg_pred <- readRDS("./data/processed/predicted_individual_in_group_flights.RDS")
+
+# read diagnostics
+diagnostics <- readRDS("./data/processed/random_forests_diagnostics_solo_flight.RDS")
+
+# get summary by group
+summary_by_group_list <- lapply(unique(agg_pred$group), function(x) {
+    
+  Y <- agg_pred[agg_pred$group == x, ]
+
+#total number of calls above lowest group threshold for true positives
+  above_threshold_calls <- sum(Y$max_prob > diagnostics$min_prob_threshold[diagnostics$group == x])
+
+#proportion of calls
+  prop_above_calls <- above_threshold_calls / nrow(Y)
+
+  return(data.frame(group = x, experiment = diagnostics$experiment[diagnostics$group == x], total_calls = nrow(Y), above_threshold_calls = above_threshold_calls, prop_above_calls, n_individuals = diagnostics$n_indiv[diagnostics$group == x]))
+  
+})
+
+summary_by_group <- do.call(rbind, summary_by_group_list)
+
+oa_DT <- datatable(summary_by_group, editable = list(
+  target = 'row'
+), rownames = FALSE, style = "bootstrap",  filter = 'top', options = list(
+  pageLength = 100, autoWidth = TRUE, dom = 'ft'
+), autoHideNavigation = TRUE, escape = FALSE)
+
+formatRound(table = oa_DT, columns = sapply(summary_by_group, is.numeric), 3)
+```
+
+```{r results on predicted group flights by experiment, eval = TRUE}
+groups_by_cat <- aggregate(group ~ experiment, summary_by_group, FUN = function(x) length(unique(x)))
+
+#print pretty table
+df3 <- knitr::kable(groups_by_cat, row.names = FALSE, escape = FALSE, format = "html", digits = 2)
+
+kable_styling(df3, bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = FALSE, font_size = 18)
+```
+
+Group count by number of individuals and experiment:
+```{r results on predicted group flights by experiment 2, eval = TRUE}
+groups_by_cat_n <- as.data.frame.matrix(table(summary_by_group$experiment, summary_by_group$n_individuals))
+
+#print pretty table
+df4 <- knitr::kable(groups_by_cat_n, row.names = TRUE, escape = FALSE, format = "html", digits = 2)
+
+kable_styling(df4, bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = FALSE, font_size = 18)
+
+```
+
+Proportion of calls above the lowest probability of all correctly classified call in the trainings data set (for that particular group):
+
+```{r}
+
+ggplot(summary_by_group, aes(x = prop_above_calls)) +
+  geom_density(fill = viridis(10, alpha = 0.7)[8]) +
+  scale_fill_viridis_d(alpha = 0.4, end = 0.8) +
+  labs(x = "Proportion of calls above lowest probability with correct classification", y = "Density") + 
+  facet_wrap( ~ experiment, scales = "free_y") +
+  theme_classic()
+
+```
+
+- This value ranges between `r round(min(summary_by_group$prop_above_calls), 2)` and `r round(max(summary_by_group$prop_above_calls), 2)` across all groups
+
+- Overall, `r round(sum(summary_by_group$above_threshold_calls) / sum(summary_by_group$total_calls), 2)` of calls in group flights had a individual belonging probability higher than the lowest probability of a correctly classified call in the training data set (for that particular group). 
+
+
+&nbsp;
+
+<div class="alert alert-info">
+
+<font size="5">Takeaways</font> 
+
+</br>
+
+There is high confidence in assingning individual ID to calls in group flights for both regular and mixed flights
+
+</div>
+
+---
+
+<font size="4">Session information</font>
+
+```{r session info, echo=F, eval = TRUE}
+
+sessionInfo()
+
+```

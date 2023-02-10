@@ -55,7 +55,7 @@ warbleR_options(wav.path = "~/Dropbox/Recordings/flight_coordination_Thyroptera/
 
 ```
 
-```{r mfcc cross-correlation detection}
+```{r mfcc cross-correlation detection, eval = FALSE}
                                 
 # get in whole file clips
 all_recs <- selection_table(whole.recs = TRUE)
@@ -93,7 +93,7 @@ for(i in 2:length(sq))
 
 ```
 
-```{r redo problematic ones}
+```{r redo problematic ones, eval = FALSE}
 
 
 xcd_l <- list.files(path = "./output/", pattern = "xcorr_", full.names = TRUE)
@@ -156,7 +156,7 @@ if (nrow(xc.output$scores) > 0)
 ```
 
 
-```{r find peaks}
+```{r find peaks, eval = FALSE}
 
 # find peaks
 xcd_l <- list.files(path = "./output/", pattern = "xcorr_", full.names = TRUE)
@@ -174,7 +174,7 @@ for(i in xcd_l){
 
 ```
 
-```{r plot spectrograms}
+```{r plot spectrograms, eval = FALSE}
 
 pks_l <- list.files(path = "./output/", pattern = "peaks_", full.names = TRUE)
 
@@ -200,7 +200,7 @@ Rraven::exp_raven(X = peaks, single.file = TRUE, sound.file.path = .Options$warb
 
 ```
 
-```{r find overlaps}
+```{r find overlaps, eval = FALSE}
 
 peaks <- read.csv("./data/processed/peaks_xcorr_mfcc.csv")
 
@@ -262,7 +262,7 @@ Rraven::exp_raven(X = ovlps, single.file = TRUE, sound.file.path = .Options$warb
 ```
 
 
-```{r plot spectrograms}
+```{r plot spectrograms 2, eval = FALSE}
 
 
 nd_peaks <- read.csv("./data/processed/non_overlapping_peaks.csv")

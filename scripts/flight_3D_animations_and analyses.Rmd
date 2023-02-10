@@ -1,0 +1,549 @@
+---
+title: <center><font size="6"><b>Flight 3D animations and analyses</b></font></center>
+subtitle: <center><font size="4"><b>Group flight coordination in Thyroptera</b></font></center>
+author: <center><font size="4"><a href="http://marceloarayasalas.weebly.com/">Marcelo Araya-Salas, PhD</a> & <a href="https://www.batcr.com/">Gloriana Chaverri, PhD</a></font></center>
+date: <center>`r format(Sys.Date(), "%d-%m-%Y")`</center>
+output:
+  html_document:
+    code_folding: show
+    toc: yes
+    toc_depth: 3
+    toc_float:
+      collapsed: no
+      smooth_scroll: no
+fontsize: 12pt 
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r packages, message = FALSE, warning = FALSE, echo = TRUE, eval = TRUE, include = FALSE}
+
+# unload all non-based packages
+out <- sapply(paste('package:', names(sessionInfo()$otherPkgs), sep = ""), function(x) try(detach(x, unload = FALSE, character.only = TRUE), silent = T))
+
+
+## add 'developer/' to packages to be installed from github
+x <- c("animation", "maRce10/warbleR", "viridis", "ggplot2", "knitr", "scatterplot3d", "pbapply")
+
+aa <- lapply(x, function(y) {
+  
+  # get pakage name
+  pkg <- strsplit(y, "/")[[1]]
+  pkg <- pkg[length(pkg)]
+  
+  # check if installed, if not then install 
+  if (!pkg %in% installed.packages()[,"Package"])  {
+
+      if (grepl("/", y))  devtools::install_github(y, force = TRUE) else
+    install.packages(y) 
+    }
+
+  # load package
+  try(require(pkg, character.only = T), silent = T)
+})
+
+```
+
+```{r options, eval = TRUE, echo = TRUE}
+
+warbleR_options(wav.path = "~/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/", wl = 300, parallel = parallel::detectCores() - 4, bp = "frange", fast = F, threshold = 15, ovlp = 20)
+
+opts_knit$set(root.dir = "..")
+
+opts_chunk$set( fig.width = 12, fig.height = 8)
+
+```
+
+```{r functions, eval = TRUE, echo = TRUE}
+addgrids3d <- function(x, y=NULL, z=NULL, grid = TRUE,
+                    col.grid = "grey", lty.grid = par("lty"),
+                    lab = par("lab"), lab.z = mean(lab[1:2]),
+                    scale.y = 1, angle = 40,
+                    xlim=NULL, ylim=NULL, zlim=NULL){
+  
+  if(inherits(x, c("matrix", "data.frame"))){
+    x <- as.data.frame(x)
+    y <- unlist(x[,2])
+    z <- unlist(x[,3])
+    x <- unlist(x[,1])
+  }
+  
+  p.lab <- par("lab")
+  
+  angle <- (angle%%360)/90
+  yz.f <- scale.y * abs(if (angle < 1) angle else if (angle >3) angle - 4 else 2 - angle)
+  yx.f <- scale.y * (if (angle < 2) 1 - angle else angle - 3)
+  
+  
+  # x axis range
+  x.range <- range(x[is.finite(x)], xlim)
+  x.prty <- pretty(x.range, n = lab[1], min.n = max(1, min(0.5 *lab[1], p.lab[1])))
+  x.scal <- round(diff(x.prty[1:2]), digits = 12)
+  x <- x/x.scal
+  x.range <- range(x.prty)/x.scal
+  x.max <- ceiling(x.range[2])
+  x.min <- floor(x.range[1])
+  if (!is.null(xlim)) {
+    x.max <- max(x.max, ceiling(xlim[2]/x.scal))
+    x.min <- min(x.min, floor(xlim[1]/x.scal))
+  }
+  x.range <- range(x.min, x.max)
+  
+  # y axis range
+  y.range <- range(y[is.finite(y)], ylim)
+  y.prty <- pretty(y.range, n = lab[2], min.n = max(1, min(0.5 *lab[2], p.lab[2])))
+  y.scal <- round(diff(y.prty[1:2]), digits = 12)
+  y.add <- min(y.prty)
+  y <- (y - y.add)/y.scal
+  y.max <- (max(y.prty) - y.add)/y.scal
+  if (!is.null(ylim))
+    y.max <- max(y.max, ceiling((ylim[2] - y.add)/y.scal))
+  
+  # Z axis range
+  z.range <- range(z[is.finite(z)], zlim)
+  z.prty <- pretty(z.range, n = lab.z, min.n = max(1, min(0.5 *lab.z, p.lab[2])))
+  z.scal <- round(diff(z.prty[1:2]), digits = 12)
+  z <- z/z.scal
+  z.range <- range(z.prty)/z.scal
+  z.max <- ceiling(z.range[2])
+  z.min <- floor(z.range[1])
+  if (!is.null(zlim)) {
+    z.max <- max(z.max, ceiling(zlim[2]/z.scal))
+    z.min <- min(z.min, floor(zlim[1]/z.scal))
+  }
+  z.range <- range(z.min, z.max)
+  
+  # Add grid
+  if ("xy" %in% grid || grid == TRUE) {
+    i <- x.min:x.max
+    segments(i, z.min, i + (yx.f * y.max), yz.f * y.max + 
+               z.min, col = col.grid, lty = lty.grid)
+    i <- 0:y.max
+    segments(x.min + (i * yx.f), i * yz.f + z.min, x.max + 
+               (i * yx.f), i * yz.f + z.min, col = col.grid, lty = lty.grid)
+  }
+   
+  if ("xz" %in% grid) {
+    i <- x.min:x.max
+    segments(i + (yx.f * y.max), yz.f * y.max + z.min, 
+             i + (yx.f * y.max), yz.f * y.max + z.max, 
+             col = col.grid, lty = lty.grid)
+    temp <- yx.f * y.max
+    temp1 <- yz.f * y.max
+    i <- z.min:z.max
+    segments(x.min + temp,temp1 + i, 
+             x.max + temp,temp1 + i , col = col.grid, lty = lty.grid)
+    
+  }
+  
+  if ("yz" %in% grid) {
+    i <- 0:y.max
+    segments(x.min + (i * yx.f), i * yz.f + z.min,  
+             x.min + (i * yx.f) ,i * yz.f + z.max,  
+             col = col.grid, lty = lty.grid)
+    temp <- yx.f * y.max
+    temp1 <- yz.f * y.max
+    i <- z.min:z.max
+    segments(x.min + temp,temp1 + i, 
+             x.min, i , col = col.grid, lty = lty.grid)
+    }
+  
+}
+
+## make sure ImageMagick has been installed in your system
+gifs <- function(lng_dat, type = "gif", step = 90, group.lab = NULL){ 
+  
+  anni_fun <- if(type == "gif") saveGIF else saveVideo
+  
+  mean_dist <- vector()
+  
+  anni_fun(expr = {
+
+  for(i in seq(3, max(lng_dat$frame) + 10, 1)){
+
+    if (i < step)
+      start <- 1 else
+        start <- (i - (step - 1))
+    
+      if (start > max(lng_dat$frame)) start <- max(lng_dat$frame)
+      
+      if (i > max(lng_dat$frame)) end <- max(lng_dat$frame) else
+        end <- i
+      
+  X <- lng_dat[lng_dat$frame %in% start:end, c("x", "y", "z", "id", "xl.row", "frame")]
+  X$alpha <- rep(seq(0, 0.7, length.out = nrow(X) /length(unique(X$id))), length(unique(X$id)))
+  # X$alpha <- exp(seq(1, 99, length.out = nrow(X) /length(unique(X$id))) / 100)
+  # X$alpha <- X$alpha / max(X$alpha)
+  X$id.num <- as.numeric(as.factor(as.character(X$id)))
+  
+  
+  X$col <- sapply(1:nrow(X), function(x) viridis(length(unique(X$id)), alpha = X$alpha[x])[(X$id.num[x])])
+  
+  layout(matrix(c(1, 2), ncol = 2, nrow = 1, byrow = TRUE), widths = c(5, 2.5))
+
+  s3d <- scatterplot3d(X[, c("x", "y", "z")], pch = "", grid=FALSE, box=FALSE, xlim = range(lng_dat$x, na.rm = TRUE), ylim = range(lng_dat$y, na.rm = TRUE), zlim = range(lng_dat$z, na.rm = TRUE), tick.marks = FALSE, xlab = "", ylab = "", zlab = "", main = paste(format(round(end * 1000 / 120, 0), nsmall = 0), "ms"), mar = c(0, 0, 1.5, 0), sub = paste("Excel row:", X$xl.row[nrow(X)]), cex.main =2)
+
+  # mtext(group.lab, 1, -1)
+  
+  addgrids3d(lng_dat[, c("x", "y", "z")], grid = c("xy", "xz", "yz"))
+  
+  # usr <- par("usr")
+  # 
+  # legend(x = usr[2], y = usr[4], legend = unique(X$id), bty = "n", 
+  #      pch = c(19, 19, 19), col = viridis(length(unique(X$id))), xjust = 1,
+  #      xpd = TRUE, horiz = TRUE)
+  
+  s3d$points3d(X[, c("x", "y", "z")], col = X$col, pch = 19, cex = 1.2)
+
+  mean_dist[length(mean_dist) + 1] <- mean(dist(X[X$xl.row == X$xl.row[nrow(X)], c("x", "y", "z")]), na.rm = TRUE)
+  
+  par(mar = c(4, 3, 2, 1))
+  xl <- c(X$frame[nrow(X)] - 20, X$frame[nrow(X)] + 20)
+  cols <- sapply(seq(0, 1, length.out = (xl[2]- xl[1])/2), function(x) magma(10, alpha = x)[7])
+  cols <- c(rep("white", 1000), cols)
+  plot(x = (mean(xl) - length(mean_dist) + 1):mean(xl), y = mean_dist, xlim = xl, pch = 20, type = "b", lwd = 3, cex = 1.2, ylim = c(0, 9), col = cols[(length(cols) - length(mean_dist)):length(cols)], xlab = "", ylab = "Mean distance",  xaxt='n')
+  
+  axis(side = 1, labels = FALSE)
+  mtext("Time", side = 1, line = 1.5, cex = 2)
+
+  mtext("Mean distance", side = 2, line = 2, cex = 2)
+  }
+
+  
+}, video.name = file.path("./output/movies", paste0(group.lab,  ".", type)), interval = 0.05)
+# }, movie.name = paste0(z,  ".", type), interval = 0.05)
+}
+
+```
+
+```{r animations with original trajectories}
+
+dat_files <- list.files("~/Dropbox/Salidas de videos analizados/ParaDescripcion/", full.names = TRUE, all.files = TRUE, recursive = TRUE)
+
+dat_files <- dat_files[grep("unpaired-points", basename(dat_files))]
+
+dat_l <- lapply(dat_files, read.csv)
+
+names(dat_l) <- gsub("-|xyz|unpaired-points|.csv", "", basename(dat_files))
+
+
+dat_l <- lapply(dat_l, function(x){
+    
+  x$count <- apply(x, 1, function(x) sum(is.nan(x)) / length(x))
+  x$xl.row <- (1:nrow(x)) + 1 
+  
+  x$count[x$count < 1] <- 0
+  
+  x$group <- 1
+
+  for(i in 2:nrow(x))
+  if (x$count[i-1] == x$count[i]) x$group[i] <- x$group[i - 1] else
+    x$group[i] <- x$group[i - 1] + 1
+  
+  x <- x[x$count < 1, ]
+  
+  grp  <- x$group
+  
+  x$group <- NULL
+  x$count <- NULL
+
+  y <- split(x, f = grp)
+  
+  return(y)
+    
+})
+
+dat_l <- unlist(dat_l, recursive = FALSE)
+
+
+names(dat_l)
+# sapply(dat_l[[2]], function(x) sum(is.na(x)))
+#  
+# 
+# dat <- dat_l[[2]]
+# 
+# sapply(dat, function(x) sum(is.na(x)))
+# 
+# dat$id <- 1:nrow(dat)
+# 
+# lng_dat <- reshape(dat, idvar="id",
+#         varying=list(grep("x", names(dat)), grep("y", names(dat)), grep("z", names(dat))), direction="long")
+# 
+# 
+# names(lng_dat) <- c("frame", "id", "x", "y", "z")
+# 
+
+
+# 
+# step <- 90
+
+# for(i in step:max(lng_dat$frame)){
+#   # Sys.sleep(0.01)
+#   X <- lng_dat[lng_dat$frame %in% (i - (step - 1)):i, c("x", "y", "z", "id")]
+#   X$alpha <- rep(seq(0, 0.8, length.out = nrow(X) /length(unique(X$id))))
+#   X$col <- sapply(1:nrow(X), function(x) viridis(length(unique(X$id)), alpha = X$alpha[x])[as.numeric(X$id[x])])
+#   
+#   scatterplot3d(X[, c("x", "y", "z")], type = "p", box = T, col.axis = "gray", axis = TRUE, color = X$col, pch = 20, xlim = range(lng_dat$x), ylim = range(lng_dat$y), zlim = range(lng_dat$z), tick.marks = FALSE, xlab = "", ylab = "", zlab = "")
+# }
+# 
+# 
+# 
+# for(i in step:max(lng_dat$frame)){
+#   # Sys.sleep(0.01)
+#   X <- lng_dat[lng_dat$frame %in% (i - (step - 1)):i, c("x", "y", "z", "id")]
+#   X$alpha <- rep(seq(0, 0.8, length.out = nrow(X) /length(unique(X$id))))
+#   X$col <- sapply(1:nrow(X), function(x) viridis(length(unique(X$id)), alpha = X$alpha[x])[as.numeric(X$id[x])])
+#   
+#   s3d <- scatterplot3d(X[, c("x", "y", "z")], pch = "", grid=FALSE, box=FALSE, xlim = range(lng_dat$x), ylim = range(lng_dat$y), zlim = range(lng_dat$z), tick.marks = FALSE, xlab = "", ylab = "", zlab = "")
+# 
+#   addgrids3d(lng_dat[, c("x", "y", "z")], grid = c("xy", "xz", "yz"))
+#   
+#   s3d$points3d(X[, c("x", "y", "z")], col = X$col, pch = 20)
+#   
+#   }
+
+ani.options(ani.res = 80, ani.width = 480, ani.height = 300 * 0.7, autoplay = FALSE, autobrowse = FALSE)
+
+# lng_dat2 <- lng_dat[lng_dat$frame < 100, ]
+
+
+## show the regions that have been allocated to each plot
+
+step <- 90
+
+out <- lapply(1:length(dat_l), function(e) {
+# out <- lapply(5, function(e) {
+  
+  dat <- dat_l[[e]]
+  
+  dat$id <- 1:nrow(dat)
+  
+  num_ids <- max(as.numeric(substr(grep("x_", names(dat), value = TRUE), 3, 3)))
+  
+  xs <- unlist(dat[,grep("x_", names(dat), value = TRUE)])
+  ys <- unlist(dat[,grep("y_", names(dat), value = TRUE)])
+  zs <- unlist(dat[,grep("z_", names(dat), value = TRUE)])
+  
+  lng_dat <- data.frame(xl.row = rep(dat$xl.row, num_ids), frame = rep(1:nrow(dat), num_ids), id = rep(1:num_ids, each = nrow(dat)), x = xs, y = ys, z = zs, row.names = NULL)
+  
+    if (anyNA(lng_dat[, c("x", "y", "z")])){
+      if (anyNA(lng_dat$x)) 
+        lng_dat$x[(min(which(is.na(lng_dat$x))) - 1):(max(which(is.na(lng_dat$x))) + 1)] <- seq(lng_dat$x[min(which(is.na(lng_dat$x))) - 1], lng_dat$x[max(which(is.na(lng_dat$x))) + 1], length.out = sum(is.na(lng_dat$x)) + 2)
+
+      if (anyNA(lng_dat$y)) 
+        lng_dat$y[(min(which(is.na(lng_dat$y))) - 1):(max(which(is.na(lng_dat$y))) + 1)] <- seq(lng_dat$y[min(which(is.na(lng_dat$y))) - 1], lng_dat$y[max(which(is.na(lng_dat$y))) + 1], length.out = sum(is.na(lng_dat$y)) + 2)
+        
+      if (anyNA(lng_dat$z)) 
+        lng_dat$z[(min(which(is.na(lng_dat$z))) - 1):(max(which(is.na(lng_dat$z))) + 1)] <- seq(lng_dat$z[min(which(is.na(lng_dat$z))) - 1], lng_dat$z[max(which(is.na(lng_dat$z))) + 1], length.out = sum(is.na(lng_dat$z)) + 2)
+      
+    }
+  
+  try(gifs(lng_dat, type = "mp4", group.lab = names(dat_l)[e]))
+
+
+  lng_dat$video <- names(dat_l)[e]
+  
+  return(lng_dat)
+})
+
+
+lng_dats <- do.call(rbind, out)
+
+write.csv(lng_dats, file = "./data/processed/tidy_coordinates.csv", row.names = FALSE)
+
+```
+
+# create random trajectories
+```{r}
+
+lng_dats <- read.csv("./data/processed/tidy_coordinates.csv")
+
+lng_dats$id <- paste(lng_dats$id, lng_dats$video, sep = "-")
+
+
+cmbs2 <- as.list(as.data.frame(combn(unique(lng_dats$id), 2)))
+cmbs3 <- as.list(as.data.frame(combn(unique(lng_dats$id), 3)))
+cmbs4 <- as.list(as.data.frame(combn(unique(lng_dats$id), 4)))
+
+cmbs <- c(cmbs4, cmbs2, cmbs3)
+
+ani.options(ani.res = 80, ani.width = 480, ani.height = 300 * 0.7, autoplay = FALSE, autobrowse = FALSE)
+
+# remove those from the same video
+cmbs <- lapply(cmbs[1:length(cmbs)], function(x){
+  
+ vids <- substr(x, 3, 100)
+  
+ if (any(table(vids) > 1)) out <- NULL else out <- as.character(x)
+})
+
+cmbs <- cmbs[!sapply(cmbs, is.null)]
+
+random_l <- pblapply(1:length(cmbs), cl = 10, function(i){
+  
+  dat <- lng_dats[lng_dats$id %in% cmbs[[i]], ]
+
+  dat_l <- lapply(unique(dat$id), function(x)  {
+    Y <- dat[dat$id == x, ]
+    Y$frame <- Y$xl.row <- 1:nrow(Y)
+    return(Y)
+    })
+  
+  min.n <- min(sapply(dat_l, nrow))
+  
+  dat_l <- lapply(dat_l, function(x) x[1:min.n, ])
+  
+  dat2 <- do.call(rbind, dat_l)
+  
+  dat2$video <- paste0("random_flight_", length(cmbs[[i]]), "_bats_",  i)
+  
+  dat2$n <- length(cmbs[[i]])
+  
+  try(gifs(lng_dat = dat2, type = "mp4", group.lab = dat2$video[1]))
+
+  return(dat2)
+  
+})
+
+
+random_traj <- do.call(rbind, random_l)
+
+write.csv(random_traj, file = "./data/processed/random_trajectory_coordinates.csv", row.names = FALSE)
+
+
+```
+
+
+# extract distances in random trajectories
+```{r}
+
+random_traj <- read.csv("./data/processed/random_trajectory_coordinates.csv")
+
+distances_l <- pblapply(unique(random_traj$video), cl = 10, function(x){
+  
+  X <- random_traj[random_traj$video == x, ]
+  
+  mean_dists <- sapply(1:max(X$frame), function(y)  mean(dist(X[X$frame == y, c("x", "y", "z")])))
+  
+  df <- data.frame(video = x, frame = 1:max(X$frame), dist = mean_dists, n_indv = length(unique(X$id)))
+  
+return(df)  
+})
+
+saveRDS(distances_l, "./data/processed/random_trajectory_mean_distances.RDS")
+
+
+lng_dats <- read.csv("./data/processed/tidy_coordinates.csv")
+
+real_distances_l <- pblapply(unique(lng_dats$video), cl = 10, function(x){
+  
+  X <- lng_dats[lng_dats$video == x, ]
+  
+  mean_dists <- sapply(1:max(X$frame), function(y)  mean(dist(X[X$frame == y, c("x", "y", "z")])))
+  
+  df <- data.frame(video = x, frame = 1:max(X$frame), dist = mean_dists, n_indv = length(unique(X$id)))
+  
+return(df)  
+})
+
+saveRDS(real_distances_l, "./data/processed/real_trajectory_mean_distances.RDS")
+
+```
+
+# plot trajectories
+```{r}
+distances_l <- readRDS("./data/processed/random_trajectory_mean_distances.RDS")
+
+sapply(distances_l, nrow)
+
+par(mfrow = c(10, 5), mar = c(0, 0, 0, 0))
+
+for (e in  2:80){
+print(e)
+
+  for(i in 1:50){
+  ac <- acf(distances_l[[i]]$dist[seq(1, 550,e)], plot = FALSE)
+
+plot(ac, xaxt = "n", yaxt = "n", ci.col = 0)
+}
+  Sys.sleep(0.2)
+}
+
+
+
+real_distances_l <- readRDS("./data/processed/real_trajectory_mean_distances.RDS")
+
+sapply(real_distances_l, nrow)
+
+par(mfrow = c(3, 2), mar = c(0, 0, 0, 0))
+
+for (e in  2:80){
+print(e)
+
+  for(i in 1:6){
+  ac <- acf(real_distances_l[[i]]$dist[seq(1, 550, e)], plot = FALSE)
+
+  plot(ac, xaxt = "n", yaxt = "n", ci.col = 0)
+}
+  Sys.sleep(0.2)
+}
+
+# 30 looks like a good number for thinning
+```
+
+```{r}
+real_distances_l <- readRDS("./data/processed/real_trajectory_mean_distances.RDS")
+
+thinning <- 30
+
+thin_dist_l <- lapply(real_distances_l, function(x) {
+  
+  dsts <- x$dist[seq(1, nrow(x), thinning)]
+  
+  data.frame(video = x$video[1], n_indiv  = x$n_indv[1], thin_dist = dsts, type = "real")
+  
+})
+
+
+thin_real_dist <- do.call(rbind, thin_dist_l)
+
+# simulated
+sim_distances_l <- readRDS("./data/processed/random_trajectory_mean_distances.RDS")
+
+thin_sim_dist_l <- lapply(sim_distances_l, function(x) {
+  
+  dsts <- x$dist[seq(1, nrow(x), thinning)]
+  
+  data.frame(video = x$video[1], n_indiv  = x$n_indv[1], thin_dist = dsts, type = "simulated")
+  
+})
+
+
+thin_sim_dist <- do.call(rbind, thin_sim_dist_l)
+
+
+thin_dist <- rbind(thin_real_dist, thin_sim_dist)
+
+thin_dist$n_indiv <- paste("group size = ", thin_dist$n_indiv)
+
+ggplot(thin_dist, aes(x = thin_dist, group = type)) +
+    geom_density(aes(fill = type), alpha = 0.4) +
+  scale_fill_viridis_d(end = 0.8) +
+  facet_wrap(~n_indiv) + labs(x = "Mean distances between individuals", y = "Density", fill = "Flight type") +
+  theme_classic(base_size = 30) + 
+  theme(legend.position = c(0.9, 0.8))
+  
+```
+
+
+---
+
+
+<font size="4">Session information</font>
+
+```{r session info, echo=F}
+
+sessionInfo()
+
+```

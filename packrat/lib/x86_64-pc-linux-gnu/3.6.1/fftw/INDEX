@@ -1,2 +1,0 @@
-FFT                     Calculate (inverse) DFT using the FFT method
-planFFT                 Create FFTW plan

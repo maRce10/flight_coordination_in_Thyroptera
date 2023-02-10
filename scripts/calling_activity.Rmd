@@ -81,7 +81,10 @@ wd_ch1$call.rate <- wd_ch1$calls / wd_ch1$duration
 
 wd_ch1 <- wd_ch1[order(wd_ch1$calls, decreasing = TRUE), ]
 
-metadat <- as.data.frame(read_excel("./data/raw/Proyecto MPI enero 2020_2.xlsx", sheet = "Experimento video coor vuelo"))
+metadat <- as.data.frame(read_excel("./data/raw/Proyecto MPI enero 2020_3.xlsx", sheet = "Experimento video coor vuelo"))
+
+# only data from 2020 
+# metadat <- metadat[metadat$Día   <  "2021-01-01", ]
 
 # remove video calibration
 metadat <- metadat[metadat$`tipo de video`  !=  "calibracion de video", ]
@@ -107,8 +110,6 @@ metadat$Experimento[metadat$Experimento == "vuelo grupal/enmascarando busqueda" 
 
 # most individual have more than 1 solo flight
 a <- sapply(unique(metadat$Individuo), function(x) length(unique(metadat$Día[metadat$Experimento == "Solo flight" & metadat$Individuo == x & !is.na(metadat$Experimento)])))
-
-
 
 
 
@@ -161,28 +162,28 @@ time_window <- 10
 
 
 out <- pblapply(unique(wd_ch1$sound.files), function(i){
-
-exmp <- wd_ch1[wd_ch1$sound.files == i, ]
-
-
-sgmts <- seq(0, exmp$duration, by = time_window)
-
-sgmts_df <- data.frame(sgmts = sgmts)
-
-# sgmts
-
-sgmts_df$call_cnt <- c(0, sapply(2:length(sgmts), function(x) {
   
-  sum(calls$sound.files == exmp$sound.files & calls$start > sgmts[x - 1] & calls$end < sgmts[x])
+  exmp <- wd_ch1[wd_ch1$sound.files == i, ]
   
-}))
-
-
-sgmts_df$indiv <- exmp$indiv[1]
-sgmts_df$group <- exmp$group[1]
-sgmts_df$exp.type <- exmp$exp.type[1]
-
-return(sgmts_df)
+  sgmts <- seq(0, exmp$duration, by = time_window)
+  
+  sgmts_df <- data.frame(sgmts = sgmts)
+  
+  # sgmts
+  
+  if (length(sgmts) >= 2)
+  sgmts_df$call_cnt <- c(0, sapply(2:length(sgmts), function(x) {
+    
+    sum(calls$sound.files == exmp$sound.files & calls$start > sgmts[x - 1] & calls$end < sgmts[x])
+    
+  })) else sgmts_df$call_cnt <- 0
+  
+  
+  sgmts_df$indiv <- exmp$indiv[1]
+  sgmts_df$group <- exmp$group[1]
+  sgmts_df$exp.type <- exmp$exp.type[1]
+  
+  return(sgmts_df)
 })
 
 sgmts_df <- do.call(rbind, out)
@@ -227,6 +228,15 @@ ggplot(agg_cnt, aes(x = exp.type, y = call_cnt)) +
   labs(x = "Experiment", y = "Call counts per time window") +
   theme_classic() + ggtitle("Raw counts")
 
+# Spanish
+ggplot(agg_cnt[!grepl("obsta", agg_cnt$exp.type), ], aes(x = exp.type, y = call_cnt)) + 
+  geom_violin(fill = viridis(10, alpha = 0.5)[8]) +
+  # scale_fill_viridis_d(alpha = 0.4, 0.2) + 
+  geom_point(data = mean_cnt[!grepl("obsta", mean_cnt$exp.type), ], size = 3) +
+  labs(x = "Experimento", y = "Número de llamadas/10 s") +
+  theme_classic(base_size = 15) + 
+  scale_x_discrete(labels=c("Vuelo grupal", "Vuelo grupal con ruido", "Vuelo grupal con obstáculos", "Vuelo individual"))
+
 
 ggplot(agg_cnt, aes(x = exp.type, y = stand_count)) + 
   geom_violin(fill = viridis(10, alpha = 0.5)[3]) +
@@ -242,6 +252,7 @@ ggplot(agg_cnt, aes(x = exp.type, y = stand_count)) +
 - Time windows after 140 s were excluded
 
 ```{r, echo = TRUE}
+
 agg_cnt_sgmt$sgmts <- as.factor(agg_cnt_sgmt$sgmts)
 
 # View(agg_cnt_sgmt)
@@ -273,14 +284,14 @@ ggplot(mean_cnt_sgmt, aes(x = sgmts, y = stand_count, col = exp.type, group = ex
   theme_classic() + 
   theme(legend.position = c(0.2, 0.8))
 
-
+# Espanish
 ggplot(mean_cnt_sgmt[!grepl("obsta", mean_cnt_sgmt$exp.type), ], aes(x = sgmts, y = stand_count, col = exp.type, group = exp.type)) +   
-  scale_color_manual(values = viridis(10)[c(1, 4, 7)]) +
+  scale_color_manual(values = viridis(10)[c(1, 4, 7)], labels = c("Vuelo grupal", "Vuelo grupal con ruido", "Vuelo individual")) +
   geom_point(size = 2) +
     geom_line() +
-  labs(x = "Time (s)",y = "Call count  / group size") + 
+  labs(x = "Tiempo (s)",y = "LLamados  / tamaño de grupo") + 
    geom_errorbar(aes(ymin = stand_count - se, ymax = stand_count + se, col = exp.type), width = .1, position = pd) +
-  theme_classic() + guides(color = FALSE) 
+  theme_classic(base_size = 15) + labs(color = "Experimento") 
  
 
 ```
@@ -289,7 +300,7 @@ ggplot(mean_cnt_sgmt[!grepl("obsta", mean_cnt_sgmt$exp.type), ], aes(x = sgmts, 
 
 ```{r, fig.height = 20, eval = TRUE}
 
-caps <- as.data.frame(read_excel("./data/raw/Proyecto MPI enero 2020_3.xlsx", sheet = "Capturas"))
+caps <- as.data.frame(read_excel("./data/raw/Proyecto MPI enero 2020_2.xlsx", sheet = "Capturas"))
 
 agg_cnt_sgmt$sex <- sapply(agg_cnt_sgmt$indiv, function(x) na.exclude(caps$Sexo[caps$Murci == x])[1], USE.NAMES = FALSE)
 

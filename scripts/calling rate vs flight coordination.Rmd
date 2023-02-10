@@ -1,0 +1,359 @@
+---
+title: <center><font size="6"><b>Flight coordination and calling rate<font></center>
+subtitle: <center><font size="4"><b>Group flight coordination in Thyroptera</b></font></center>
+author: <center><font size="4"><a href="http://marceloarayasalas.weebly.com/">Marcelo Araya-Salas, PhD</a> & <a href="https://www.batcr.com/">Gloriana Chaverri, PhD</a></font></center>
+date: <center>`r format(Sys.Date(), "%d-%m-%Y")`</center>
+output:
+  html_document:
+    code_folding: hide
+    toc: yes
+    toc_depth: 3
+    df_print: kable
+    toc_float:
+      collapsed: yes
+      smooth_scroll: yes
+fontsize: 12pt 
+editor_options: 
+  chunk_output_type: console
+---
+
+# Load packages
+
+```{r packages, message = FALSE, warning = FALSE, echo = TRUE, eval = TRUE}
+
+## add 'developer' to packages to be installed from github
+x <- c("devtools", "maRce10/warbleR", "maRce10/Rraven", "readxl", "viridis", "ggplot2")
+
+aa <- lapply(x, function(y) {
+  
+  # get pakage name
+  pkg <- strsplit(y, "/")[[1]]
+  pkg <- pkg[length(pkg)]
+  
+  # check if installed, if not then install 
+  if (!pkg %in% installed.packages()[,"Package"])  {
+
+      if (grepl("/", y))  devtools::install_github(y, force = TRUE) else
+    install.packages(y) 
+    }
+
+  # load package
+  a <- try(require(pkg, character.only = T), silent = T)
+
+  if (!a) remove.packages(pkg)
+  })
+
+```
+
+# Functions and global parameters
+
+```{r functions and parameters, eval = TRUE, echo = TRUE}
+
+warbleR_options(wav.path = "~/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/", wl = 300, parallel = parallel::detectCores() - 4, bp = "frange", fast = F, threshold = 15, ovlp = 20)
+
+opts_knit$set(root.dir = "..")
+
+# set evaluation false
+opts_chunk$set(fig.width = 12, fig.height = 12, warning = FALSE, message = FALSE)
+
+# frames per second
+fps <- 120
+```
+
+```{r read data, eval = TRUE}
+clls <- readRDS("./data/processed/curated_extended_selection_table_inquiry_calls_2020_&_2021.RDS")
+
+metadat <- read.csv("./data/processed/metadata_inquiry_calls_2020_&_2021.csv")
+
+# list files
+video_analysis_folders <- list.dirs("/home/m/Dropbox/Salidas de videos analizados/Salidas50FramesXBicho", full.names = FALSE)
+
+# filter
+video_analysis_folders <- video_analysis_folders[video_analysis_folders != "" & !grepl("volver", video_analysis_folders)]
+
+# get name of videos
+videos <- sapply(strsplit(video_analysis_folders, "_"), "[[", 1)
+videos <- as.numeric(gsub("T", "", videos))
+
+# get name.video variable to match data in metadat and clls
+years <- as.numeric(sapply(strsplit(video_analysis_folders, "_"), "[[", 3))
+year.video <- paste(years, videos, sep = "-")
+
+# put in data frame
+video_df <- data.frame(directories = video_analysis_folders, video = videos, year = years, year.video = year.video)
+
+# add metadata
+metadat$year.video <- paste(metadat$Video, metadat$year, sep = "-")
+
+video_df$year.audio <- sapply(1:nrow(video_df), function(x){
+  
+  metadat$year.audio[metadat$year.video == video_df$year.video[x]][1]
+  
+})
+
+
+metadat$year.video <- paste(metadat$year, metadat$Video, sep = "-")
+
+  video_df$experiment <- sapply(1:nrow(video_df), function(x){
+  
+  metadat$Experimento[metadat$year.video == video_df$year.video[x]][1]
+  
+})
+
+video_df$flight.time <- sapply(1:nrow(video_df), function(x){
+  
+  metadat$Tiempo.de.vuelo[metadat$year.video == video_df$year.video[x]][1]
+  
+})
+
+# fix flight time
+video_df$flight.time <- video_df$flight.time * 1440
+
+# get number of calls
+video_df$n.calls <- sapply(1:nrow(video_df), function(x){
+  
+  sum(clls$year.audio == video_df$year.audio[x])
+  
+})
+
+# get chek.results data to get original time coordinates
+attr_clls <- attr(clls, "check.results")
+
+# convert to a selection table refering to original sound files
+clls <- as.data.frame(clls)
+clls$sound.files <- attr_clls$orig.sound.files
+clls$start <- attr_clls$orig.start
+clls$end <- attr_clls$orig.end
+clls$selec <- attr_clls$orig.selec
+
+clls <- clls[clls$year.audio %in% video_df$year.audio, ]
+
+# check_sels(clls, parallel = 1)
+
+```
+
+```{r export to raven to get clap position, eval = FALSE}
+
+exp_raven(X = clls, path = "./data/processed", file.name = "audio_files_for_50_frame_video_analysis", sound.file.path = .Options$warbleR$path)
+
+
+# manually annotate claps
+
+```
+
+```{r read acoustic data with clap position, eval = TRUE}
+
+clap_calls <- imp_raven(files = "audio_files_for_50_frame_video_analysis.txt", path =  "./data/processed", all.data = TRUE, warbler.format = TRUE)
+
+# fix time position starting from clap and remove clap row
+clap_calls <- do.call(rbind, lapply(unique(clap_calls$sound.files), function(x){
+  
+  X <- clap_calls[clap_calls$sound.files == x, ]
+  X$start <- X$start - X$start[X$class == "clap"]
+  
+  # remove end just to make sure is not used
+  X$end <- NULL
+
+  return(X)
+  }))
+
+```
+
+```{r n call first 2 minutes, eval = TRUE}
+
+# get call rate for the first 2 minutes
+video_df$n.calls.2.min <- sapply(1:nrow(video_df), function(x){
+  
+  sum(clap_calls$year.audio == video_df$year.audio[x] & clap_calls$start <= 120)
+  
+})
+
+
+```
+
+## Flight pairwise distance and call rate
+
+```{r get coordination and call rate for each frame, eval = TRUE}
+fls <- list.files("/home/m/Dropbox/Salidas de videos analizados/Salidas50FramesXBicho", full.names = TRUE, recursive = TRUE)
+
+fls <- grep("unpaired", fls, value = TRUE)
+fls <- grep("volver", invert = TRUE, fls, value = TRUE)
+
+# read data with frame position for clap
+frame_pos <- as.data.frame(read_excel("~/Dropbox/Salidas de videos analizados/Salidas50FramesXBicho/framesXToma50Puntos.xlsx"))
+
+# fix names
+names(frame_pos)[-1] <- paste(sapply(strsplit(names(frame_pos)[-1], "_"), "[[", 3), gsub("^T", "", sapply(strsplit(names(frame_pos)[-1], "_"), "[[", 1)), sep = "-")
+
+
+# get mean distance and time of frame
+video.3d.coords_l <- lapply(fls, function(x){
+
+  X <- read.csv(x) 
+  X$video <- gsub("-unpaired-points-xyz.csv", "", basename(x))
+   
+  # get coordinates in long format
+  coor_df <- data.frame(x = stack(X[, grep("x", names(X))])$values, y = stack(X[, grep("y", names(X))])$values, z = stack(X[, grep("z", names(X))])$values, ind = rep(1:((ncol(X) -1) / 3), each = nrow(X)), frame = 1:nrow(X))
+
+  # add year.video label  
+  X$year.video <-  paste(sapply(strsplit(X$video[1], "_"), "[[", 3), gsub("^T", "", sapply(strsplit(X$video[1], "_"), "[[", 1)), sep = "-")
+   
+  
+  # get distances among bats
+   dists <- sapply(unique(coor_df$frame), function(w){
+ 
+    W <- coor_df[coor_df$frame == w, ]
+    
+    dst <- dist(W[, !names(coor_df) %in% c("ind", "frame")])
+    
+    return(mean(dst, na.rm = TRUE)[1])
+  })
+
+   # put into a data frame
+  dist_df <- data.frame(year.video = X$year.video[1], frame = unique(coor_df$frame), distance = dists, n.ind = length(unique(coor_df$ind)))
+  
+  # remove NA rows
+  dist_df <- dist_df[complete.cases(dist_df), ]
+  
+  # get column with position of frames
+  sub_frame_pos <- frame_pos[, names(frame_pos) %in% X$year.video[1]]
+  sub_frame_pos <- c(na.omit(sub_frame_pos))
+  
+  # make frame position relative to clap
+  sub_frame_pos <- sub_frame_pos - sub_frame_pos[1]
+  
+  # convert to seconds  
+  frame_time <- sub_frame_pos / fps
+  
+  # remove clap
+  frame_time <- frame_time[-1]
+  
+  # order by frame
+  dist_df <- dist_df[order(dist_df$frame), ]
+  
+  #######CHECK#### 
+  if (nrow(dist_df) > length(frame_time))
+    dist_df <- dist_df[1:length(frame_time), ]
+  
+    if (nrow(dist_df) < length(frame_time))
+    frame_time <- frame_time[1:nrow(dist_df)]
+  
+  # add to output data frame
+  dist_df$frame_time <- frame_time
+
+  return(dist_df)
+})
+
+
+## add call rate 10 s before frame
+mean_dist_call_rate_l <- lapply(video.3d.coords_l, function(x){
+  
+  sub_clap <- clap_calls[clap_calls$year.audio == metadat$year.audio[metadat$year.video == x$year.video[1]][1],]
+  
+  x$call.count.10.s <- sapply(1:nrow(x), function(y)
+    sum(sub_clap$start > (x$frame_time[y] - 10) & sub_clap$start < x$frame_time[y])
+    )
+  
+  x$norm.call.count.10.s <- x$call.count.10.s / max(x$call.count.10.s)
+  
+  x$call.count.20.s <- sapply(1:nrow(x), function(y)
+    sum(sub_clap$start > (x$frame_time[y] - 20) & sub_clap$start < x$frame_time[y])
+    )
+  
+  x$norm.call.count.20.s <- x$call.count.20.s / max(x$call.count.20.s)
+  
+  x$norm.distance <- x$distance / max(x$distance)
+  
+  return(x)
+})
+
+# put in a data frame
+mean_dist_call_rate <- do.call(rbind, mean_dist_call_rate_l)
+```
+
+```{r plot coordination and call rate for each frame, eval = TRUE}
+# for ggplot
+mean_dist_call_rate_gg_l <- lapply(mean_dist_call_rate_l, function(x)
+  
+  data.frame(type = rep(c("distance", "call.count.10", "call.count.20"), each = nrow(x)), value = c(x$norm.distance, x$norm.call.count.10.s, x$norm.call.count.20.s), year.video = x$year.video[1], time = rep(x$frame_time, 3))
+  
+)
+
+mean_dist_call_rate_gg <- do.call(rbind, mean_dist_call_rate_gg_l)
+
+
+ggplot(mean_dist_call_rate_gg, aes(x = time, y = value, group = type, color = type)) +
+  geom_point() +
+  geom_line() +
+  scale_color_viridis_d(end = 0.8, alpha = 0.6) +
+  facet_wrap(~ year.video, scales = "free_x", ncol = 4) + 
+  theme_classic()  
+
+```
+
+# Statistical analysis
+
+<font size="3">
+Bayesian mixed effect models:
+
+- distance ~ call.count.10.s + (1 | year.video)
+- distance ~ call.count.20.s + (1 | year.video)
+
+No p-value. Statistical significance can be evaluated as credibility interval (l-95% CI and u-95%) not overlapping with 0.
+</font>
+
+```{r brms models 10 and 20 s , eval = FALSE}
+brm_model_10s <- brm(iter = 2500,
+distance ~ call.count.10.s + (1 | year.video),
+data = mean_dist_call_rate,
+family = gaussian(), silent = 2,
+# control = list(adapt_delta = 0.9),
+chains = 2
+#,
+# prior = c(
+#   prior(normal(0, 10), "b"),
+#   prior(normal(0, 50), "Intercept"),
+#   prior(student_t(3, 0, 20), "sd"),
+#   prior(student_t(3, 0, 20), "sigma")
+# )
+)
+
+brm_model_20s <- brm(iter = 2500,
+distance ~ call.count.20.s + (1 | year.video),
+data = mean_dist_call_rate,
+family = gaussian(), silent = 2,
+chains = 2
+)
+saveRDS(list(brm_model_20s = brm_model_20s, brm_model_10s = brm_model_10s), "./data/processed/brms_models_coordination_vs_call_rate.RDS")
+
+```
+
+10 s model:
+```{r stats results 10 s, eval = TRUE}
+
+attach(readRDS("./data/processed/brms_models_coordination_vs_call_rate.RDS"))
+
+
+summary(brm_model_10s)
+
+```
+
+20 s model:
+```{r stats results 20 s, eval = TRUE}
+
+summary(brm_model_20s)
+
+```
+
+
+
+---
+
+<font size="4">Session information</font>
+
+```{r session info, echo=F, eval = TRUE}
+
+sessionInfo()
+
+```
+
