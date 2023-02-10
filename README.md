@@ -23,10 +23,10 @@ Code used for detecting inquiry calls produced during flight tests and analyzing
     - Determine probability threshold that optimizes sensitivity and number of calls used (all in solo flights)
 
 * [Applying predictive model to group flight calls](https://rpubs.com/marcelo-araya-salas/818063)
-    - Apply random forests on group flights and average probabilities 
+    - Apply random forests on group flights and average probabilities
 
 * [Calling activity](https://rpubs.com/marcelo-araya-salas/671951)
-    - Calling rate along recordings 
+    - Calling rate along recordings
 * [ID individuals in group flights](hhttps://rpubs.com/marcelo-araya-salas/679920)
 
 
@@ -35,7 +35,7 @@ Code used for detecting inquiry calls produced during flight tests and analyzing
 * Call individuality within groups based on acoustic structure
 * Indentifying individuals in group flight
 * Calculate a class probability threshold across groups that maximizes sensitivity and keeps a good enough sample size
-* Create several models by resampling group call data so all individuals have the same n and then "average" class probabilities across models 
+* Create several models by resampling group call data so all individuals have the same n and then "average" class probabilities across models
 * Measure signal structure
 
 ## To-do list
@@ -53,7 +53,7 @@ Code used for detecting inquiry calls produced during flight tests and analyzing
 * Check we have all the data:
     - 2020 & 2021 data
     - 18 videos analyzed with 50 frames
-    
+
 video data is in folder "salida de videos analizados", in "para Descripcion"we have 7 5 seg tracked real groups, in  
     In 5 s track real groups measured distance between individuals in real videos and then simulate groups with similar sizes and measure distance
   - Use 5 min track to simulate extracting 50 frames and check if observed patterns hold true (to validate 5 min tracking approach)
