@@ -40,6 +40,7 @@ Code used for detecting inquiry calls produced during flight tests and analyzing
 
 ## To-do list
 
+* Run model for coordination with number of calls as predictor 
 * Repeatibility of calling rate (**groups** and individuals)
 * Carry uncertainty of call ID prediction
 * Look at coordination in group flights (randomization test?)

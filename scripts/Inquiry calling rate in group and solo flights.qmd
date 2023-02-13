@@ -464,6 +464,7 @@ ggplot(sub_agg, aes(y = rate, x = type_f)) +
     range_scale = .4,
     ## add some transparency
     alpha = .5,
+    transformation = ggplot2::position_jitter(height = 0)
   ) +
     labs(x="Flight", y="Call rate (calls/min)"
   ) +
@@ -623,6 +624,7 @@ ggplot(sub_agg, aes(y = rate, x = type_f)) +
     range_scale = .4,
     ## add some transparency
     alpha = .5,
+    transformation = ggplot2::position_jitter(height = 0)
   ) +
     labs(x="Flight", y="Call rate (calls/min)"
   ) +
@@ -911,6 +913,7 @@ ggplot(sub_agg, aes(y = gaps, x = type_f)) +
     range_scale = .4,
     ## add some transparency
     alpha = .5,
+    transformation = ggplot2::position_jitter(height = 0)
   ) +
     labs(x="Flight", y = "Gap duration (s)") +
   ylim(c(-1.5, 30)) +
@@ -1115,6 +1118,7 @@ ggplot(sub_agg, aes(y = gaps, x = type_f)) +
     range_scale = .4,
     ## add some transparency
     alpha = .5,
+    transformation = ggplot2::position_jitter(height = 0)
   ) +
     labs(x="Flight", y= "Gap duration (s)") +
   ylim(c(-1.5, 10)) +
@@ -1286,8 +1290,8 @@ metap::sumz(1 - coordination_results$p.value[coordination_results$experiment == 
 
 metap::sumz(1 - coordination_results$p.value[coordination_results$experiment == "Artificial"], weights = coordination_results$group.size[coordination_results$experiment == "Artificial"])
 
-mod2 <- brm(
-          formula = coor.score_cr ~ experiment - 1,
+mod <- brm(
+          formula = coor.score ~ experiment + (1 | group.size),
           iter = iter,
           thin = 1,
           data = coordination_results,
@@ -1296,7 +1300,7 @@ mod2 <- brm(
           chains = chains,
           cores = chains,
           prior = c(prior(normal(0, 10), "b"), prior(student_t(3, 0, 20), "sigma")),
-          file = "./data/processed/coordination_score_by_group_type_no_intercept"
+          file = "./data/processed/coordination_score_by_group_type"
           )
 
 ```
@@ -1307,7 +1311,7 @@ Combine p-values
 coordination_results <- read.csv("./data/processed/vocal_coordination_test_results.csv")
 
 # composed box plot
-ggplot(coordination_results, aes(x = experiment, y = coor.score_cr)) +
+ggplot(coordination_results, aes(x = experiment, y = coor.score)) +
   ## add half-violin from {ggdist} package
   geom_hline(yintercept = 0, lty = 2) +
   ggdist::stat_halfeye(
@@ -1336,6 +1340,7 @@ ggplot(coordination_results, aes(x = experiment, y = coor.score_cr)) +
     range_scale = .4,
     ## add some transparency
     alpha = .5,
+    transformation = ggplot2::position_jitter(height = 0)
   ) +
     labs(x="Group", y= "Coordination score (residuals)") +
   ylim(c(-.5, 0.7)) 
@@ -1352,12 +1357,22 @@ metap::sumz(1 - coordination_results$p.value[coordination_results$experiment == 
 
 cat("Coordination in artificial groups")
 metap::sumz(1 - coordination_results$p.value[coordination_results$experiment == "Artificial"], weights = coordination_results$group.size[coordination_results$experiment == "Artificial"])
+
 ```
 
 
 ```{r, results='asis'}
 
 html_summary(read.file = "./data/processed/coordination_score_by_group_type.rds", gsub.pattern = "experiment.type", gsub.replacement = "solo_vs_", remove.intercepts = TRUE, highlight = TRUE, print.name = FALSE)
+
+```
+
+
+```{r}
+acous_param_l
+
+names(
+acous_param_l)
 
 ```
 
