@@ -50,7 +50,7 @@ if (file.exists("./.git/config")){
 ```{r packages, message = FALSE, warning = FALSE, echo = TRUE, eval = TRUE}
 
 # add 'developer' to packages to be installed from github
-x <- c("data.table", "lubridate", "devtools", github = "maRce10/warbleR", "readxl", "ranger", "caret", "e1071", "pbapply", "viridis", "ggplot2", "rlang", "Sim.DiffProc", "soundgen", "brms", "ggrepel", "posterior", "ggridges", "tidybayes", "purrr", bioconductor = "multtest", "metap"#, "markovchain", "igraph", "TraMineR", "spgs"
+x <- c("data.table", "lubridate", "devtools", github = "maRce10/warbleR", "readxl", "ranger", "caret", "e1071", "pbapply", "viridis", "ggplot2", "rlang", "Sim.DiffProc", "soundgen", "brms", "ggrepel", "posterior", "ggridges", "tidybayes", "purrr", bioconductor = "multtest", "umap", github = "maRce10/PhenotypeSpace", "metap"#, "markovchain", "igraph", "TraMineR", "spgs",
        )
 
 source("~/Dropbox/R_package_testing/sketchy/R/load_packages.R")
@@ -73,7 +73,7 @@ opts_chunk$set( fig.width = 7, fig.height = 4, warning = FALSE, message = FALSE,
 
 cols <- viridis(10, alpha = 0.7)
 
-source("~/Dropbox/R_package_testing/brmsish/R/html_summary.R")
+source("~/Dropbox/R_package_testing/brmsish/R/extended_summary.R")
 source("~/Dropbox/R_package_testing/brmsish/R/contrasts.R")
 source("~/Dropbox/R_package_testing/brmsish/R/helpers.R")
 
@@ -92,8 +92,20 @@ clls <- readRDS("./data/processed/curated_extended_selection_table_inquiry_calls
 
 sub_clls <- clls[!duplicated(clls$org.sound.files), ]
 sub_clls$file.duration <- sub_clls$sound.file.samples / (sub_clls$sample.rate * 1000)
+# 
+# metadat2 <- read.csv("./data/processed/metadata_inquiry_calls_2020_&_2021.csv", stringsAsFactors = FALSE)
 
-metadat <- read.csv("./data/processed/metadata_inquiry_calls_2020_&_2021.csv", stringsAsFactors = FALSE)
+metadat <- as.data.frame(read_excel("./data/raw/Anexo 1_Proyecto MPI enero 20-21.xlsx"))
+names(metadat) <- gsub(" ", ".", names(metadat))
+metadat$year <- substr(metadat$Día, 0, 4)
+
+metadat$year[is.na(metadat$year)] <- "2021"
+metadat <- metadat[metadat$tipo.de.video != "calibracion de video", ]
+
+# audio solamente para identificacion de sonidos. TASA NO
+metadat <- metadat[metadat$Audio != "60 y 61", ]
+
+metadat$year.audio <- paste(metadat$year, metadat$Audio, sep = "-")
 
 caps <- as.data.frame(read_excel("./data/raw/Proyecto MPI enero 2020_2.xlsx", sheet = "Capturas"))
 
@@ -506,7 +518,7 @@ call_rate_indiv$group.size <- call_rate_indiv$group.size - mean(call_rate_indiv$
 
 ```{r individual call rate results, eval = TRUE, results = "asis"}
 
-html_summary(read.file = "./data/processed/individual_call_rate_solo_vs_group.rds", gsub.pattern = "experiment.type", gsub.replacement = "solo_vs_", remove.intercepts = TRUE, highlight = TRUE, print.name = FALSE)
+extended_summary(read.file = "./data/processed/individual_call_rate_solo_vs_group.rds", gsub.pattern = "experiment.type", gsub.replacement = "solo_vs_", remove.intercepts = TRUE, highlight = TRUE, print.name = FALSE)
 
 ```
 
@@ -666,7 +678,7 @@ call_rate_by_group$group.size <- call_rate_by_group$group.size - mean(call_rate_
 
 ```{r individual vs group call rate results, eval = TRUE, results = "asis"}
 
-html_summary(read.file = "./data/processed/individual_vs_group_call_rate.rds", gsub.pattern = "experiment.type", gsub.replacement = "solo_vs_", remove.intercepts = TRUE, highlight = TRUE, print.name = FALSE)
+extended_summary(read.file = "./data/processed/individual_vs_group_call_rate.rds", gsub.pattern = "experiment.type", gsub.replacement = "solo_vs_", remove.intercepts = TRUE, highlight = TRUE, print.name = FALSE)
 
 ```
 
@@ -954,7 +966,7 @@ sub_gaps_indiv$group.size <- sub_gaps_indiv$group.size - mean(sub_gaps_indiv$gro
 
 ```{r gaps per individual solo vs group results, eval = TRUE, results = "asis"}
 
-html_summary(read.file = "./data/processed/individual_gaps_solo_vs_group.rds", gsub.pattern = "experiment.type", gsub.replacement = "solo_vs_", remove.intercepts = TRUE, highlight = TRUE, print.name = FALSE)
+extended_summary(read.file = "./data/processed/individual_gaps_solo_vs_group.rds", gsub.pattern = "experiment.type", gsub.replacement = "solo_vs_", remove.intercepts = TRUE, highlight = TRUE, print.name = FALSE)
 
 # contrasts
 cat("Compare artificial vs real group gaps:\n")
@@ -999,7 +1011,7 @@ sub_gaps_indiv$group.size <- sub_gaps_indiv$group.size - mean(sub_gaps_indiv$gro
 
 ```{r gaps per individual solo vs group random slope results DEPRECATED, eval = FALSE, results = "asis"}
 
-html_summary(read.file = "./data/processed/individual_gaps_solo_vs_group_random_slope.rds", gsub.pattern = "experiment.type", gsub.replacement = "solo_vs_", remove.intercepts = TRUE, highlight = TRUE, print.name = FALSE)
+extended_summary(read.file = "./data/processed/individual_gaps_solo_vs_group_random_slope.rds", gsub.pattern = "experiment.type", gsub.replacement = "solo_vs_", remove.intercepts = TRUE, highlight = TRUE, print.name = FALSE)
 
 # 
 # # contrasts
@@ -1156,7 +1168,7 @@ sub_gaps_indiv$experiment.type <- factor(sub_gaps_indiv$experiment.type, levels 
 
 ```{r gaps per group solo vs group results, eval = TRUE, results = "asis"}
 
-html_summary(read.file = "./data/processed/group_gaps_solo_vs_group.rds", gsub.pattern = "experiment.type", gsub.replacement = "solo_vs_", remove.intercepts = TRUE, highlight = TRUE, print.name = FALSE)
+extended_summary(read.file = "./data/processed/group_gaps_solo_vs_group.rds", gsub.pattern = "experiment.type", gsub.replacement = "solo_vs_", remove.intercepts = TRUE, highlight = TRUE, print.name = FALSE)
 
 # contrasts
 cat("Compare artificial vs real group gaps:\n")
@@ -1186,13 +1198,14 @@ contrasts(read.file = "./data/processed/group_gaps_solo_vs_group.rds", predictor
 
 ```{r format data to measure coordination, eval = FALSE}
 
-eltab <- attributes(clls)$check.results
+seltab <- attributes(clls)$check.results
 seltab$year.audio <- clls$year.audio
 seltab <- seltab[!is.na(seltab$sound.files), ]
+
 seltab$type <- sapply(seltab$year.audio, function(x) metadat$Experimento[metadat$year.audio == x][1])
 seltab$group <- sapply(seltab$year.audio, function(x) metadat$Grupo[metadat$year.audio == x][1])
 seltab <- seltab[!is.na(seltab$group), ]
-# seltab$type <-ifelse(grepl("solo", seltab$type), "solo", "group")
+seltab$type <-ifelse(grepl("solo|Individual", seltab$type), "solo", ifelse(grepl("mixto", seltab$type), "Artificial", "Regular"))
 seltab$indiv <- sapply(1:nrow(seltab), function(x) if (seltab$type[x] == "solo") metadat$Individuo[metadat$year.audio == seltab$year.audio[x]] else "group")
 seltab$start <- seltab$orig.start
 seltab$end <- seltab$orig.end
@@ -1205,7 +1218,7 @@ pred_indiv_list <- pblapply(1:nrow(diagnostics), function(x){
   sound.files <- acous_param_l[[diagnostics$group[x]]]$sound.files
   
     Y <- seltab[seltab$sound.files %in% sound.files, ]
-    Y <- Y[grep("grup", Y$type), ]
+    Y <- Y[grep("solo", Y$type, invert = TRUE), ]
   # add id for group flights
   Y$pred.id <- NA
   Y$pred.id <- sapply(Y$sound.files, function(x){ 
@@ -1233,33 +1246,25 @@ unique(pred_indiv_df$x[is.na(pred_indiv_df$indiv)])
 
 pred_indiv_df <- pred_indiv_df[!is.na(pred_indiv_df$indiv), ]
 
-# add sex
-pred_indiv_df$sex <- sapply(pred_indiv_df$indiv, function(x) if(x != "group") na.exclude(caps$Sexo[caps$Murci == x])[1] else NA, USE.NAMES = FALSE)
-
-pred_indiv_df$sex <- ifelse(pred_indiv_df$sex == "m", "Male", "Female")
-
-# add age
-pred_indiv_df$age <- sapply(pred_indiv_df$indiv, function(x) if(x != "group") na.exclude(caps$Edad[caps$Murci == x])[1] else NA, USE.NAMES = FALSE)
-
-pred_indiv_df$age <- ifelse(pred_indiv_df$age == "sa", "Sub-adult", "Adult")
-
-# reproductive stage
-pred_indiv_df$reprod.stg <- sapply(pred_indiv_df$indiv, function(x) if(x != "group") na.exclude(caps$`Estado reproductivo`[caps$Murci == x])[1] else NA, USE.NAMES = FALSE)
-
-pred_indiv_df$reprod.stg[pred_indiv_df$reprod.stg == "p?"] <- "Pregnant"
-pred_indiv_df$reprod.stg[pred_indiv_df$reprod.stg == "ne"] <- "Inactive"
-
 pred_indiv_df$group.size <-sapply(pred_indiv_df$group, function(x) diagnostics$n_indiv[diagnostics$group == x])
 
 # order levels
-pred_indiv_df$experiment <- ifelse(grepl("mixto", pred_indiv_df$type), "Artificial", "Regular")
+pred_indiv_df$experiment <- pred_indiv_df$type
 
 pred_indiv_df$experiment <- factor(pred_indiv_df$experiment, levels = c("Regular", "Artificial"))
 
 source("~/Dropbox/R_package_testing/warbleR/R/test_coordination.R")
 source("~/Dropbox/R_package_testing/warbleR/R/internal_functions.R")
 
-coordination_results <- test_coordination(X = pred_indiv_df, iterations = 10000, less.than.chance = TRUE, ovlp.method = "time.closest", parallel = 20, cutoff = 5)
+# save data for damien farine
+# pred_indiv_df2 <- pred_indiv_df
+# pred_indiv_df2$time <- (pred_indiv_df2$start + pred_indiv_df2$end) / 2
+# names(pred_indiv_df2)[1] <- "event"
+# tab <- table(pred_indiv_df2$event)
+# tab <- tab[tab > 19]
+# write.csv(pred_indiv_df2[pred_indiv_df2$event %in% names(tab), c("group", "indiv", "event", "time", "type")], "group_call_individual_id_sequence.csv", row.names = FALSE)
+
+coordination_results <- test_coordination(X = pred_indiv_df, iterations = 10000, less.than.chance = TRUE, ovlp.method = "time.closest", parallel = 20, cutoff = 1)
 
 coordination_results$n.calls <- sapply(coordination_results$sing.event, function(x) sum(pred_indiv_df$sing.event == x))
 
@@ -1284,6 +1289,8 @@ write.csv(coordination_results, "./data/processed/vocal_coordination_test_result
 
 coordination_results <- read.csv("./data/processed/vocal_coordination_test_results.csv")
 
+
+
 metap::sumz(1 - coordination_results$p.value,  weights = coordination_results$group.size)
 
 metap::sumz(1 - coordination_results$p.value[coordination_results$experiment == "Regular"], weights = coordination_results$group.size[coordination_results$experiment == "Regular"])
@@ -1300,15 +1307,29 @@ mod <- brm(
           chains = chains,
           cores = chains,
           prior = c(prior(normal(0, 10), "b"), prior(student_t(3, 0, 20), "sigma")),
-          file = "./data/processed/coordination_score_by_group_type"
+          file = "./data/processed/coordination_score_by_group_type",
+          file_refit = "always"
+              
           )
 
 ```
 
-Combine p-values
-```{r c coordination, eval = TRUE}
+### Histogram of p values
 
+```{r c coordination, eval = TRUE}
 coordination_results <- read.csv("./data/processed/vocal_coordination_test_results.csv")
+
+ggplot(coordination_results, aes(x = p.value)) + 
+  geom_histogram(fill = viridis(10, alpha = 0.5)[3]) + 
+  facet_grid(~ experiment)
+
+```
+
+#### Coordination scores
+```{r c coordination 2, eval = TRUE}
+
+agg_dat <- aggregate(coor.score ~ experiment, coordination_results, length)
+agg_dat$n.labels <- paste("n groups =", agg_dat$coor.score)
 
 # composed box plot
 ggplot(coordination_results, aes(x = experiment, y = coor.score)) +
@@ -1342,37 +1363,42 @@ ggplot(coordination_results, aes(x = experiment, y = coor.score)) +
     alpha = .5,
     transformation = ggplot2::position_jitter(height = 0)
   ) +
-    labs(x="Group", y= "Coordination score (residuals)") +
-  ylim(c(-.5, 0.7)) 
-  # geom_text(data = agg_dat, aes(y = rep(-1.5, nrow(agg_dat)), x = type_f, label = n.labels), nudge_x = 0, size = 6) +
-   # theme(axis.text.x = element_text(angle = 15, hjust = 1)) 
+    labs(x="Group", y= "Coordination score") +
+  geom_text(data = agg_dat, aes(y = rep(-0.8, nrow(agg_dat)), x = c(1, 2), label = n.labels), nudge_x = 0, size = 6) 
+  
+```
 
+### Combine p-values
 
-
-cat("Overall p-value:")
+Overall p-value:
+```{r coordination 3, eval = TRUE}
 metap::sumz(1 - coordination_results$p.value,  weights = coordination_results$group.size)
 
-cat("Coordination in real groups")
-metap::sumz(1 - coordination_results$p.value[coordination_results$experiment == "Regular"], weights = coordination_results$group.size[coordination_results$experiment == "Regular"])
+```
 
-cat("Coordination in artificial groups")
+Coordination in real groups
+```{r coordination 4, eval = TRUE}
+metap::sumz(1 - coordination_results$p.value[coordination_results$experiment == "Regular"], weights = coordination_results$group.size[coordination_results$experiment == "Regular"])
+```
+
+Coordination in artificial groups
+```{r coordination 5, eval = TRUE}
+
 metap::sumz(1 - coordination_results$p.value[coordination_results$experiment == "Artificial"], weights = coordination_results$group.size[coordination_results$experiment == "Artificial"])
 
 ```
 
-
+### Regression model comparing coordination score between treatments
 ```{r, results='asis'}
 
-html_summary(read.file = "./data/processed/coordination_score_by_group_type.rds", gsub.pattern = "experiment.type", gsub.replacement = "solo_vs_", remove.intercepts = TRUE, highlight = TRUE, print.name = FALSE)
+extended_summary(read.file = "./data/processed/coordination_score_by_group_type.rds", gsub.pattern = "experiment.type", gsub.replacement = "solo_vs_", remove.intercepts = TRUE, highlight = TRUE, print.name = FALSE)
 
 ```
 
+### Comparing treatments against zero
+```{r, results='asis'}
 
-```{r}
-acous_param_l
-
-names(
-acous_param_l)
+contrasts(read.file = "./data/processed/coordination_score_by_group_type.rds", predictor = "experiment", gsub.pattern = "experiment", gsub.replacement = "", highlight = TRUE, plot = TRUE, non.zero = TRUE, html.table = TRUE)
 
 ```
 
@@ -1382,13 +1408,153 @@ acous_param_l)
 
 ### Takeaways {.unnumbered .unlisted}
 
-- 
+- No clear pattern of time partitioning in group flight calling
 
 </div>
 
 &nbsp;
 
-```{r Compare gaps duration among sexes, eval = FALSE, echo = FALSE}
+## Acoustic space partitioning
+
+- Use only groups in which the smallest individual sample size is higher than 4
+- Measured as the pirwise density overlap between all the individuals within a group
+- Rarefaction was used (with target n = 10) to control for unequal call sample sizes between individuals
+
+```{r measure acoustic space, eval = FALSE}
+
+ns <- lapply(acous_param_l, function(x) aggregate(selec ~ indiv + group + experiment, x, length))
+
+n_indiv <- do_call(rbind, ns)
+
+n_indiv <- n_indiv[n_indiv$experiment == "vuelo solo", ]
+
+# keep groups with at least 5 calls per individual
+n_indiv <- n_indiv[!n_indiv$group %in% unique(n_indiv$group[n_indiv$selec < 10]), ]
+
+sub_acous_param_l <- acous_param_l[names(acous_param_l) %in% unique(n_indiv$group)]
+
+acous_param <- do.call(rbind, sub_acous_param_l)
+
+acous_param <- acous_param[acous_param$experiment == "vuelo solo", ]
+acous_param$indiv.group <- paste(acous_param$indiv, acous_param$group, sep = "-")
+
+# choose one set of calls per individual
+acous_param <- acous_param[acous_param$indiv.group %in% sapply(unique(acous_param$indiv), function(x) acous_param$indiv.group[acous_param$indiv == x][1]), ]
+
+umap_acous <- umap(acous_param[ , 3:222])
+
+umap_acous$org.data <- acous_param
+
+umap_dat <- data.frame(group = umap_acous$org.data$group, type = umap_acous$org.data$experiment, indiv = umap_acous$org.data$indiv, umap_acous$layout)
+
+sp_sims_l <- pbapply::pblapply(names(sub_acous_param_l), function(x){
+  
+  indivs <- unique(sub_acous_param_l[[x]]$indiv[sub_acous_param_l[[x]]$experiment == "vuelo solo"])
+  
+  X <- umap_dat[umap_dat$indiv %in% indivs, ]
+
+  sp_sim <- rarefact_space_similarity(X = X, dimensions = c("X1", "X2"), group = "indiv", parallel = 10, type = "mean.density.overlap", n = 10, iterations = 50, pb = FALSE)
+  
+  sp_sim <- sp_sim[, c("group.1", "group.2", "mean.overlap")]
+  sp_sim$mean.distance <- rarefact_space_similarity(X = X, dimensions = c("X1", "X2"), group = "indiv", parallel = 10, type = "centroid.distance", n = 10, iterations = 50, pb = FALSE)$mean.distance
+  
+  sp_sim$group <- x
+  sp_sim$type <- grep("gr",sub_acous_param_l[[x]]$experiment, value = TRUE)[1]
+  names(sp_sim)[1:2] <- c("indiv.1", "indiv.2")
+  sp_sim$group.size <- length(indivs)
+  
+  return(sp_sim)
+})
+
+sp_sims <- do.call(rbind, sp_sims_l)
+
+sp_sims$experiment.type <- ifelse(sp_sims$type == "vuelo grupos mixtos", "Artificial", "Regular")
+
+write.csv(sp_sims, "./data/processed/acoustic_similarity_between_individuals_by_group.csv", row.names = FALSE)
+
+```
+
+### Acoustic space overlap by group type and number of group size (facets)
+```{r compare acoustic similarities plot, eval = TRUE, fig.height=5}
+
+sp_sims <- read.csv("./data/processed/acoustic_similarity_between_individuals_by_group.csv")
+
+sp_sims$experiment.type <- factor(ifelse(sp_sims$experiment.type == "Regular", "Regular", "Artificial"), levels = c("Regular", "Artificial"))
+
+ggplot(sp_sims, aes(y = mean.overlap, x = experiment.type)) +
+  ## add half-violin from {ggdist} package
+  ggdist::stat_halfeye(
+    fill = fill_color,
+    alpha = 0.5,
+    ## custom bandwidth
+    adjust = .5,
+    ## adjust height
+    width = .6,
+    .width = 0,
+    ## move geom to the cright
+    justification = -.2,
+    point_colour = NA
+  ) +
+  geom_boxplot(fill = fill_color,
+    width = .15,
+    ## remove outliers
+    outlier.shape = NA ## `outlier.shape = NA` works as well
+  ) +
+  ## add justified jitter from the {gghalves} package
+  gghalves::geom_half_point(
+    color = fill_color,
+    ## draw jitter on the left
+    side = "l",
+    ## control range of jitter
+    range_scale = .4,
+    ## add some transparency
+    alpha = .5,
+    transformation = ggplot2::position_jitter(height = 0)
+  ) +
+    labs(x="Group flight", y="Acoustic space overlap"
+  ) +
+   theme(axis.text.x = element_text(angle = 15, hjust = 1)) +
+   facet_wrap( ~ group.size)
+
+
+```
+
+```{r compare acoustic similarities model, eval = FALSE}
+mod <- brm(
+          formula = mean.overlap ~ experiment.type + experiment.type:group.size + (1 | group),
+          iter = iter,
+          thin = 1,
+          data = sp_sims,
+          family = gaussian(),
+          silent = 2,
+          chains = chains,
+          cores = chains, 
+          prior = priors, 
+          file = "./data/processed/acoustic_similarity_between_individuals_by_group"
+          )
+
+```
+
+### Regression model comparing overlap between group types
+```{r  compare acoustic similarities results, eval = TRUE, results = "asis"}
+
+extended_summary(read.file = "./data/processed/acoustic_similarity_between_individuals_by_group.rds", gsub.pattern = "b_experiment.type", gsub.replacement = "", remove.intercepts = TRUE, highlight = TRUE, print.name = FALSE)
+
+```
+
+&nbsp;
+
+<div class="alert alert-info">
+
+### Takeaways {.unnumbered .unlisted}
+
+- No acoustic space partitioning in group flight calling (artificial or regular groups)
+
+</div>
+
+&nbsp;
+
+```{r DEPRECATED Compare gaps duration among sexes, eval = FALSE, echo = FALSE}
 
 str(gaps_indiv)
 
@@ -1488,7 +1654,7 @@ out <- lapply(unique(agg_pred$group2), function(x) {
 
 ```
 
-```{r markovchain, eval = F, echo = FALSE}
+```{r DEPRECATED markovchain, eval = F, echo = FALSE}
 
 
 lapply(unique(agg_pred$group), function(x) {
