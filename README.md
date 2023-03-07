@@ -48,7 +48,6 @@ Code used for detecting inquiry calls produced during flight tests and analyzing
 * Based on previous test test for association between calling rate and flight cohesiveness controling (or not) for time from start of experiment (forml^ <- "dist ~ call.rate + time from clap")
 * Look for association between overall group cohesion and calling rate, controling for group size
 * Check groups used for checking cohesion and calling rate (whether mixed groups were included)
-* New graphs : baseline, stress response, and distance moved by week versus week 1, plus calls by week (split by treatment)
 
 ## sept 2022 to-do list
 * Check we have all the data:
