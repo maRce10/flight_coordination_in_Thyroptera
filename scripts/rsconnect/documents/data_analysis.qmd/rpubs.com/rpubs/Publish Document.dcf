@@ -1,0 +1,10 @@
+name: Publish Document
+title:
+username:
+account: rpubs
+server: rpubs.com
+hostUrl: rpubs.com
+appId: https://api.rpubs.com/api/v1/document/1191934/7a8a87dcdf244f3ba56e2beb9f841522
+bundleId: https://api.rpubs.com/api/v1/document/1191934/7a8a87dcdf244f3ba56e2beb9f841522
+url: http://rpubs.com/marcelo-araya-salas/1191934
+version: 1

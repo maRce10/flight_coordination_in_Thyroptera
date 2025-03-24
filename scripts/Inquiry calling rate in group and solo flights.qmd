@@ -1,7 +1,7 @@
 ---
 title: Inquiry calling rate in group and solo flights
 subtitle: Group flight coordination in Thyroptera
-author: <a href="http://marceloarayasalas.weebly.com/">Marcelo Araya-Salas, PhD</a> & <a href="https://www.batcr.com/">Gloriana Chaverri, PhD</a>
+author: <a href="marce10.github.io/">Marcelo Araya-Salas, PhD</a> & <a href="https://www.batcr.com/">Gloriana Chaverri, PhD</a>
 date: "`r Sys.Date()`"
 toc: true
 toc-depth: 2
@@ -487,6 +487,114 @@ ggplot(sub_agg, aes(y = rate, x = type_f)) +
 
 ```
 
+```{r}
+call_rate_by_group <- readRDS("./data/processed/call_rate_by_group.RDS")
+
+call_rate_by_group$experiment.type <- ifelse(call_rate_by_group$type == "solo", "solo", paste(call_rate_by_group$experiment, call_rate_by_group$type, sep = "-"))
+
+call_rate_by_group$experiment.type <- gsub("mixed.group", "artificial.group", call_rate_by_group$experiment.type)
+call_rate_by_group$experiment.type <- gsub("regular.group", "real.group", call_rate_by_group$experiment.type)
+
+call_rate_by_group$experiment.type <- factor(call_rate_by_group$experiment.type, levels = c("solo", "real.group", "artificial.group")) 
+
+# aggregate for plot
+agg_rate_group <- aggregate(rate ~ experiment + type + group.size + group, data = call_rate_by_group, FUN = mean)
+
+agg_rate_group$sd <- aggregate(rate ~ experiment + type + group.size + group, data = call_rate_by_group, FUN = sd)$rate
+
+agg_rate_group <- agg_rate_group[agg_rate_group$type != "indiv.group", ]
+
+mixed_ids <- unique(agg_rate_group$group[agg_rate_group$experiment == "mixed"])
+
+mixed_l <- lapply(mixed_ids, function(x) {
+  
+  X <- agg_rate_group[agg_rate_group$group == x, ]
+  X <- X[X$experiment == "mixed" | X$type == "solo", ]
+  
+  if (sum(X$experiment == "mixed") > 1)
+    X <- X[X$group.size == max(X$group.size[X$experiment == "mixed"]) | X$type == "solo",]
+  
+  if (nrow(X) == 1)
+    X <- X[vector(), ]
+    
+  return(X)
+  })
+
+mixed <- do.call(rbind, mixed_l)
+
+mixed$experiment <- "mixed"
+
+# regular
+regular_ids <- unique(agg_rate_group$group[agg_rate_group$experiment == "regular"])
+
+regular_l <- lapply(regular_ids, function(x) {
+  
+  X <- agg_rate_group[agg_rate_group$group == x, ]
+  X <- X[X$experiment == "regular" | X$type == "solo", ]
+  
+  if (sum(X$experiment == "regular") > 1)
+    X <- X[X$group.size == max(X$group.size[X$experiment == "regular"]) | X$type == "solo",]
+  
+  if (nrow(X) == 1)
+    X <- X[vector(), ]
+    
+  return(X)
+  })
+
+regular <- do.call(rbind, regular_l)
+
+regular$experiment <- "regular"
+
+sub_agg <- rbind(mixed, regular)
+
+sub_agg$experiment_f <- factor(ifelse(sub_agg$experiment == "regular", "Regular", "Artificial"), levels = c("Regular", "Artificial"))
+
+sub_agg$type_f <- factor(ifelse(sub_agg$type == "solo", "Solo", "Overall group"), levels = c("Solo", "Overall group"))
+
+agg_dat$type_f <- as.character(agg_dat$type_f)
+agg_dat$type_f <- gsub("In group", "Overall group", agg_dat$type_f)
+agg_dat$type_f <- as.factor(agg_dat$type_f)
+
+
+# composed box plot
+ggplot(sub_agg, aes(y = rate, x = type_f)) +
+  ## add half-violin from {ggdist} package
+  ggdist::stat_halfeye(
+    fill = fill_color,
+    alpha = 0.5,
+    ## custom bandwidth
+    adjust = .5,
+    ## adjust height
+    width = .6,
+    .width = 0,
+    ## move geom to the cright
+    justification = -.2,
+    point_colour = NA
+  ) +
+  geom_boxplot(fill = fill_color,
+    width = .15,
+    ## remove outliers
+    outlier.shape = NA ## `outlier.shape = NA` works as well
+  ) +
+  ## add justified jitter from the {gghalves} package
+  gghalves::geom_half_point(
+    color = fill_color,
+    ## draw jitter on the left
+    side = "l",
+    ## control range of jitter
+    range_scale = .4,
+    ## add some transparency
+    alpha = .5,
+    transformation = ggplot2::position_jitter(height = 0)
+  ) +
+    labs(x="Flight", y="Call rate (calls/min)"
+  ) +
+  ylim(c(-1.5, 30)) +
+  geom_text(data = agg_dat, aes(y = rep(-1.5, nrow(agg_dat)), x = type_f, label = n.labels), nudge_x = 0, size = 6) +
+   theme(axis.text.x = element_text(angle = 15, hjust = 1)) +
+   facet_grid( ~ experiment_f)
+```
+
 ```{r individual call rate stats, eval = FALSE}
 
 call_rate_indiv <- call_rate_indiv[!is.na(call_rate_indiv$rate) & call_rate_indiv$rate > 0, ]
@@ -647,6 +755,7 @@ ggplot(sub_agg, aes(y = rate, x = type_f)) +
 
 ```
 
+
 ```{r individual vs group call rate stats, eval = FALSE}
 
 call_rate_by_group <- readRDS("./data/processed/call_rate_by_group.RDS")
@@ -678,7 +787,7 @@ call_rate_by_group$group.size <- call_rate_by_group$group.size - mean(call_rate_
 
 ```{r individual vs group call rate results, eval = TRUE, results = "asis"}
 
-extended_summary(read.file = "./data/processed/individual_vs_group_call_rate.rds", gsub.pattern = "experiment.type", gsub.replacement = "solo_vs_", remove.intercepts = TRUE, highlight = TRUE, print.name = FALSE)
+extended_summary(read.file = "../data/processed/individual_vs_group_call_rate.rds", gsub.pattern = "experiment.type", gsub.replacement = "solo_vs_", remove.intercepts = TRUE, highlight = TRUE, print.name = FALSE)
 
 ```
 
@@ -759,7 +868,44 @@ return(gaps_data)
   )
   
 gaps_indiv <- do.call(rbind, gaps_indiv_list)
-  
+
+
+# get solo call start and end
+time_calls_indiv <- seltab[seltab$type == "solo", ]
+
+time_calls_indiv$flight.time <- sapply(time_calls_indiv$year.audio, USE.NAMES = FALSE, function(x) (round(as.numeric(metadat$Tiempo.de.vuelo[metadat$year.audio == x][1]) * 60 / 0.04166667)))
+
+# keep only 1 orig.sound.files per year.audio
+time_calls_indiv_list <- lapply(unique(time_calls_indiv$year.audio), function(x){
+  Y <- time_calls_indiv[time_calls_indiv$year.audio == x, ]
+  osf <- unique(Y$orig.sound.files)
+  print(length(osf))
+  Y <- Y[Y$orig.sound.files == osf[1], ]
+  return(Y)
+})
+
+time_calls_indiv <- do_call(rbind, time_calls_indiv_list)
+
+saveRDS(time_calls_indiv, "./data/processed/time_position_calls_by_individual.RDS")  
+
+# for groups
+time_calls_groups <- seltab[seltab$type != "solo", ]
+
+time_calls_groups$flight.time <- sapply(time_calls_groups$year.audio, USE.NAMES = FALSE, function(x) (round(as.numeric(metadat$Tiempo.de.vuelo[metadat$year.audio == x][1]) * 60 / 0.04166667)))
+
+# keep only 1 orig.sound.files per year.audio
+time_calls_groups_list <- lapply(unique(time_calls_groups$year.audio), function(x){
+  Y <- time_calls_groups[time_calls_groups$year.audio == x, ]
+  osf <- unique(Y$orig.sound.files)
+  print(length(osf))
+  Y <- Y[Y$orig.sound.files == osf[1], ]
+  return(Y)
+})
+
+time_calls_groups <- do_call(rbind, time_calls_groups_list)
+
+saveRDS(time_calls_groups, "./data/processed/time_position_calls_for_group_flights.RDS")  
+
 # add sex
 gaps_indiv$sex <- sapply(gaps_indiv$indiv, function(x) if(x != "group") na.exclude(caps$Sexo[caps$Murci == x])[1] else NA, USE.NAMES = FALSE)
 
@@ -1257,12 +1403,17 @@ source("~/Dropbox/R_package_testing/warbleR/R/test_coordination.R")
 source("~/Dropbox/R_package_testing/warbleR/R/internal_functions.R")
 
 # save data for damien farine
-# pred_indiv_df2 <- pred_indiv_df
-# pred_indiv_df2$time <- (pred_indiv_df2$start + pred_indiv_df2$end) / 2
-# names(pred_indiv_df2)[1] <- "event"
+pred_indiv_df2 <- pred_indiv_df
+pred_indiv_df2$time <- (pred_indiv_df2$start + pred_indiv_df2$end) / 2
+names(pred_indiv_df2)[1] <- "event"
 # tab <- table(pred_indiv_df2$event)
 # tab <- tab[tab > 19]
-# write.csv(pred_indiv_df2[pred_indiv_df2$event %in% names(tab), c("group", "indiv", "event", "time", "type")], "group_call_individual_id_sequence.csv", row.names = FALSE)
+
+pred_indiv_df2$year.audio <- sapply(pred_indiv_df2$event, function(x) seltab$year.audio[seltab$orig.sound.files == x][1])
+pred_indiv_df2$flight.time <- as.numeric(sapply(pred_indiv_df2$year.audio, function(x) metadat$Tiempo.de.vuelo[metadat$year.audio == x][1]))  * 60 / 0.04166667
+
+
+write.csv(pred_indiv_df2, "./data/processed/group_call_individual_id_sequence.csv", row.names = FALSE)
 
 coordination_results <- test_coordination(X = pred_indiv_df, iterations = 10000, less.than.chance = TRUE, ovlp.method = "time.closest", parallel = 20, cutoff = 1)
 
@@ -1376,28 +1527,48 @@ metap::sumz(1 - coordination_results$p.value,  weights = coordination_results$gr
 
 ```
 
-Coordination in real groups
+Overall p-value removing outlier:
+```{r coordination 3.5, eval = TRUE}
+
+metap::sumz(1 - coordination_results$p.value[-which.max(coordination_results$coor.score)],  weights = coordination_results$group.size[-which.max(coordination_results$coor.score)])
+
+```
+
+Coordination in real groups:
 ```{r coordination 4, eval = TRUE}
 metap::sumz(1 - coordination_results$p.value[coordination_results$experiment == "Regular"], weights = coordination_results$group.size[coordination_results$experiment == "Regular"])
 ```
 
-Coordination in artificial groups
+Coordination in real groups removing outlier:
+```{r coordination 4, eval = TRUE}
+metap::sumz(1 - coordination_results$p.value[coordination_results$experiment == "Regular"  & coordination_results$coor.score > min(coordination_results$coor.score)], weights = coordination_results$group.size[coordination_results$experiment == "Regular"   & coordination_results$coor.score > min(coordination_results$coor.score)])
+```
+
+
+Coordination in artificial groups:
 ```{r coordination 5, eval = TRUE}
 
 metap::sumz(1 - coordination_results$p.value[coordination_results$experiment == "Artificial"], weights = coordination_results$group.size[coordination_results$experiment == "Artificial"])
 
 ```
 
-### Regression model comparing coordination score between treatments
-```{r, results='asis'}
+Coordination in artificial groups removing outlier:
+```{r coordination 6, eval = TRUE}
 
+metap::sumz(1 - coordination_results$p.value[coordination_results$experiment == "Artificial" & coordination_results$coor.score < max(coordination_results$coor.score)], weights = coordination_results$group.size[coordination_results$experiment == "Artificial" & coordination_results$coor.score < max(coordination_results$coor.score)])
+
+```
+
+
+```{r, results='asis', eval = FALSE, echo = FALSE}
+### Regression model comparing coordination score between treatments
 extended_summary(read.file = "./data/processed/coordination_score_by_group_type.rds", gsub.pattern = "experiment.type", gsub.replacement = "solo_vs_", remove.intercepts = TRUE, highlight = TRUE, print.name = FALSE)
 
 ```
 
-### Comparing treatments against zero
-```{r, results='asis'}
 
+```{r, results='asis', eval = FALSE, echo = FALSE}
+### Comparing treatments against zero
 contrasts(read.file = "./data/processed/coordination_score_by_group_type.rds", predictor = "experiment", gsub.pattern = "experiment", gsub.replacement = "", highlight = TRUE, plot = TRUE, non.zero = TRUE, html.table = TRUE)
 
 ```
@@ -1408,7 +1579,7 @@ contrasts(read.file = "./data/processed/coordination_score_by_group_type.rds", p
 
 ### Takeaways {.unnumbered .unlisted}
 
-- No clear pattern of time partitioning in group flight calling
+- Time partitioning in group flight calling observed in artificial but not
 
 </div>
 

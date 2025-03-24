@@ -1,7 +1,7 @@
 ---
 title: "Creating mixed groups"
 subtitle: <center><font size="4"><b>Group flight coordination in Thyroptera</b></font></center>
-author: <center><font size="4"><a href="http://marceloarayasalas.weebly.com/">Marcelo Araya-Salas, PhD</a> & <a href="https://www.batcr.com/">Gloriana Chaverri, PhD</a></font></center>
+author: <center><font size="4"><a href="https://marce10.github.io/">Marcelo Araya-Salas, PhD</a> & <a href="https://www.batcr.com/">Gloriana Chaverri, PhD</a></font></center>
 date: <center>`r format(Sys.Date(), "%d-%m-%Y")`</center>
 output:
   html_document:

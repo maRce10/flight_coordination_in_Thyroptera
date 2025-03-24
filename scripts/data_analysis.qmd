@@ -1,0 +1,4102 @@
+---
+title: Statistical analysis
+subtitle: Behavioral coordination in Spix's disk-winged bats
+author: <center><font size="4"><a href="https://marce10.github.io/">Marcelo Araya-Salas, PhD</a> & <a href="https://www.batcr.com/">Gloriana Chaverri, PhD</a></font></center>
+date: "`r Sys.Date()`"
+toc: true
+toc-depth: 5
+toc-location: left
+number-sections: true
+highlight-style: pygments
+format:
+  html:
+    df-print: kable
+    code-fold: true
+    code-tools: true
+    css: qmd.css
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r set root directory, echo = FALSE}
+
+# set working directory 
+knitr::opts_knit$set(root.dir =  "..")
+
+```
+
+```{r add link to github repo, echo = FALSE, results='asis'}
+# print link to github repo if any
+if (file.exists("./.git/config")) {
+  config <- readLines("./.git/config")
+  url <- grep("url",  config, value = TRUE)
+  url <- gsub("\\turl = |.git$", "", url)
+  cat("\nSource code and data found at [", url, "](", url, ")", sep = "")
+}
+
+```
+
+```{r setup style, echo = FALSE, message = FALSE, warning=FALSE}
+
+# options to customize chunk outputs
+knitr::opts_chunk$set(
+  tidy.opts = list(width.cutoff = 65), 
+  tidy = TRUE,
+  message = FALSE
+ )
+
+```
+
+
+::: {.alert .alert-warning}
+
+# To do {.unnumbered .unlisted}
+
+- Make sure all estimates are using median and MAP
+- Can we back-transform response variables to use intuitive units in the results???
+- Make sure all models run for the same number of iterations and number of chains
+
+::: 
+
+
+<!-- skyblue box -->
+
+::: {.alert .alert-info}
+
+# Purpose {.unnumbered .unlisted}
+
+- Generate simulated data 
+- Run statistical analyses
+
+:::
+
+## Load packages and configure global settings {.unnumbered .unlisted}
+
+```{r load packages, warning=FALSE, message=FALSE}
+
+# knitr is require for creating html/pdf/word reports
+# formatR is used for soft-wrapping code
+
+# install/ load packages
+sketchy::load_packages(
+  packages = c(
+    "viridis",
+    "ggplot2",
+    "knitr",
+    "readxl",
+    "pbapply",
+    "brms",
+    "kableExtra",
+    "ggridges",
+    "tidybayes",
+    "brmsish",
+    "bayestestR",
+    "cowplot",
+    bioconductor = "multtest",
+    "metap",
+    "ggsignif",
+    "extrafont"
+  )
+)
+source("~/Dropbox/R_package_testing/brmsish/R/helpers.R")
+source("~/Dropbox/R_package_testing/brmsish/R/draw_extended_summary.R")
+source("~/Dropbox/R_package_testing/brmsish/R/extended_summary.R")
+
+opts_chunk$set(fig.width = 12, fig.height = 8)
+
+theme_set(theme_classic(base_size = 24))
+
+fill_color <- viridis::mako(10, alpha = 0.5)[7]
+
+graph_cols <- mako(4, begin = 0, end = 0.8)
+
+graph_cols_transp <- mako(4, begin = 0, end = 0.8, alpha = 0.5)
+
+names(graph_cols_transp)  <- names(graph_cols) <- c("solo", "natural", "artificial", "simulated")
+
+chains <- 4
+
+iter <- 10000
+
+options(brms.backend = "cmdstanr")
+```
+
+## Custom functions {.unnumbered .unlisted}
+```{r, eval = TRUE}
+
+# Coefficient of variation
+cv <- function(x) sd(x) / mean(x) * 100
+
+# Function to measure the euclidean distance in 3D space between bats in a group flight trajectory
+pairwise_dist <- function(X) {
+  # keep only 3D coordinates data
+  xyz <- X[, grep("^x|^y|^z", names(X))]
+  
+  # remove empty columns
+  xyz <- xyz[, sapply(xyz, function(x)
+    sum(is.na(x))) < 10]
+  
+  # set to long format
+  lng_xyz  <-
+    data.frame(x = stack(xyz[, grep("^x", names(xyz))])[, 1],
+               y = stack(xyz[, grep("^y", names(xyz))])[, 1],
+               z = stack(xyz[, grep("^z", names(xyz))]))
+  
+  names(lng_xyz)[names(lng_xyz) ==  "z.values"] <- "z"
+  
+  lng_xyz$ind <- gsub("z_", "", lng_xyz$z.ind)
+  lng_xyz$z.ind <- NULL
+  # lng_xyz$frame <- X$frame
+  lng_xyz$frame <- 1:nrow(X)
+  
+  # mean distance among all bats
+  obs_dists <-
+    sapply(unique(lng_xyz$frame), function(x)
+      mean(dist(lng_xyz[lng_xyz$frame == x, c("x", "y", "z")])))
+  
+  out <-
+    data.frame(
+      group = X$group[1],
+      group.size = length(unique(lng_xyz$ind)),
+      distance = obs_dists,
+      type = X$type[1],
+      frame = 1:nrow(X)
+    )
+  
+  # add group size as factor
+  out$group.size.factor <- factor(out$group.size, levels = 1:10, ordered = TRUE)
+  return(out)
+}
+
+# function to create simulated data getting one individual trajectory from diferent groups for a total of individual equals to group_sizes[x]
+sim_group_traj <- function(group_sizes, seed, trajectories = FALSE) {
+  trajs <- indiv_traj_list
+  
+  # randomize so each iteration is a different
+  set.seed(seed)
+  trajs <- sample(trajs)
+  
+  dists_list <- list()
+  
+  group_num <- 1
+  
+  used_trajs <- list()
+  
+  
+  for (e in seq_along(group_sizes)) {
+    i <- group_sizes[e]
+    sample_traj_indx <- which(!duplicated(names(trajs)))[1:i]
+    
+    set.seed(group_num + seed)
+    sample_trajs <- trajs[sample_traj_indx]
+    
+    # force all to have the same number of frames
+    min_frames <- min(sapply(sample_trajs, nrow))
+    
+    sample_trajs <-
+      lapply(sample_trajs, function(x)
+        x[1:min_frames, ])
+    
+    sample_traj_df <- do_call(cbind, sample_trajs)
+    
+    names(sample_traj_df) <-
+      paste(c("x", "y", "z"), rep(1:i, 3), sep = "_")
+    
+    sample_traj_df$group <- paste("sim", group_num, sep = "-")
+    sample_traj_df$type <- "simulated"
+    
+    dist_df <- pairwise_dist(sample_traj_df)
+    dist_df$type <- "simulated"
+    
+    # add to output list
+    dists_list[[length(dists_list) + 1]] <- dist_df
+    
+    # remove sampled trajectories from trajs based on indices so idnviduals are only used once
+    trajs <- trajs[-sample_traj_indx]
+    group_num <- group_num + 1
+    names(sample_trajs) <- paste("sim", e, 1:length(sample_trajs), sep = "-")
+    used_trajs <- c(used_trajs, sample_trajs)
+  }
+  
+  dists_df <- do.call(rbind, dists_list)
+  
+  if (!trajectories)
+    return(dists_df) else
+      return(used_trajs)
+}
+
+# function to simulate group calling from solo calling vectors
+sim_group_call <- function(group_sizes, seed) {
+  indv_calls <- split(time_calls_indiv, list(time_calls_indiv$year.audio))
+
+  # randomize so each iteration is a different
+  set.seed(seed)
+  indv_calls <- sample(indv_calls)
+  
+  # dists_list <- list()
+  
+  # group_num <- 1
+  
+  # used_calls <- list()
+  
+  
+  sim_call_list <- lapply(seq_along(group_sizes), function(i) {
+    
+    e <- group_sizes[i]
+    # set.seed(e + seed)
+    sampled_calls <- indv_calls[sample(1:length(indv_calls), e)]
+
+    clms <- c("start", "end", "indiv", "year.audio")
+  
+    sampled_calls <- lapply(sampled_calls, function(x) x[, clms])
+  
+    sample_calls_df <- do_call(rbind, sampled_calls)
+    
+    sample_calls_df$sound.files <- paste(i, e, sep = "-")
+    sample_calls_df$year.audio
+    
+    sample_calls_df$group.size <- e
+      
+    
+    return(sample_calls_df)
+  })
+  
+  sim_call_df <- do.call(rbind, sim_call_list)
+  
+      return(sim_call_df)
+}
+
+
+
+# Function to calculate contrasts based on a brms draws object
+# Function to calculate contrasts based on posterior draws and plot the posterior distributions
+draws_contrasts <-
+  function(draws,
+           predictor_name,
+           basal_level,
+           fill_color = "blue",
+           beta.prefix = "^b_") {
+    # Extract the model coefficients
+    coef_names <- colnames(draws)
+    intercept_name <-
+      grep("^b_Intercept$", coef_names, value = TRUE)
+    group_names <-
+      grep(paste0(beta.prefix, predictor_name), coef_names, value = TRUE)
+    
+    # Determine the levels of the categorical predictor
+    levels <-
+      c(basal_level, sub(paste0(beta.prefix, predictor_name), "", group_names))
+    
+    # Calculate EMMs for each level
+    group_values <- list()
+    group_values[[1]] <- draws[[intercept_name]]
+    for (i in seq_along(group_names)) {
+      group_values[[i + 1]] <-
+        draws[[intercept_name]] + draws[[group_names[i]]]
+    }
+    
+    # Compute pairwise contrasts
+    contrast_list <- list()
+    contrast_names <-
+      combn(levels, 2, function(x)
+        paste(x[2], "-", x[1]))
+    for (i in 1:length(contrast_names)) {
+      contrast_list[[i]] <-
+        group_values[[which(levels == strsplit(contrast_names[i], " - ")[[1]][2])]] -
+        group_values[[which(levels == strsplit(contrast_names[i], " - ")[[1]][1])]]
+    }
+    names(contrast_list) <- contrast_names
+    
+    # Function to summarize contrasts
+    summarize_contrast <- function(contrast) {
+      mean_contrast <- mean(contrast)
+      lower_contrast <- quantile(contrast, 0.025)
+      upper_contrast <- quantile(contrast, 0.975)
+      return(c(
+        mean = mean_contrast,
+        lower = lower_contrast,
+        upper = upper_contrast
+      ))
+    }
+    
+    # Summarize each contrast
+    summary_contrasts <-
+      sapply(contrast_list, summarize_contrast, simplify = "array")
+    
+    # Convert summary to a data frame for plotting
+    contrast_summary_df <- data.frame(
+      Contrast = rep(names(contrast_list), each = 3),
+      Statistic = rep(c("Mean", "Lower", "Upper"), times = length(contrast_list)),
+      Value = as.vector(summary_contrasts)
+    )
+    
+    # flip summary
+    summary_contrasts <- t(summary_contrasts)
+    colnames(summary_contrasts) <- c("est", "l-95% CI", "u-95% CI")
+    summary_contrasts <- html_format_coef_table(as.data.frame(summary_contrasts), fill = fill_color,  highlight = TRUE)
+
+
+    # Plot the posterior distributions of contrasts
+    contrast_df <-
+      do.call(rbind, lapply(names(contrast_list), function(name) {
+        data.frame(Contrast = name, Value = contrast_list[[name]])
+      }))
+    
+    p <- ggplot(contrast_df, aes(x = Value)) +
+      geom_density(alpha = 0.6,
+                   fill = fill_color,
+                   color = fill_color) +
+      geom_vline(xintercept = 0, linetype = "dotted") +
+      facet_wrap(~ Contrast, scales = "free_y", ncol = 1) +
+      theme_minimal() +
+      theme(
+        axis.title.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        plot.title = element_blank()
+      )
+    
+    results <- list(plot = p,
+                    contrasts = summary_contrasts)
+    
+    return(results)
+  }
+
+# to create several posterior predictive check plots out of a brms fit
+
+custom_ppc <- function(fit, group = NULL, ndraws = 30) {
+  by_group  <- if (!is.null(group)){
+    TRUE 
+    } else
+    FALSE
+  
+  if (by_group)
+    by_group  <-  if (any(names(fit$data) == group)){
+      TRUE
+      } else
+    FALSE
+  
+  if (by_group)
+    by_group <-
+      if (is.character(fit$data[, group]) |
+          is.factor(fit$data[, group])){
+        TRUE
+        } else
+    FALSE
+  
+  
+  if (by_group) {
+    ppc_dens <- pp_check(fit,
+                         ndraws = ndraws,
+                         type = 'dens_overlay_grouped',
+                         group = group)
+    
+    pp_mean <- pp_check(
+      fit,
+      type = "stat_grouped",
+      stat = "mean",
+      group = group,
+      ndraws = ndraws
+    )  + theme_classic()
+    
+    pp_scat <- pp_check(fit,
+                        type = "scatter_avg",
+                        # group = group,
+                        ndraws = ndraws)
+  } else {
+    ppc_dens <- pp_check(fit,
+                         ndraws = ndraws,
+                         type = 'dens_overlay')
+    
+    pp_mean <- pp_check(fit,
+                        type = "stat",
+                        stat = "mean",
+                        ndraws = ndraws) + theme_classic()
+    
+    pp_scat <-  pp_check(fit,
+                         type = "scatter_avg",
+                         ndraws = ndraws)
+  }
+  
+  pp_stat2 <- pp_check(fit, type = "stat_2d", ndraws = ndraws)
+  
+  pp_plot_list <-
+    list(ppc_dens, pp_mean, pp_scat,  pp_stat2)
+  
+  pp_plot_list[c(1, 3:4)] <-
+    lapply(pp_plot_list[c(1, 3:4)], function(x)
+      x  + scale_color_viridis_d(
+        begin = 0.3,
+        end = 0.8,
+        alpha = 0.5,
+        option = "mako",
+      ) + scale_fill_viridis_d(
+        begin = 0.3,
+        end = 0.8,
+        alpha = 0.5,
+        option = "mako"
+      ) + theme_classic())
+  
+  
+  ppc_plot <- plot_grid(plotlist = pp_plot_list, ncol = 2)
+  
+  print(ppc_plot)
+}
+
+## caller sequence features
+# Function to calculate entropy
+entropy <- function(sequence) {
+  freq <- table(strsplit(sequence, NULL)[[1]])  # Frequency of each letter
+  prob <- freq / sum(freq)  # Probability of each letter
+  entropy_value <- -sum(prob * log2(prob))  # Shannon entropy
+  return(entropy_value)
+}
+
+# Function to calculate normalized entropy
+normalized_entropy <- function(sequence) {
+  H <- entropy(sequence)
+  unique_elements <- length(unique(strsplit(sequence, NULL)[[1]]))
+  max_entropy <- log2(unique_elements)
+  H_norm <- H / max_entropy
+  return(H_norm)
+}
+
+# Function to calculate entropy of a probability distribution
+entropy2 <- function(probs) {
+  non_zero_probs <- probs[probs > 0]  # Ignore zero probabilities
+  H <- -sum(non_zero_probs * log2(non_zero_probs))
+  return(H)
+}
+
+# Function to create a Markov model and calculate average entropy
+markov_entropy <- function(sequence, normalize = FALSE) {
+  states <- strsplit(sequence, NULL)[[1]]
+  transitions <- table(head(states, -1), tail(states, -1))  # Transition counts
+  transition_probs <- prop.table(transitions, 1)  # Row-wise probabilities
+  
+  # Calculate entropy for each row (state) in the transition matrix
+  state_entropies <- apply(transition_probs, 1, entropy2)
+  
+  # Average entropy across all states
+  avg_entropy <- mean(state_entropies, na.rm = TRUE)
+
+  if (normalize) avg_entropy <- avg_entropy / log2(length(unique(states)))
+  
+  return(avg_entropy)
+}
+
+```
+
+
+
+# Flight coordination
+
+## Descriptive stats
+
+Read data:
+```{r read 50 point video tracking data}
+
+group_traj <- read.csv( "./data/raw/flight_trajectories_by_group.csv")
+
+```
+
+Number of trails: `r length(unique(group_traj$video))`
+
+Group sizes:
+```{r}
+
+# get number of individuals per group
+n_per_group <-
+  sapply(unique(group_traj$group), USE.NAMES = FALSE, function(x) {
+    # get those for that group
+    X <- group_traj[group_traj$group == x,]
+    
+    # count number of individuals (No NAs)
+    n_indiv <- (sum(!sapply(X, anyNA)) - 3) / 3
+    
+    return(n_indiv)
+  })
+
+table(n_per_group)
+
+```
+
+
+## Compute pairwise distances for natural and artificial groups
+```{r randomization test, eval = TRUE}
+
+pairwise_dists_list <-
+  sapply(split(group_traj, group_traj$group), pairwise_dist, simplify = FALSE)
+
+pairwise_dists <- do.call(rbind, pairwise_dists_list)
+
+# remove those with unlikely distance
+pairwise_dists <- pairwise_dists[pairwise_dists$distance > 0.1 & pairwise_dists$distance < 7, ]
+
+```
+
+
+## Generate simulated group flight trajectories
+```{r, eval = TRUE}
+
+## split into single individual trajectories
+# split in a list
+split_group_traj <- split(group_traj, group_traj$group)
+
+# get single individual trajectores
+indiv_traj_list <- lapply(split_group_traj, function(x) {
+  x <- x[, sapply(x, function(x)
+    sum(is.na(x))) < 10]
+  
+  # get number of individuals
+  suppressWarnings(indv_num <-
+                     unique(na.omit(as.numeric(
+                       gsub(".*?([0-9]+).*", "\\1", names(x))
+                     ))))
+  
+  indiv_trajs <- lapply(indv_num, function(y)
+    x[, grep(y, names(x))])
+  
+  return(indiv_trajs)
+})
+
+indiv_traj_list <-
+  unlist(indiv_traj_list, recursive = FALSE, use.names = TRUE)
+
+# remove last character of the list names so all have the original group name
+names(indiv_traj_list) <- gsub(".$", "", names(indiv_traj_list))
+
+# mean number of individuals per group size in original data
+mean_n_indiv <- floor(mean(table(n_per_group)))
+
+group_sizes <- as.numeric(names(table(n_per_group)))
+
+group_sizes <- rep(group_sizes, each = mean_n_indiv)
+
+sim_dists <-
+  lapply(1:30, function(x) sim_group_traj(group_sizes, seed = x))
+
+sim_trajs_list <-
+  lapply(1:30, function(x) sim_group_traj(group_sizes, seed = x, trajectories = TRUE))
+
+# remove those with unlikely distance
+sim_dists <- lapply(sim_dists, function(x) {
+  x <- x[x$distance > 0.1 & x$distance < 7.81,]
+  return(x)
+})
+
+```
+
+
+## Describe data
+
+Mean distance between individuals in a group flight:
+```{r}
+
+sim_dists_df <- do.call(rbind, sim_dists)
+# mean distance by group type
+agg <- aggregate(distance ~ type, sim_dists_df, mean)
+agg$sd <- aggregate(distance ~ type, sim_dists_df, sd)$distance
+
+# mean distance by group type
+agg2 <- aggregate(distance ~ type, pairwise_dists, mean)
+agg2$sd <- aggregate(distance ~ type, pairwise_dists, sd)$distance
+
+rbind(agg,agg2)
+
+```
+
+
+Closest distance between individuals in a group flight:
+```{r}
+
+sim_dists_df <- do.call(rbind, sim_dists)
+
+# mean distance by group type
+agg_min <- aggregate(distance ~ type + group, sim_dists_df, min)
+
+agg <- aggregate(distance ~ type, agg_min, mean)
+agg$sd <- aggregate(distance ~ type, agg_min, sd)$distance
+
+# mean distance by group type
+agg_min2 <- aggregate(distance ~ type + group, pairwise_dists, min)
+agg2 <- aggregate(distance ~ type, agg_min2, mean)
+agg2$sd <- aggregate(distance ~ type, agg_min2, sd)$distance
+
+rbind(agg,agg2)
+
+```
+
+## Plot raw data
+
+### Reduce dimensionality
+## Generate simulated group flight trajectories
+```{r, eval = TRUE, warning=FALSE}
+
+## split into single individual trajectories
+# split in a list
+split_group_traj <- split(group_traj, group_traj$group)
+
+# pca fun
+fun1 <- function(x) prcomp(x, center = FALSE, scale. = FALSE)$x[,1]
+
+# horizontal plane fun
+# fun1 <- function(x) x[,3]
+
+indiv_traj_pc1 <- lapply(indiv_traj_list, fun1)
+
+
+
+pca_list <- lapply(unique(names(indiv_traj_pc1)), function(x){
+  
+  pca_df <- data.frame(indiv_traj_pc1[names(indiv_traj_pc1) == x])
+  names(pca_df) <- paste0("ind", 1:ncol(pca_df))
+  
+  stacked_pca_df <- stack(pca_df)
+  stacked_pca_df$frame <- 1:nrow(pca_df)
+  stacked_pca_df$group <- x 
+  stacked_pca_df$group.size <- ncol(pca_df)
+  return(stacked_pca_df)
+})
+
+pca_df <- do.call(rbind, pca_list)
+
+
+# for simulated data
+sim_traj_pc1 <- lapply(sim_trajs_list[[1]], function(x) x[,3])
+
+# pca_sim_list <- lapply(unique, function(x){
+pca_sim_list <- lapply(paste("sim", 1:30, "", sep = "-"), function(x){
+  
+  pca_df <- data.frame(sim_traj_pc1[grep(pattern = x, names(sim_traj_pc1))])
+  names(pca_df) <- paste0("ind", 1:ncol(pca_df))
+  
+  stacked_pca_df <- stack(pca_df)
+  stacked_pca_df$frame <- 1:nrow(pca_df)
+  stacked_pca_df$group <- x 
+  stacked_pca_df$group.size <- ncol(pca_df)
+  return(stacked_pca_df)
+})
+
+
+pca_sim_df <- do.call(rbind, pca_sim_list)
+pca_sim_df$type <- "simulated"
+
+pca_df$type <- sapply(pca_df$group, function(x) pairwise_dists$type[group_traj$group == x][1])
+
+
+#bind
+pca_df <- rbind(pca_df, pca_sim_df)
+
+
+# order groups by type
+pca_df$group <- factor(pca_df$group, levels = unique(pca_df$group[order(pca_df$type)]))
+
+pca_df <- pca_df[complete.cases(pca_df), ]
+
+pca_df$type <- factor(pca_df$type, levels = c("natural", "artificial", "simulated"))
+
+# table(pca_df$type, pca_df$group.size)
+#get 3 names of group for each type level
+
+set.seed(1)
+
+selected_groups <- lapply(unique(pca_df$type), function(x) {
+  unique(pca_df$group[pca_df$type == x & pca_df$group.size == 4])[1:3]
+})
+
+
+pca_df <- pca_df[pca_df$frame < 26, ]
+
+ggplot(pca_df[pca_df$group %in% unlist(selected_groups), ], aes(x = frame, y = values, group = ind, color = type)) + 
+  # geom_point() + 
+  geom_smooth(se = FALSE, span = 0.3) + 
+  theme_classic() + 
+  # theme(legend.position = "none") + 
+  labs(x = "Frame", y = "Horizontal plane\nposition (m)") +
+  # ylim(c = c(-3, 3)) +
+    facet_wrap( dir = "v",
+        type~ group, #scales = "free_y",
+        ncol = 3) +
+  theme(
+  strip.background = element_blank(),
+  strip.text.x = element_blank()
+) +
+     scale_color_viridis_d(option = "G",
+                           end = 0.8,
+                           alpha = 0.6)
+      
+
+
+
+```
+
+
+
+### Raw distances
+All group sizes combined:
+```{r, warning = FALSE, message = FALSE}
+
+# add original data to simulated data and calculate proximity
+nat_sim_dist_list <- lapply(sim_dists, function(x) {
+  return(rbind(x, pairwise_dists))
+})
+
+# remove distances above 10 m
+nat_sim_dist_list <- lapply(nat_sim_dist_list, function(x) {
+  x <- x[x$distance < 10, ]
+  x$type <-
+    factor(x$type, levels = c("natural", "artificial", "simulated"))
+  return(x)
+})
+
+dat_all <- dat <- nat_sim_dist_list[[1]]
+
+dat_all$group.size <- "All sizes"
+
+dat <- rbind(dat, dat_all)
+
+dat$group.size.factor <-
+  factor(dat$group.size, levels = c(1:10, "All sizes"))
+
+n_grps <-
+  aggregate(group ~ group.size.factor + type, dat, function(x)
+    length(unique(x)))
+
+n_grps$frames <-
+  aggregate(group ~ group.size.factor + type, dat, function(x)
+    length(x))$group
+
+
+n_grps$indivs <-
+  n_grps$group * as.numeric(as.character(n_grps$group.size.factor))
+
+
+n_grps$group.size.factor <- factor(n_grps$group.size.factor)
+n_grps$distance <-
+  ifelse(n_grps$group.size.factor %in% 2:3,-1.2,-0.9)
+n_grps$distance[1] <- -0.8
+
+n_grps$indivs[n_grps$group.size.factor == "All sizes"] <-
+  aggregate(indivs ~ type, n_grps, sum)$indivs
+
+n_grps$n.labels <-
+  paste0(n_grps$group, " / ", n_grps$indivs, " / ", n_grps$frames)
+n_grps$n.labels[1] <-
+  " n = 3 groups /\n 6 individuals /\n 149 frames"
+n_grps$n.labels[6] <-
+  " n = 18 groups /\n 74 individuals /\n 888 frames"
+n_grps$distance[6] <- -0.3
+n_grps$distance[c(11, 17)] <- -0.4
+
+custom_labels <- unique(nat_sim_dist_list[[1]]$group.size)
+custom_labels <-
+  paste(c("Group size = ", rep("", 5)), custom_labels)
+names(custom_labels) <- unique(nat_sim_dist_list[[1]]$group.size)
+
+
+
+custom_labels <- unique(dat$group.size)
+custom_labels <-
+  paste(c("Group size = ", rep("", 5)), custom_labels)
+names(custom_labels) <- unique(dat$group.size)
+
+# mean distance by group type
+agg_gp <-
+  aggregate(distance ~ type + group + group.size.factor, dat, mean)
+
+agg_gp$group.size.factor <- factor(agg_gp$group.size.factor)
+
+# raincloud plot:
+gg_all <- ggplot(dat[dat$group.size == "All sizes", ],
+                 aes(
+                   y = distance,
+                   x = type,
+                   color = type,
+                   fill = type
+                 )) +
+  geom_signif(
+    y_position = c(4.35, 4.75),
+    xmin = c(1, 1),
+    xmax = c(2, 3),
+    annotation = c('beta:0.32~ (0.19 - 0.45)', 'beta:0.36~ (0.24 - 0.47)'), 
+    parse = TRUE,
+    tip_length = 0.02,
+    textsize = 3,
+    size = 0.5,
+    color = "gray60",
+    vjust = 0.2
+  ) +
+  # add half-violin from {ggdist} package
+  ggdist::stat_halfeye(
+    # fill = fill_color,
+    alpha = 0.5,
+    # custom bandwidth
+    adjust = .5,
+    # adjust height
+    width = .6,
+    .width = 0,
+    # move geom to the cright
+    justification = -.2,
+    point_colour = NA
+  ) +
+  geom_boxplot(# fill = fill_color,
+    width = .15,
+    # remove outliers
+    outlier.shape = NA) +
+  geom_boxplot(
+    fill = adjustcolor("orange", alpha.f = 0.1),
+    data = agg_gp[!agg_gp$group.size %in% 2:5,],
+    aes(y = distance, x = type),
+    color = adjustcolor("orange", alpha.f = 0.6),
+    width = .1,
+    # remove outliers
+    outlier.shape = NA
+  ) +
+  # add justified jitter from the {gghalves} package
+  gghalves::geom_half_point(
+    # color = fill_color,
+    # draw jitter on the left
+    side = "l",
+    # control range of jitter
+    range_scale = .4,
+    # add some transparency
+    alpha = .5,
+    transformation = ggplot2::position_jitter(height = 0)
+  ) +
+  # scale_color_viridis_d(option = "G", end = 0.8) +
+  # scale_fill_viridis_d(option = "G",
+  #                      end = 0.8,
+  #                      alpha = 0.6) +
+  scale_color_manual(values = graph_cols[2:4]) +
+  scale_fill_manual(values = graph_cols_transp[2:4]) +
+  gghalves::geom_half_point(
+    data = agg_gp[agg_gp$group.size != "All sizes", ],
+    aes(y = distance, x = type),
+    color = "orange",
+    # draw jitter on the left
+    side = "l",
+    pch = 20,
+    size = 4,
+    # control range of jitter
+    range_scale = .4,
+    # add some transparency
+    alpha = .5,
+    transformation = ggplot2::position_jitter(height = 0)
+  ) +
+  ylim(c(-0.4, 4.8)) +
+  scale_x_discrete(labels = c(
+    "natural" = "Natural",
+    "artificial" = "Artificial",
+    "simulated" = "Simulated"
+  )) +
+  theme(legend.position = "none") +
+  labs(x = "Flight type", y = "Distance (m)") +
+  facet_wrap(~ group.size,
+             ncol = 1,
+             labeller = labeller(group.size = c("All sizes" = "All group sizes"))) +
+  geom_text(lineheight = 0.8,
+    data = n_grps[!n_grps$group.size.factor %in% 2:6, ],
+    aes(y = distance, x = type, label = n.labels),
+    color = "gray60",
+    nudge_x = 0,
+    size = 3
+  )
+
+# add significance
+gg_all
+
+
+# raincloud plot:
+gg_gs <- ggplot(dat[dat$group.size %in% 2:5,],
+                aes(
+                  y = distance,
+                  x = type,
+                  color = type,
+                  fill = type
+                )) +
+  # add half-violin from {ggdist} package
+  ggdist::stat_halfeye(
+    # fill = fill_color,
+    alpha = 0.6,
+    # custom bandwidth
+    adjust = .5,
+    # adjust height
+    width = .6,
+    .width = 0,
+    # move geom to the cright
+    justification = -.2,
+    point_colour = NA
+  ) +
+  # add justified jitter from the {gghalves} package
+  gghalves::geom_half_point(
+    # color = fill_color,
+    # draw jitter on the left
+    side = "l",
+    # control range of jitter
+    range_scale = .4,
+    # add some transparency
+    alpha = .3,
+    transformation = ggplot2::position_jitter(height = 0)
+  ) +
+  # scale_color_viridis_d(option = "G", end = 0.8) +
+  # scale_fill_viridis_d(option = "G",
+  #                      end = 0.8,
+  #                      alpha = 0.6) +
+    scale_color_manual(values = graph_cols[2:4]) +
+  scale_fill_manual(values = graph_cols_transp[2:4]) +
+  gghalves::geom_half_point(
+    data = agg_gp[agg_gp$group.size %in% 2:5, ],
+    aes(y = distance, x = type),
+    color = "orange",
+    # draw jitter on the left
+    side = "l",
+    pch = 20,
+    size = 4,
+    # control range of jitter
+    range_scale = .4,
+    # add some transparency
+    alpha = .5,
+    transformation = ggplot2::position_jitter(height = 0)
+  ) +
+  geom_boxplot(# fill = fill_color,
+    width = .15,
+    # remove outliers
+    outlier.shape = NA) +
+  geom_boxplot(
+     fill = adjustcolor("orange", alpha.f = 0.1),
+    data = agg_gp[agg_gp$group.size %in% 2:5, ],
+    aes(y = distance, x = type),
+    color = adjustcolor("orange", alpha.f = 0.6),
+    width = .1,
+    # remove outliers
+    outlier.shape = NA
+  ) +
+  ylim(c(-1.2, 4.8)) +
+  scale_x_discrete(labels = c(
+    "natural" = "Natural",
+    "artificial" = "Artificial",
+    "simulated" = "Simulated"
+  )) +
+  theme(legend.position = "none") +
+  facet_wrap(
+    ~ group.size.factor,
+    ncol = 2,
+    labeller = labeller(group.size.factor = custom_labels)
+  ) +
+  labs(x = "Flight type", y = "Pairwise flight distance (m)") +
+  geom_text(lineheight = 0.8,
+    data = n_grps[n_grps$group.size.factor %in% 2:5, ],
+    aes(y = distance, x = type, label = n.labels),
+    color = "gray60",
+    nudge_x = 0,
+    size = 2.3
+  )
+
+# gg_gs
+
+pg <-
+  plot_grid(
+    gg_gs + theme_classic(base_size = 15) + theme(
+      legend.position = "none",
+      axis.text.x = element_text(angle = 45, hjust = 1),
+      axis.title.x = element_blank()
+    ),
+    gg_all + theme_classic(base_size = 15) + theme(legend.position = "none", axis.title.y = element_blank()) + labs(x = ""),
+    ncol = 2
+  )
+
+
+
+# Add a common x-axis label
+pg <- ggdraw(pg) +
+  draw_label(
+    "Group type",
+    x = 0.51,
+    y = 0.02,
+    vjust = 0,
+    size = 15
+  )
+
+
+hedFont <- "Arial"
+pg <- pg + 
+  theme(plot.title = element_text(size = 20, family = hedFont, face = "bold"))
+                                           
+pg
+                                           
+ggsave(
+  "./output/flight_coordination_5_panels.png",
+  pg,
+  grDevices::png,
+  width = 9,
+  height = 4,
+  dpi = 300
+)
+
+```
+
+## Regression model
+
+- Add the group roost entry data to each simulated set and run a bayesian mixed effects model coordination on roost entry for each data set 
+
+- The mean pairwise spatial distance between individuals at each frame was used as the response variable, while group type (natural, artificial or simulated) was used as predictor
+
+- Group ID and group size were included as varying effects. 
+
+- The posterior distributions from the 30 models were combined into a single model fit for statistical inference
+
+
+Model:
+
+$$
+\text{mean pairwise distance} \sim \text{type} + \text{monotonic(group size)} + (1 \mid \text{group}) + \text{arma(frame)}
+$$
+
+```{r  flight coordination regression, eval = FALSE}
+
+mods_flight_coord <- brm_multiple(
+  formula = distance ~ type + mo(group.size.factor) + ar(p = 2, time = frame, gr = group),
+  iter = iter,
+  thin = 1,
+  data = nat_sim_dist_list,
+  family = gaussian(),
+  silent = 2,
+  chains = chains,
+  backend = "cmdstanr",
+  # only works if cmdstanr package is installed
+  cores = chains,
+  combine = FALSE,
+  control = list(adapt_delta = 0.99, max_treedepth = 15)
+)
+
+custom_ppc(fit = mods_flight_coord[[1]], group = "type")
+
+mods_flight_coord <- pblapply(mods_flight_coord,  function(x) add_criterion(x, criterion = c("loo")))
+
+saveRDS(mods_flight_coord,
+        "./data/processed/model_list_flight_coordination_monotonic.RDS")
+
+null_mods_flight_coord <- brm_multiple(
+  formula = distance ~ 1 + ar(p = 2, time = frame, gr = group),
+  iter = iter,
+  thin = 1,
+  data = nat_sim_dist_list,
+  family = gaussian(),
+  silent = 2,
+  chains = chains,
+  backend = "cmdstanr",
+  # only works if cmdstanr package is installed
+  cores = chains,
+  combine = FALSE,
+  control = list(adapt_delta = 0.99, max_treedepth = 15)
+)
+
+null_mods_flight_coord <- pblapply(null_mods_flight_coord,  function(x) add_criterion(x, criterion = c("loo")))
+
+saveRDS(null_mods_flight_coord,
+        "./data/processed/nullmodel_list_flight_coordination_monotonic.RDS")
+
+```
+
+### Results
+
+#### Model performance vs null model 
+
+Mean ELPD and associated standard deviation  between each model and its correspondent null model:
+```{r  regression null model comparison flight coordination}
+
+mods_flight_coord <- readRDS("./data/processed/model_list_flight_coordination_monotonic.RDS")
+null_mods_flight_coord <- readRDS("./data/processed/nullmodel_list_flight_coordination_monotonic.RDS")
+
+loo_diffs <- 
+lapply(seq_along(mods_flight_coord), function(x)
+  loo::loo_compare(mods_flight_coord[[x]], null_mods_flight_coord[[x]])
+  )
+
+loo_diff <- do.call(rbind, loo_diffs)
+
+rows <- rownames(loo_diff)
+loo_diff <- as.data.frame(loo_diff)
+
+loo_diff$model <- rows
+
+aggregate(cbind(elpd_diff, se_diff) ~ model, loo_diff, mean)
+
+```
+
+#### Model fit
+```{r regression results flight coordination, eval = TRUE, results = "asis"}
+
+# average model
+avrg_call <-
+  paste0("posterior_average(",
+         paste0(paste0(
+           "mods_flight_coord[[", 1:length(mods_flight_coord), "]]"
+         ), collapse = ", "),
+         ", weights = 'loo')")
+
+average_model_draws <- eval(parse(text = avrg_call))
+
+draw_extended_summary(average_model_draws,
+                      highlight = TRUE,
+                      fill = fill_color,
+                      beta.prefix = c("^b_", "^bsp_mo")
+                      )
+
+```
+
+#### Contrasts
+```{r regresion contrasts flight coordination, eval = TRUE, results = "asis"}
+
+contrasts <-
+  draws_contrasts(draws = average_model_draws, predictor_name = "type", basal_level = "natural",
+                  fill_color = fill_color)
+
+contrasts$contrasts
+
+contrasts$plot + theme_classic()
+
+```
+
+#### Posterior predictive checks
+```{r}
+
+custom_ppc(readRDS("./data/processed/model_list_flight_coordination.RDS")[[1]], group = "type")
+
+```
+
+::: {.alert .alert-info}
+
+#### Takeaways {.unnumbered .unlisted}
+
+- Flight coordination is higher in natural groups than in artificial and simulated groups
+- Flight coordination is similar in artificial and simulated groups
+- Flight distance between individuals increases with group size
+
+::: 
+
+# Roost entry coordination
+
+## Data description
+```{r data description, eval = TRUE}
+
+dat <-
+  as.data.frame(read_excel(path = "./data/raw/Anexo 1_Entrada a refugios-2022.xlsx"))
+
+dat$entry.time <- as.numeric(dat$`Tiempo real`)
+
+# remove missing data
+dat <- dat[!is.na(dat$entry.time), ]
+
+# rename treatment levels
+dat$type <- dat$`Tipo grupo`
+
+dat$type[dat$type == "Real"] <- "Natural"
+dat$type[dat$type == "Mixto"] <- "Artificial"
+dat$group <- dat$Grupo
+
+```
+
+Number of individuals per type:
+```{r data description 2, eval = TRUE}
+table(dat$type)
+```
+
+Number of individuals per type removing missing data (NAs and Inf):
+```{r data description 3, eval = TRUE}
+(table(dat$type[!is.infinite(dat$entry.time) & !is.na(dat$entry.time)]))
+```
+
+Individuals per experiment:
+```{r data description 4, eval = TRUE}
+
+ind_per_video <- table(dat$Video[dat$type != "Individual"])
+
+table(ind_per_video)
+```
+
+## Estimating roost entry time lapse
+
+Calculate time lapse between the first individual to enter the roost for each group: 
+```{r Entry time difference plot, eval = TRUE}
+
+group_dat <-
+  dat[!is.infinite(dat$entry.time) &
+        !is.na(dat$entry.time) & dat$type != "Individual",]
+
+# get time difference  between entries
+group_dat_l <- lapply(unique(group_dat$group), function(x) {
+  # print(x)
+  X <- group_dat[group_dat$group == x,]
+  X <- X[!is.na(X$entry.time), ]
+  X <- X[order(X$entry.time), ]
+  # X$entry.time.diff <- X$entry.time - min(X$entry.time)
+  X$entry.time.diff <- c(NA, X$entry.time[-1] - X$entry.time[-nrow(X)])
+  X <- X[!is.na(X$entry.time.diff), ]
+  
+  
+  # add 1 milisecond to 0 
+  X$entry.time.diff[X$entry.time.diff == 0] <- NA
+  
+  X$group.size <- if (nrow(X) > 0)
+    nrow(X) - 1
+  else
+    vector()
+  return(X)
+})
+
+group_dat <- do.call(rbind, group_dat_l)
+
+```
+
+## Simulating entry time lapse data
+
+Simulated 30 data sets, each one with a number of simulated groups for each group size (2 to 5 individuals) similar to those in the natural group data. This approach allowed us to propagate uncertainty from random group simulations into our statistical inference.
+
+```{r Simulation entry time difference, eval = TRUE}
+
+group_dat <-
+  dat[!is.infinite(dat$entry.time) &
+        !is.na(dat$entry.time) & dat$type != "Individual",]
+
+
+# get difference to first entry
+group_dat_l <- lapply(unique(group_dat$group), function(x) {
+  # print(x)
+  X <- group_dat[group_dat$group == x,]
+  X <- X[!is.na(X$entry.time), ]
+  X <- X[order(X$entry.time), ]
+  # X$entry.time.diff <- X$entry.time - min(X$entry.time)
+  X$entry.time.diff <- c(NA, X$entry.time[-1] - X$entry.time[-nrow(X)])
+  X <- X[!is.na(X$entry.time.diff), ]
+  
+  X$group.size <- if (nrow(X) > 0)
+    nrow(X) + 1
+  else
+    vector()
+  return(X)
+})
+
+group_dat <- do.call(rbind, group_dat_l)
+
+
+group_dat$type <-
+  factor(group_dat$type, levels = c("Artificial", "Natural", "Simulated"))
+
+# make random groups from individual flights
+indiv_dat <-
+  dat[!is.infinite(dat$entry.time) &
+        !is.na(dat$entry.time) & dat$type == "Individual",]
+
+indivs <- unique(indiv_dat$Individuo)
+
+group_sizes <- group_dat$group.size[!duplicated(group_dat$Video)]
+
+# use only group sizes 2:5
+group_sizes <- group_sizes[group_sizes <= 5]
+
+table(group_sizes)
+
+# simulate group entries
+sim_groups_l <- pblapply(1:30, cl = 10, function(x) {
+  # randomize order of distribution of individuals per experiment
+  set.seed(x)
+  g_size <- sample((group_sizes), length(group_sizes) / 2)
+  
+  # sampled_indivs <- sample(indivs, sum(g_size), replace = TRUE)
+  names(g_size) <- paste("sim", x, 1:length(g_size), sep = "-")
+  
+  # indivs_split <-
+  #   split(sampled_indivs, f = unlist(sapply(seq_along(g_size), function(x)
+  #     rep(names(g_size)[x], g_size[x]))))
+  
+  set.seed(x)
+  indivs_split <- lapply(g_size, function(w) sample(indivs, w))
+  
+
+  sub_sim_groups_l <- lapply(1:length(indivs_split), function(y) {
+    sim_group <- indiv_dat[indiv_dat$Individuo %in% indivs_split[[y]],]
+    sim_group$group <- names(g_size)[y]
+    
+     sim_group <- sim_group[!is.na(sim_group$entry.time), ]
+  sim_group <- sim_group[order(sim_group$entry.time), ]
+  # sim_group$entry.time.diff <- sim_group$entry.time - min(sim_group$entry.time)
+  sim_group$entry.time.diff <- c(NA, sim_group$entry.time[-1] - sim_group$entry.time[-nrow(sim_group)])
+  sim_group <- sim_group[!is.na(sim_group$entry.time.diff), ]
+ 
+    
+  sim_group$entry.time.diff[sim_group$entry.time.diff > 300] <- 300
+    # sim_group$entry.time.diff <-
+    #   sim_group$entry.time - min(sim_group$entry.time)
+    # sim_group <- sim_group[-which.min(sim_group$entry.time.diff),]
+    sim_group$group.size <- nrow(sim_group) + 1
+    sim_group$type <- factor("Simulated")
+    
+    return(sim_group)
+  })
+  
+  sub_sim_groups <- do.call(rbind, sub_sim_groups_l)
+  
+
+  # bind excluding first individual
+  out <-
+    rbind(sub_sim_groups, group_dat[group_dat$group.size %in% 2:5 &
+                                      group_dat$entry.time.diff > 0.001,])
+  
+  return(out)
+})
+
+sim_group_n <-
+  sapply(sim_groups_l, function(x)
+    length(unique(x$group[x$type == "Simulated"])))
+
+all(sim_group_n == 4)
+
+sim_group_dat <-
+  do.call(rbind, lapply(sim_groups_l, function(x)
+    x[x$type == "Simulated",]))
+
+sim_group_dat <- rbind(sim_group_dat, group_dat)
+
+
+# also make group.size.factor
+sim_groups_l <- lapply(sim_groups_l, function(x) {
+  x$type <- factor(x$type, levels = c("Natural", "Artificial", "Simulated"))
+  x$group.size.factor <- factor(x$group.size)
+  return(x)
+})
+
+```
+
+## Plot raw data
+
+All group sizes combined:
+```{r, warning = FALSE, message = FALSE}
+
+# custom_labels <- unique(sim_groups_l[[3]]$group.size)
+# custom_labels <- paste("group size = ", custom_labels)
+# names(custom_labels) <- unique(sim_groups_l[[3]]$group.size)
+
+# table(call_rate_by_group$group.size, call_rate_by_group$type)
+cols <- graph_cols[2:4]
+cols_transp <- graph_cols_transp[2:4]
+
+names(cols) <- names(cols_transp) <- c("Natural", "Artificial", "Simulated")
+
+# raincloud plot:
+gg_entry <- ggplot(sim_groups_l[[1]],
+       aes(
+         y = entry.time.diff,
+         x = type,
+         color = type,
+         fill = type
+       )) +
+  # add half-violin from {ggdist} package
+  ggdist::stat_halfeye(
+    # fill = fill_color,
+    alpha = 0.5,
+    # custom bandwidth
+    adjust = .5,
+    # adjust height
+    width = .6,
+    .width = 0,
+    # move geom to the cright
+    justification = -.2,
+    point_colour = NA
+  ) +
+  geom_boxplot(# fill = fill_color,
+    width = .15,
+    # remove outliers
+    outlier.shape = NA) +
+    # add justified jitter from the {gghalves} package
+    gghalves::geom_half_point(
+      # color = fill_color,
+      # draw jitter on the left
+      side = "l",
+      # control range of jitter
+      range_scale = .4,
+      # add some transparency
+      alpha = .5,
+      transformation = ggplot2::position_jitter(height = 0)
+    ) +
+  scale_color_manual(values = cols) +
+  scale_fill_manual(values = cols_transp) +
+        # scale_color_viridis_d(option = "G", end = 0.8) +
+      # scale_fill_viridis_d(option = "G",
+      #                      end = 0.8,
+      #                      alpha = 0.6) +
+      # ylim(c(-0.1, 4.8)) +
+           scale_x_discrete(labels = c(
+        "natural" = "Natural",
+        "artificial" = "Artificial",
+        "simulated" = "Simulated"
+      )) +
+      theme(legend.position = "none") +
+      labs(x = "Group type", y = "Time difference (s)")
+   
+agg_grp_time <- aggregate(entry.time.diff ~ type + group, sim_groups_l[[1]], mean)
+
+n_grps <-
+  aggregate(group ~ type + group.size, sim_groups_l[[1]], function(x)
+    length(unique(x)))
+
+n_grps$indivs <-
+  n_grps$group * n_grps$group.size
+
+agg_grps <- aggregate(group ~ type, n_grps, sum)
+
+agg_grps$indivs <- aggregate(indivs ~ type, n_grps, sum)$indivs
+
+agg_grps$n.labels <-
+  paste0(agg_grps$group, " / ", agg_grps$indivs)
+agg_grps$n.labels[1] <-
+  " n = 13 groups /\n 50 individuals"
+agg_grps$distance <- -15
+
+
+gg_entry <- gg_entry + ylim(c(-20, 210)) +
+     geom_signif(
+    y_position = c(170, 190, 210),
+    xmin = c(1, 1, 2),
+    xmax = c(3, 2, 3),
+    annotation = c('beta:-1.71~ (-2.31 - -1.103)', 'beta:-0.99~ (-1.59 - -0.40)', 'beta:-0.72 ~ (-1.30 - -0.12)'), 
+    parse = TRUE,
+    tip_length = 0.02,
+    textsize = 3,
+    size = 0.5,
+    color = "gray60",
+    vjust = 0.2
+  ) +
+   gghalves::geom_half_point(
+    data = agg_grp_time,
+    aes(y = entry.time.diff, x = type),
+    color = "orange",
+    # draw jitter on the left
+    side = "l",
+    pch = 20,
+    size = 4,
+    # control range of jitter
+    range_scale = .4,
+    # add some transparency
+    alpha = .5,
+    transformation = ggplot2::position_jitter(height = 0)
+  ) +
+    geom_boxplot(
+    fill = adjustcolor("orange", alpha.f = 0.1),
+    data = agg_grp_time,
+    aes(y = entry.time.diff, x = type),
+    color = adjustcolor("orange", alpha.f = 0.6),
+    width = .1,
+    # remove outliers
+    outlier.shape = NA
+  ) +
+  geom_text(lineheight = 0.8,
+    data = agg_grps,
+    aes(y = distance, x = type, label = n.labels),
+    color = "gray60",
+    nudge_x = 0,
+    size = 4
+  ) + theme_classic(base_size = 12) + theme(legend.position = "none")
+
+ggsave(
+  "./output/roost_entry_coordination_1_panel.png",
+  gg_entry,
+  grDevices::png,
+  width = 4.5,
+  height = 3.5,
+  dpi = 300
+)
+```
+
+By group size:
+```{r, warning = FALSE, message = FALSE}
+# raincloud plot:
+ggplot(sim_groups_l[[1]],
+       aes(
+         y = entry.time.diff,
+         x = type,
+         color = type,
+         fill = type
+       )) +
+  # add half-violin from {ggdist} package
+  ggdist::stat_halfeye(
+    # fill = fill_color,
+    alpha = 0.5,
+    # custom bandwidth
+    adjust = .5,
+    # adjust height
+    width = .6,
+    .width = 0,
+    # move geom to the cright
+    justification = -.2,
+    point_colour = NA
+  ) +
+  geom_boxplot(# fill = fill_color,
+    width = .15,
+    # remove outliers
+    outlier.shape = NA) +
+    # add justified jitter from the {gghalves} package
+    gghalves::geom_half_point(
+      # color = fill_color,
+      # draw jitter on the left
+      side = "l",
+      # control range of jitter
+      range_scale = .4,
+      # add some transparency
+      alpha = .5,
+      transformation = ggplot2::position_jitter(height = 0)
+    ) +
+      scale_color_viridis_d(option = "G", end = 0.8) +
+      scale_fill_viridis_d(option = "G",
+                           end = 0.8,
+                           alpha = 0.6) +
+      # ylim(c(-0.1, 4.8)) +
+           scale_x_discrete(labels = c(
+        "natural" = "Natural",
+        "artificial" = "Artificial",
+        "simulated" = "Simulated"
+      )) +
+      theme(legend.position = "none") +
+      facet_wrap(
+        ~ group.size.factor,
+        ncol = 2,
+        labeller = labeller(group.size.factor = custom_labels)
+      ) +
+      labs(x = "Flight type", y = "Time difference (s)")
+    
+```
+
+
+
+## Regression model
+
+- Add the group roost entry data to each simulated set and run a bayesian mixed effects model coordination on roost entry for each data set 
+
+- The difference in time between when entering the roost between consecutive individuals was used as the response variable (modeled with a normal distribution), while group type (natural, artificial or simulated) was used as predictor
+
+- Group ID was included as varying effect
+
+- The posterior distributions from the 30 models were combined into a single model fit for statistical inference
+
+
+Model:
+
+$$
+\text{log(entry time difference + 1)} \sim \text{type} + \text{monotonic(group size)} + (\text{1} \mid \text{group})
+$$
+
+
+```{r  entry time regression, eval = FALSE}
+
+entry_mod_list <- brm_multiple(
+  formula = log(entry.time.diff + 1) ~ type + mo(group.size) + (1 | group),
+  iter = iter,
+  thin = 1,
+  data = sim_groups_l,
+  family = gaussian(),
+  silent = 2,
+  chains = chains,
+  backend = "cmdstanr",
+  # only works if cmdstanr package is installed
+  threads = threading(2),
+  cores = chains,
+  combine = FALSE,
+  control = list(adapt_delta = 0.99, max_treedepth = 15)
+)
+
+custom_ppc(fit = entry_mod_list[[1]], group = "type")
+
+entry_mod_list <- pblapply(entry_mod_list,  function(x) add_criterion(x, criterion = c("loo")))
+
+saveRDS(entry_mod_list,
+        "./data/processed/model_list_roost_entry_time_regression_monotonic.RDS")
+
+# run null model
+null_entry_mod_list <- brm_multiple(
+  formula = log(entry.time.diff + 1) ~ 1 + (1 | group),
+  iter = iter,
+  thin = 1,
+  data = sim_groups_l,
+  family = gaussian(),
+  silent = 2,
+  chains = chains,
+  backend = "cmdstanr",
+  # only works if cmdstanr package is installed
+  threads = threading(2),
+  cores = chains,
+  combine = FALSE,
+  control = list(adapt_delta = 0.99, max_treedepth = 15)
+)
+
+null_entry_mod_list <- pblapply(null_entry_mod_list,  function(x) add_criterion(x, criterion = c("loo")))
+
+# loo_compare(entry_mod_list[[1]], null_entry_mod_list[[1]])
+
+saveRDS(null_entry_mod_list,
+        "./data/processed/null_model_list_roost_entry_time_regression_monotonic.RDS")
+
+```
+
+### Results
+
+#### Model performance vs null model 
+
+```{r regression results model comparison, eval = TRUE, results = "asis"}
+
+model_list_roost_entry_time_regression <-
+  readRDS("./data/processed/model_list_roost_entry_time_regression_monotonic.RDS")
+
+null_model_list_roost_entry_time_regression <-
+  readRDS("./data/processed/null_model_list_roost_entry_time_regression_monotonic.RDS")
+
+loo_diffs <- 
+lapply(seq_along(model_list_roost_entry_time_regression), function(x)
+  loo::loo_compare(model_list_roost_entry_time_regression[[x]], null_model_list_roost_entry_time_regression[[x]])
+  )
+
+loo_diff <- do.call(rbind, loo_diffs)
+
+rows <- rownames(loo_diff)
+loo_diff <- as.data.frame(loo_diff)
+
+loo_diff$model <- rows
+
+aggregate(cbind(elpd_diff, se_diff) ~ model, loo_diff, mean)
+
+```
+
+#### Model fit
+
+```{r regression results entry, eval = TRUE, results = "asis"}
+
+# average model
+avrg_call <-
+  paste0("posterior_average(",
+         paste0(paste0("model_list_roost_entry_time_regression[[", 1:length(model_list_roost_entry_time_regression), "]]"), collapse = ", "),
+         ", weights = 'loo')")
+
+average_model_draws <- eval(parse(text = avrg_call))
+
+draw_extended_summary(average_model_draws,
+                      highlight = TRUE,
+                      fill = fill_color,
+                      beta.prefix = c("^b_", "^bsp_mo"))
+
+```
+
+#### Contrasts
+```{r regresion contrasts roost entry, eval = TRUE, results = "asis"}
+
+contrasts <-
+  draws_contrasts(
+    average_model_draws,
+    predictor_name = "type",
+    basal_level = "Natural",
+    fill_color = fill_color
+  )
+
+contrasts$contrasts
+
+contrasts$plot + theme_classic()
+
+```
+
+#### Posterior predictive checks
+```{r}
+
+custom_ppc(fit = model_list_roost_entry_time_regression[[1]], group = "type")
+
+```
+
+
+::: {.alert .alert-info}
+
+#### Takeaways {.unnumbered .unlisted}
+
+- Natural groups enter more coordinated than simulated and artificial groups 
+- Artificial groups enter more coordinated than simulated groups
+- Entry time difference decreases with group size
+
+::: 
+
+# Calling behavior
+
+## Read data
+```{r read data, eval = TRUE, warning=FALSE}
+
+clls <- readRDS("./data/processed/curated_extended_selection_table_inquiry_calls_2020_&_2021.RDS")
+
+sub_clls <- clls[!duplicated(clls$org.sound.files), ]
+sub_clls$file.duration <- sub_clls$sound.file.samples / (sub_clls$sample.rate * 1000)
+# 
+# metadat2 <- read.csv("./data/processed/metadata_inquiry_calls_2020_&_2021.csv", stringsAsFactors = FALSE)
+
+metadat <- as.data.frame(read_excel("./data/raw/Anexo 1_Proyecto MPI enero 20-21.xlsx"))
+names(metadat) <- gsub(" ", ".", names(metadat))
+metadat$year <- substr(metadat$Día, 0, 4)
+
+metadat$year[is.na(metadat$year)] <- "2021"
+metadat <- metadat[metadat$tipo.de.video != "calibracion de video", ]
+
+# audio solamente para identificacion de sonidos. TASA NO
+metadat <- metadat[metadat$Audio != "60 y 61", ]
+
+metadat$year.audio <- paste(metadat$year, metadat$Audio, sep = "-")
+
+caps <- as.data.frame(read_excel("./data/raw/Proyecto MPI enero 2020_2.xlsx", sheet = "Capturas"))
+
+# read acoustic parameter data
+acous_param_l <- readRDS("./data/processed/acoustic_parameters_all_groups_specific_warbler_acoustic_measurements_curated_data_2020_&_2021.RDS")
+
+# read as RDS
+agg_pred <- readRDS("./data/processed/predicted_individual_in_group_flights_2020_&_2021.RDS")
+
+# read diagnostics
+diagnostics <- readRDS("./data/processed/random_forests_diagnostics_solo_flight.RDS")
+
+```
+
+## Call rate
+
+### Individual in solo flight vs overall group flight
+
+```{r individual vs group call rate stats 1, eval = TRUE}
+
+call_rate_by_group <-
+  readRDS("./data/processed/call_rate_by_group.RDS")
+
+# remove those in which only one individual called
+call_id_seq <- read.csv("./data/processed/group_call_individual_id_sequence.csv")
+
+call_id_seq <- call_id_seq[order(call_id_seq$event, call_id_seq$start), ]
+
+call_id_seq_list <- split(call_id_seq, call_id_seq$event)
+
+# get diversity and entropy
+unique_callers_list <- pblapply(call_id_seq_list, function(x){
+  x <- x[order(x$start), ]
+  id_seq <- x$indiv
+  id_seq <- as.character(as.numeric(factor(id_seq)))
+  unique.callers <- length(unique(id_seq))
+
+  out <- data.frame(group = x$group[1], unique.callers = unique.callers)
+  return(out)
+ }
+)
+
+unique_callers_df <- do_call(rbind, unique_callers_list)
+
+call_rate_by_group <- call_rate_by_group[!call_rate_by_group$group %in% unique_callers_df$group[unique_callers_df$unique.callers == 1], ]
+
+call_rate_by_group$type <-
+  ifelse(
+    call_rate_by_group$type == "solo",
+    "solo",
+    paste(call_rate_by_group$experiment, call_rate_by_group$type, sep = "-")
+  )
+
+call_rate_by_group$type <-
+  gsub("mixed.group",
+       "artificial.group",
+       call_rate_by_group$type)
+call_rate_by_group$type <-
+  gsub("regular.group",
+       "natural.group",
+       call_rate_by_group$type)
+
+call_rate_by_group$type <-
+  factor(
+    call_rate_by_group$type,
+    levels = c("solo", "natural.group", "artificial.group")
+  )
+
+# mean centering group size
+call_rate_by_group$group.size.f <- 
+  factor(call_rate_by_group$group.size, ordered = TRUE)
+
+```
+
+#### Plot raw data
+
+All group sizes combined:
+```{r, warning = FALSE, message = FALSE}
+
+# table(call_rate_by_group$group.size, call_rate_by_group$type)
+cols <- graph_cols[1:3]
+cols_transp <- graph_cols_transp[1:3]
+
+names(cols) <- names(cols_transp) <- c("solo", "natural.group", "artificial.group")
+
+# raincloud plot:
+  ggrate_indv_grp <- ggplot(call_rate_by_group,
+       aes(
+         y = rate,
+         x = type,
+         color = type,
+         fill = type
+       )) +
+  # add half-violin from {ggdist} package
+  ggdist::stat_halfeye(
+    # fill = fill_color,
+    alpha = 0.5,
+    # custom bandwidth
+    adjust = .5,
+    # adjust height
+    width = .6,
+    .width = 0,
+    # move geom to the cright
+    justification = -.2,
+    point_colour = NA
+  ) +
+  geom_boxplot(# fill = fill_color,
+    width = .15,
+    # remove outliers
+    outlier.shape = NA) +
+    # add justified jitter from the {gghalves} package
+    gghalves::geom_half_point(
+      # color = fill_color,
+      # draw jitter on the left
+      side = "l",
+      # control range of jitter
+      range_scale = .4,
+      # add some transparency
+      alpha = .5,
+      transformation = ggplot2::position_jitter(height = 0)
+    ) +
+      # scale_color_viridis_d(option = "G", begin = 0.2, end = 0.8) +
+      # scale_fill_viridis_d(option = "G",
+      #                      end = 0.8,
+      #                      alpha = 0.6) +
+      scale_color_manual(values = cols) +
+  scale_fill_manual(values = cols_transp) +
+      ylim(c(-0.1, 60)) +
+           scale_x_discrete(labels = c(
+        "solo" = "Solo",
+        "natural.group" = "Natural group",
+        "artificial.group" = "Artificial group"
+      )) +
+      theme(legend.position = "none") +
+      labs(x = "Flight type", y = "Calling rate (calls / min)")
+    
+
+length(unique(call_rate_by_group$group))
+
+n_grps <-
+  aggregate(group ~ type, call_rate_by_group, function(x)
+    length(unique(x)))
+
+n_grps$group <- sapply(n_grps$type, function(x) length(unique(call_rate_by_group$group[call_rate_by_group$type == x & call_rate_by_group$indiv == "group"])))
+
+n_grps$group[1] <- length(unique(call_rate_by_group$group[call_rate_by_group$type == "solo" & call_rate_by_group$experiment == "regular"]))
+
+n_grps$indivs <- 0
+
+
+n_grps$indivs[1] <- length(unique(call_rate_by_group$indiv[call_rate_by_group$type == "solo"]))
+
+n_grps$distance <- -4
+
+n_grps$n.labels <-
+  paste0(n_grps$group, " / ", n_grps$indivs)
+n_grps$n.labels <- c(
+  "n = 131 individuals\nfrom 29 groups",
+  "32 groups",
+  "37 groups")
+
+ggrate_indv_grp_pimp <- ggrate_indv_grp +
+  scale_x_discrete(labels = c(
+        "solo" = "Single individual",
+        "natural.group" = "Natural group",
+        "artificial.group" = "Artificial group"
+      )) +
+    geom_signif(
+    y_position = c(61, 68),
+    xmin = c(1, 2),
+    xmax = c(3, 3),
+    annotation = c('beta:-0.41~ (-0.74 - -0.089)', 'beta:-0.64 ~ (-1.05 - -0.23)'), 
+    parse = TRUE,
+    tip_length = 0.02,
+    textsize = 3,
+    size = 0.5,
+    color = "gray60",
+    vjust = 0.2
+  ) +
+  ylim(c(-5, 68)) +
+  theme(axis.title.x = element_blank()) +
+   geom_text(lineheight = 0.8,
+    data = n_grps,
+    aes(y = distance, x = type, label = n.labels),
+    color = "gray60",
+    nudge_x = 0,
+    size = 3
+  )
+
+```
+
+By group size:
+```{r, warning = FALSE, message = FALSE}
+
+custom_labels <- unique(call_rate_by_group$group.size)
+custom_labels <- paste("group size = ", custom_labels)
+names(custom_labels) <- unique(call_rate_by_group$group.size)
+
+# raincloud plot:
+ggplot(call_rate_by_group[call_rate_by_group$group.size <= 5,],
+       aes(
+         y = rate,
+         x = type,
+         color = type,
+         fill = type
+       )) +
+  # add half-violin from {ggdist} package
+  ggdist::stat_halfeye(
+    # fill = fill_color,
+    alpha = 0.5,
+    # custom bandwidth
+    adjust = .5,
+    # adjust height
+    width = .6,
+    .width = 0,
+    # move geom to the cright
+    justification = -.2,
+    point_colour = NA
+  ) +
+  geom_boxplot(# fill = fill_color,
+    width = .15,
+    # remove outliers
+    outlier.shape = NA) +
+    # add justified jitter from the {gghalves} package
+    gghalves::geom_half_point(
+      # color = fill_color,
+      # draw jitter on the left
+      side = "l",
+      # control range of jitter
+      range_scale = .4,
+      # add some transparency
+      alpha = .5,
+      transformation = ggplot2::position_jitter(height = 0)
+    ) +
+      scale_color_viridis_d(option = "G", end = 0.8) +
+      scale_fill_viridis_d(option = "G",
+                           end = 0.8,
+                           alpha = 0.6) +
+      ylim(c(-0.1, 60)) +
+             scale_x_discrete(labels = c(
+        "solo" = "Solo",
+        "natural.group" = "Natural group",
+        "artificial.group" = "Artificial group"
+      )) +
+      theme(legend.position = "none") +
+      labs(x = "Flight type", y = "Calling rate (calls / min)") +
+      facet_wrap(
+        ~ group.size.f,
+        ncol = 2,
+        labeller = labeller(group.size.f = custom_labels)
+      ) 
+    
+```
+
+#### Regression model
+
+Model:
+
+$$
+\text{call rate} \sim \text{type} + (1 \mid \text{group}) + \text{monotonic(group size)} + (\text{type} \mid \text{group})
+$$
+
+Response modeled with a negative binomial distribution.
+
+```{r individual vs group call rate stats 2, eval = FALSE}
+
+mod <- brm(
+  formula = calls | resp_rate(flight.time) ~ type + mo(group.size.f) + (type | group),
+  iter = iter,
+  thin = 1,
+  data = call_rate_by_group,
+  family = negbinomial(),
+  silent = 2,
+  chains = chains,
+  cores = chains,
+  save_pars = save_pars(all = TRUE),
+  control = list(adapt_delta = 0.99, max_treedepth = 15),
+  file = "./data/processed/individual_vs_group_call_rate_group_size_monot", 
+  file_refit = "always"
+)
+
+# custom_ppc(fit = mod, group = "type")
+
+mod <- add_criterion(mod, criterion = c("loo"))
+
+null_mod <- brm(
+  formula = calls | resp_rate(flight.time) ~ 1 + (1 | group),
+  iter = iter,
+  thin = 1,
+  data = call_rate_by_group,
+  family = negbinomial(),
+  silent = 2,
+  chains = chains,
+  cores = chains,
+  save_pars = save_pars(all = TRUE),
+  control = list(adapt_delta = 0.99, max_treedepth = 15),
+  file = "./data/processed/null_mod_individual_vs_group_call_rate_group_size", 
+  file_refit = "always"
+)
+
+null_mod <- add_criterion(null_mod, criterion = c("loo"))
+
+beepr::beep(2)
+
+```
+
+#### Results
+
+##### Model performance vs null model 
+```{r individual vs group call rate compare null, eval = TRUE}
+
+mod <- readRDS("./data/processed/individual_vs_group_call_rate_group_size_monot.rds")
+
+null_mod <- readRDS("./data/processed/null_mod_individual_vs_group_call_rate_group_size.rds")
+
+loo_diff <- loo::loo_compare(mod, null_mod)
+
+loo_diff
+
+```
+
+##### Model fit
+```{r individual vs group call rate results, eval = TRUE, results = "asis"}
+
+extended_summary(
+  fit = mod,
+  gsub.pattern = "type",
+  gsub.replacement = "solo_vs_",
+  remove.intercepts = TRUE,
+  highlight = TRUE,
+  print.name = FALSE,
+  trace.palette = viridis::mako, 
+  fill = fill_color, 
+  beta.prefix = c("^b_", "^bsp_mo")
+)
+
+```
+
+##### Contrasts
+```{r rate per group solo vs group results contrasts, eval = TRUE, results='asis'}
+
+# contrasts
+contrasts(
+  fit = mod,
+  predictor = "type",
+  n.posterior = 2000,
+  level.sep = " VS ",
+  html.table = TRUE,
+  plot = TRUE,
+  highlight = TRUE,
+  fill = fill_color
+)
+
+
+
+```
+
+##### Posterior predictive checks
+```{r}
+
+custom_ppc(fit = mod, group = "type")
+
+```
+
+::: {.alert .alert-info}
+
+##### Takeaways {.unnumbered .unlisted}
+
+- No difference in call rate between solo individuals and natural groups 
+- Artificial groups produce lower call rates than solo individuals and natural groups
+- No effect of group size
+
+::: 
+
+###  Individual in solo flight vs individuals in group flight
+```{r individual vs group call plot, eval = TRUE, echo = TRUE, fig.width = 12, fig.height = 8}
+
+call_rate_by_group <- readRDS("./data/processed/call_rate_by_group.RDS")
+
+# remove those in which only one individual called
+call_id_seq <- read.csv("./data/processed/group_call_individual_id_sequence.csv")
+
+call_id_seq <- call_id_seq[order(call_id_seq$event, call_id_seq$start), ]
+
+call_id_seq_list <- split(call_id_seq, call_id_seq$event)
+
+# get diversity and entropy
+unique_callers_list <- pblapply(call_id_seq_list, function(x){
+  x <- x[order(x$start), ]
+  id_seq <- x$indiv
+  id_seq <- as.character(as.numeric(factor(id_seq)))
+  unique.callers <- length(unique(id_seq))
+
+  out <- data.frame(group = x$group[1], unique.callers = unique.callers)
+  return(out)
+ }
+)
+
+unique_callers_df <- do_call(rbind, unique_callers_list)
+
+call_rate_by_group <- call_rate_by_group[!call_rate_by_group$group %in% unique_callers_df$group[unique_callers_df$unique.callers == 1], ]
+
+
+call_rate_indiv <- readRDS("./data/processed/call_rate_by_individual.RDS")
+
+call_rate_indiv <- call_rate_indiv[!call_rate_indiv$group %in% unique_callers_df$group[unique_callers_df$unique.callers == 1], ]
+
+
+call_rate_by_group <- call_rate_by_group[call_rate_by_group$type != "solo", ]
+call_rate_by_group$type <- "overall.group"
+
+call_rate_indiv$type <- as.character(call_rate_indiv$type)
+call_rate_indiv$type[call_rate_indiv$type == "group"] <- "indiv.group" 
+
+call_rate <- rbind(call_rate_by_group[, intersect(names(call_rate_by_group), names(call_rate_indiv))
+], call_rate_indiv[, intersect(names(call_rate_by_group), names(call_rate_indiv))
+])
+
+# aggregate for plot
+agg_rate <- aggregate(rate ~ experiment + type + group.size, data = call_rate, FUN = mean)
+
+agg_rate$sd <- aggregate(rate ~ experiment + type + group.size, data = call_rate, FUN = sd)$rate
+
+agg_rate$type <- factor(agg_rate$type, levels = c("solo", "indiv.group", "overall.group"))
+
+```
+
+```{r}
+call_rate_indiv <- call_rate_indiv[!is.na(call_rate_indiv$rate) & call_rate_indiv$rate > 0, ]
+
+no_solo <- call_rate_indiv[call_rate_indiv$type != "solo", ]
+
+agg <- aggregate(indiv ~ group + experiment, data = no_solo, function(x) length(unique(x)))
+
+agg$group.size <- aggregate(group.size ~ group + experiment, data = no_solo, function(x) mean(x))$group.size
+
+agg$prop.callers <- agg$indiv / agg$group.size
+# 
+# t.test(agg$prop.callers ~ agg$experiment)
+# 
+# aggregate(prop.callers ~ experiment, agg, mean)
+# aggregate(prop.callers ~ experiment, agg, sd)
+
+```
+
+In average `r round(mean(agg$prop.callers), 2)` (+/- `r round(sd(agg$prop.callers), 2)` SD) individuals in group flights called
+
+
+#### Plot raw data
+
+All group sizes combined:
+```{r, warning = FALSE, message = FALSE}
+
+call_rate_indiv <- call_rate_indiv[!is.na(call_rate_indiv$rate) & call_rate_indiv$rate > 0, ]
+
+if (!is.factor(call_rate_indiv$type)){
+call_rate_indiv$type <- ifelse(call_rate_indiv$type == "solo", "solo", paste(call_rate_indiv$experiment, call_rate_indiv$type, sep = "-"))
+
+call_rate_indiv$type <- gsub("mixed-indiv.group", "artificial.group", call_rate_indiv$type)
+call_rate_indiv$type <- gsub("regular-indiv.group", "natural.group", call_rate_indiv$type)
+
+call_rate_indiv$type <- factor(call_rate_indiv$type, levels = c("solo", "natural.group", "artificial.group")) 
+}
+
+# table(call_rate_by_group$group.size, call_rate_by_group$type)
+cols <- graph_cols[1:3]
+cols_transp <- graph_cols_transp[1:3]
+
+names(cols) <- names(cols_transp) <- c("solo", "natural.group", "artificial.group")
+
+
+# raincloud plot:
+gg_rate_indiv <- ggplot(call_rate_indiv,
+       aes(
+         y = rate,
+         x = type,
+         color = type,
+         fill = type
+       )) +
+  # add half-violin from {ggdist} package
+  ggdist::stat_halfeye(
+    # fill = fill_color,
+    alpha = 0.5,
+    # custom bandwidth
+    adjust = .5,
+    # adjust height
+    width = .6,
+    .width = 0,
+    # move geom to the cright
+    justification = -.2,
+    point_colour = NA
+  ) +
+  geom_boxplot(# fill = fill_color,
+    width = .15,
+    # remove outliers
+    outlier.shape = NA) +
+    # add justified jitter from the {gghalves} package
+    gghalves::geom_half_point(
+      # color = fill_color,
+      # draw jitter on the left
+      side = "l",
+      # control range of jitter
+      range_scale = .4,
+      # add some transparency
+      alpha = .5,
+      transformation = ggplot2::position_jitter(height = 0)
+    ) +
+      # scale_color_viridis_d(option = "G", end = 0.8) +
+      # scale_fill_viridis_d(option = "G",
+      #                      end = 0.8,
+      #                      alpha = 0.6) +
+     scale_color_manual(values = cols) +
+  scale_fill_manual(values = cols_transp) +
+      ylim(c(-0.1, 40)) +
+      theme(legend.position = "none") +
+      labs(x = "Type", y = "Calling rate (calls / min)") +
+  scale_x_discrete(labels = c(
+        "solo" = "Solo",
+        "natural.group" = "Natural group",
+        "artificial.group" = "Artificial group"
+      ))
+  
+```
+
+```{r}
+#| warning: false
+
+n_grps <-
+  aggregate(group ~ type, call_rate_indiv, function(x)
+    length(unique(x)))
+
+n_grps$indivs <- sapply(n_grps$type, function(x) length(unique(call_rate_indiv$indiv[call_rate_indiv$type == x])))
+
+n_grps$group[1] <- length(unique(call_rate_indiv$group[call_rate_indiv$type == "solo" & call_rate_indiv$experiment == "regular"]))
+
+n_grps$indivs[1] <- length(unique(call_rate_indiv$indiv[call_rate_indiv$type == "solo" & call_rate_indiv$experiment == "regular"]))
+
+n_grps$distance <- -2.5
+
+n_grps$n.labels <-
+  paste0(n_grps$group, " / ", n_grps$indivs)
+n_grps$n.labels <- c(
+  "n = 81 individuals\nfrom 23 groups",
+  "63 individuals\n21 groups",
+  "44 individuals\n21 groups")
+
+agg_rate <- aggregate(rate ~ type + group, data = call_rate_indiv, FUN = mean)
+
+
+# sapply(agg_rate$group, function(x) if(any(agg_rate$type == "natural.group")) "natural" else "artificial")
+
+# keep only those solo from natural groups
+solo_keep <- agg_rate[agg_rate$type == "natural.group", ]
+
+solo_keep <- solo_keep$group[solo_keep$group %in% agg_rate$group[agg_rate$type == "solo"]]
+
+agg_rate <- agg_rate[(agg_rate$group %in% solo_keep & agg_rate$type == "solo") | agg_rate$type != "solo", ]
+
+
+gg_rate_indiv_pimp <- gg_rate_indiv + 
+  ylim(c(-3, 35)) +
+  geom_text(lineheight = 0.8,
+    data = n_grps,
+    aes(y = distance, x = type, label = n.labels),
+    color = "gray60",
+    nudge_x = 0,
+    size = 3
+  ) +
+  geom_signif(
+    y_position = c(30, 34),
+    xmin = c(1, 1),
+    xmax = c(2, 3),
+    annotation = c('beta:-1.60~ (-1.87 - -1.33)', 'beta:-1.31 ~ (-1.55 - -1.07)'), 
+    parse = TRUE,
+    tip_length = 0.02,
+    textsize = 3,
+    size = 0.5,
+    color = "gray60",
+    vjust = 0.2
+  ) +
+  geom_boxplot(
+    fill = adjustcolor("orange", alpha.f = 0.1),
+    data = agg_rate,
+    aes(
+         y = rate,
+         x = type
+       ),
+    color = adjustcolor("orange", alpha.f = 0.6),
+    width = .1,
+    # remove outliers
+    outlier.shape = NA
+  ) +
+   gghalves::geom_half_point(
+    data = agg_rate,
+    aes(y = rate, x = type),
+    color = "orange",
+    # draw jitter on the left
+    side = "l",
+    pch = 20,
+    size = 4,
+    # control range of jitter
+    range_scale = .4,
+    # add some transparency
+    alpha = .5,
+    transformation = ggplot2::position_jitter(height = 0)
+  ) + 
+  scale_x_discrete(labels = c(
+        "solo" = "Single individual",
+        "natural.group" = "Individual in\n natural group",
+        "artificial.group" = "Individual in\nartificial group"
+      )) +
+  theme(
+  axis.title.x = element_blank())
+
+gg_rate_indiv_pimp
+
+
+```
+
+
+By group size:
+```{r, warning = FALSE, message = FALSE}
+
+# raincloud plot:
+ggplot(call_rate_indiv,
+       aes(
+         y = rate,
+         x = type,
+         color = type,
+         fill = type
+       )) +
+  # add half-violin from {ggdist} package
+  ggdist::stat_halfeye(
+    # fill = fill_color,
+    alpha = 0.5,
+    # custom bandwidth
+    adjust = .5,
+    # adjust height
+    width = .6,
+    .width = 0,
+    # move geom to the cright
+    justification = -.2,
+    point_colour = NA
+  ) +
+  geom_boxplot(# fill = fill_color,
+    width = .15,
+    # remove outliers
+    outlier.shape = NA) +
+    # add justified jitter from the {gghalves} package
+    gghalves::geom_half_point(
+      # color = fill_color,
+      # draw jitter on the left
+      side = "l",
+      # control range of jitter
+      range_scale = .4,
+      # add some transparency
+      alpha = .5,
+      transformation = ggplot2::position_jitter(height = 0)
+    ) +
+      scale_color_viridis_d(option = "G", end = 0.8) +
+      scale_fill_viridis_d(option = "G",
+                           end = 0.8,
+                           alpha = 0.6) +
+      ylim(c(-0.1, 40)) +
+      theme(legend.position = "none") +
+      labs(x = "Type", y = "Rate (calls / min)") + 
+      facet_wrap(
+        ~ group.size,
+        ncol = 2,
+        labeller = labeller(group.size = custom_labels)
+      ) +
+   scale_x_discrete(labels = c(
+        "solo" = "Solo",
+        "natural.group" = "Natural group",
+        "artificial.group" = "Artificial group"
+      ))
+    
+```
+
+#### Regression model
+
+$$
+\text{call rate} \sim \text{type} + (1 \mid \text{group}) + \text{monotonic(group size)} + (1 \mid \text{individual})
+$$
+
+Response modeled with a log-normal distribution.
+
+```{r individual call rate stats, eval = FALSE}
+
+mod <- brm(
+          formula = calls | resp_rate(flight.time)  ~ type  + mo(group.size.f) + (1 | indiv),
+          iter = iter,
+          thin = 1,
+          data = call_rate_indiv,
+          family = negbinomial(),
+          silent = 2,
+          chains = chains,
+          cores = chains, 
+          control = list(adapt_delta = 0.99, max_treedepth = 15),
+          file = "./data/processed/individual_call_rate_solo_vs_group_group_size_monot_negbinomial",
+          file_refit = "always"
+          )
+
+mod <- add_criterion(mod, criterion = "loo")  
+      
+    null_mod <- brm(
+          formula = calls | resp_rate(flight.time)  ~ 1 + (1 | indiv),
+          iter = iter,
+          thin = 1,
+          data = call_rate_indiv,
+          family = negbinomial(),
+          silent = 2,
+          chains = chains,
+          cores = chains, 
+          control = list(adapt_delta = 0.99, max_treedepth = 15),
+          file = "./data/processed/null_model_individual_call_rate_solo_vs_group_group_size_monot_negbinomial",
+          file_refit = "always"
+          )
+  
+null_mod <- add_criterion(null_mod, criterion = "loo")  
+
+
+```
+
+##### Results
+
+###### Model performance vs null model 
+```{r compare models, eval = TRUE}
+
+mod <- readRDS("./data/processed/individual_call_rate_solo_vs_group_group_size_monot.rds")
+null_mod <- readRDS("./data/processed/null_model_individual_call_rate_solo_vs_group_group_size_monot.rds")
+
+loo_compare(mod, null_mod)
+
+```
+
+###### Model fit
+```{r individual call rate results, eval = TRUE, results = "asis"}
+
+extended_summary(
+  fit = mod,
+  gsub.pattern = "type",
+  gsub.replacement = "solo_vs_",
+  remove.intercepts = TRUE,
+  highlight = TRUE,
+  print.name = FALSE,
+  trace.palette = viridis::mako, 
+  fill = fill_color,
+  beta.prefix = c("^b_", "^bsp_mo")
+)
+
+```
+
+###### Contrasts
+```{r contrasts, eval = TRUE, results='asis'}
+
+# contrasts
+contrasts(
+  fit = mod,
+  predictor = "type",
+  n.posterior = 2000,
+  level.sep = " VS ",
+  html.table = TRUE,
+  plot = TRUE,
+  highlight = TRUE,
+  fill = fill_color
+)
+
+```
+
+###### Posterior predictive checks
+```{r}
+
+custom_ppc(fit = mod, group = "type")
+
+```
+
+::: {.alert .alert-info}
+
+###### Takeaways {.unnumbered .unlisted}
+
+- Individuals in natural and artificial groups produce lower call rates than in solo flights
+- No difference in call rate between natural and artificial groups
+- No effect of group size
+
+::: 
+
+###  Individual consistency in call rate across flight types
+
+#### Plot raw data
+
+All group sizes combined:
+```{r, warning = FALSE, message = FALSE}
+
+call_rate_indiv <- readRDS("./data/processed/call_rate_by_individual.RDS")
+
+call_rate_indiv <- call_rate_indiv[!call_rate_indiv$group %in% unique_callers_df$group[unique_callers_df$unique.callers == 1], ]
+
+
+call_rate_by_group <- call_rate_by_group[call_rate_by_group$type != "solo", ]
+call_rate_by_group$type <- "overall.group"
+
+call_rate_indiv$type <- as.character(call_rate_indiv$type)
+call_rate_indiv$type[call_rate_indiv$type == "group"] <- "indiv.group" 
+
+call_rate_indiv <- call_rate_indiv[!is.na(call_rate_indiv$rate) & call_rate_indiv$rate > 0, ]
+
+call_rate_indiv_cov_l <- lapply(call_rate_indiv$indiv, function(x){
+  Y <- call_rate_indiv[call_rate_indiv$indiv == x, ]
+  
+  out2 <- lapply(unique(Y$group), function(y){
+    Y2 <- Y[Y$group == y, ]
+    res <- as.data.frame(t(unstack(Y2[, c("rate", "type")])))
+    res$group <- y
+    res$experiment <- Y2$experiment[1]
+    res$group.size <- Y2$group.size[1]
+    return(res)
+  })
+  out2 <- out2[sapply(out2, ncol) == 5]
+  
+  rate_df <- do.call(rbind, out2)
+  rate_df$indiv <- x
+  
+  return(rate_df)
+  
+})
+
+
+call_rate_indiv_cov <- do.call(rbind, call_rate_indiv_cov_l[sapply(call_rate_indiv_cov_l, class) == "data.frame"])
+
+call_rate_indiv_cov$experiment <- ifelse(call_rate_indiv_cov$experiment == "mixed", "artificial", "natural") 
+
+# make group size a factor
+call_rate_indiv_cov$group.size.f <- 
+  factor(call_rate_indiv_cov$group.size, ordered = TRUE)
+
+
+ggplot(call_rate_indiv_cov,
+       aes(
+         y = indiv.group,
+         x = solo,
+         color = experiment)) + 
+  geom_point() +
+  scale_color_viridis_d(option = "G", end = 0.8) +
+      ylim(c(-0.1, 40)) +
+      xlim(c(-0.1, 40)) +
+      theme(legend.position = "right") +
+      labs(x = "Type", y = "Rate (calls / min)")
+
+```
+
+By group size:
+```{r, warning = FALSE, message = FALSE}
+
+ggplot(call_rate_indiv_cov,
+       aes(
+         y = indiv.group,
+         x = solo,
+         color = experiment)) + 
+  geom_point() +
+  scale_color_viridis_d(option = "G", end = 0.8) +
+      ylim(c(-0.1, 40)) +
+      xlim(c(-0.1, 40)) +
+      theme(legend.position = "right") +
+      labs(x = "Type", y = "Rate (calls / min)") +
+  facet_wrap(
+    ~ group.size.f,
+    ncol = 2,
+    labeller = labeller(group.size.f = custom_labels)
+  )
+
+```
+
+#### Regression model
+
+$$
+\text{indiv call rate in group} \sim \text{solo call rate} + \text{experiment} + (1 \mid \text{group}) + \text{monotonic(group size)} + (1 \mid \text{individual})
+$$
+```{r individual call rate covariation stats, eval = FALSE}
+
+mod <- brm(
+          formula = indiv.group ~ solo + experiment + mo(group.size.f) + (1 | indiv),
+          iter = iter,
+          thin = 1,
+          data = call_rate_indiv_cov,
+          family = gaussian(),
+          silent = 2,
+          chains = chains,
+          cores = chains, 
+          control = list(adapt_delta = 0.99, max_treedepth = 15),
+          file = "./data/processed/individual_call_rate_solo_vs_group_covariation_group_size_monot_negbinomial",
+          file_refit = "always"
+          )
+
+mod <- add_criterion(mod, criterion = "loo")  
+      
+mod_inter <- brm(
+          formula = indiv.group ~ solo * experiment + mo(group.size.f) + (1 | indiv),
+          iter = iter,
+          thin = 1,
+          data = call_rate_indiv_cov,
+          family = gaussian(),
+          silent = 2,
+          chains = chains,
+          cores = chains, 
+          control = list(adapt_delta = 0.99, max_treedepth = 15),
+          file = "./data/processed/individual_call_rate_solo_vs_group_covariation_group_size_monot_negbinomial_interaction",
+          file_refit = "always"
+          )
+
+mod_inter <- add_criterion(mod_inter, criterion = "loo")  
+
+    null_mod <- brm(
+           formula = indiv.group  ~ 1 + mo(group.size.f) + (1 | indiv),
+          iter = iter,
+          thin = 1,
+          data = call_rate_indiv_cov,
+          family = gaussian(),
+          silent = 2,
+          chains = chains,
+          cores = chains, 
+          control = list(adapt_delta = 0.99, max_treedepth = 15),
+          file = "./data/processed/null_model_individual_call_rate_solo_vs_group_covariation_group_size_monot_negbinomial",
+          file_refit = "always"
+          )
+  
+null_mod <- add_criterion(null_mod, criterion = "loo")  
+
+```
+
+##### Results
+
+###### Model performance vs null model 
+```{r compare models 2, eval = TRUE}
+
+mod <- readRDS("./data/processed/individual_call_rate_solo_vs_group_covariation_group_size_monot_negbinomial.rds")
+mod_inter <- readRDS("./data/processed/individual_call_rate_solo_vs_group_covariation_group_size_monot_negbinomial_interaction.rds")
+null_mod <- readRDS("./data/processed/null_model_individual_call_rate_solo_vs_group_covariation_group_size_monot_negbinomial.rds")
+
+loo_compare(mod, mod_inter, null_mod)
+
+```
+
+###### Model fit
+```{r individual call rate covariation results, eval = TRUE, results = "asis"}
+
+extended_summary(
+  fit = mod,
+
+  remove.intercepts = TRUE,
+  highlight = TRUE,
+  print.name = FALSE,
+  trace.palette = viridis::mako, 
+  fill = fill_color,
+  beta.prefix = c("^b_", "^bsp_mo")
+)
+
+```
+
+###### Posterior predictive checks
+```{r}
+
+custom_ppc(fit = mod, group = "type")
+
+```
+
+::: {.alert .alert-info}
+
+###### Takeaways {.unnumbered .unlisted}
+
+- Individual call rate is positively associated between solo and group flights
+- Association of call rate between solo and group flights is similar between natural and artificial groups
+- No effect of group size
+
+::: 
+
+## Simulated group calling
+
+```{r}
+#| eval = FALSE
+#| 
+time_calls_indiv <- readRDS("./data/processed/time_position_calls_by_individual.RDS")  
+
+# keep only 120 s duration flights
+time_calls_indiv <- time_calls_indiv[time_calls_indiv$flight.time == 120, ]
+time_calls_indiv <- time_calls_indiv[complete.cases(time_calls_indiv), ]
+
+time_calls_indiv$sound.files <- time_calls_indiv$orig.sound.files
+ovlp <- overlapping_sels(time_calls_indiv, parallel = 10)
+
+# remove overlapping sounds
+time_calls_indiv <- ovlp[is.na(ovlp$ovlp.sels), ]
+
+
+sim_group_call_list <-
+  lapply(1:1000, function(x) sim_group_call(c(group_sizes, rep(7, 6)), seed = x))
+
+# add simulation tag
+sim_group_call_list <- lapply(seq_along(sim_group_call_list), function(x) {
+  Y <- sim_group_call_list[[x]]
+  Y$sim <- x
+  Y$sound.files <- paste0(Y$sound.files, "-sim", x)
+  Y$selec <- seq_len(nrow(Y))
+  
+return(Y)  
+})
+
+sim_group_call_df <- do_call(rbind, sim_group_call_list)
+
+ovlps <- overlapping_sels(sim_group_call_df, parallel = 10)
+
+ovlp_count_list <- lapply(unique(ovlps$sound.files), function(x){
+  X <- ovlps[ovlps$sound.files == x, ]
+  cnt <- sum(!is.na(X$ovlp.sels))
+  out <- data.frame(sound.files = x, group.size = X$group.size[1], ovlp.count = cnt)
+  return(out)
+})
+
+
+ovlp_count_df <- do.call(rbind, ovlp_count_list)
+  
+ovlp_count_df$ovlp.count <- ovlp_count_df$ovlp.count / 2
+
+ovlp_count_df$type <- "Simulated" 
+
+ovlp_count_df$flight.time <- 120
+ovlp_count_df$ovlp.rate <- ovlp_count_df$ovlp.count / ovlp_count_df$fligh.time
+
+saveRDS(ovlp_count_df, "./data/processed/ovlps_simulated_group_call.RDS")
+```
+
+
+```{r}
+#| eval: false
+
+sim_ovlp_count_df <- readRDS("./data/processed/ovlps_simulated_group_call.RDS")
+
+# ggplot with histogram of # of overlapping sounds by group size
+ggplot(sim_ovlp_count_df, aes(x = ovlp.rate, fill = factor(group.size))) +
+  geom_histogram( position = "dodge") +
+  scale_fill_viridis_d(option = "G", end = 0.8) +
+  labs(x = "Number of overlaps", y = "Frequency") +
+  theme(legend.position = "none") +
+  facet_wrap(~group.size)
+
+
+time_calls_groups <- readRDS("./data/processed/time_position_calls_for_group_flights.RDS")  
+
+# remove those in which only one individual called
+call_id_seq <- read.csv("./data/processed/group_call_individual_id_sequence.csv")
+
+# # keep only 120 s duration flights
+# call_id_seq <- call_id_seq[call_id_seq$flight.time == 120,]
+
+call_id_seq <- call_id_seq[order(call_id_seq$event, call_id_seq$start), ]
+
+call_id_seq_list <- split(call_id_seq, call_id_seq$event)
+
+unique_callers_list <- pblapply(call_id_seq_list, function(x){
+  x <- x[order(x$start), ]
+  id_seq <- x$indiv
+  id_seq <- as.character(as.numeric(factor(id_seq)))
+  unique.callers <- length(unique(id_seq))
+
+  out <- data.frame(group = x$group[1], unique.callers = unique.callers)
+  return(out)
+ }
+)
+
+unique_callers_df <- do_call(rbind, unique_callers_list)
+
+time_calls_groups <- call_id_seq[!call_id_seq$group %in% unique_callers_df$group[unique_callers_df$unique.callers == 1], ]
+
+
+time_calls_groups$sound.files <- time_calls_groups$event
+
+obs_ovlps <- overlapping_sels(time_calls_groups, parallel = 10)
+
+
+obs_ovlp_count_list <- lapply(unique(obs_ovlps$sound.files), function(x){
+  X <- obs_ovlps[obs_ovlps$sound.files == x, ]
+  cnt <- sum(!is.na(X$ovlp.sels))
+  out <- data.frame(sound.files = x, group.size = X$group.size[1], type = X$type[1], ovlp.count = cnt, flight.time = X$flight.time[1])
+  return(out)
+})
+
+
+obs_ovlp_count_df <- do.call(rbind, obs_ovlp_count_list)
+  
+obs_ovlp_count_df$ovlp.count <- obs_ovlp_count_df$ovlp.count / 2
+
+obs_ovlp_count_df$ovlp.rate <- obs_ovlp_count_df$ovlp.count / obs_ovlp_count_df$flight.time
+
+# ggplot with histogram of # of overlapping sounds by group size
+ggplot(obs_ovlp_count_df, aes(x = ovlp.rate, fill = factor(group.size))) +
+  geom_histogram(position = "dodge") +
+  scale_fill_viridis_d(option = "G", end = 0.8) +
+  labs(x = "Number of overlaps", y = "Frequency") +
+  theme(legend.position = "none") +
+  facet_wrap(~group.size)
+
+sim_ovlp_count_df$simulation <- NULL
+total_count_df <- rbind(sim_ovlp_count_df, obs_ovlp_count_df)
+
+
+total_count_df$type <- gsub("Regular", "Natural", total_count_df$type)
+
+total_count_df$type <- factor(total_count_df$type, levels = c("Natural", "Artificial", "Simulated"))
+
+saveRDS(total_count_df, "./data/processed/total_ovlp_count.RDS")
+
+```
+
+
+```{r}
+
+total_count_df <- readRDS("./data/processed/total_ovlp_count.RDS")
+
+# convert to overlaps per minute
+total_count_df$ovlp.rate <- total_count_df$ovlp.rate * 60
+
+ggplot(total_count_df, aes(x = ovlp.rate, fill = factor(type))) +
+  geom_density(adjust = 3) +
+  scale_fill_viridis_d(option = "G", begin = 0.2, end = 0.8, alpha = 0.6) +
+  labs(x = "Number of overlaps", y = "Density", fill = "Group type") +
+  facet_wrap(~group.size, scales = "free")
+
+agg_cnt <- aggregate(ovlp.rate ~ group.size + type, data = total_count_df, FUN = mean)
+agg_cnt$sd <- aggregate(ovlp.rate ~ group.size + type, data = total_count_df, FUN = sd)$ovlp.rate
+
+# table(call_rate_by_group$group.size, call_rate_by_group$type)
+cols <- graph_cols[2:4]
+
+names(cols) <- paste(c("Natural", "Artificial", "Simulated"), "group")
+
+agg_cnt$type <- paste(agg_cnt$type, "group")
+
+agg_cnt$type <- factor(agg_cnt$type, levels = c("Natural group", "Artificial group", "Simulated group"))
+
+
+# convert previous graph in a point sd graph with number of overlaps in y and group size as factor in x
+gg_overlap <- ggplot(agg_cnt, aes(x = factor(group.size), y = ovlp.rate, color = type)) +
+  geom_point(position = position_dodge(width = 0.5), alpha = 0.5, size = 3) +
+  geom_errorbar(aes(ymin = ovlp.rate - sd, ymax = ovlp.rate + sd), size = 1, width = 0, position = position_dodge(width = 0.5), show.legend = FALSE,  alpha = 0.5) +
+        scale_color_manual(values = cols) +
+  labs(x = "Group size", y = "Overlaps / min", color = "") +
+  theme(legend.position = "inside", legend.position.inside = c(0.2, 0.7)) 
+
+gg_overlap
+```
+
+
+```{r}
+
+pg <-
+  plot_grid(
+    gg_rate_indiv_pimp + theme_classic(base_size = 12) + theme(legend.position = "none",  axis.title.x = element_blank()),
+    ggrate_indv_grp_pimp + theme_classic(base_size = 12) + theme(legend.position = "none",axis.title.x = element_blank()),
+    gg_overlap + theme_classic(base_size = 12)  + theme(legend.position = "inside", legend.position.inside = c(0.2, 0.7)),
+    ncol = 1,
+    labels="AUTO"
+  )
+
+
+hedFont <- "Arial"
+pg <- pg + 
+  theme(plot.title = element_text(size = 20, family = hedFont, face = "bold"))
+                                           
+pg
+                                           
+# ggsave(
+#   "./output/vocal_coordination_3_panels.png",
+#   pg,
+#   grDevices::png,
+#   width = 6,
+#   height = 8,
+#   dpi = 300
+# )
+```
+
+
+```{r Simulation regression}
+#| eval = FALSE
+
+# observed data
+obs_ovlp_count_df <- total_count_df[total_count_df$type != "Simulated", ]
+
+
+sim_ovlp_count_df$simulation <- sapply(strsplit(sim_ovlp_count_df$sound.files, "-"), "[", 3)
+
+# split by simulation
+sim_ovlp_count_list <- split(sim_ovlp_count_df, sim_ovlp_count_df$simulation)
+
+set.seed(123)
+sim_ovlp_count_list <- sample(sim_ovlp_count_list, 30)
+
+#combined each simulated data with the observed data
+sim_call_groups_list <- lapply(sim_ovlp_count_list, function(x){
+    x$simulation <- NULL
+  out <- rbind(obs_ovlp_count_df, x)
+  out$ovlp.count <- out$ovlp.count * 2
+  out$group.size.sc <- scale(out$group.size, center = TRUE, scale = FALSE) 
+  out$type <- gsub("Regular", "Natural", out$type)
+  out$type <- factor(out$type, levels = c("Natural", "Artificial", "Simulated"))
+  return(out)
+})
+
+group_call_mod <- brm_multiple(
+  formula = ovlp.count ~ type + group.size + offset(log(flight.time)),
+  iter = iter,
+  thin = 1,
+  data = sim_call_groups_list,
+  family = zero_inflated_poisson(link = "log"),
+  silent = 2,
+  chains = chains,
+  backend = "cmdstanr",
+  # only works if cmdstanr package is installed
+  threads = threading(2),
+  cores = chains,
+  combine = FALSE,
+  control = list(adapt_delta = 0.99, max_treedepth = 15)
+)
+
+custom_ppc(fit = group_call_mod[[1]], group = "type")
+
+group_call_mod <- pblapply(group_call_mod,  function(x) add_criterion(x, criterion = c("loo")))
+
+saveRDS(group_call_mod,
+        "./data/processed/simulated_group_call_model.RDS")
+
+
+null_group_call_mod <- brm_multiple(
+  formula = ovlp.count ~ 1 + group.size + offset(log(flight.time)),
+  iter = iter,
+  thin = 1,
+  data = sim_call_groups_list,
+  family = zero_inflated_poisson(link = "log"),
+  silent = 2,
+  chains = chains,
+  backend = "cmdstanr",
+  # only works if cmdstanr package is installed
+  threads = threading(2),
+  cores = chains,
+  combine = FALSE,
+  control = list(adapt_delta = 0.99, max_treedepth = 15)
+)
+
+
+custom_ppc(fit = null_group_call_mod[[1]], group = "type")
+
+null_group_call_mod <- pblapply(null_group_call_mod,  function(x) {
+  out <- try(add_criterion(x, criterion = c("loo")), silent = TRUE)
+  if (is(out, "try-error")) return(x)
+  else return(out)
+  })
+
+loo_compare(group_call_mod[[1]], null_group_call_mod[[1]])
+
+saveRDS(null_group_call_mod,
+        "./data/processed/simulated_group_call_null_model.RDS")
+
+
+```
+
+### Results
+
+#### Model performance vs null model 
+
+```{r regression results model comparison group call simulation, eval = TRUE, results = "asis"}
+
+group_call_mod <-
+  readRDS("./data/processed/simulated_group_call_model.RDS")
+
+null_group_call_mod <-
+  readRDS("./data/processed/simulated_group_call_null_model.RDS")
+
+loo_diffs <- 
+lapply(seq_along(group_call_mod), function(x)
+  loo::loo_compare(group_call_mod[[x]], null_group_call_mod[[x]])
+  )
+
+loo_diff <- do.call(rbind, loo_diffs)
+
+rows <- rownames(loo_diff)
+loo_diff <- as.data.frame(loo_diff)
+
+loo_diff$model <- rows
+
+aggregate(cbind(elpd_diff, se_diff) ~ model, loo_diff, mean)
+
+```
+
+#### Model fit
+
+```{r regression results group call simulation, eval = TRUE, results = "asis"}
+
+# average model
+avrg_call <-
+  paste0("posterior_average(",
+         paste0(paste0("group_call_mod[[", 1:length(group_call_mod), "]]"), collapse = ", "),
+         ", weights = 'loo')")
+
+average_model_draws <- eval(parse(text = avrg_call))
+
+draw_extended_summary(average_model_draws,
+                      highlight = TRUE,
+                      fill = fill_color,
+                      beta.prefix = c("^b_", "^bsp_mo"))
+
+```
+
+#### Contrasts
+```{r regresion contrasts group call simulation, eval = TRUE, results = "asis"}
+
+contrasts <-
+  draws_contrasts(
+    average_model_draws,
+    predictor_name = "type",
+    basal_level = "Natural",
+    fill_color = fill_color
+  )
+
+contrasts$contrasts
+
+contrasts$plot + theme_classic()
+
+```
+
+#### Posterior predictive checks
+```{r}
+
+custom_ppc(fit = group_call_mod[[1]], group = "type")
+
+```
+
+
+::: {.alert .alert-info}
+
+#### Takeaways {.unnumbered .unlisted}
+
+- Simulated groups produce more overlapping calls than both artificial and natural groups
+- Artificial groups produce more overlapping calls than natural groups
+
+::: 
+
+
+## Gap duration
+
+### Gap variation of individual in solo flight vs overall group flight
+
+Variation measured as the coefficient of variation of gap duration
+```{r gaps per group solo vs group lines plot 2, eval = TRUE, echo = TRUE, warning = FALSE, fig.width = 12, fig.height = 8}
+
+gaps_indiv <- readRDS("./data/processed/gaps_by_individual.RDS")
+
+# remove those in which only one individual called
+call_id_seq <- read.csv("./data/processed/group_call_individual_id_sequence.csv")
+
+call_id_seq <- call_id_seq[order(call_id_seq$event, call_id_seq$start), ]
+
+call_id_seq_list <- split(call_id_seq, call_id_seq$event)
+
+unique_callers_list <- pblapply(call_id_seq_list, function(x){
+  x <- x[order(x$start), ]
+  id_seq <- x$indiv
+  id_seq <- as.character(as.numeric(factor(id_seq)))
+  unique.callers <- length(unique(id_seq))
+
+  out <- data.frame(group = x$group[1], unique.callers = unique.callers)
+  return(out)
+ }
+)
+
+unique_callers_df <- do_call(rbind, unique_callers_list)
+
+gaps_indiv <- gaps_indiv[!gaps_indiv$group %in% unique_callers_df$group[unique_callers_df$unique.callers == 1], ]
+
+sub_gaps_indiv <- gaps_indiv[grep("indiv.group", gaps_indiv$experiment.type, invert = TRUE), ]
+sub_gaps_indiv$experiment.type[sub_gaps_indiv$experiment.type == "mixed-overall.group"] <- "artificial.group"
+sub_gaps_indiv$experiment.type[sub_gaps_indiv$experiment.type == "regular-overall.group"] <- "real.group"
+sub_gaps_indiv$type <- sub_gaps_indiv$experiment.type
+
+sub_gaps_indiv$type <- factor(sub_gaps_indiv$type, levels = c("solo", "real.group", "artificial.group")) 
+
+sub_gaps_indiv$group.size.f <- factor(sub_gaps_indiv$group.size, levels = unique(sub_gaps_indiv$group.size), ordered = TRUE)
+
+cv_gaps_groups <- aggregate(gaps ~ experiment.type + group.size + group, data = sub_gaps_indiv, FUN = cv)
+cv_gaps_groups$indiv <- "group"
+cv_gaps_groups <- cv_gaps_groups[cv_gaps_groups$experiment.type != "solo", ]
+
+cv_gaps_indiv <- aggregate(gaps ~ indiv + experiment.type + group.size + group, data = sub_gaps_indiv, FUN = cv)
+cv_gaps_indiv <- cv_gaps_indiv[cv_gaps_indiv$experiment.type == "solo", ]
+
+
+# duplicate individuals in artificial group flights
+dup_indivs <- lapply(unique(cv_gaps_groups$group), function(x){
+  ids <- unique(gaps_indiv$indiv[gaps_indiv$group == x])
+  ids <- ids[ids != "group"]
+  
+  X <- cv_gaps_indiv[cv_gaps_indiv$indiv %in% ids, ]
+  X$group <- x
+  X$group.size <- gaps_indiv$group.size[gaps_indiv$group == x][1]
+  return(X)
+})
+
+dup_indivs <- do.call(rbind, dup_indivs)
+
+cv_gaps <- rbind(dup_indivs, cv_gaps_groups)
+
+names(cv_gaps)[ncol(cv_gaps)] <- "cv.gaps"
+
+cv_gaps$group.size.f <- factor(cv_gaps$group.size, levels = unique(cv_gaps$group.size), ordered = TRUE)
+
+names(cv_gaps)[2] <- "type"
+
+cv_gaps$type <- factor(cv_gaps$type, levels  = c("solo", "real.group", "artificial.group"))
+
+```
+
+#### Plot raw data
+
+All group sizes combined:
+```{r, warning = FALSE, message = FALSE}
+
+custom_labels <- unique(sub_gaps_indiv$group.size.f)
+custom_labels <- paste("group size = ", custom_labels)
+names(custom_labels) <- unique(sub_gaps_indiv$group.size.f)
+
+# raincloud plot:
+ggplot(cv_gaps, 
+       aes(y = log(cv.gaps + 1), 
+           x = type,
+         color = type,
+         fill = type
+       )) +
+  # add half-violin from {ggdist} package
+  ggdist::stat_halfeye(
+    # fill = fill_color,
+    alpha = 0.5,
+    # custom bandwidth
+    adjust = .5,
+    # adjust height
+    width = .6,
+    .width = 0,
+    # move geom to the cright
+    justification = -.2,
+    point_colour = NA
+  ) +
+  geom_boxplot(# fill = fill_color,
+    width = .15,
+    # remove outliers
+    outlier.shape = NA) +
+    # add justified jitter from the {gghalves} package
+    gghalves::geom_half_point(
+      # color = fill_color,
+      # draw jitter on the left
+      side = "l",
+      # control range of jitter
+      range_scale = .4,
+      # add some transparency
+      alpha = .5,
+      transformation = ggplot2::position_jitter(height = 0)
+    ) +
+      scale_color_viridis_d(option = "G", end = 0.8) +
+      scale_fill_viridis_d(option = "G",
+                           end = 0.8,
+                           alpha = 0.6) +
+      # ylim(c(-0.1, 60)) +
+           scale_x_discrete(labels = c(
+        "solo" = "Solo",
+        "real.group" = "Natural group",
+        "artificial.group" = "Artificial group"
+      )) +
+      theme(legend.position = "none") +
+      labs(x = "Flight type", y = "log(coefficient of variation\nof gap duration)")
+    
+
+```
+
+By group size:
+```{r, warning = FALSE, message = FALSE}
+
+# raincloud plot:
+ggplot(cv_gaps, 
+       aes(y = log(cv.gaps + 1), 
+           x = type,
+         color = type,
+         fill = type
+       )) +
+  # add half-violin from {ggdist} package
+  ggdist::stat_halfeye(
+    # fill = fill_color,
+    alpha = 0.5,
+    # custom bandwidth
+    adjust = .5,
+    # adjust height
+    width = .6,
+    .width = 0,
+    # move geom to the cright
+    justification = -.2,
+    point_colour = NA
+  ) +
+  geom_boxplot(# fill = fill_color,
+    width = .15,
+    # remove outliers
+    outlier.shape = NA) +
+    # add justified jitter from the {gghalves} package
+    gghalves::geom_half_point(
+      # color = fill_color,
+      # draw jitter on the left
+      side = "l",
+      # control range of jitter
+      range_scale = .4,
+      # add some transparency
+      alpha = .5,
+      transformation = ggplot2::position_jitter(height = 0)
+    ) +
+      scale_color_viridis_d(option = "G", end = 0.8) +
+      scale_fill_viridis_d(option = "G",
+                           end = 0.8,
+                           alpha = 0.6) +
+      # ylim(c(-0.1, 60)) +
+           scale_x_discrete(labels = c(
+        "solo" = "Solo",
+        "real.group" = "Natural group",
+        "artificial.group" = "Artificial group"
+      )) +
+      theme(legend.position = "none") +
+         labs(x = "Flight type", y = "log(coefficient of variation\nof gap duration)") +
+   facet_wrap(
+        ~ group.size,
+        ncol = 2,
+        labeller = labeller(group.size = custom_labels)
+      ) 
+    
+
+```
+
+#### Regression model
+
+$$
+\text{log(gap variation + 1)} \sim \text{type} + \text{monotonic(group size)} + (1 \mid \text{group})
+$$
+
+Response modeled with an normal distribution.
+```{r gaps per group solo vs group stats 2, eval = FALSE}
+
+mod <- brm(
+          formula =  log(cv.gaps + 1) ~ type + mo(group.size.f) + (1 | group),
+          iter = iter,
+          thin = 1,
+          data = cv_gaps,
+          family = gaussian(),
+          silent = 2,
+          chains = chains,
+          cores = chains, 
+          file = "./data/processed/cv_gaps_solo_vs_group",
+          file_refit = "always"
+ )
+ 
+mod <- add_criterion(mod, criterion = "loo")  
+
+null_mod <-brm(
+          formula =  log(cv.gaps + 1) ~ 1 + (1 | group),
+          iter = iter,
+          thin = 1,
+          data = cv_gaps,
+          family = gaussian(),
+          silent = 2,
+          chains = chains,
+          cores = chains, 
+          file = "./data/processed/null_cv_gaps_solo_vs_group",
+          file_refit = "always"
+ )
+
+null_mod <- add_criterion(null_mod, criterion = "loo")  
+
+beepr::beep(2)
+```
+
+##### Results
+
+###### Model performance vs null model 
+```{r compare models group gaps solo vs group, eval = TRUE}
+
+mod <- readRDS("./data/processed/cv_gaps_solo_vs_group.rds")
+null_mod <- readRDS("./data/processed/null_cv_gaps_solo_vs_group.rds")
+
+loo_compare(mod, null_mod)
+
+```
+
+###### Model fit
+```{r gaps per group solo vs group results 2, eval = TRUE, results = "asis"}
+
+extended_summary(
+  fit = mod,
+  gsub.pattern = "type",
+  gsub.replacement = "solo_vs_",
+  remove.intercepts = TRUE,
+  highlight = TRUE,
+  print.name = FALSE,
+    fill = fill_color,
+   trace.palette = viridis::mako,
+  beta.prefix = c("^b_", "^bsp_mo")
+)
+
+```
+
+##### Contrasts
+```{r gaps per group solo vs group results contrasts 2, eval = TRUE, results='asis'}
+
+# contrasts
+contrasts(
+  fit = mod,
+  predictor = "type",
+  n.posterior = 2000,
+  level.sep = " VS ",
+  html.table = TRUE,
+  plot = TRUE,
+  highlight = TRUE,
+    fill = fill_color
+)
+
+```
+
+##### Posterior predictive checks
+```{r}
+
+custom_ppc(fit = mod, group = "experiment.type")
+
+```
+
+::: {.alert .alert-info}
+
+##### Takeaways {.unnumbered .unlisted}
+
+- Variation in gap duration is larger in both natural and artificial groups compared to solo flights
+- No difference in gap variation between natural and artificial groups 
+
+::: 
+
+### Individual in solo flight vs individuals in group flight 
+
+#### Plot raw data
+
+All group sizes combined:
+```{r, warning = FALSE, message = FALSE}
+
+sub_gaps_indiv <- gaps_indiv[grep("overall.group", gaps_indiv$experiment.type, invert = TRUE), ]
+sub_gaps_indiv$experiment.type[sub_gaps_indiv$experiment.type == "mixed-indiv.group"] <- "artificial.group"
+sub_gaps_indiv$experiment.type[sub_gaps_indiv$experiment.type == "mixed-indiv.group"] <- "artificial.group"
+sub_gaps_indiv$experiment.type[sub_gaps_indiv$experiment.type == "regular-indiv.group"] <- "real.group"
+sub_gaps_indiv$type <- sub_gaps_indiv$experiment.type
+
+sub_gaps_indiv$type <- factor(sub_gaps_indiv$type, levels = c("solo", "real.group", "artificial.group")) 
+
+sub_gaps_indiv$group.size.f <- factor(sub_gaps_indiv$group.size, levels = unique(sub_gaps_indiv$group.size), ordered = TRUE)
+
+# raincloud plot:
+ggplot(sub_gaps_indiv,
+       aes(
+         y = gaps,
+         x = type,
+         color = type,
+         fill = type
+       )) +
+  # add half-violin from {ggdist} package
+  ggdist::stat_halfeye(
+    # fill = fill_color,
+    alpha = 0.5,
+    # custom bandwidth
+    adjust = .5,
+    # adjust height
+    width = .6,
+    .width = 0,
+    # move geom to the cright
+    justification = -.2,
+    point_colour = NA
+  ) +
+  geom_boxplot(# fill = fill_color,
+    width = .15,
+    # remove outliers
+    outlier.shape = NA) +
+    # add justified jitter from the {gghalves} package
+    gghalves::geom_half_point(
+      # color = fill_color,
+      # draw jitter on the left
+      side = "l",
+      # control range of jitter
+      range_scale = .4,
+      # add some transparency
+      alpha = .5,
+      transformation = ggplot2::position_jitter(height = 0)
+    ) +
+      scale_color_viridis_d(option = "G", end = 0.8) +
+      scale_fill_viridis_d(option = "G",
+                           end = 0.8,
+                           alpha = 0.6) +
+      ylim(c(-0.1, 40)) +
+      theme(legend.position = "none") +
+      labs(x = "Type", y = "Gap duration (s)") +
+  scale_x_discrete(labels = c(
+        "solo" = "Solo",
+        "real.group" = "Natural group",
+        "artificial.group" = "Artificial group"
+      ))
+    
+
+```
+
+By group size:
+```{r, warning = FALSE, message = FALSE}
+
+# raincloud plot:
+ggplot(sub_gaps_indiv,
+       aes(
+         y = gaps,
+         x = type,
+         color = type,
+         fill = type
+       )) +
+  # add half-violin from {ggdist} package
+  ggdist::stat_halfeye(
+    # fill = fill_color,
+    alpha = 0.5,
+    # custom bandwidth
+    adjust = .5,
+    # adjust height
+    width = .6,
+    .width = 0,
+    # move geom to the cright
+    justification = -.2,
+    point_colour = NA
+  ) +
+  geom_boxplot(# fill = fill_color,
+    width = .15,
+    # remove outliers
+    outlier.shape = NA) +
+    # add justified jitter from the {gghalves} package
+    gghalves::geom_half_point(
+      # color = fill_color,
+      # draw jitter on the left
+      side = "l",
+      # control range of jitter
+      range_scale = .4,
+      # add some transparency
+      alpha = .5,
+      transformation = ggplot2::position_jitter(height = 0)
+    ) +
+      scale_color_viridis_d(option = "G", end = 0.8) +
+      scale_fill_viridis_d(option = "G",
+                           end = 0.8,
+                           alpha = 0.6) +
+      ylim(c(-0.1, 40)) +
+      theme(legend.position = "none") +
+      labs(x = "Type", y = "Gap duration (s)") +
+  scale_x_discrete(labels = c(
+        "solo" = "Solo",
+        "real.group" = "Natural group",
+        "artificial.group" = "Artificial group"
+      ))  +  facet_wrap(
+        ~ group.size,
+        ncol = 2,
+        labeller = labeller(group.size = custom_labels)
+      ) 
+    
+```
+
+#### Regression model
+
+$$
+\text{log(gaps + 1)} \sim \text{type} + \text{monotonic(group size)} + (1 \mid \text{group}) + (1 \mid \text{individual})
+$$
+
+Response modeled with an exponential distribution.
+
+```{r gaps per group solo vs group stats, eval = FALSE}
+
+mod <- brm(
+          formula = log(gaps + 1) ~ type + mo(group.size.f) + (1 | indiv) + (1 | group),
+          iter = iter,
+          thin = 1,
+          data = sub_gaps_indiv,
+          family = gaussian(),
+          silent = 2,
+          chains = chains,
+          cores = chains, 
+          control = list(adapt_delta = 0.99,
+                 max_treedepth = 15),
+          file_refit = "always",
+          file = "./data/processed/group_gaps_solo_vs_group_group_size_monot"
+ )
+ 
+custom_ppc(mod, group = "type")
+  
+mod <- add_criterion(mod, criterion = "loo")  
+
+
+null_mod <- brm(
+          formula =  log(gaps + 1) ~ 1 + (1 | indiv) + (1 | group),
+          iter = iter,
+          thin = 1,
+          data = sub_gaps_indiv,
+          family = gaussian(),
+          silent = 2,
+          chains = chains,
+          cores = chains, 
+          control = list(adapt_delta = 0.99,
+                 max_treedepth = 15),
+          file_refit = "always",
+          file = "./data/processed/null_group_gaps_solo_vs_group_group_size_monot"
+ )
+ 
+null_mod <- add_criterion(null_mod, criterion = "loo")  
+
+beepr::beep(2)
+
+```
+
+##### Results
+
+##### Model performance vs null model 
+```{r compare gap models, eval = TRUE}
+
+mod <- readRDS("./data/processed/group_gaps_solo_vs_group_group_size_monot.rds")
+null_mod <- readRDS("./data/processed/null_group_gaps_solo_vs_group_group_size_monot.rds")
+
+comp <- loo_compare(mod, null_mod)
+
+print(comp)
+```
+
+##### Model fit
+```{r gaps per group solo vs group results, eval = TRUE, results = "asis"}
+
+extended_summary(
+  fit = mod,
+  gsub.pattern = "type",
+  gsub.replacement = "solo_vs_",
+  remove.intercepts = TRUE,
+  highlight = TRUE,
+  print.name = FALSE,
+  trace.palette = viridis::mako, 
+  fill = fill_color, 
+  beta.prefix = "^b_|^bsp_"
+)
+
+
+```
+
+##### Contrasts
+```{r gaps per group solo vs group results contrasts, eval = TRUE, results='asis'}
+
+# contrasts
+contrasts(
+  fit = mod,
+  predictor = "type",
+  n.posterior = 2000,
+  level.sep = " VS ",
+  html.table = TRUE,
+  plot = TRUE,
+  highlight = TRUE,
+  fill = fill_color
+)
+
+```
+
+##### Posterior predictive checks
+```{r}
+
+custom_ppc(fit = mod, group = "type")
+
+```
+
+
+::: {.alert .alert-info}
+
+### Takeaways {.unnumbered .unlisted}
+
+- Individual gaps are longer in both natural and artificial groups than in solo flights
+- No difference in gap duration between natural and artificial groups
+- Group size does not affects gap duration
+
+::: 
+
+
+## Group calling sequence predictability
+
+- Measure as the entropy of transition probabilities of the individual ID in a first order markov chain model
+
+```{r}
+call_id_seq <- read.csv("./data/processed/group_call_individual_id_sequence.csv")
+
+call_id_seq <- call_id_seq[order(call_id_seq$event, call_id_seq$start), ]
+
+call_id_seq_list <- split(call_id_seq, call_id_seq$event)
+
+# get diversity and entropy
+entropy_data_list <- pblapply(call_id_seq_list, function(x){
+  x <- x[order(x$start), ]
+  id_seq <- x$indiv
+  id_seq <- as.character(as.numeric(factor(id_seq)))
+  unique.callers <- length(unique(id_seq))
+  id_seq <- paste(id_seq, collapse = "")
+  entrp <- entropy(id_seq)
+  norm.entrp <- normalized_entropy(id_seq)
+  markov.entropy <- markov_entropy(id_seq, normalize = FALSE)
+  norm.markov.entropy <- markov_entropy(id_seq, normalize = TRUE)
+  
+  out <- data.frame(
+    event = x$event[1],
+    group = x$group[1],
+    group.size = x$group.size[1],
+    experiment = x$experiment[1],
+    sequence = id_seq,
+    entropy = entrp,
+    normalized.entropy = norm.entrp,
+    unique.callers = unique.callers,
+    prop.callers = unique.callers/ x$group.size[1],
+    markov.entropy = markov.entropy,
+    norm.markov.entropy = norm.markov.entropy
+  )
+  
+  return(out)
+  })
+
+seq_entropy_data <- do.call(rbind, entropy_data_list)
+seq_entropy_data$prop.callers[seq_entropy_data$prop.callers >= 1] <- 0.99999
+
+# remove those in which only 1 individual called
+seq_entropy_data <- seq_entropy_data[seq_entropy_data$unique.callers > 1, ]
+
+# cor(seq_entropy_data[, c("entropy", "normalized.entropy", "unique.callers", "markov.entropy", "norm.markov.entropy")], use = "pairwise.complete.obs")
+
+seq_entropy_data$type <- ifelse(seq_entropy_data$experiment == "Regular", "Natural", "Artificial")
+
+seq_entropy_data$group.size.f <- factor(seq_entropy_data$group.size, levels = unique(seq_entropy_data$group.size), ordered = TRUE)
+
+```
+
+### Plot raw data
+
+All groups combined:
+```{r}
+
+# raincloud plot:
+ggplot(seq_entropy_data,
+       aes(
+         y = norm.markov.entropy,
+         x = type,
+         color = type,
+         fill = type
+       )) +
+  # add half-violin from {ggdist} package
+  ggdist::stat_halfeye(
+    # fill = fill_color,
+    alpha = 0.5,
+    # custom bandwidth
+    adjust = .5,
+    # adjust height
+    width = .6,
+    .width = 0,
+    # move geom to the cright
+    justification = -.2,
+    point_colour = NA
+  ) +
+  geom_boxplot(# fill = fill_color,
+    width = .15,
+    # remove outliers
+    outlier.shape = NA) +
+    # add justified jitter from the {gghalves} package
+    gghalves::geom_half_point(
+      # color = fill_color,
+      # draw jitter on the left
+      side = "l",
+      # control range of jitter
+      range_scale = .4,
+      # add some transparency
+      alpha = .5,
+      transformation = ggplot2::position_jitter(height = 0)
+    ) +
+      scale_color_viridis_d(option = "G", end = 0.8) +
+      scale_fill_viridis_d(option = "G",
+                           end = 0.8,
+                           alpha = 0.6) +
+      # ylim(c(-0.1, 4.8)) +
+      #      scale_x_discrete(labels = c(
+      #   "natural" = "Natural",
+      #   "artificial" = "Artificial",
+      #   "simulated" = "Simulated"
+      # )) +
+      theme(legend.position = "none") +
+      labs(x = "Flight type", y = "Normalized markov\ntransitions entropy")
+
+```
+
+By group size:
+```{r}
+# raincloud plot:
+ggplot(seq_entropy_data[seq_entropy_data$group.size < 6, ],
+       aes(
+         y = norm.markov.entropy,
+         x = type,
+         color = type,
+         fill = type
+       )) +
+  # add half-violin from {ggdist} package
+  ggdist::stat_halfeye(
+    # fill = fill_color,
+    alpha = 0.5,
+    # custom bandwidth
+    adjust = .5,
+    # adjust height
+    width = .6,
+    .width = 0,
+    # move geom to the cright
+    justification = -.2,
+    point_colour = NA
+  ) +
+  geom_boxplot(# fill = fill_color,
+    width = .15,
+    # remove outliers
+    outlier.shape = NA) +
+    # add justified jitter from the {gghalves} package
+    gghalves::geom_half_point(
+      # color = fill_color,
+      # draw jitter on the left
+      side = "l",
+      # control range of jitter
+      range_scale = .4,
+      # add some transparency
+      alpha = .5,
+      transformation = ggplot2::position_jitter(height = 0)
+    ) +
+      scale_color_viridis_d(option = "G", end = 0.8) +
+      scale_fill_viridis_d(option = "G",
+                           end = 0.8,
+                           alpha = 0.6) +
+      # ylim(c(-0.1, 4.8)) +
+      #      scale_x_discrete(labels = c(
+      #   "natural" = "Natural",
+      #   "artificial" = "Artificial",
+      #   "simulated" = "Simulated"
+      # )) +
+      theme(legend.position = "none") +
+      facet_wrap(
+        ~ group.size,
+        ncol = 2
+      ) +
+      labs(x = "Flight type", y = "Normalized markov\ntransitions entropy")
+```
+
+### Regression model
+
+Model:
+
+$$
+\text{normalize markov transition entropy} \sim \text{type}
+$$
+
+```{r, eval = FALSE}
+mod <- brm(
+          formula = norm.markov.entropy ~ type,
+          iter = iter,
+          thin = 1,
+          data = seq_entropy_data,
+          family = zero_one_inflated_beta(),
+          silent = 2,
+          chains = chains,
+          cores = chains, 
+          control = list(adapt_delta = 0.99,
+                 max_treedepth = 15),
+          file_refit = "always",
+          file = "./data/processed/entropy_by_experiment_type_group_size_monot"
+ )
+ 
+custom_ppc(mod, group = "type")
+  
+mod <- add_criterion(mod, criterion = "loo")  
+
+null_mod <- brm(
+          formula = norm.markov.entropy ~ 1,
+          iter = iter,
+          thin = 1,
+          data = seq_entropy_data,
+          family = zero_one_inflated_beta(),
+          silent = 2,
+          chains = chains,
+          cores = chains, 
+          control = list(adapt_delta = 0.99,
+                 max_treedepth = 15),
+          file_refit = "always",
+          file = "./data/processed/null_model_entropy_by_experiment_type_group_size_monot"
+ )
+
+null_mod <- add_criterion(null_mod, criterion = "loo")  
+
+```
+
+
+#### Results
+
+##### Model performance vs null model 
+```{r, eval = TRUE}
+
+mod <- readRDS("./data/processed/entropy_by_experiment_type_group_size_monot.rds")
+null_mod <- readRDS("./data/processed/null_model_entropy_by_experiment_type_group_size_monot.rds")
+
+comp <- loo_compare(mod, null_mod)
+
+print(comp)
+```
+
+##### Model fit
+```{r, eval = TRUE, results = "asis"}
+
+extended_summary(
+  fit = mod,
+  gsub.pattern = "b_type",
+  gsub.replacement = "Aritificial_vs_",
+  remove.intercepts = TRUE,
+  highlight = TRUE,
+  print.name = FALSE,
+  trace.palette = viridis::mako, 
+  fill = fill_color, 
+  beta.prefix = "^b_|^bsp_"
+)
+
+```
+
+
+##### Posterior predictive checks
+```{r}
+
+custom_ppc(fit = mod, group = "type")
+
+```
+
+::: {.alert .alert-info}
+
+### Takeaways {.unnumbered .unlisted}
+
+- No difference in predictability between natural and artificial groups
+
+::: 
+
+## Number of calling individuals per experiment
+
+### Plot raw data
+
+All groups combined:
+```{r}
+
+# raincloud plot:
+ggplot(seq_entropy_data,
+       aes(
+         y = prop.callers,
+         x = type,
+         color = type,
+         fill = type
+       )) +
+  # add half-violin from {ggdist} package
+  ggdist::stat_halfeye(
+    # fill = fill_color,
+    alpha = 0.5,
+    # custom bandwidth
+    adjust = .5,
+    # adjust height
+    width = .6,
+    .width = 0,
+    # move geom to the cright
+    justification = -.2,
+    point_colour = NA
+  ) +
+  geom_boxplot(# fill = fill_color,
+    width = .15,
+    # remove outliers
+    outlier.shape = NA) +
+    # add justified jitter from the {gghalves} package
+    gghalves::geom_half_point(
+      # color = fill_color,
+      # draw jitter on the left
+      side = "l",
+      # control range of jitter
+      range_scale = .4,
+      # add some transparency
+      alpha = .5,
+      transformation = ggplot2::position_jitter(height = 0)
+    ) +
+      scale_color_viridis_d(option = "G", end = 0.8) +
+      scale_fill_viridis_d(option = "G",
+                           end = 0.8,
+                           alpha = 0.6) +
+      # ylim(c(-0.1, 4.8)) +
+      #      scale_x_discrete(labels = c(
+      #   "natural" = "Natural",
+      #   "artificial" = "Artificial",
+      #   "simulated" = "Simulated"
+      # )) +
+      theme(legend.position = "none") +
+      labs(x = "Flight type", y = "Proportion of unique callers")
+
+```
+
+By group size:
+```{r}
+# raincloud plot:
+ggplot(seq_entropy_data[seq_entropy_data$group.size < 6, ],
+       aes(
+         y = prop.callers,
+         x = type,
+         color = type,
+         fill = type
+       )) +
+  # add half-violin from {ggdist} package
+  ggdist::stat_halfeye(
+    # fill = fill_color,
+    alpha = 0.5,
+    # custom bandwidth
+    adjust = .5,
+    # adjust height
+    width = .6,
+    .width = 0,
+    # move geom to the cright
+    justification = -.2,
+    point_colour = NA
+  ) +
+  geom_boxplot(# fill = fill_color,
+    width = .15,
+    # remove outliers
+    outlier.shape = NA) +
+    # add justified jitter from the {gghalves} package
+    gghalves::geom_half_point(
+      # color = fill_color,
+      # draw jitter on the left
+      side = "l",
+      # control range of jitter
+      range_scale = .4,
+      # add some transparency
+      alpha = .5,
+      transformation = ggplot2::position_jitter(height = 0)
+    ) +
+      scale_color_viridis_d(option = "G", end = 0.8) +
+      scale_fill_viridis_d(option = "G",
+                           end = 0.8,
+                           alpha = 0.6) +
+      # ylim(c(-0.1, 4.8)) +
+      #      scale_x_discrete(labels = c(
+      #   "natural" = "Natural",
+      #   "artificial" = "Artificial",
+      #   "simulated" = "Simulated"
+      # )) +
+      theme(legend.position = "none") +
+      facet_wrap(
+        ~ group.size,
+        ncol = 2
+      ) +
+      labs(x = "Flight type", y = "Proporiton of unique callers")
+```
+
+
+### Regression model
+```{r, eval = FALSE}
+mod <- brm(
+          formula = prop.callers ~ type + (1 | group.size.f),
+          iter = iter,
+          thin = 1,
+          data = seq_entropy_data,
+          family = zero_one_inflated_beta(),
+          silent = 2,
+          chains = chains,
+          cores = chains, 
+          control = list(adapt_delta = 0.99,
+                 max_treedepth = 15),
+          file_refit = "always",
+          file = "./data/processed/unique.callers_by_experiment_type_group_size_monot"
+ )
+ 
+custom_ppc(mod, group = "type")
+  
+mod <- add_criterion(mod, criterion = "loo")  
+
+null_mod <- brm(
+          formula = prop.callers ~ 1 + (1 | group.size.f),
+          iter = iter,
+          thin = 1,
+          data = seq_entropy_data,
+          family = zero_one_inflated_beta(),
+          silent = 2,
+          chains = chains,
+          cores = chains, 
+          control = list(adapt_delta = 0.99,
+                 max_treedepth = 15),
+          file_refit = "always",
+          file = "./data/processed/null_model_unique.callers_by_experiment_type_group_size_monot"
+ )
+
+null_mod <- add_criterion(null_mod, criterion = "loo")  
+```
+
+
+#### Results
+
+##### Model performance vs null model 
+```{r, eval = TRUE}
+
+mod <- readRDS("./data/processed/unique.callers_by_experiment_type_group_size_monot.rds")
+null_mod <- readRDS("./data/processed/null_model_unique.callers_by_experiment_type_group_size_monot.rds")
+
+comp <- loo_compare(mod, null_mod)
+
+print(comp)
+```
+
+##### Model fit
+```{r, eval = TRUE, results = "asis"}
+
+extended_summary(
+  fit = mod,
+  gsub.pattern = "b_type",
+  gsub.replacement = "Aritificial_vs_",
+  remove.intercepts = TRUE,
+  highlight = TRUE,
+  print.name = FALSE,
+  trace.palette = viridis::mako, 
+  fill = fill_color, 
+  beta.prefix = "^b_|^bsp_"
+)
+
+```
+
+##### Posterior predictive checks
+```{r}
+
+custom_ppc(fit = mod, group = "type")
+
+```
+
+
+::: {.alert .alert-info}
+
+### Takeaways {.unnumbered .unlisted}
+
+- Similar proportion of calling individuals in natural and artificial groups
+
+::: 
+
+---
+
+# Session information {.unnumbered .unlisted}
+
+```{r session info, echo=F}
+
+sessionInfo()
+
+```

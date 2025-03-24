@@ -33,13 +33,14 @@ Code used for detecting inquiry calls produced during flight tests and analyzing
 ## In progress
 
 * Call individuality within groups based on acoustic structure
-* Indentifying individuals in group flight
+* Identifying individuals in group flight
 * Calculate a class probability threshold across groups that maximizes sensitivity and keeps a good enough sample size
 * Create several models by resampling group call data so all individuals have the same n and then "average" class probabilities across models
 * Measure signal structure
 
 ## To-do list
 
+* Run 50 frames simulations comparing to real and artificial
 * Run model for coordination with number of calls as predictor 
 * Repeatibility of calling rate (**groups** and individuals)
 * Carry uncertainty of call ID prediction

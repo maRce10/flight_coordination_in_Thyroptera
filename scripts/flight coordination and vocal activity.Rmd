@@ -1,7 +1,7 @@
 ---
 title: <center><font size="6"><b>Flight coordination and vocal activity</b></font></center>
 subtitle: <center><font size="4"><b>Group flight coordination in Thyroptera</b></font></center>
-author: <center><font size="4"><a href="http://marceloarayasalas.weebly.com/">Marcelo Araya-Salas, PhD</a> & <a href="https://www.batcr.com/">Gloriana Chaverri, PhD</a></font></center>
+author: <center><font size="4"><a href="https://marce10.github.io/">Marcelo Araya-Salas, PhD</a> & <a href="https://www.batcr.com/">Gloriana Chaverri, PhD</a></font></center>
 date: <center>`r format(Sys.Date(), "%d-%m-%Y")`</center>
 output:
   html_document:
@@ -21,7 +21,7 @@ editor_options:
 ```{r packages, message = FALSE, warning = FALSE, echo = TRUE, eval = TRUE, include = FALSE}
 
 ## add 'developer/' to packages to be installed from github
-x <- c("devtools", "maRce10/warbleR", "bioacoustics", "pbapply", "Rraven", "parallel", "viridis", "RJSONIO", "ropensci/rfigshare", "ranger", "Sim.DiffProc", "readxl", "ggplot2", "cowplot")
+x <- c("devtools", "maRce10/warbleR", "bioacoustics", "pbapply", "Rraven", "parallel", "viridis", "RJSONIO", "ropensci/rfigshare", "ranger", "Sim.DiffProc", "readxl", "ggplot2", "cowplot", "pbapply")
 
 aa <- lapply(x, function(y) {
   
@@ -44,7 +44,7 @@ aa <- lapply(x, function(y) {
 
 ```{r functions, eval = TRUE, echo = TRUE}
 
-warbleR_options(wav.path = "~/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/", wl = 300, parallel = parallel::detectCores() - 4, bp = "frange", fast = F, threshold = 15, ovlp = 20)
+# warbleR_options(wav.path = "~/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/", wl = 300, parallel = parallel::detectCores() - 4, bp = "frange", fast = F, threshold = 15, ovlp = 20)
 
 opts_knit$set(root.dir = "..")
 
@@ -52,39 +52,44 @@ opts_chunk$set( fig.width = 8, fig.height = 3.5)
 
 ```
 
-
+# Read/format data
 ```{r read 50 point video tracking data}
-unpaired_csvs <- list.files(path = "/home/m/Dropbox/Salidas de videos analizados/Salidas50FramesXBicho/", pattern ="unpaired", recursive = TRUE, full.names = TRUE)
+
+unpaired_csvs <- list.files(path = "./data/raw/tracking", pattern ="unpaired", recursive = TRUE, full.names = TRUE)
 
 unpaired_l <- lapply(unpaired_csvs, function(x) {
   y <- read.csv(x)
   y$file <- basename(x)
+  y$type <- if (grepl("natural", x)) "natural" else "artificial"
+  y <- y[, c("file", "type", names(y)[which(!names(y) %in% c("file", "type"))])]
+  
+  y  <- y[complete.cases(y), ]
+  
   return(y)
 })
 
 ## add frame labels
-frame_labels <- read.csv("/home/m/Dropbox/Salidas de videos analizados/Salidas50FramesXBicho/framesXToma50Puntos.csv")
+# frame_labels <- read.csv("./data/raw/tracking/natural/framesXToma50Puntos.csv")
+# 
+# names(frame_labels)[names(frame_labels) == "T107_GMP19_2021"] <- "T107_MP19_2021" 
+# names(frame_labels)[names(frame_labels) == "T111_G6yOtro_2020"] <- "T111_G6yOtro" 
+# names(frame_labels)[names(frame_labels) == "T63_G22_2020"] <- "T63_G22" 
 
-names(frame_labels)[names(frame_labels) == "T107_GMP19_2021"] <- "T107_MP19_2021" 
-names(frame_labels)[names(frame_labels) == "T111_G6yOtro_2020"] <- "T111_G6yOtro" 
-names(frame_labels)[names(frame_labels) == "T63_G22_2020"] <- "T63_G22" 
-
-
-unpaired_l <- lapply(unpaired_l, function(x) {
-  
-  print(x$file[1])
-  # order columns
-  x <- x[, c(which(names(x) == "file"), which(names(x) != "file"))]
-  
-  #get first row for clap sound
-  x1 <- x[1, , drop = FALSE]
-  x1[1, -1] <- NA
-  x <- rbind(x1, x)
-  x$frame.type <- c("claqueta", rep("bats", nrow(x) - 1))
-  x$frame <- frame_labels[1:nrow(x), gsub("-unpaired-points-xyz.csv", "", x$file[1])]
-  x$time.from.clap <- (x$frame - x$frame[x$frame.type == "claqueta"]) / 120 # 120 = fps
-  return(x)
-})
+# unpaired_l <- lapply(unpaired_l, function(x) {
+# 
+#   print(x$file[1])
+#   # order columns
+#   x <- x[, c(which(names(x) == "file"), which(names(x) != "file"))]
+# 
+#   #get first row for clap sound
+#   x1 <- x[1, , drop = FALSE]
+#   x1[1, -1] <- NA
+#   x <- rbind(x1, x)
+#   x$frame.type <- c("claqueta", rep("bats", nrow(x) - 1))
+#   x$frame <- frame_labels[1:nrow(x), gsub("-unpaired-points-xyz.csv", "", x$file[1])]
+#   x$time.from.clap <- (x$frame - x$frame[x$frame.type == "claqueta"]) / 120 # 120 = fps
+#   return(x)
+# })
 
 # determine all column names in all selection tables    
 cnms <- unique(unlist(lapply(unpaired_l, names)))  
@@ -102,22 +107,22 @@ unpaired_l <- lapply(unpaired_l, function(X)
 
 unpaired_df <- do.call(rbind, unpaired_l)
 
-table(unpaired_df$file)
+table(unpaired_df$file, unpaired_df$type)
 
 
 video <- sapply(unpaired_df$file, function(x) strsplit(x, "_")[[1]][1])
 
-unpaired_df$video <- as.numeric(gsub("T", "", video))
+unpaired_df$video <- gsub("T|-unpaired-points-xyz.csv", "", video)
 
 unpaired_df$group <- gsub("-unpaired-points-xyz.csv", "", unpaired_df$file)
-```
 
+```
 
 ```{r randomization test}
 
 random_dist <- function(X, itrn = 1000){
   
-  X <- X[X$frame.type == "bats", ]
+  # X <- X[X$frame.type == "bats", ]
   
   xyz <- X[, grep("^x|^y|^z", names(X))]
   
@@ -132,7 +137,8 @@ random_dist <- function(X, itrn = 1000){
   
   lng_xyz$ind <- gsub("z_", "", lng_xyz$z.ind)
   lng_xyz$z.ind <- NULL
-  lng_xyz$frame <- X$frame
+  # lng_xyz$frame <- X$frame
+  lng_xyz$frame <- 1:nrow(X)
   
   # mean distance among all bats
   obs_dists <- sapply(unique(lng_xyz$frame), function(x) mean(dist(lng_xyz[lng_xyz$frame == x, c("x", "y", "z")])))
@@ -165,7 +171,7 @@ do.call(rbind, res_l)
 
 unpaired_l <- lapply(unpaired_l, function(X) {
   
-  X <- X[X$frame.type == "bats", ]
+  # X <- X[X$frame.type == "bats", ]
   
   xyz <- X[, grep("^x|^y|^z", names(X))]
   
@@ -180,7 +186,8 @@ unpaired_l <- lapply(unpaired_l, function(X) {
   
   lng_xyz$ind <- gsub("z_", "", lng_xyz$z.ind)
   lng_xyz$z.ind <- NULL
-  lng_xyz$frame <- X$frame
+  # lng_xyz$frame <- X$frame
+  lng_xyz$frame <- 1:nrow(X)
   
   # mean distance among all bats
   lng_xyz$obs_dists <- sapply(unique(lng_xyz$frame), function(x) mean(dist(lng_xyz[lng_xyz$frame == x, c("x", "y", "z")])))

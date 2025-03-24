@@ -1,0 +1,526 @@
+---
+title: Flight coordination
+subtitle: Group flight coordination in Thyroptera
+author: <a href="https://marce10.github.io">Marcelo Araya-Salas</a>
+date: "`r Sys.Date()`"
+toc: true
+toc-depth: 2
+toc-location: left
+number-sections: true
+highlight-style: pygments
+format:
+  html:
+    df-print: kable
+    code-fold: show
+    code-tools: true
+    css: qmd.css
+editor_options: 
+  chunk_output_type: console
+---
+
+
+<!-- this code add line numbers to code blocks -->
+<!-- only works when code folding is not used in yaml (code_folding: show) -->
+
+```{=html}
+<style>
+body
+  { counter-reset: source-line 0; }
+pre.numberSource code
+  { counter-reset: none; }
+</style>
+```
+
+```{r set root directory, echo = FALSE}
+
+# set working directory as project directory or one directory above,
+rootdir <- try(rprojroot::find_rstudio_root_file(), silent = TRUE)
+if (is(rootdir, "try-error")) rootdir <-  ".."
+knitr::opts_knit$set(root.dir = rootdir)
+
+```
+
+```{r add link to github repo, echo = FALSE, results='asis'}
+
+# print link to github repo if any
+if (file.exists("./.git/config")){
+  config <- readLines("./.git/config")
+  url <- grep("url",  config, value = TRUE)
+  url <- gsub("\\turl = |.git$", "", url)
+  cat("\nSource code and data found at [", url, "](", url, ")", sep = "")
+  }
+
+```
+
+```{r setup style, echo = FALSE, message = FALSE, warning=FALSE}
+
+# options to customize chunk outputs
+knitr::opts_chunk$set(
+  class.source = "numberLines lineAnchors", # for code line numbers
+  tidy.opts = list(width.cutoff = 65), 
+  tidy = TRUE,
+  message = FALSE
+ )
+
+```
+
+
+<!-- skyblue box -->
+<div class="alert alert-info">
+
+# Purpose {.unnumbered .unlisted}
+
+- Simulate group flights
+- Compare mean flight distance for artificial, simulated and natural groups
+- 
+</div>
+
+&nbsp; 
+
+
+<!-- light brown box -->
+<div class="alert alert-warning">
+
+# Report overview {.unnumbered .unlisted}
+
+- You can have the sections listed here, for instance:
+
+  - [Lorem ipsum](#lorem-ipsum)
+  - [Takeaways](#takeaways)
+
+</div>
+
+&nbsp;
+
+# Load packages {.unnumbered .unlisted}
+
+```{r packages, message = FALSE, warning = FALSE, echo = TRUE, eval = TRUE, include = FALSE}
+
+## add 'developer/' to packages to be installed from github
+x <- c("devtools", "maRce10/warbleR", "bioacoustics", "pbapply", "Rraven", "parallel", "viridis", "RJSONIO", "ropensci/rfigshare", "ranger", "Sim.DiffProc", "readxl", "ggplot2", "cowplot", "pbapply", "brms")
+
+aa <- lapply(x, function(y) {
+  
+  # get pakage name
+  pkg <- strsplit(y, "/")[[1]]
+  pkg <- pkg[length(pkg)]
+  
+  # check if installed, if not then install 
+  if (!pkg %in% installed.packages()[,"Package"])  {
+
+      if (grepl("/", y))  devtools::install_github(y, force = TRUE) else
+    install.packages(y) 
+    }
+
+  # load package
+  try(require(pkg, character.only = T), silent = T)
+})
+
+```
+
+```{r functions, eval = TRUE, echo = TRUE}
+
+# warbleR_options(wav.path = "~/Dropbox/Recordings/flight_coordination_Thyroptera/converted_sound_files_90_kHz/", wl = 300, parallel = parallel::detectCores() - 4, bp = "frange", fast = F, threshold = 15, ovlp = 20)
+
+opts_knit$set(root.dir = "..")
+
+opts_chunk$set( fig.width = 8, fig.height = 3.5)
+
+```
+
+# Read/format data
+```{r read 50 point video tracking data}
+
+unpaired_csvs <- list.files(path = "./data/raw/tracking", pattern ="unpaired", recursive = TRUE, full.names = TRUE)
+
+unpaired_l <- lapply(unpaired_csvs, function(x) {
+  y <- read.csv(x)
+  y$file <- basename(x)
+  y$type <- if (grepl("natural", x)) "natural" else "artificial"
+  y <- y[, c("file", "type", names(y)[which(!names(y) %in% c("file", "type"))])]
+  
+  y  <- y[complete.cases(y), ]
+  
+  return(y)
+})
+
+## add frame labels
+# frame_labels <- read.csv("./data/raw/tracking/natural/framesXToma50Puntos.csv")
+# 
+# names(frame_labels)[names(frame_labels) == "T107_GMP19_2021"] <- "T107_MP19_2021" 
+# names(frame_labels)[names(frame_labels) == "T111_G6yOtro_2020"] <- "T111_G6yOtro" 
+# names(frame_labels)[names(frame_labels) == "T63_G22_2020"] <- "T63_G22" 
+
+# unpaired_l <- lapply(unpaired_l, function(x) {
+# 
+#   print(x$file[1])
+#   # order columns
+#   x <- x[, c(which(names(x) == "file"), which(names(x) != "file"))]
+# 
+#   #get first row for clap sound
+#   x1 <- x[1, , drop = FALSE]
+#   x1[1, -1] <- NA
+#   x <- rbind(x1, x)
+#   x$frame.type <- c("claqueta", rep("bats", nrow(x) - 1))
+#   x$frame <- frame_labels[1:nrow(x), gsub("-unpaired-points-xyz.csv", "", x$file[1])]
+#   x$time.from.clap <- (x$frame - x$frame[x$frame.type == "claqueta"]) / 120 # 120 = fps
+#   return(x)
+# })
+
+# determine all column names in all selection tables    
+cnms <- unique(unlist(lapply(unpaired_l, names)))  
+
+unpaired_l <- lapply(unpaired_l, function(X)
+{
+  nms <- names(X)
+  if (length(nms) != length(cnms))  
+    for(i in cnms[!cnms %in% nms]) {
+      X <- data.frame(X,  NA, stringsAsFactors = FALSE, check.names = FALSE)
+      names(X)[ncol(X)] <- i
+    }
+  return(X)
+})
+
+unpaired_df <- do.call(rbind, unpaired_l)
+
+table(unpaired_df$file, unpaired_df$type)
+
+
+video <- sapply(unpaired_df$file, function(x) strsplit(x, "_")[[1]][1])
+
+unpaired_df$video <- gsub("T|-unpaired-points-xyz.csv", "", video)
+
+unpaired_df$group <- gsub("-unpaired-points-xyz.csv", "", unpaired_df$file)
+
+```
+
+```{r randomization test}
+random_dist <- function(X, itrn = 1000){
+  
+  # X <- X[X$frame.type == "bats", ]
+  
+  xyz <- X[, grep("^x|^y|^z", names(X))]
+  
+  xyz <- xyz[, sapply(xyz, function(x) sum(is.na(x))) < 10]
+  
+  lng_xyz  <- data.frame(x = stack(xyz[, grep("^x", names(xyz))])[, 1],
+                         y = stack(xyz[, grep("^y", names(xyz))])[, 1],
+                         z = stack(xyz[, grep("^z", names(xyz))])
+  )
+
+  names(lng_xyz)[names(lng_xyz) ==  "z.values"] <- "z"
+  
+  lng_xyz$ind <- gsub("z_", "", lng_xyz$z.ind)
+  lng_xyz$z.ind <- NULL
+  # lng_xyz$frame <- X$frame
+  lng_xyz$frame <- 1:nrow(X)
+  
+  # mean distance among all bats
+  obs_dists <- sapply(unique(lng_xyz$frame), function(x) mean(dist(lng_xyz[lng_xyz$frame == x, c("x", "y", "z")])))
+  
+  # expected by chance randomizing values
+  exp_dists <- replicate(n = itrn, {
+    
+    Y <- lng_xyz
+    Y$frame <- sample(Y$frame)
+    # Y$y <- sample(Y$y)
+    # Y$z <- sample(Y$z)
+    
+     mean_exp <- mean(sapply(unique(Y$frame), function(x) mean(dist(Y[Y$frame == x, c("x", "y", "z")]))))
+    
+     return(mean_exp)
+    
+  }, simplify = TRUE)
+  
+  result_df <- data.frame(file = X$file[1], type = X$type[1], n = length(unique(lng_xyz$ind)),  mean.obs.dist = mean(obs_dists), mean.exp.dist = mean(exp_dists), p.value = sum(exp_dists <= obs_dists) / itrn)
+  
+  return(result_df)
+  }
+
+
+
+res_l <- pblapply(split(unpaired_df, f = unpaired_df$file), random_dist, cl = 8)
+
+res <- do.call(rbind, res_l)
+
+t.test(res$mean.obs.dist[res$type == "natural"], res$mean.exp.dist[res$type == "natural"])
+
+t.test(res$mean.obs.dist[res$type == "artificial"], res$mean.exp.dist[res$type == "artificial"])
+
+t.test(res$mean.obs.dist[res$type == "artificial"], res$mean.obs.dist[res$type == "natural"])
+
+```
+
+
+
+```{r randomization test}
+
+random_dist <- function(X, itrn = 1000){
+  
+  # X <- X[X$frame.type == "bats", ]
+  
+  xyz <- X[, grep("^x|^y|^z", names(X))]
+  
+  xyz <- xyz[, sapply(xyz, function(x) sum(is.na(x))) < 10]
+  
+  lng_xyz  <- data.frame(x = stack(xyz[, grep("^x", names(xyz))])[, 1],
+                         y = stack(xyz[, grep("^y", names(xyz))])[, 1],
+                         z = stack(xyz[, grep("^z", names(xyz))])
+  )
+
+  names(lng_xyz)[names(lng_xyz) ==  "z.values"] <- "z"
+  
+  lng_xyz$ind <- gsub("z_", "", lng_xyz$z.ind)
+  lng_xyz$z.ind <- NULL
+  # lng_xyz$frame <- X$frame
+  lng_xyz$frame <- 1:nrow(X)
+  
+  # mean distance among all bats
+  obs_dists <- sapply(unique(lng_xyz$frame), function(x) mean(dist(lng_xyz[lng_xyz$frame == x, c("x", "y", "z")])))
+  
+  # expected by chance randomizing values
+  exp_dists <- replicate(n = itrn, {
+    
+    Y <- lng_xyz
+    Y$x <- sample(Y$x)
+    Y$y <- sample(Y$y)
+    Y$z <- sample(Y$z)
+    
+     mean_exp <- mean(sapply(unique(Y$frame), function(x) mean(dist(Y[Y$frame == x, c("x", "y", "z")]))))
+    
+     return(mean_exp)
+    
+  }, simplify = TRUE)
+  
+  result_df <- data.frame(file = X$file[1], type = X$type[1], n = length(unique(lng_xyz$ind)),  mean.obs.dist = mean(obs_dists), mean.exp.dist = mean(exp_dists), p.value = sum(exp_dists <= obs_dists) / itrn)
+  
+  return(result_df)
+  }
+
+
+
+res_l <- pblapply(split(unpaired_df, f = unpaired_df$file), random_dist, cl = 8)
+
+res <- do.call(rbind, res_l)
+
+t.test(res$mean.obs.dist[res$type == "natural"], res$mean.exp.dist[res$type == "natural"])
+
+t.test(res$mean.obs.dist[res$type == "artificial"], res$mean.exp.dist[res$type == "artificial"])
+
+```
+
+
+```{r randomization test}
+unpaired_l <- lapply(unpaired_l, function(X) {
+  
+  # X <- X[X$frame.type == "bats", ]
+  
+  xyz <- X[, grep("^x|^y|^z", names(X))]
+  
+  xyz <- xyz[, sapply(xyz, function(x) sum(is.na(x))) < 20]
+  
+  lng_xyz  <- data.frame(x = stack(xyz[, grep("^x", names(xyz))])[, 1],
+                         y = stack(xyz[, grep("^y", names(xyz))])[, 1],
+                         z = stack(xyz[, grep("^z", names(xyz))])
+  )
+
+  names(lng_xyz)[names(lng_xyz) ==  "z.values"] <- "z"
+  
+  lng_xyz$ind <- gsub("z_", "", lng_xyz$z.ind)
+  lng_xyz$z.ind <- NULL
+  # lng_xyz$frame <- X$frame
+  lng_xyz$frame <- 1:nrow(X)
+  
+  # mean distance among all bats
+  lng_xyz$obs_dists <- sapply(unique(lng_xyz$frame), function(x) mean(dist(lng_xyz[lng_xyz$frame == x, c("x", "y", "z")])))
+  
+
+  X$dist <- sapply(X$frame, function(x) lng_xyz$obs_dists[lng_xyz$frame == x][1])  
+  
+  return(X)
+})
+
+
+```
+
+
+
+
+```{r read acoustic data}
+# this one didn't have a clap at the begining, using 0
+# "ch1MPI2020-01-20_12-09-41_0000076.wav"
+
+# pair acoustic data
+call_df <- read.csv("./data/processed/manually_fixed_call_detections_for_videos_2021.csv")
+
+# fill out audio column
+for (i in unique(call_df$sound.files)) {
+  call_df$audio[call_df$sound.files == i] <- na.omit(unique(call_df$audio[call_df$sound.files == i]))[1]
+
+    call_df$video[call_df$sound.files == i] <- na.omit(unique(call_df$video[call_df$sound.files == i]))[1]
+}
+
+distance_callrate_l <- lapply(unpaired_l, function(x){
+  
+  print(x$file[1])
+  calls <- call_df[call_df$video == x$video[1], ]
+    
+  calls$start <- calls$start - calls$start[calls$class_fixed == "clap"]
+  calls <- calls[calls$class_fixed != "clap", ]
+  
+  x <- x[x$frame.type == "bats",]
+  
+  
+  x$call.rate <- sapply(1:nrow(x), function(w) { sum(calls$start < x$time.from.clap[w] + 5 & calls$start > x$time.from.clap[w] - 5)})
+  
+  return(x)
+})
+
+distance_callrate <- do.call(rbind, distance_callrate_l)
+
+
+aggregate(call.rate ~ group, distance_callrate, mean)
+
+
+ggplot(distance_callrate, aes(x = call.rate, y = dist)) +
+  geom_point() +
+  facet_wrap(~ group, scales = "free")
+
+ggplot(distance_callrate, aes(x = time.from.clap, y = dist)) +
+  geom_point() +
+  facet_wrap(~ group, scales = "free")
+
+names(distance_callrate)
+
+View(distance_callrate[distance_callrate$group == "T156_G18AB_2020", ])
+
+
+forml <- "dist ~ call.rate + time from clap"
+
+
+```
+
+
+#### GLMM
+
+```{r}
+obs_dist <- function(X, itrn = 1000){
+  
+  # X <- X[X$frame.type == "bats", ]
+  
+  xyz <- X[, grep("^x|^y|^z", names(X))]
+  
+  xyz <- xyz[, sapply(xyz, function(x) sum(is.na(x))) < 10]
+  
+  lng_xyz  <- data.frame(x = stack(xyz[, grep("^x", names(xyz))])[, 1],
+                         y = stack(xyz[, grep("^y", names(xyz))])[, 1],
+                         z = stack(xyz[, grep("^z", names(xyz))])
+  )
+
+  names(lng_xyz)[names(lng_xyz) ==  "z.values"] <- "z"
+  
+  lng_xyz$ind <- gsub("z_", "", lng_xyz$z.ind)
+  lng_xyz$z.ind <- NULL
+  # lng_xyz$frame <- X$frame
+  lng_xyz$frame <- 1:nrow(X)
+  
+  # mean distance among all bats
+  obs_dists <- sapply(unique(lng_xyz$frame), function(x) mean(dist(lng_xyz[lng_xyz$frame == x, c("x", "y", "z")])))
+  
+  
+  result_df <- data.frame(group = X$file[1], type = X$type[1], n = length(unique(lng_xyz$ind)),  obs.dist = obs_dists)
+  
+  return(result_df)
+  }
+
+
+
+xs <- split(unpaired_df, f = unpaired_df$file)
+
+res_l <- pblapply(split(unpaired_df, f = unpaired_df$file), obs_dist, cl = 8)
+
+dist_per_group <- do.call(rbind, res_l)
+
+table(dist_per_group$group, dist_per_group$type)
+```
+
+```{r}
+
+iter <- 1000
+chains <- 1
+priors <- c(prior(normal(0, 6), class = "b"))
+
+my.viridis <- function(...) viridis(alpha = 0.5, begin = 0.3, end = 0.7, ...)
+
+source("~/Dropbox/R_package_testing/brmsish/R/extended_summary.R")
+source("~/Dropbox/R_package_testing/brmsish/R/helpers.R")
+
+set.seed(123)
+
+
+
+
+mod_int <- brm(formula = obs.dist ~ type +  (1 | group) + (1 | n), family = lognormal(),
+    data = dist_per_group, prior = priors, iter = iter, chains = chains,
+    cores = chains, control = list(adapt_delta = 0.99, max_treedepth = 15))
+    
+ 
+extended_summary(fit = mod_int,
+    n.posterior = 1000, fill = viridis(10)[7], trace.palette = my.viridis,
+    highlight = TRUE)   
+    
+    # file = "./data/processed/regression_model_int_all_data.RDS", 
+    # file_refit = "always"
+    )
+
+# fit_parallel <- update(mod_int, chains = 1, cores = 1, backend
+# = 'cmdstanr', threads = threading(10), iter = 3000)
+
+# mod <- brm( formula = pc1 | resp_rate(distance) ~
+# habitat.structure + frequency + duration +
+# frequency.modulation + amplitude.modulation + mo(distance) +
+# (1 | location) + (1 | treatment.replicates), family =
+# negbinomial(), data = degrad_df, prior = priors, iter = iter,
+# chains = chains, cores = chains, control = list(adapt_delta =
+# 0.99, max_treedepth = 15), file =
+# './data/processed/regression_model.RDS', file_refit = 'always'
+# )
+```
+
+
+```{r}
+lng_dats <- read.csv("/home/m/Dropbox/Projects/flight_coordination_in_Thyroptera/data/processed/tidy_coordinates.csv")
+
+
+length(unique(lng_dats$video))
+
+```
+
+
+<!-- light green box -->
+
+<div class="alert alert-success">
+
+# Takeaways {.unnumbered .unlisted}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum in felis ut mauris consectetur sodales. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+</div>
+
+&nbsp;
+
+<!-- '---' adds a gray vertical line -->
+
+---
+
+&nbsp; 
+ 
+ <!-- add packages used, system details and versions  -->
+ 
+# Session information {.unnumbered .unlisted}
+
+```{r session info, echo=F}
+
+sessionInfo()
+
+```
